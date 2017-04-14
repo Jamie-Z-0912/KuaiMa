@@ -40,7 +40,13 @@
                                     <div class="photo">{{?value.avatar && value.avatar!=""}}
                                         <img src="{{=value.avatar}}" />
                                     {{?}}</div>
-                                    <div class="tel">{{=value.phone}}</div>
+                                    <div class="tel">
+                                        {{?value.nick==""}}
+                                            {{=value.phone}}
+                                        {{??}}
+                                            {{=value.nick}}
+                                        {{?}}
+                                    </div>
                                     {{?{{#def.day}}}} 
                                         <div class="txt">赚取金币</div>
                                         <h2 class="coin">{{=value.value}}</h2>
@@ -58,7 +64,13 @@
                     {{??}}
                     <tr class="tr">
                         <td class="l-order"><span><em>{{=index+1}}</em></span></td>
-                        <td class="l-tel">{{=value.phone}}</td>
+                        <td class="l-tel">
+                            {{?value.nick==""}}
+                                {{=value.phone}}
+                            {{??}}
+                                {{=value.nick}}
+                            {{?}}
+                        </td>
                         <td class="l-coin">
                             {{?{{#def.day}}}} 
                                 <span class="jin">{{=value.value}}</span>
