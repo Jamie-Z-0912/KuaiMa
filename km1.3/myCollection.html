@@ -23,15 +23,17 @@
                 </li>
             {{??}}
                 {{~it.data:value:index}}
-                    <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
-                        <h3>{{=value.title}}</h3>
+                    <li class="view_{{=value.layout}}">
+                        <h3><a href="kmb://recommend?url={{=value.url}}&id={{=value.article_id}}">{{=value.title}}</a></h3>
                         <div class="imgbox">
+                            <a href="kmb://recommend?url={{=value.url}}&id={{=value.article_id}}">
                             {{ for (var i = 0; i < value.images.length; i++) { }}
-                                <img src="{{=value.images[i]}}" >
+                                    <img src="{{=value.images[i]}}" >
                             {{ } }}
+                            </a>
                         </div>
                         <div class="source">
-                            <span>{{=value.view_num}}人看过</span><span>{{=value.added_time}}</span>
+                            <span>{{=value.added_time}}</span>
                         </div>
                         <i class="del"></i>
                     </li>
@@ -68,10 +70,6 @@
                     });
                 })
             });
-            $('#conList').on('click', 'li', function(){
-                var url = $(this).data('url'), id = $(this).data('id');
-                window.location.href = 'kmb://recommend?url=' + url + '&id=' + id;
-            })
         })
     </script>
     <i id="lDom"></i>

@@ -1,26 +1,32 @@
 @import "myBrowsingHistory.less";
+.list-wrap li a{font-size: inherit; color: inherit; display: block;}
 .del{
 	display: block;
 	position: absolute;
-	bottom: .13rem;
-	right: .1rem;
-	width: .22rem;
-	height: .13rem;
-	.border();
-	border-radius: .07rem;
-	text-align: center;
+	bottom: 0;
+	right: 0;
 	font-size: 0;
+	z-index: 3;
+	width: .28rem;
+	padding: .1rem .06rem .13rem;
+	height: .18rem;
+	text-align: right;
 	&:before{
 		display: inline-block;
+		.border();
+		width: .28rem;
+		height: .18rem;
+		border-radius: .07rem;
+		text-align: center;
 		vertical-align: top;
-		content: "x";    
+		content: "×";
 		color: @c_sub;
 		font-size: .13rem;
-		line-height: 1;
+		line-height: .18rem;
 		font-family: "PingFang ExtraLight";
 	}
 }
 .view_1 .del{
-	right: 1.4rem;
+	right: 1.28rem;;
 }
 @import "libs/confirmTip.less";
