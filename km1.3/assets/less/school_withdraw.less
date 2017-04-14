@@ -1,0 +1,27 @@
+@import "reset.less";
+body{ background-color: #fafafa;}
+.content{
+	padding: 0 .15rem .2rem;
+	h3{font-weight: 600; margin-top: .14rem;}
+	p{
+		font-size: @size_t4;
+		color: #525252;
+		padding-top: .1rem;
+		&.bold{ font-weight: 600;}
+	}
+	a{
+		display: block; font-size: @size_t4; margin-top: .08rem;
+		&:after{
+			content: ">>>";
+			display: inline;
+			margin-left: .1rem;
+		}
+	}
+	.red{color: #fa3719;}
+	.img-box{
+		margin-top: .1rem;
+		padding: .12rem .37rem;
+		background-color: #322e2e;
+		img{display: block; width: 100%;}
+	}
+}

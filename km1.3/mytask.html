@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <title>我的任务</title>
+    <meta content='/favicon.ico' itemprop='image' property='og:image' />
+    <link rel="stylesheet" href="assets/css/mytask.css">
+</head>
+<body>
+    <section class="max-w-750">
+        <div class="task-panel" id="todayTask">
+            <span id="residue" class="residue"></span>
+            <h4>今日任务</h4>
+            <ul class="ui-list mytask-list today" id="todayTaskList"></ul>
+        </div>
+        <div class="task-panel mt" id="moreTask">
+            <h4>更早任务</h4>
+            <ul class="ui-list mytask-list" id="conList"></ul>
+            <div id="listPage" class="hide"></div>
+            <script id="conList-tmpl" type="text/x-dot-template">
+            {{? it.status == 1020 }}
+                <li class="empty">
+                    <img src="assets/img/empty_2.png"><p>当前还没有做过任务哦</p>
+                </li>
+            {{??}}
+                {{~it.data:value:index}}
+                    <li data-id="{{=value.task_id}}" {{?value.status==2||value.expire_time < new Date().getTime()}} class="over-task" {{?}}>
+                        <div class="thumb">
+                            <img src="{{=value.task_image}}" alt="">
+                        </div>
+                        <div class="info">
+                            <h5 class="ui-nowrap-flex">
+                                {{=value.task_name}}
+                            </h5>
+                            <h6 class="time">{{=value.added_time}}</h6>
+                        </div>
+                        <div class="right">
+                            {{?value.status==0}}
+                                <span class="ui-txt-warning">转发异常</span>
+                            {{??}}
+                                {{?value.commission==0}}
+                                <span class="ui-txt-tips">无收益</span>
+                                {{??}}
+                                <span class="sum">{{=value.commission}}</span>
+                                <span class="ui-txt-tips">{{?/CASH/.test(value.type)}}元{{??}}金{{?}}</span>
+                                {{?}}
+                            {{?}}
+                        </div>
+                    </li>
+                {{~}}
+            {{?}}
+            </script>
+        </div>
+    </section>
+
+    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script>
+        // window.jQuery = window.Zepto;
+        seajs.use("./assets/scripts/module/mytask");
+    </script>
+    <i id="lDom"></i>
+</body>
+</html>

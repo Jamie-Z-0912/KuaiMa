@@ -1,0 +1,185 @@
+@import "reset.less";
+@-webkit-keyframes slideOutLeft {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideOutLeft {
+  animation: slideOutLeft 4s infinite linear;
+  -webkit-animation-name: slideOutLeft 4s infinite linear;
+}
+.slideOutLeft1 {
+  animation: slideOutLeft 4s infinite linear;
+  -webkit-animation-name: slideOutLeft 4s infinite linear;
+}
+.hd-total{
+	text-align: center;
+	position: relative;
+	color: #fff;
+	width: 100%;
+	line-height: 1;
+	font-size: 0;
+	height: 2rem;
+    background-image: -webkit-linear-gradient(top, color-stop(#ffcd00 0%), color-stop(#ffa200 100%));
+    background-image: -o-linear-gradient(top, #ffcd00 0%, #ffa200 100%); 
+    background-image: linear-gradient(to bottom, #ffcd00 0%, #ffa200 100%);
+    background-repeat: repeat-y;
+	.gold, .rmb{
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		width: 50%;
+		padding-top: .39rem;
+		text-align: center;
+	}
+	.gold{
+		left: 0;
+	}
+	.rmb {
+		right: 0;
+	}
+	.txt{
+		font-size: @size_t4;
+		line-height: .2rem;
+	}
+	.num{ 
+		font-size: .34rem;
+		margin-top: .18rem;
+	}
+	.line{
+		border-left: 1px solid #ffd892;
+		position: absolute;
+		height:  .6rem;
+		left: 50%;
+		top: .4rem;
+
+	}
+	.bolang{
+		width: 100%;
+		display: block;
+		li{
+			position: absolute;
+			display: block;
+			bottom: 0;
+			width: 100%;
+			img{
+				display: block; width: 100%;
+			}
+			&:nth-child(1){ left: -100%;}
+			&:nth-child(2){ left: 0;}
+			&:nth-child(3){ left: 100%;}
+			&:nth-child(4){ left: -45%;}
+			&:nth-child(5){ left: -145%;}
+			&:nth-child(6){ left: 55%;}
+		}
+	}
+	.erd{
+		position: absolute;
+		bottom: .3rem;
+		width: 100%;
+		font-size: .12rem;
+	}
+	.hd-words{
+		position: absolute;
+		bottom: .1rem;
+		width: 100%;
+		font-size: .11rem;
+		opacity: .8;
+	}
+}
+.main{
+	background-color: #fff;
+	.nav{
+		.border-b();
+		text-align: center;
+		font-size: 0;
+		li{
+			position: relative;
+			width: 50%;
+			display: inline-block;
+			color: #999;
+			font-size: .17rem;
+			line-height: 1;
+			padding: .15rem 0;
+			&:before{
+				position: absolute;
+				display: inline-block;
+				bottom: 0;
+				height: 5px;
+				left: 50%;    
+				width: 1.6em;
+    			margin-left: -.8em;
+				background-color: transparent;
+				content: "";
+			}
+			&.active{
+				color: #000;
+				&:before{background-color:#ffc524;}
+			}
+		}
+	}
+	.main-list{
+		padding: 0 8px;
+		ul{
+			li{
+				position: relative;
+				height: .4rem;
+			    padding: .1rem 0;
+			    line-height: 1;
+				.item{
+					width: 100%;
+					h3{font-size: @size; margin-top: .05rem; max-width: 76%; height: 1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+					.tag{font-size: @size_small; margin-top: .07rem; color: @c_sub;}
+				}
+				.gold, .time{
+					position: absolute;
+				    right: 0;
+				}
+				.gold{
+					top: .12rem;
+				    color: #ffbc00;
+				    font-size: .18rem;
+				    line-height: 1;
+				}
+				.coin:after{
+					display: inline-block;
+					vertical-align: bottom;
+					margin-right: -.04rem;
+					content: "";
+					height: .14rem;
+    				width: .18rem;
+					background: url(../img/icon_myincome.png) no-repeat;
+					background-size: 100% auto;
+					background-position: 0 0;
+			    }
+				.time{
+					font-size: .12rem;
+					color: #999;
+					bottom: .12rem;
+				}
+
+			}
+		}
+	}
+}

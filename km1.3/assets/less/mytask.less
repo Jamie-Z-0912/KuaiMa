@@ -1,0 +1,92 @@
+@import "reset.less";
+.max-w-750{ background-color: #fafafa;}
+.task-panel{    
+	&.mt{ margin-top: .15rem; .border-t(); }
+	.border-b();
+	padding: 0 .1rem;
+    background-color: #fff;
+	h4{ .lineH(.48rem);}
+	.residue{
+		position: absolute;
+		right: .1rem;
+	    line-height: .48rem;
+	    .txt-red;
+	}
+	.mytask-list{
+		li{
+			.border-t();
+			position: relative;
+			padding-top: .16rem;
+			padding-bottom: .16rem;
+			padding-left: .95rem;
+			padding-right: .8rem;
+			.thumb{ 
+				position: absolute;
+				left: 0;
+				width: .85rem;
+				height: .56rem;
+				img{ display: block; width: 100%; height: 100%;}
+			}
+			.info{  
+				color: @c_sub;
+				line-height: 1; 
+				h5{font-size: @size; font-weight: normal; margin-top: .1rem; .ui-nowrap; width: 100%;}
+				.time{ font-size: .11rem; margin-top: .13rem;}
+			}
+			.right{
+			    position: absolute;
+			    top: 0;
+			    bottom: 0;
+			    right: 0;
+			    margin: auto;
+			    height: 30px;
+			    line-height: 20px;
+			    padding-right: 0;
+			}
+			.sum{ 
+				.txt-gray;
+				&:before{
+					font-family: "iconfont"!important;
+					content: "\e602";
+				    color: @c_sub;
+				    display: inline-block;
+				    vertical-align: middle;
+				    font-size: .13rem;
+				    text-align: left;
+				    vertical-align: top;
+				}
+			}
+			&.over-task{
+				.ui-list-thumb, .ui-list-info, .ui-list-right{ opacity: .5;}
+				&:before{
+					position: absolute;
+				    z-index: 2;
+				    zoom: 1;
+				    left: 0;
+					width: .85rem;
+					.lineH(.56rem);
+				    display: block;
+				    content: '已完成';
+					text-align: center;
+				    background-color: rgba(0,0,0,.5);
+				    font-size: .12rem;
+				    color: #fff;
+				}
+			}
+		}
+		&.today{
+			li{
+				.sum{ color: @c_sub;}
+			}
+		}
+		.empty{
+			text-align: center;
+			padding: 0 0 .2rem;
+			.ui-btn{
+				margin-top: .1rem;
+			}
+		}
+	}
+}
+
+

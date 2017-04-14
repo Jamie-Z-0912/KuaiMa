@@ -1,0 +1,43 @@
+@import "reset.less";
+@c_red: #f93d52;
+body{background-color: @c_red;}
+.max-w-750{
+	padding: .05rem .16rem .2rem;
+}
+.title{display: block; width: 2.2rem; margin: .17rem auto 0;}
+.content{
+	background: #FFFFFF;
+	border-radius: 12px;
+	padding: 0 .23rem .25rem;
+	.box{
+		position: relative;
+		padding-top: .25rem;
+		padding-left: .62rem;
+		.icon{
+			display: block;
+			position: absolute;
+			top: 0;
+			left: .02rem;
+			width: 36px;
+			height: 100%;
+			background: url(../img/school_icon.png) no-repeat left center;
+			background-size: 600%;
+		}
+		.icon2{ background-position: -35px;}
+		.icon3{ background-position: -71px;}
+		.icon4{ background-position: -106px;}
+		.icon5{ background-position: -140px;}
+		.icon6{ background-position: -180px;}
+		h2{
+			line-height: 1;
+			font-weight: 500;
+		}
+		p{
+			font-size: @size;
+			color: @c_text;
+			line-height: 1.4;
+			width: 15.5em;
+			margin-top: .1rem;
+		}
+	}
+}

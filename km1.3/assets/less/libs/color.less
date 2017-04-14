@@ -1,0 +1,58 @@
+@c_title: #1f1f1f; //标题
+@c_text: #858585; //文本内容c
+@c_sub: #b8b8b8; //辅助颜色
+@c_border: #ebebeb; //border颜色
+@c_red: #fa3719; //提示颜色
+@c_orage: #ff9100; //橙色
+
+@size_t1: .22rem;
+@size_t2: .20rem;
+@size_t3: .18rem;
+@size_t4: .16rem;
+@size: .15rem;
+@size_small: .13rem;
+
+.border(@w: 1px; @c: @c_border) { border: @w solid @c; }
+.border-b(@w: 1px; @c: @c_border){ border-bottom: @w solid @c;}
+.border-l(@w: 1px; @c: @c_border){ border-left: @w solid @c;}
+.border-r(@w: 1px; @c: @c_border){ border-right: @w solid @c;}
+.border-t(@w: 1px; @c: @c_border){ border-top: @w solid @c;}
+.border-tb(@w: 1px; @c: @c_border) { border-top: @w solid @c; border-bottom: @w solid @c; }
+.border-lr(@w: 1px; @c: @c_border) { border-left: @w solid @c; border-right: @w solid @c; }
+
+.txt-gray { color: @c_sub; }
+.txt-red { color: @c_red; }
+
+h1, h2, h3, h4{ color: @c_title; line-height: 1; font-weight: normal;}
+h1 { font-size: @size_t1;}
+h2 { font-size: @size_t2;}
+h3 { font-size: @size_t3;}
+h4 { font-size: @size_t4;}
+h6 { font-size: @size_small; color: @c_sub; font-weight: normal;}
+
+//行高加高度
+.lineH(@num) {
+  height: @num;line-height: @num;
+}
+.border-box{
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.border-top-radius(@radius) {
+  border-top-right-radius: @radius;
+   border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+  border-bottom-right-radius: @radius;
+     border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+  border-bottom-right-radius: @radius;
+   border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+  border-bottom-left-radius: @radius;
+     border-top-left-radius: @radius;
+}
+

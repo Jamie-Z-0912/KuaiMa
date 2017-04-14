@@ -1,0 +1,54 @@
+@import "reset.less";
+body{ background-color: #fafafa;}
+h6{text-align: center;}
+.tip-warning{
+	background-color: #252525; 
+	font-size: @size; 
+	color: #fff;
+	.lineH(.32rem);
+}
+.bind-from{
+	padding: .2rem .4rem;
+	.item{
+		padding-top: .2rem;
+		input[type="text"]{
+			color: @c_title; 
+			font-size: @size_t3;
+			line-height: .26rem;
+    		height: .48rem;
+			padding: .15rem;
+			background-color: #fff;
+			.border();
+			border-radius: 6px;
+			display: block;
+			width: 100%;
+			box-sizing: border-box;
+		}
+		input::-webkit-input-placeholder{ color: @c_title;}
+	}
+	.option{
+		padding-top: .3rem;
+		.submit{
+			background-color: transparent;
+			border: 0 none;
+			font-size: 0;
+			height: .5rem;
+			width: 100%;
+			position: relative;
+			z-index: 3;
+		}
+		.ui-btn{
+			display: block;
+			width: 100%;
+    		font-size: @size_t2;
+    		.lineH(.5rem);
+    		margin-top: -.5rem;
+		}
+	}
+}
+@import "libs/tipsAd.less";
+.pop-screen .box{
+	.hd-img{
+		&.rule{background-image: url(../img/rule.png); width: 167px; height: 90px; }
+	}
+}

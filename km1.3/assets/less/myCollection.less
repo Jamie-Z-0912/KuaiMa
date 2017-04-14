@@ -1,0 +1,26 @@
+@import "myBrowsingHistory.less";
+.del{
+	display: block;
+	position: absolute;
+	bottom: .13rem;
+	right: .1rem;
+	width: .22rem;
+	height: .13rem;
+	.border();
+	border-radius: .07rem;
+	text-align: center;
+	font-size: 0;
+	&:before{
+		display: inline-block;
+		vertical-align: top;
+		content: "x";    
+		color: @c_sub;
+		font-size: .13rem;
+		line-height: 1;
+		font-family: "PingFang ExtraLight";
+	}
+}
+.view_1 .del{
+	right: 1.4rem;
+}
+@import "libs/confirmTip.less";
