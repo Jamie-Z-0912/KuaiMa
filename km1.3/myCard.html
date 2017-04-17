@@ -27,7 +27,7 @@
                 <div class="intro1">{{=it.desc}}</div>
                 <div class="intro2">提示：{{=it.tips}}</div>
         </script>
-
+    
         <div class="swiper-container cards" id="cardsWrap">
             <div class="swiper-wrapper" id="cards"></div>
             <div class="pagination"></div>
@@ -35,11 +35,14 @@
         <script id="cards-tmpl" type="text/x-dot-template">
             {{~it.data:value:index}}
                 <div class="swiper-slide">
-                    <a href="kmb://duibalink?url={{=value.duiba_goods_url}}"></a>
-                    <img src="{{=value.icon}}" />
-                    <div class="price">售价：{{=value.sell_price}}元</div>
-                    <div class="old_price">原价：{{=value.original_price}}金币</div>
-                    <div class="ui-btn">立即兑换</div>
+                    <div class="box">
+                        <a href="kmb://duibalink?url={{=value.duiba_goods_url}}"></a>
+                        <img src="{{=value.icon}}" />
+                        <div class="name">{{=value.name}}</div>
+                        <div class="price">售价：{{=value.sell_price}}元</div>
+                        <div class="old_price">原价：{{=value.original_price}}金币</div>
+                        <div class="ui-btn">立即兑换</div>
+                    </div>
                 </div>
             {{~}}
         </script>
