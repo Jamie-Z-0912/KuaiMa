@@ -173,10 +173,10 @@ define(function(require, exports, module) {
 		window.location = 'kmb://main';
 	});
 	$('#inviteF').on('click', function(){
-		window.location = 'invite.html?uid='+ user.uid +'&auth_token='+ user.auth_token;
+		window.location = 'kmb://invite';
 	});
 	$('#shareA').on('click', function(){
-		window.location = 'kmb://makemoney';
+		window.location = 'kmb://back';
 	});
 
 	seajs.use(['./assets/scripts/plugs/secondPage.js', './assets/scripts/libs/pagelist.js'],function(SecondPage,pagelist){
