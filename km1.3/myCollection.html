@@ -35,7 +35,7 @@
                         <div class="source">
                             <span>{{=value.added_time}}</span>
                         </div>
-                        <i class="del"></i>
+                        <i class="del" data-id="{{=value.article_id}}"></i>
                     </li>
                 {{~}}
             {{?}}
@@ -47,12 +47,16 @@
             pagelist.fun({ 
                 url: 'api/v1/collectArticles',
                 data:{page: 1, page_size: 20}
-            });
+            },function(){
+                var w_ = $('.view_3 .imgbox').width() * .3;
+                $('.view_3 .imgbox').height(w_*148/226);
+                console.log(w_)
+            }, true);
             seajs.use('./assets/scripts/plugs/confirmTip.js',function(confirmTip){
                 $('#conList').on('click', '.del', function(e){
                     e.preventDefault();
                     e.stopPropagation();
-                    var id = $(this).parent().data('id');
+                    var that = $(this), id = that.data('id');
                     new confirmTip({
                         title: '<p style="padding: .2rem 0;">确定不再收藏这篇文章</p>'
                     },function(a){
@@ -63,6 +67,12 @@
                                 if(d.status == 1000){
                                     Tools.alertDialog({
                                         text: "已取消收藏"
+                                    });
+                                    that.parent().remove();
+                                }
+                                if(d.status == 8006){
+                                    Tools.alertDialog({
+                                        text: "文章尚未被收藏"
                                     })
                                 }
                             });

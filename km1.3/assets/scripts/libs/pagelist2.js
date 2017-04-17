@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     exports.defaultListTmpl = '#conList-tmpl';
     exports.defaultListEle = '#conList';
     exports.pagingDom = '#listPage';
-	exports.fun = function(options, callback){
+	exports.fun = function(options, callback, afterRender){
 		var isFirst = options.data.page==1,
 			opt = { //默认配置
                 renderFor: this.defaultListTmpl,
@@ -44,13 +44,16 @@ define(function(require, exports, module) {
                         $.each(data.data.list, function(){
                             this.added_time = Ajax.formatDate(this.added_time);
                         })
-                        if (typeof callback == 'function') {
-                            callback(data);
+                        if (!afterRender) {
+                            $.isFunction(callback) && callback(data);
                         }
                         if(data.data.page != 1 ){
                             Ajax.render(options.renderEle, options.renderFor, data.data, undefined, false);
                         }else{
                             Ajax.render(options.renderEle, options.renderFor, data.data, undefined, true);
+                        }
+                        if (afterRender) {
+                            $.isFunction(callback) && callback();
                         }
                         $(options.pagingDom).removeClass('hide');
                     }
