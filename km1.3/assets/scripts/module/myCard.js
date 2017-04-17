@@ -13,9 +13,7 @@ define(function(require, exports, module) {
             new Swiper('#cardsWrap',{
                 freeMode : true,
                 loop : false,
-                slidesPerView : 'auto',
-                pagination: '.pagination',
-                paginationClickable: true
+                slidesPerView : 'auto'
             });
         });
     })
