@@ -42,10 +42,10 @@ define(function(require, exports, module) {
                 opt = { title: "提醒", text:"请打开设置->通用->日期与时间校准您的系统时间"};
             break;
             case 1004:
-                opt = { title: "提醒", text: "请在快马小报中登录再访问！"};
+                opt = { title: "提醒", text: "请在快马浏览器中登录再访问！"};
             break;
             case 1002:
-                opt = { title: "提醒", text: "请在快马小报中访问！"};
+                opt = { title: "提醒", text: "请在快马浏览器中访问！"};
             break;
             case 1006:
                 var n = 5;

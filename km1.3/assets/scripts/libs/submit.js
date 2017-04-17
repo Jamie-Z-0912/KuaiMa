@@ -60,4 +60,56 @@ define(function(require, exports, module) {
             }
         });
     };
+    exports.sendSms = function(btnSend, options){
+        var opt = {
+            phone: '',
+            uid:'',
+            type: 'SMS',
+            useto: ''
+        }
+        for (var i in opt) {
+            opt[i] = options[i] || opt[i];
+        };
+        var inte, duration = 60;
+        if(inte){ clearInterval(inte); }
+        btnSend.addClass('disabled').text('发送中···');
+        Ajax.custom({
+            url: 'api/v1/verify_code/web',
+            data: opt
+        }, function(data){
+            if(data.status == 1000){
+                inte = setInterval(function(){
+                    duration--;
+                    if(duration == 0){
+                        clearInterval(inte);
+                        btnSend.removeClass('disabled').text('重发验证码');
+                        return;
+                    }
+                    btnSend.text('还剩' + duration + '秒');
+                },1000);
+                return;
+            }
+            if(data.status == 2003){
+                Tools.alertDialog({
+                    title: "获取失败",
+                    text: "获取验证码太频繁，请明日再试"
+                },function(){
+                    btnSend.text('明日再获取');
+                });
+                return;
+            }
+            if(data.status == 1008){
+                Tools.alertDialog({
+                    text: '您已经注册过啦'
+                });
+                return;
+            }
+            if(data.status == 2002){
+                Tools.alertDialog({
+                    text: "用户不存在"
+                });
+                return;
+            }
+        });
+    }
 });
