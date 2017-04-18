@@ -1,0 +1,19 @@
+{
+  "name": "kuaimabrowser",
+  "version": "1.3.0",
+  "description": "快马浏览器1.3.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jamie-Z-0912/KuaiMa.git"
+  },
+  "author": "Jamie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jamie-Z-0912/KuaiMa/issues"
+  },
+  "homepage": "https://github.com/Jamie-Z-0912/KuaiMa#readme"
+}

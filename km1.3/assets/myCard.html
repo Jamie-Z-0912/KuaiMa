@@ -10,18 +10,18 @@
     <meta http-equiv="expires" content="0">
     <title>我的卡片</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="assets/css/myCard.css">
+    <link rel="stylesheet" href="css/myCard.css">
 </head>
 <body>
     <section class="max-w-750">
         <div class="header" id="myCard"></div>
         <script id="myCard-tmpl" type="text/x-dot-template">
             {{?it.leftEffectiveDayNum > 0}}
-                <img src="assets/img/myc_has.png" class="mycard" />
+                <img src="image/myc_has.png" class="mycard" />
                 <h2>剩余{{=it.leftEffectiveDayNum}}天</h2>
                 <div class="time">({{=it.startDate}}-{{=it.endDate}})</div>
             {{??}}
-                <img src="assets/img/myc_no.png" class="mycard" />
+                <img src="image/myc_no.png" class="mycard" />
                 <h2 class="h">您还未兑换任何加速卡</h2>
             {{?}}
                 <div class="intro1">{{=it.desc}}</div>
@@ -52,9 +52,9 @@
             <div class="txt">平台不定期举办活动，敬请期待</div>
         </div>
     </section>
-    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script>
-        seajs.use("./assets/scripts/module/myCard");
+        seajs.use("./scripts/app/myCard");
     </script>
     <i id="lDom"></i>
 </body>

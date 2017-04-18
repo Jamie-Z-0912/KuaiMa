@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-    var pagelist = require('../libs/pagelist2');
+    var pagelist = require('../mod/pagelist2');
     function hideInfo(a){
         var ss = '' + a;
         var len = ss.length;

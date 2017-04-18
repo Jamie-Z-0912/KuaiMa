@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var Ajax = require('../libs/base');
+	var Ajax = require('../mod/base');
     var Timer = function(el,t,callback){
 		this.el = el;
 		this.remaining = t/1000;
@@ -58,7 +58,7 @@ define(function(require, exports, module) {
 
     		new Timer('#timer', data.data.countDown);
     		$('.header-timer').show();
-    		seajs.use('./assets/scripts/plugs/tipsAd.js',function(a){
+    		seajs.use('./scripts/plugs/tipsAd.js',function(a){
 		    	$('#rule').on('click', function(){
 					new a({
 						type: '',

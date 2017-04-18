@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-    var Ajax = require('../libs/base');
+    var Ajax = require('../mod/base');
     Ajax.custom({
     	url:'api/v1/search/task'
     },function(d){

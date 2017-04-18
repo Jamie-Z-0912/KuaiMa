@@ -10,7 +10,7 @@
     <meta http-equiv="expires" content="0">
     <title>系统通知</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="assets/css/messageSys.css">
+    <link rel="stylesheet" href="css/messageSys.css">
 </head>
 <body>
     <div class="max-w-750">
@@ -19,7 +19,7 @@
         <script id="conList-tmpl" type="text/x-dot-template">
         {{? it.status == 1020 }}
             <div class="empty">
-                <img src="img/empty.png"><p>暂时没有消息</p>
+                <img src="image/empty.png"><p>暂时没有消息</p>
             </div>
         {{??}}
             {{~it.data:value:index}}
@@ -38,37 +38,9 @@
         {{?}}
         </script>
     </div>
-    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script>
-        // window.jQuery = window.Zepto;
-        function isToday(t){
-            var curY = new Date().getFullYear(), 
-                curM = new Date().getMonth() + 1, 
-                curD = new Date().getDate();
-            var day = t.split(' ')[0], time = t.split(' ')[1];
-            day = day.split('-');
-            if(day[0] == curY && day[1] == curM && day[2] == curD){
-                return '今天 ' + time;
-            }else{
-                return t;
-            }
-        }
-        seajs.use("./assets/scripts/libs/pagelist", function(pagelist) {
-            pagelist.fun({ 
-                url: 'api/v1/systemMsgs',
-                data:{ page: 1, page_size: 20} 
-            },function(d){
-                if(d.page == 1){
-                    for (var i = 0; i < d.data.length; i++) {
-                        if(isToday(d.data[i].added_time) == d.data[i].added_time){
-                            break;
-                        }else{
-                            d.data[i].added_time = isToday(d.data[i].added_time);
-                        }
-                    }
-                }
-            });
-        });
+        seajs.use("./scripts/app/messageSys");
     </script>
     <i id="lDom"></i>
 </body>

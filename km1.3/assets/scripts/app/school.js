@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-    var Ajax = require('../libs/base');
+    var Ajax = require('../mod/base');
     var btnPos = function(){
         var conH = $('#qustionList').height() + $('#qqJoinBtn').height() + 40;
         if(conH < innerHeight){
@@ -24,7 +24,7 @@ define(function(require, exports, module) {
         }
         btnPos();
     });
-    seajs.use(['./assets/scripts/plugs/secondPage.js','./assets/scripts/plugs/version'],function(SecondPage, km){
+    seajs.use(['./scripts/plugs/secondPage.js','./scripts/plugs/version'],function(SecondPage, km){
         var openWXPage = new SecondPage('#openWX');
         $('#business').on('click', function(){
             var qq = $(this).text();

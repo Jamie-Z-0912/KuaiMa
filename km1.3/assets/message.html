@@ -10,7 +10,7 @@
     <meta http-equiv="expires" content="0">
     <title>消息中心</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="assets/css/message.css">
+    <link rel="stylesheet" href="css/message.css">
 </head>
 <body>
     <div class="max-w-750">
@@ -19,7 +19,7 @@
         <script id="conList-tmpl" type="text/x-dot-template">
         {{? it.status == 1020 }}
             <li class="empty">
-                <img src="img/empty.png"><p>暂时没有消息</p>
+                <img src="image/empty.png"><p>暂时没有消息</p>
             </li>
         {{??}}
             {{~it.data:value:index}}
@@ -49,14 +49,9 @@
         {{?}}
         </script>
     </div>
-    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script>
-        seajs.use("./assets/scripts/libs/pagelist", function(pagelist){
-            pagelist.fun({ 
-                url: 'api/v1/msgs',
-                data:{page: 1, page_size: 20}
-            });
-        })
+        seajs.use("./scripts/app/message");
     </script>
     <i id="lDom"></i>
 </body>

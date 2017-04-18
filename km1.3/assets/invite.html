@@ -10,7 +10,7 @@
     <meta http-equiv="expires" content="0"> 
     <title>邀请好友</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="assets/css/invite.css">
+    <link rel="stylesheet" href="css/invite.css">
 </head>
 <body>
     <div class="hide">
@@ -27,14 +27,14 @@
         </div>
         <div class="content" id="dingzhi">
             <div class="dz">
-                <img src="assets/img/invite_dz.png" class="bg" />
+                <img src="image/invite_dz.png" class="bg" />
                 <div class="photo" id="photo"></div>
                 <div class="box">
                    <div class="tel" id="Tel">1181****2689</div>
                    <div class="ljsy">累计收益</div>
                    <div class="income_num" id="incomeNum">1429.65</div>
                    <div class="logo_qr">
-                       <img id="dzQr" src="assets/img/qr_dz.png" />
+                       <img id="dzQr" src="image/qr_dz.png" />
                    </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
         <div class="content hide" id="gexing">
             <div class="swiper-container gexing" id="qrImgs">
                 <div class="swiper-wrapper" id="qrImgsWrap">
-                    <div class="swiper-slide"><img class="qr_code1" src="assets/img/qr_bg1.png"></div>
-                    <div class="swiper-slide"><img class="qr_code2" src="assets/img/qr_bg2.png"></div>
+                    <div class="swiper-slide"><img class="qr_code1" src="image/qr_bg1.png"></div>
+                    <div class="swiper-slide"><img class="qr_code2" src="image/qr_bg2.png"></div>
                 </div>
                 <div class="pagination"></div>
             </div>
@@ -67,9 +67,9 @@
             <div class="ui-btn" id="shareBtn3"> 分享给好友 </div>
         </div>
     </section>
-    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script>
-        seajs.use("./assets/scripts/module/invite");
+        seajs.use("./scripts/app/invite");
     </script>
     <i id="lDom"></i>
 </body>

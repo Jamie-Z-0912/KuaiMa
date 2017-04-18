@@ -8,7 +8,7 @@ define(function(require,exports,module){
 			text: '',
 			btnType: '0',
 			hasAd: '1',
-			adImg: 'img/ad.png',
+			adImg: 'image/ad.png',
 			adLink: 'school_invite_0.html'
 		};
 		this.option = {};

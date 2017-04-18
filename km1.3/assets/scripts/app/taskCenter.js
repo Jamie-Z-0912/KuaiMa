@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var Ajax = require('../libs/base');
+	var Ajax = require('../mod/base');
 	var km = require('../plugs/version');
 	var Timer = require('../plugs/timer.js');
 	require('../plugs/cookieStorage.js');
@@ -68,9 +68,9 @@ define(function(require, exports, module) {
 		}
     });
 	var runAD = [
-		{'img': './assets/img/runAD/run9.png', 'link': 'http://browser.kuaima.cn/tongji/4qianDao.html?url=https://engine.tuia.cn/index/activity?appKey=2cMgpedEXq4tgEy5Y6f4g963ZTkr&adslotId=495'}
+		{'img': './image/runAD/run9.png', 'link': 'http://browser.kuaima.cn/tongji/4qianDao.html?url=https://engine.tuia.cn/index/activity?appKey=2cMgpedEXq4tgEy5Y6f4g963ZTkr&adslotId=495'}
 	];
-	seajs.use('./assets/scripts/plugs/tipsAd.js',function(a){
+	seajs.use('./scripts/plugs/tipsAd.js',function(a){
 		$('#signin').on('click', function(){
 			var btn = $(this);
 			if(btn.hasClass('checkin')){
@@ -179,7 +179,7 @@ define(function(require, exports, module) {
 		window.location = 'kmb://back';
 	});
 
-	seajs.use(['./assets/scripts/plugs/secondPage.js', './assets/scripts/libs/pagelist.js'],function(SecondPage,pagelist){
+	seajs.use(['./scripts/plugs/secondPage.js', './scripts/mod/pagelist.js'],function(SecondPage,pagelist){
         var signListPage = new SecondPage('#signList');
         var $btn = $('#signList .btn');
 		$('#viewList').on('click', function(){

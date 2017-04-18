@@ -10,7 +10,7 @@
     <meta http-equiv="expires" content="0">
     <title>收益明细</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="assets/css/myincome.css">
+    <link rel="stylesheet" href="css/myincome.css">
 </head>
 <body>
     <div class="max-w-750">
@@ -25,12 +25,12 @@
                 <div class="num" id="YCTR">0</div>
             </div>
             <ul class="bolang" id="wave">
-                <li class="w1"><img src="assets/img/myincome_bl.png" /></li>
-                <li class="w1"><img src="assets/img/myincome_bl.png" /></li>
-                <li class="w1"><img src="assets/img/myincome_bl.png" /></li>
-                <li class="w2"><img src="assets/img/myincome_bl.png" /></li>
-                <li class="w2"><img src="assets/img/myincome_bl.png" /></li>
-                <li class="w2"><img src="assets/img/myincome_bl.png" /></li>
+                <li class="w1"><img src="image/myincome_bl.png" /></li>
+                <li class="w1"><img src="image/myincome_bl.png" /></li>
+                <li class="w1"><img src="image/myincome_bl.png" /></li>
+                <li class="w2"><img src="image/myincome_bl.png" /></li>
+                <li class="w2"><img src="image/myincome_bl.png" /></li>
+                <li class="w2"><img src="image/myincome_bl.png" /></li>
             </ul>
             <div class="erd" id="ERD"></div>
             <div class="hd-words">※金币转换汇率受每日广告收益影响（上下会有浮动）</div>
@@ -46,7 +46,7 @@
                 <script id="goldList-tmpl" type="text/x-dot-template">
                     {{? it.status == 1020 }}
                         <li class="empty">
-                            <img src="assets/img/empty_1.png"><p>暂无记录可查询</p>
+                            <img src="image/empty_1.png"><p>暂无记录可查询</p>
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
@@ -67,7 +67,7 @@
                 <script id="rmbList-tmpl" type="text/x-dot-template">
                     {{? it.status == 1020 }}
                         <li class="empty">
-                            <img src="assets/img/empty_1.png"><p>暂且没有收益哦</p>
+                            <img src="image/empty_1.png"><p>暂且没有收益哦</p>
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
@@ -101,10 +101,9 @@
             </div>
         </div>
     </section>
-    <script src="assets/scripts/seajs/sea.js" id="seajsnode"></script>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script>
-        // window.jQuery = window.Zepto;
-        seajs.use("./assets/scripts/module/myincome");
+        seajs.use("./scripts/app/myincome");
     </script>
     <i id="lDom"></i>
 </body>

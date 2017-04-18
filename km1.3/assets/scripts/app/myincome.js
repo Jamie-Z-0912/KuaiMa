@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var pagelist = require('../libs/pagelist');
+	var pagelist = require('../mod/pagelist');
 	var km = require('../plugs/version');
 
 	if(Tools.auth_token() == 'null'){

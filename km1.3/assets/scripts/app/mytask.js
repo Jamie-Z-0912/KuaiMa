@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	var pagelist = require('../libs/pagelist');
+	var pagelist = require('../mod/pagelist');
 	var curD = new Date().getDate();
 	Ajax.custom({
 		url: 'api/v1/orders/socialShare/today'
