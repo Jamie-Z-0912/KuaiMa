@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="format-detection" content="telephone=no"><meta http-equiv="pragma" content="no-cache"><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0"><title>榜单</title><meta content="/favicon.ico" itemprop="image" property="og:image"><link rel="stylesheet" href="css/list-68bd01d19c.css"></head><body><div class="max-w-750"><div class="header-timer" style="display:none"><div class="options"><a href="javascript:;" class="rule-link" id="rule">规则</a> <a href="javascript:;" class="issue" id="periods"></a></div><div class="h-box"><img src="./image/list_activity.png" alt="快马榜单" class="h-box-img"><div class="h-tips"><div id="rewardDesc"></div></div><div class="h-tit">距离本期结束还有<span class="timer" id="timer"></span></div></div></div><div class="main"><ul class="nav no_act" id="nav"><li class="active" data-id="today">今日</li><li data-id="lastIssue">昨日</li><li data-id="total">总榜</li></ul><script id="conList-tmpl" type="text/x-dot-template">{{~it.list:value:index}}
+                    {{? index < 3}}
+                        <tr class="top">
+                            <td>
+                                <div class="top_box no_{{=index}} {{?it.activity_status}}high_h{{?}}">
+                                    <div class="photo">{{?value.avatar && value.avatar!=""}}
+                                        <img src="{{=value.avatar}}" />
+                                    {{?}}</div>
+                                    <div class="tel">
+                                        {{?value.nick==""}}
+                                            {{=value.phone}}
+                                        {{??}}
+                                            {{=value.nick}}
+                                        {{?}}
+                                    </div>
+                                    {{?{{#def.day}}}} 
+                                        <div class="txt">赚取金币</div>
+                                        <h2 class="coin">{{=value.value}}</h2>
+                                    {{??}} 
+                                        <div class="txt">赚取收益</div>
+                                        <h2 class="yuan">{{=value.price}}</h2>
+                                    {{?}}
+                                    {{?it.activity_status}}
+                                        <div class="txt">预估奖励</div>
+                                        <div class="reward">{{=value.reward}}元</div>
+                                    {{?}}
+                                </div>
+                            </td>
+                        </tr>
+                    {{??}}
+                    <tr class="tr">
+                        <td class="l-order"><span><em>{{=index+1}}</em></span></td>
+                        <td class="l-tel">
+                            {{?value.nick==""}}
+                                {{=value.phone}}
+                            {{??}}
+                                {{=value.nick}}
+                            {{?}}
+                        </td>
+                        <td class="l-coin">
+                            {{?{{#def.day}}}} 
+                                <span class="jin">{{=value.value}}</span>
+                            {{??}} 
+                                <span class="yuan">{{=value.price}}</span>
+                            {{?}}
+                        </td>
+                        {{#def.rmbtmpl}}
+                    </tr>
+                    {{?}}
+                {{~}}</script><script id="rmbtmpl" type="text/x-dot-template"><td class="l-rmb"><span class="yuan">{{=value.reward}}</span></td></script><div class="main-list" id="today"><table cellpadding="0" cellspacing="0" id="todayList"><col style="width:.32rem"><col><col style="width:26%"><col style="width:25%"><tbody></tbody></table></div><div class="main-list" id="lastIssue" style="display:none"><table cellpadding="0" cellspacing="0" id="yesterdayList"><col style="width:.32rem"><col><col style="width:26%"><col style="width:25%"><tbody></tbody></table></div><div class="main-list sign-list" id="total" style="display:none"><table cellpadding="0" cellspacing="0" id="totalList"><col style="width:.32rem"><col><col style="width:26%"><col style="width:25%"><tbody></tbody></table></div></div></div><script src="scripts/lib/sea.js" id="seajsnode"></script><script src="scripts/app/list-0c4d87edb9.js"></script><script>seajs.use("app/list")</script><i id="lDom"></i></body></html>

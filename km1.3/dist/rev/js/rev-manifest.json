@@ -1,0 +1,17 @@
+{
+  "app/bind.js": "app/bind-808bcad619.js",
+  "app/hotSearch.js": "app/hotSearch-087b0af30e.js",
+  "app/invite.js": "app/invite-ab4ce12931.js",
+  "app/inviteReg.js": "app/inviteReg-afb7cb7f00.js",
+  "app/list.js": "app/list-0c4d87edb9.js",
+  "app/message.js": "app/message-b4b96f24c6.js",
+  "app/messageSys.js": "app/messageSys-ae977efe15.js",
+  "app/myBrowsingHistory.js": "app/myBrowsingHistory-4f9b65f89b.js",
+  "app/myCard.js": "app/myCard-56fd34a316.js",
+  "app/myCollection.js": "app/myCollection-b67e11c794.js",
+  "app/myfriend.js": "app/myfriend-8b504e2be3.js",
+  "app/myincome.js": "app/myincome-20dc401f60.js",
+  "app/mytask.js": "app/mytask-0d307a2d36.js",
+  "app/school.js": "app/school-aa78f4883c.js",
+  "app/taskCenter.js": "app/taskCenter-a18a70aeed.js"
+}
