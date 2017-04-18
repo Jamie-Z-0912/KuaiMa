@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/hotSearch', function(require, exports, module) {
     var Ajax = require('../mod/base');
     Ajax.custom({
     	url:'api/v1/search/task'

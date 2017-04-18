@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/messageSys', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
     
     function isToday(t){

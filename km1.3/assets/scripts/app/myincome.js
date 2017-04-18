@@ -1,15 +1,7 @@
-define(function(require, exports, module) {
+define('app/myincome', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
 	var km = require('../plugs/version');
-
-	if(Tools.auth_token() == 'null'){
-    	var opt = { title: "提醒", text: "请在快马浏览器中登录再访问！", time: 5000};
-    	Tools.alertDialog(opt, function(){
-    		window.location = 'kmb://alertlogin';
-    	});
-    	return;
-    }
-
+	
 	$('#nav').on('click', 'li', function(){
 		var id = $(this).data('id');
 		$(this).addClass('active').siblings().removeClass('active');

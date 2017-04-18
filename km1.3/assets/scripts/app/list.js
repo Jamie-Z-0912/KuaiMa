@@ -1,5 +1,6 @@
-define(function(require, exports, module) {
+define('app/list', function(require, exports, module) {
 	var Ajax = require('../mod/base');
+	var tipsAd = require('../plugs/tipsAd.js');
     var Timer = function(el,t,callback){
 		this.el = el;
 		this.remaining = t/1000;
@@ -58,20 +59,20 @@ define(function(require, exports, module) {
 
     		new Timer('#timer', data.data.countDown);
     		$('.header-timer').show();
-    		seajs.use('./scripts/plugs/tipsAd.js',function(a){
-		    	$('#rule').on('click', function(){
-					new a({
-						type: '',
-						subtit: '<span style="line-height:1.5;"></span>活动时间：<br>'+beginTime+'至'+EndTime,
-						text: '<p style="text-align: left;padding: 0 .2rem;">'
-							+'<i style="color:#fa3719">活动规则</i>：根据每日收益排名，今日榜单实时更新。每日前十名可获得相应额外奖励。奖励名单以当日最终榜单为准。'
-							+'<br><i style="color:#fa3719">奖励发放</i>：当日奖励会在次日凌晨结算期间自动发放到获奖账户。可在收入明细中查看奖励到账情况。</p>',
-						hasAd: '0',
-						isClose: 'no',
-						btnType: '1'
-					});
-		    	})
-    		})
+
+	    	$('#rule').on('click', function(){
+				new tipsAd({
+					type: '',
+					subtit: '<span style="line-height:1.5;"></span>活动时间：<br>'+beginTime+'至'+EndTime,
+					text: '<p style="text-align: left;padding: 0 .2rem;">'
+						+'<i style="color:#fa3719">活动规则</i>：根据每日收益排名，今日榜单实时更新。每日前十名可获得相应额外奖励。奖励名单以当日最终榜单为准。'
+						+'<br><i style="color:#fa3719">奖励发放</i>：当日奖励会在次日凌晨结算期间自动发放到获奖账户。可在收入明细中查看奖励到账情况。</p>',
+					hasAd: '0',
+					isClose: 'no',
+					btnType: '1'
+				});
+	    	})
+		    	
     	}
     });
     

@@ -85,4 +85,4 @@
         return Plugin.raw === false || Plugin.utf8decode || utf8decode ? UTF8.decode(coded) : coded;
     };
     window.base64 = Plugin;
-}(Zepto));
+})(Zepto);

@@ -1,8 +1,11 @@
-define(function(require, exports, module) {
-	var Ajax = require('../mod/base');
+define('app/taskCenter', function(require, exports, module) {
+	var pagelist = require('../mod/pagelist');
+	require('../plugs/cookieStorage.js');
 	var km = require('../plugs/version');
 	var Timer = require('../plugs/timer.js');
-	require('../plugs/cookieStorage.js');
+	var tipsAd = require('../plugs/tipsAd.js');
+    var SecondPage = require('../plugs/secondPage.js');
+
 	if(Tools.auth_token() == 'null'){
     	var opt = { title: "提醒", text: "请在快马浏览器中登录再访问！", time: 5000};
     	Tools.alertDialog(opt, function(){
@@ -70,105 +73,105 @@ define(function(require, exports, module) {
 	var runAD = [
 		{'img': './image/runAD/run9.png', 'link': 'http://browser.kuaima.cn/tongji/4qianDao.html?url=https://engine.tuia.cn/index/activity?appKey=2cMgpedEXq4tgEy5Y6f4g963ZTkr&adslotId=495'}
 	];
-	seajs.use('./scripts/plugs/tipsAd.js',function(a){
-		$('#signin').on('click', function(){
-			var btn = $(this);
-			if(btn.hasClass('checkin')){
-				btn.removeClass('checkin');
+
+	$('#signin').on('click', function(){
+		var btn = $(this);
+		if(btn.hasClass('checkin')){
+			btn.removeClass('checkin');
+			var showad = Math.floor(Math.random()*runAD.length);
+			var waiting = new tipsAd({
+				type: 'waiting',
+				subtit: '拼命疯抢中…',
+				isClose: 'no',
+				adImg: runAD[showad].img,
+				adLink: runAD[showad].link
+			});
+			setTimeout(function(){
+				Ajax.custom({
+					url: 'api/v1/checkin'
+				},function(data){
+					waiting.close();
+					if(data.status == 1000){
+						btn.addClass('hasCheckin');
+						Storage.set('hasCheckin',1,true);
+						var showad = Math.floor(Math.random()*runAD.length);
+						new tipsAd({
+							type: 'ok',
+							title: '签到成功',
+							text: '恭喜你获得'+ data.data.commission + '金币',
+							adImg: runAD[showad].img,
+							adLink: runAD[showad].link
+						});
+						$('#leftNum').text('签到获得 '+data.data.commission+'金币');
+						$('#signin').removeClass('checkin').addClass('hasCheckin').text('已签到');
+						$('#timer').parent().html('开抢时间：每日10点');
+			    		var iframe = document.createElement('iframe');
+			    		iframe.src = 'kmb://refreshgold';
+			    		iframe.style.display = 'none';
+			    		$('body').append(iframe);
+			    		$(iframe).remove();
+					}
+					if(data.status == 9001){
+						btn.addClass('hasCheckin');
+						Storage.set('hasCheckin',1,true)
+						Tools.alertDialog({
+			                text: '今天已签到，明天再来吧'
+			            });
+					}
+					if(data.status == 3001 || data.status == 3004){
+						btn.addClass('over').text('已抢光');
+						$('#leftNum').text('今日剩余 0/5000');
+						var showad = Math.floor(Math.random()*runAD.length);
+						new tipsAd({
+							type: 'over',
+							title: '签到失败',
+							text: '今日份额已抢完，明天再来吧',
+							adImg: runAD[showad].img,
+							adLink: runAD[showad].link
+						});
+					}
+				});
+			}, 1000);
+		}else{
+			if($(this).hasClass('over')){
 				var showad = Math.floor(Math.random()*runAD.length);
-				var waiting = new a({
-					type: 'waiting',
-					subtit: '拼命疯抢中…',
-					isClose: 'no',
+				new tipsAd({
+					type: 'over',
+					title: '手慢了',
+					text: '今日已抢，明天10点准时再来',
 					adImg: runAD[showad].img,
 					adLink: runAD[showad].link
 				});
-				setTimeout(function(){
-					Ajax.custom({
-						url: 'api/v1/checkin'
-					},function(data){
-						waiting.close();
-						if(data.status == 1000){
-							btn.addClass('hasCheckin');
-							Storage.set('hasCheckin',1,true);
-							var showad = Math.floor(Math.random()*runAD.length);
-							new a({
-								type: 'ok',
-								title: '签到成功',
-								text: '恭喜你获得'+ data.data.commission + '金币',
-								adImg: runAD[showad].img,
-								adLink: runAD[showad].link
-							});
-							$('#leftNum').text('签到获得 '+data.data.commission+'金币');
-							$('#signin').removeClass('checkin').addClass('hasCheckin').text('已签到');
-							$('#timer').parent().html('开抢时间：每日10点');
-				    		var iframe = document.createElement('iframe');
-				    		iframe.src = 'kmb://refreshgold';
-				    		iframe.style.display = 'none';
-				    		$('body').append(iframe);
-				    		$(iframe).remove();
-						}
-						if(data.status == 9001){
-							btn.addClass('hasCheckin');
-							Storage.set('hasCheckin',1,true)
-							Tools.alertDialog({
-				                text: '今天已签到，明天再来吧'
-				            });
-						}
-						if(data.status == 3001 || data.status == 3004){
-							btn.addClass('over').text('已抢光');
-							$('#leftNum').text('今日剩余 0/5000');
-							var showad = Math.floor(Math.random()*runAD.length);
-							new a({
-								type: 'over',
-								title: '签到失败',
-								text: '今日份额已抢完，明天再来吧',
-								adImg: runAD[showad].img,
-								adLink: runAD[showad].link
-							});
-						}
-					});
-				}, 1000);
-			}else{
-				if($(this).hasClass('over')){
-					var showad = Math.floor(Math.random()*runAD.length);
-					new a({
-						type: 'over',
-						title: '手慢了',
-						text: '今日已抢，明天10点准时再来',
-						adImg: runAD[showad].img,
-						adLink: runAD[showad].link
-					});
-					return;
-				}
-				if(btn.hasClass('hasCheckin')){
-					var showad = Math.floor(Math.random()*runAD.length);
-					new a({
-						type: '',
-						title: '恭喜你',
-						text: '今日签到成功，明天继续哦~',
-						adImg: runAD[showad].img,
-						adLink: runAD[showad].link
-					});
-					return;
-				}
-				Tools.alertDialog({
-	                text: '签到未开始，稍后再试',
-	                time: '0'
-	            });
+				return;
 			}
-		});
-	    $('#rule').on('click', function(){
-			new a({
-				type: 'rule',
-				subtit: '每天上午10点准时开抢',
-				text: '开启提醒，快人一步！<br>数量有限，先到先得！',
-				hasAd: '0',
-				isClose: 'no',
-				btnType: '1'
-			});
-	    });
+			if(btn.hasClass('hasCheckin')){
+				var showad = Math.floor(Math.random()*runAD.length);
+				new tipsAd({
+					type: '',
+					title: '恭喜你',
+					text: '今日签到成功，明天继续哦~',
+					adImg: runAD[showad].img,
+					adLink: runAD[showad].link
+				});
+				return;
+			}
+			Tools.alertDialog({
+                text: '签到未开始，稍后再试',
+                time: '0'
+            });
+		}
 	});
+    $('#rule').on('click', function(){
+		new tipsAd({
+			type: 'rule',
+			subtit: '每天上午10点准时开抢',
+			text: '开启提醒，快人一步！<br>数量有限，先到先得！',
+			hasAd: '0',
+			isClose: 'no',
+			btnType: '1'
+		});
+    });
+
 	$('#readA').on('click', function(){
 		window.location = 'kmb://main';
 	});
@@ -179,32 +182,30 @@ define(function(require, exports, module) {
 		window.location = 'kmb://back';
 	});
 
-	seajs.use(['./scripts/plugs/secondPage.js', './scripts/mod/pagelist.js'],function(SecondPage,pagelist){
-        var signListPage = new SecondPage('#signList');
-        var $btn = $('#signList .btn');
-		$('#viewList').on('click', function(){
-			var that = $(this);
-			if(that.hasClass('shaodeng')){
-				Tools.alertDialog({
-					text:'5s内限查看一次，请稍后再试~'
-				});
-				return;
-			}
-			that.addClass('shaodeng');
-			setTimeout(function(){
-				that.removeClass('shaodeng');
-			},5000);
-			pagelist.fun({
-				url: 'api/v1/checkin/logs',
-                data:{page: 1, page_size: 20}
+    var signListPage = new SecondPage('#signList');
+    var $btn = $('#signList .btn');
+	$('#viewList').on('click', function(){
+		var that = $(this);
+		if(that.hasClass('shaodeng')){
+			Tools.alertDialog({
+				text:'5s内限查看一次，请稍后再试~'
 			});
-			$('#listPage').hide();
-			signListPage.openSidebar();
-			$('#conList').height(innerHeight - $btn.height());
+			return;
+		}
+		that.addClass('shaodeng');
+		setTimeout(function(){
+			that.removeClass('shaodeng');
+		},5000);
+		pagelist.fun({
+			url: 'api/v1/checkin/logs',
+            data:{page: 1, page_size: 20}
 		});
-		$btn.on('click', function(){
-			signListPage.closeSidebar();
-		});
-		signList
-	})
+		$('#listPage').hide();
+		signListPage.openSidebar();
+		$('#conList').height(innerHeight - $btn.height());
+	});
+	$btn.on('click', function(){
+		signListPage.closeSidebar();
+	});
+
 });

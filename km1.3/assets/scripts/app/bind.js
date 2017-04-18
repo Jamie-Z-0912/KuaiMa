@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/bind', function(require, exports, module) {
 	var submit = require('../mod/submit');
 	var tipsAd = require('../plugs/tipsAd.js');
 	if(Tools.auth_token() == 'null'){

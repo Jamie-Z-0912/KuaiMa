@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/myfriend', function(require, exports, module) {
     var pagelist = require('../mod/pagelist2');
     function hideInfo(a){
         var ss = '' + a;

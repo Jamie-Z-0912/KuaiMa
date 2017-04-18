@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/myBrowsingHistory', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
     pagelist.fun({ 
         url: 'api/v1/readArticles',

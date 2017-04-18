@@ -1,5 +1,6 @@
-define(function(require, exports, module) {
+define('app/myCard', function(require, exports, module) {
     var Ajax = require('../mod/base');
+    require('../plugs/swiper-2.7.min.js');
     Ajax.custom({
         url:'api/v1/cards/my'
     }, function(d){
@@ -9,12 +10,11 @@ define(function(require, exports, module) {
         url:'api/v1/cards'
     }, function(d){
         Ajax.render('#cards', '#cards-tmpl', d, undefined, true);
-        seajs.use('./scripts/plugs/swiper-2.7.min',function(){
-            new Swiper('#cardsWrap',{
-                freeMode : true,
-                loop : false,
-                slidesPerView : 'auto'
-            });
+
+        new Swiper('#cardsWrap',{
+            freeMode : true,
+            loop : false,
+            slidesPerView : 'auto'
         });
     })
 });

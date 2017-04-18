@@ -1,4 +1,4 @@
-define(function(require, exports, module) { 
+define('app/inviteReg', function(require, exports, module) { 
     var isPC = function(){
         var userAgentInfo = navigator.userAgent;  
         var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");  
@@ -9,13 +9,16 @@ define(function(require, exports, module) {
         return flag; 
     }
     var submit = require('../mod/submit');
+    require('../plugs/cookieStorage.js');
+    var SecondPage =  require('../plugs/secondPage.js');
+
     if(isPC()){
         $('#hongbao').html('<h1 style="color:#fff;text-align:center;" id="pcView">请在手机端查看</h1>');
         $('#pcView').css('margin-top', innerHeight/2);
         return;
     }
     $('.hongbao').css({ 'margin-top':(innerHeight-$('#hbT').height())/2+'px', 'opacity':1 });
-    (function ($) {
+    (function () {
         $.extend($.fn, {
             fadeOut: function (speed, easing, complete) {
                 if (typeof(speed) === 'undefined') speed = 400; 
@@ -31,7 +34,7 @@ define(function(require, exports, module) {
                 return this;
             }
         });
-    })(Zepto);
+    })();
     /********* test *********/
     $('#hbk').on('click',function(){
         $(this).addClass('rotate');
@@ -108,7 +111,7 @@ define(function(require, exports, module) {
         }
     });
     /***********/
-    seajs.use(['./scripts/plugs/jquery.base64','./scripts/plugs/cookieStorage'], function(){
+    seajs.use('./scripts/lib/jquery.base64', function(){
         $('#repeatSend').on('click', function(){
             var phone = $('input[name="phone"]').val();
             if(phone.isEmpty()){
@@ -193,14 +196,12 @@ define(function(require, exports, module) {
     	})
     });
 
-    seajs.use('./scripts/plugs/secondPage.js',function(SecondPage){
-        var pageProtocol = new SecondPage('#page_protocol');
-        $('#protocolCon').on('click', function(){
-                pageProtocol.openSidebar();
-            $('#agreeBtn').off().on('click', function(){
-                pageProtocol.closeSidebar();
-            })
-        });
+    var pageProtocol = new SecondPage('#page_protocol');
+    $('#protocolCon').on('click', function(){
+            pageProtocol.openSidebar();
+        $('#agreeBtn').off().on('click', function(){
+            pageProtocol.closeSidebar();
+        })
     });
 
 });

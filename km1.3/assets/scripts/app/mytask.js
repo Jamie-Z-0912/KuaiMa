@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define('app/mytask', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
 	var curD = new Date().getDate();
 	Ajax.custom({

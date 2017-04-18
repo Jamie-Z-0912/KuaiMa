@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
-    var $ = require('zepto');
+    var $ = require('zepto'), Zepto, jQuery;
+    jQuery = Zepto = $;
     var doT = require('../plugs/doT.min');
 	var config = {
 	    key: '26817749',
