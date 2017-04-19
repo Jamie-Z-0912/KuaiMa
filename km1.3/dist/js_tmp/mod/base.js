@@ -4,7 +4,7 @@ define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require,
     var doT = require("../plugs/doT.min");
     var config = {
         key: "26817749",
-        km_api: "http://test.kuaima.cn/km_task/"
+        km_api: server + "km_task/"
     };
     require("./tools");
     function format(date, pattern) {

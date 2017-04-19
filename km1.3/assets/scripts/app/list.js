@@ -80,19 +80,21 @@ define('app/list', function(require, exports, module) {
 	    Ajax.custom({
 	    	url: 'api/v1/coin/rank/today'
 	    },function(data){
-    		var contpl={day:true, rmbtmpl:'' };
-	    	if(data.data.activity_status){
-	    		$('#today').css('padding-top', '2.2rem');
-	    		contpl.rmbtmpl = $('#rmbtmpl').text();
+	    	if(data.status == 1020){
+	    		$('#today').html('<div class="empty" style="margin-top:-1.7rem;opacity:.7"><img src="image/empty_2.png"><p style="color:#000;">还没有排行结果</p></div>')
 	    	}else{
-    			// $('#todayList').eq(3).remove();
+    			var contpl={day:true, rmbtmpl:'' };
+		    	if(data.data.activity_status){
+		    		$('#today').css('padding-top', '2.2rem');
+		    		contpl.rmbtmpl = $('#rmbtmpl').text();
+		    	}
+	        	Ajax.render('#todayList', '#conList-tmpl', data.data, contpl, true);
 	    	}
-	        Ajax.render('#todayList', '#conList-tmpl', data.data, contpl, true);
 	    });
 	    var tt = window.setTimeout(function(){
 	    	window.clearTimeout(tt);
 	    	todayData();
-	    },10000);
+	    },50000);
     };
     todayData();
 
@@ -100,13 +102,10 @@ define('app/list', function(require, exports, module) {
     	url: 'api/v1/coin/rank/yesterday'
     },function(data){
     	var issue = data.data.yes_date.substr(5);
-    	// $('#nav li[data-id="lastIssue"]').text(issue);
     	var contpl={day:null, rmbtmpl:'' };
     	if(data.data.activity_status){
     		$('#today').css('padding-top', '2.2rem');
     		contpl.rmbtmpl = $('#rmbtmpl').text();
-    	}else{
-			// $('#yesterdayList th').eq(3).remove();
     	}
         Ajax.render('#yesterdayList', '#conList-tmpl', data.data, contpl, true);
     });

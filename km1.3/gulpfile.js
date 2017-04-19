@@ -16,9 +16,7 @@ var gulp = require('gulp'),
 	var rev = require('gulp-rev');
 	var revCollector = require('gulp-rev-collector');
 
-gulp.task('allLess', function(){
-    //除了reset.less和test.less（**匹配./assets/less的0个或多个子文件夹）
-    // gulp.src(['./assets/less/*.less', '!./assets/less/**/{reset,test}.less']) 
+gulp.task('allLess', function(){ 
 	return gulp.src(['./assets/less/*.less','!./assets/less/reset.less'])
 		.pipe(sourcemaps.init())
 		.pipe(less())
@@ -46,29 +44,22 @@ gulp.task('seajs', function(){
 			.pipe(concat({
 				base: './assets/scripts'
 			}))
-			.pipe(gulp.dest('./dist/js_tmp')),
-
-		// gulp.src('./assets/scripts/lib/**/*.js')
-		// 	.pipe(replace('assets/','dist/'))
-		// 	.pipe(gulp.dest('./dist/scripts/lib'))
+			.pipe(gulp.dest('./dist/js_tmp'))
 	);
 })
-// gulp.task('scripts_uglify', [yargs.r ? 'seajs' : 'script_copy'], function(cb){
 gulp.task('scripts_uglify', ['seajs'], function(cb){
-	// if(yargs.r){
-		return gulp.src([
-				'./dist/js_tmp/app/**/*.js'
-			], {base : './dist/js_tmp'})
-				.pipe(uglify({
-					mangle:{
-						except: ['require', 'exports', 'module', '$', 'Zepto', 'jQuery'] //这几个变量不压缩
-					}
-				}))
-				.pipe(rev())
-				.pipe(gulp.dest('./dist/scripts'))
-				.pipe(rev.manifest())
-		        .pipe(gulp.dest('./dist/rev/js'))
-	// }else{ cd(); }
+	return gulp.src([
+			'./dist/js_tmp/app/**/*.js'
+		], {base : './dist/js_tmp'})
+			.pipe(uglify({
+				mangle:{
+					except: ['require', 'exports', 'module', '$', 'Zepto', 'jQuery'] //这几个变量不压缩
+				}
+			}))
+			.pipe(rev())
+			.pipe(gulp.dest('./dist/scripts'))
+			.pipe(rev.manifest())
+	        .pipe(gulp.dest('./dist/rev/js'))
 });
 
 //html 压缩
@@ -100,7 +91,7 @@ gulp.task('watch', function(){
 	gulp.watch('./assets/less/*.less',['allLess']);
 	gulp.watch('./assets/scripts/**/*.js',['scripts_uglify']);
 	gulp.watch('./assets/image/**',['image']);
-})
+});
 
 //清空图片、样式、js
 gulp.task('clean', function(){
@@ -108,7 +99,7 @@ gulp.task('clean', function(){
 		'./dist/css/!(font)', 
 		'./dist/scripts/!(lib)', 
 		'./dist/*.html', 
-		'./dist/js_tmp', 
+		'./dist/js_tmp',
 		'./dist/image', 
 		'./dist/rev', 
 		'./assets/css/!(font)'

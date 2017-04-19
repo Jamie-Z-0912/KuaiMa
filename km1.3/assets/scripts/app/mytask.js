@@ -1,11 +1,11 @@
 define('app/mytask', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
+	var km = require('../plugs/version');
 	var curD = new Date().getDate();
 	Ajax.custom({
 		url: 'api/v1/orders/socialShare/today'
 	}, function(data){
 		var todayArray = data.data.today_tasks;
-		console.log(todayArray)
 		$.each(todayArray, function(){
 			this.added_time = '今天 ' + Ajax.formatDate(this.added_time, 'hh:mm');
 		})
@@ -29,7 +29,13 @@ define('app/mytask', function(require, exports, module) {
 
 	$('.mytask-list').on('click', 'li', function(){
 		if($(this).hasClass('empty')){
-			window.location = 'kmb://makemoney';
+			if(km.gEq('1.3.0')){
+				window.location = 'kmb://back';
+			}else{
+				if(/iPhone|iPad/.test(navigator.userAgent)){
+					window.location = 'kmb://back';
+				}
+			}
 		}else if($(this).hasClass('over-task')){
 			Tools.alertDialog({
 				text: '该任务已结束<br>去看看其他任务吧~'

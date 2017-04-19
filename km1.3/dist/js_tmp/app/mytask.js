@@ -1,11 +1,11 @@
-define("app/mytask", [ "../mod/pagelist" ], function(require, exports, module) {
+define("app/mytask", [ "../mod/pagelist", "../plugs/version" ], function(require, exports, module) {
     var pagelist = require("../mod/pagelist");
+    var km = require("../plugs/version");
     var curD = new Date().getDate();
     Ajax.custom({
         url: "api/v1/orders/socialShare/today"
     }, function(data) {
         var todayArray = data.data.today_tasks;
-        console.log(todayArray);
         $.each(todayArray, function() {
             this.added_time = "今天 " + Ajax.formatDate(this.added_time, "hh:mm");
         });
@@ -29,7 +29,13 @@ define("app/mytask", [ "../mod/pagelist" ], function(require, exports, module) {
     });
     $(".mytask-list").on("click", "li", function() {
         if ($(this).hasClass("empty")) {
-            window.location = "kmb://makemoney";
+            if (km.gEq("1.3.0")) {
+                window.location = "kmb://back";
+            } else {
+                if (/iPhone|iPad/.test(navigator.userAgent)) {
+                    window.location = "kmb://back";
+                }
+            }
         } else if ($(this).hasClass("over-task")) {
             Tools.alertDialog({
                 text: "该任务已结束<br>去看看其他任务吧~"
@@ -120,7 +126,7 @@ define("app/mytask", [ "../mod/pagelist" ], function(require, exports, module) {
     var doT = require("../plugs/doT.min");
     var config = {
         key: "26817749",
-        km_api: "http://test.kuaima.cn/km_task/"
+        km_api: server + "km_task/"
     };
     require("./tools");
     function format(date, pattern) {
@@ -538,4 +544,63 @@ define("app/mytask", [ "../mod/pagelist" ], function(require, exports, module) {
     }, "function" == typeof define ? define("plugs/laypage", [], function() {
         return a;
     }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();
+}();define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});

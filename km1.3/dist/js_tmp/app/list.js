@@ -75,20 +75,24 @@ define("app/list", [ "../mod/base", "../plugs/tipsAd.js" ], function(require, ex
         Ajax.custom({
             url: "api/v1/coin/rank/today"
         }, function(data) {
-            var contpl = {
-                day: true,
-                rmbtmpl: ""
-            };
-            if (data.data.activity_status) {
-                $("#today").css("padding-top", "2.2rem");
-                contpl.rmbtmpl = $("#rmbtmpl").text();
-            } else {}
-            Ajax.render("#todayList", "#conList-tmpl", data.data, contpl, true);
+            if (data.status == 1020) {
+                $("#today").html('<div class="empty" style="margin-top:-1.7rem;opacity:.7"><img src="image/empty_2.png"><p style="color:#000;">还没有排行结果</p></div>');
+            } else {
+                var contpl = {
+                    day: true,
+                    rmbtmpl: ""
+                };
+                if (data.data.activity_status) {
+                    $("#today").css("padding-top", "2.2rem");
+                    contpl.rmbtmpl = $("#rmbtmpl").text();
+                }
+                Ajax.render("#todayList", "#conList-tmpl", data.data, contpl, true);
+            }
         });
         var tt = window.setTimeout(function() {
             window.clearTimeout(tt);
             todayData();
-        }, 1e4);
+        }, 5e4);
     };
     todayData();
     Ajax.custom({
@@ -102,7 +106,7 @@ define("app/list", [ "../mod/base", "../plugs/tipsAd.js" ], function(require, ex
         if (data.data.activity_status) {
             $("#today").css("padding-top", "2.2rem");
             contpl.rmbtmpl = $("#rmbtmpl").text();
-        } else {}
+        }
         Ajax.render("#yesterdayList", "#conList-tmpl", data.data, contpl, true);
     });
     Ajax.custom({
@@ -126,7 +130,7 @@ define("app/list", [ "../mod/base", "../plugs/tipsAd.js" ], function(require, ex
     var doT = require("../plugs/doT.min");
     var config = {
         key: "26817749",
-        km_api: "http://test.kuaima.cn/km_task/"
+        km_api: server + "km_task/"
     };
     require("./tools");
     function format(date, pattern) {
