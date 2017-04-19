@@ -38,8 +38,9 @@ define("app/school", [ "../mod/base", "../plugs/secondPage.js", "../plugs/versio
         openWXPage.openSidebar();
         return false;
     });
-    $("#sidebar-bg").on("tap", function() {
+    $("#sidebar-bg").on("touchstart", function() {
         openWXPage.closeSidebar();
+        return false;
     });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
