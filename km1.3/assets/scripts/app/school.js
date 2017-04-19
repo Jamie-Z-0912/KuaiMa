@@ -40,8 +40,9 @@ define('app/school', function(require, exports, module) {
         openWXPage.openSidebar();
         return false;
     });
-    $('#sidebar-bg').on('tap', function(){
+    $('#sidebar-bg').on('touchstart', function(){
         openWXPage.closeSidebar();
+        return false;
     });
         
 });
