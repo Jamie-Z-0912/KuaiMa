@@ -733,6 +733,9 @@ body {
   border-radius: .14rem;
   position: relative;
   font-size: 0.13rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .main .main-list table .top_box .txt,
 .main .main-list table .top_box .coin,
