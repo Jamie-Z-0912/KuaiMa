@@ -72,10 +72,24 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             }
         }
     });
-    var runAD = [ {
-        img: "./image/runAD/run9.png",
-        link: "http://browser.kuaima.cn/tongji/4qianDao.html?url=https://engine.tuia.cn/index/activity?appKey=2cMgpedEXq4tgEy5Y6f4g963ZTkr&adslotId=495"
-    } ];
+    var runAD = [];
+    Ajax.custom({
+        url: "api/v1/ads",
+        data: {
+            location: "checkin_alert"
+        }
+    }, function(d) {
+        console.log(d.data);
+        for (var i = 0; i < d.data.length; i++) {
+            var ad = {
+                img: "",
+                link: ""
+            };
+            ad.img = d.data[i].images[0];
+            ad.link = d.data[i].origin_url;
+            runAD.push(ad);
+        }
+    });
     $("#signin").on("click", function() {
         var btn = $(this);
         if (btn.hasClass("checkin")) {
