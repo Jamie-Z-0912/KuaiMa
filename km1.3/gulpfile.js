@@ -53,7 +53,7 @@ gulp.task('scripts_uglify', ['seajs'], function(cb){
 		], {base : './dist/js_tmp'})
 			.pipe(uglify({
 				mangle:{
-					except: ['require', 'exports', 'module', '$', 'Zepto', 'jQuery'] //这几个变量不压缩
+					except: ['require', 'exports', 'module', '$', 'Zepto', 'jQuery', '_hmt'] //这几个变量不压缩
 				}
 			}))
 			.pipe(rev())

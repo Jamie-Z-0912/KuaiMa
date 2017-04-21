@@ -419,17 +419,17 @@ i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
 }
-.content {
+.main {
   padding: .16rem;
   background-color: #1c1314;
 }
-.content .intro {
+.main .intro {
   position: relative;
   background-color: #fff;
   border-radius: 6px;
   padding: .15rem;
 }
-.content .intro i {
+.main .intro i {
   position: absolute;
   display: block;
   height: .16rem;
@@ -438,109 +438,109 @@ i#lDom ~ iframe {
   top: 0;
   margin-top: -0.16rem;
 }
-.content .intro i:before,
-.content .intro i:after {
+.main .intro i:before,
+.main .intro i:after {
   display: block;
   position: absolute;
   content: "";
   border-radius: 50%;
 }
-.content .intro i:before {
+.main .intro i:before {
   background-color: #ffc524;
   width: 4px;
   height: 4px;
   top: .22rem;
   z-index: 3;
 }
-.content .intro i:after {
+.main .intro i:after {
   background-color: #1c1314;
   width: 8px;
   height: 8px;
   top: .24rem;
   z-index: 2;
 }
-.content .intro i.l {
+.main .intro i.l {
   left: .12rem;
   margin-left: -1px;
 }
-.content .intro i.l:before,
-.content .intro i.l:after {
+.main .intro i.l:before,
+.main .intro i.l:after {
   left: .02rem;
 }
-.content .intro i.l:before {
+.main .intro i.l:before {
   margin-left: -2px;
 }
-.content .intro i.l:after {
+.main .intro i.l:after {
   margin-left: -4px;
 }
-.content .intro i.r {
+.main .intro i.r {
   right: .12rem;
   margin-left: 1px;
 }
-.content .intro i.r:before,
-.content .intro i.r:after {
+.main .intro i.r:before,
+.main .intro i.r:after {
   right: 0;
 }
-.content .intro i.r:before {
+.main .intro i.r:before {
   margin-right: -2px;
 }
-.content .intro i.r:after {
+.main .intro i.r:after {
   margin-right: -4px;
 }
-.content .intro h2 {
+.main .intro h2 {
   position: relative;
   text-align: center;
   padding-bottom: .15rem;
 }
-.content .intro h2:before,
-.content .intro h2:after {
+.main .intro h2:before,
+.main .intro h2:after {
   position: absolute;
   content: "";
 }
-.content .intro h2 span {
+.main .intro h2 span {
   position: relative;
 }
-.content .intro h2 span:before,
-.content .intro h2 span:after {
+.main .intro h2 span:before,
+.main .intro h2 span:after {
   position: absolute;
   content: "";
 }
-.content .intro p {
+.main .intro p {
   color: #858585;
   font-size: 0.15rem;
   line-height: 1.5;
   width: 21.2em;
   margin: 0 auto;
 }
-.content .intro p .red {
+.main .intro p .red {
   color: #fa3719;
 }
-.content .schedule {
+.main .schedule {
   margin-top: .15rem;
 }
-.content .schedule .box {
+.main .schedule .box {
   position: relative;
   background-color: #ffe224;
   border-radius: 6px;
   padding: .15rem;
   margin-bottom: .1rem;
 }
-.content .schedule .box .sub {
+.main .schedule .box .sub {
   font-size: 0.13rem;
   color: #aa8b11;
   line-height: 1;
   margin-top: .1rem;
 }
-.content .schedule .box .sch {
+.main .schedule .box .sch {
   margin-top: .14rem;
   line-height: 1;
 }
-.content .schedule .box .sch .schedule_bar,
-.content .schedule .box .sch .txt {
+.main .schedule .box .sch .schedule_bar,
+.main .schedule .box .sch .txt {
   display: inline-block;
   vertical-align: bottom;
 }
-.content .schedule .box .sch .schedule_bar {
+.main .schedule .box .sch .schedule_bar {
   background-color: #f3c200;
   width: 1.5rem;
   height: 9px;
@@ -548,7 +548,7 @@ i#lDom ~ iframe {
   overflow: hidden;
   border-radius: 4px;
 }
-.content .schedule .box .sch .schedule_bar i {
+.main .schedule .box .sch .schedule_bar i {
   position: absolute;
   height: 100%;
   background-image: -webkit-linear-gradient(left, color-stop(#9a00ea 0%), color-stop(#ff5400 100%));
@@ -556,12 +556,12 @@ i#lDom ~ iframe {
   background-image: linear-gradient(to right, #9a00ea 0%, #ff5400 100%);
   background-repeat: repeat-x;
 }
-.content .schedule .box .sch .txt {
+.main .schedule .box .sch .txt {
   font-size: .12rem;
   color: #fa3719;
   margin-left: .14rem;
 }
-.content .schedule .box .btn {
+.main .schedule .box .btn {
   position: absolute;
   bottom: .15rem;
   right: .15rem;
@@ -575,7 +575,7 @@ i#lDom ~ iframe {
   border-radius: .16rem;
   box-shadow: 0 0.04rem #dcb701;
 }
-.content .schedule .box .btn.ok {
+.main .schedule .box .btn.ok {
   background-color: #ff9100;
   box-shadow: 0 0.04rem #e67605;
 }

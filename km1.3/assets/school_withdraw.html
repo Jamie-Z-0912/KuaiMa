@@ -11,6 +11,17 @@
     <title>想提现，跟我学</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/school_withdraw.css">
+    <script> 
+        var _hmt = _hmt || []; 
+        _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/ios/kmBrowser/school_withdraw']);
+        }else if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/Android/kmBrowser/school_withdraw']);
+        }else{
+            _hmt.push(['_trackPageview', '/other/kmBrowser/school_withdraw']);
+        }
+    </script>
 </head>
 <body>
     <section class="max-w-750">
@@ -32,5 +43,14 @@
         </div>
     </section>
     <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
 </body>
 </html>

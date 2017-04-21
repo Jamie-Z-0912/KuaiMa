@@ -563,7 +563,6 @@ body {
 .cards .swiper-wrapper .swiper-slide .box .old_price {
   color: #b8b8b8;
   font-size: .12rem;
-  text-decoration: line-through;
   margin-top: .11rem;
 }
 .cards .swiper-wrapper .swiper-slide .box .ui-btn {

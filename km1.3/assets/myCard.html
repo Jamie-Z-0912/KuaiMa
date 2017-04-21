@@ -11,6 +11,17 @@
     <title>我的卡片</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/myCard.css">
+    <script> 
+        var _hmt = _hmt || []; 
+        _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/ios/kmBrowser/myCard']);
+        }else if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/Android/kmBrowser/myCard']);
+        }else{
+            _hmt.push(['_trackPageview', '/other/kmBrowser/myCard']);
+        }
+    </script>
 </head>
 <body>
     <section class="max-w-750">
@@ -40,7 +51,7 @@
                         <img src="{{=value.icon}}" />
                         <div class="name">{{=value.name}}</div>
                         <div class="price">售价：{{=value.sell_price}}元</div>
-                        <div class="old_price">原价：{{=value.original_price}}金币</div>
+                        <div class="old_price">价值：{{=value.original_price}}金币</div>
                         <div class="ui-btn">立即兑换</div>
                     </div>
                 </div>
@@ -58,5 +69,14 @@
         seajs.use("app/myCard");
     </script>
     <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
 </body>
 </html>

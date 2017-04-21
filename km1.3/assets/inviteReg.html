@@ -11,24 +11,35 @@
     <title>邀请注册</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/inviteReg.css">
+    <script> 
+        var _hmt = _hmt || []; 
+        _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/ios/kmBrowser/inviteReg']);
+        }else if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/Android/kmBrowser/inviteReg']);
+        }else{
+            _hmt.push(['_trackPageview', '/other/kmBrowser/inviteReg']);
+        }
+    </script>
 </head>
 <body>
-<div id="hongbao">
-    <div class="hongbao">
-        <div class="box">
-            <img src="image/invite_hb1.png" alt="" class="hb" id="hbT">
-            <img src="image/invite_hb2.png" alt="" class="hb-b" id="hbB">
-            <div class="con">
-                <img src="image/invite_hb3.png" alt="" class="hblogo">
-                <div class="txt">
-                    <h1>下载快马浏览器</h1>
-                    <h2>领1元红包</h2>
+    <div id="hongbao">
+        <div class="hongbao">
+            <div class="box">
+                <img src="image/invite_hb1.png" alt="" class="hb" id="hbT">
+                <img src="image/invite_hb2.png" alt="" class="hb-b" id="hbB">
+                <div class="con">
+                    <img src="image/invite_hb3.png" alt="" class="hblogo">
+                    <div class="txt">
+                        <h1>下载快马浏览器</h1>
+                        <h2>领1元红包</h2>
+                    </div>
+                    <img src="image/invite_hbk.png" alt="" id="hbk" class="hbk">
                 </div>
-                <img src="image/invite_hbk.png" alt="" id="hbk" class="hbk">
             </div>
         </div>
     </div>
-</div>
     <section class="max-w-750">
         <div class="head">
             <img src="image/inviteReg.png"/>
@@ -167,5 +178,14 @@
         seajs.use("app/inviteReg");
     </script>
     <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
 </body>
 </html>

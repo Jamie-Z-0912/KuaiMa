@@ -11,6 +11,17 @@
     <title>榜单</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/list.css">
+    <script> 
+        var _hmt = _hmt || []; 
+        _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/ios/kmBrowser/list']);
+        }else if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/Android/kmBrowser/list']);
+        }else{
+            _hmt.push(['_trackPageview', '/other/kmBrowser/list']);
+        }
+    </script>
 </head>
 <body>
     <div class="max-w-750">
@@ -121,5 +132,14 @@
         seajs.use("app/list");
     </script>
     <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
 </body>
 </html>

@@ -475,7 +475,7 @@ i#lDom ~ iframe {
   height: .26rem;
   display: block;
   background: url(../image/news_icon.png) no-repeat top left;
-  background-position: 0 -0.25rem;
+  background-position: 0 -0.24rem;
   background-size: .38rem;
 }
 .message-wrap li .msg-zan ~ div {
