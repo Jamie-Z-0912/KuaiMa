@@ -1,0 +1,224 @@
+@import "reset.less";
+body{ background-color: #fc4c23;}
+.img-box{
+	width: 100%;
+	img{ display: block; width: 100%;}
+}
+.today, .total, .rule{
+	padding-left: .15rem;
+	padding-right: .15rem;
+	margin-top: .09rem;
+}
+.today .box{
+	background-color: #ffbb5e;
+	.border(.08rem, #feedd6);
+	text-align: center;
+	padding-left: .14rem;
+	padding-right: .14rem;
+	h2{
+		font-family: 'PingFangSC Semibold';
+		color: #4b3e2c;
+		position: relative;
+		width: 100%;
+		padding: .2rem 0;
+	}
+	.btn,.tip{
+		.lineH(.49rem); 
+	}
+	.btn{
+		display: block;
+		width: 2.05rem;
+		border-radius: .25rem;
+		margin: 0 auto;
+		font-size: @size_t1;
+		color: #292929;
+		background-color: #ffe223;
+		border-bottom: 3px solid #d99b46;
+	}
+	.tip{
+		color: #c37b18;
+		font-size: @size_t1;		
+	}
+	.text{
+		border-top: 1px dashed #efa743;
+		margin-top: .19rem;
+		text-align: left;
+		padding: .1rem .34rem .15rem;
+	}
+}
+.total .box{
+	background-color: #feedd6;
+	padding: .16rem 8% .32rem;
+	position: relative;
+	min-height: .8rem;
+	ul{
+		position: relative;
+		z-index: 4;
+		width: 100%;
+		margin-top: .1rem;
+        display: box;
+		display: -webkit-box;
+		li{
+			width:1%;
+	        -webkit-box-flex: 1;
+	        -moz-box-flex: 1;
+	        box-flex: 1;
+	        text-align: center;
+	        .txt{
+	        	font-size: .14rem;
+	        	color: #b47f36;
+	        	line-height: 1;
+	        }
+	        img{ display: block;width: 65%; margin: .1rem auto 0;}
+	        .btn{
+	        	margin: .16rem auto 0;
+	        	color: #382812;
+	        	font-size: .14rem;
+	        	.lineH(.28rem);
+	        	width: 6.4em;
+	        	border-radius: .14rem;
+	        	background-color: #f1d9b9;
+	        	border-bottom: 2px solid #cdad83;
+				box-shadow: 0px 3px 0px #f5d7af;
+				opacity: .5;
+				&.ok{
+					background-color: #ffde0a;
+		        	border-bottom: 2px solid #faa30d;
+					box-shadow: 0px 3px 0px #f5d7af;
+					opacity: 1;
+				}
+	        }
+		}
+	}
+	.schedule-box{
+		position: relative;
+		margin-top: .36rem;
+    	width: 94%;
+	}
+	.schedule_bar, .cur_txt{
+		position: relative;
+		width: 90%;
+	}
+	.schedule_bar{
+		z-index: 1;
+		background-color: #f2daba;
+		height: .12rem;
+		border-radius: .06rem;
+		overflow: hidden;
+		i{
+			display: block;
+			position: absolute;
+			height: 100%;
+			background-color: #ffce0a;
+		}
+	}
+	.cur_txt{
+		span{
+			display: block;   
+			position: absolute;
+			z-index: 9;
+			bottom: 0;
+			margin-bottom: .26rem;
+			width: .36rem;
+			.lineH(.2rem);
+			font-size: .1rem;
+			background-color: #d9c5ab;
+			color: #fff;
+			text-align: center;
+		    border-radius: .06rem;
+		    margin-left: -.18rem;
+			&:before, &:after{
+				display: block;
+				content: "";
+				position: absolute;
+				bottom: 0;
+				border-style: solid;
+				left: 50%;
+			}
+			&:before{
+				margin-bottom: -12px;
+				margin-left: -6px;
+				border-width: 6px;
+				border-color: #d9c5ab transparent transparent; 
+			}
+			&:after{
+				width: .12rem;
+				height: .12rem;
+				margin-bottom: -.29rem;
+				margin-left: -.1rem;
+				border-width: .05rem;
+				border-color: #ccab7f; 
+				border-radius: 50%;
+				background-color: #f2daba;
+			}
+		}
+		span.get{
+			background-color: #38332e;
+			&:before{
+				border-color: #38332e transparent transparent; 
+			}
+			&:after{
+				background-color: #ffce0a;
+				border-color: #38332e; 
+			}
+
+		}
+	}
+}
+.rule{
+	padding-top: .08rem; 
+	padding-bottom: .08rem; 
+	background-color: #feedd6;
+	h2{
+		font-family: 'PingFangSC Semibold';
+		color: #4b3e2c;
+		position: relative;
+		text-align: center;
+		width: 100%;
+		padding: .13rem 0;
+		.border-b(1px, #edd7b9);
+		&:before,&:after{
+			width: .04rem;
+			height: .04rem;
+			content: "";
+			display: block;
+			position: absolute;
+			top:50%;
+			margin-top: -.02rem;
+			left: 50%;
+			border-radius: 50%;
+			background-color: #edd4b2;
+		}
+		&:before{
+			margin-left: -.62rem;
+		}
+		&:after{
+			margin-left: .55rem;
+		}
+	}
+	p{
+		color: #9e8b70;
+		font-size: @size;
+		padding-top: .1rem;
+		padding-bottom: .1rem;
+	}
+}
+@import "libs/tipsAd.less";
+.pop-screen .box {
+	.btnbox a{ font-size: @size_t2; background-color: #ffc524;}
+	.text{
+		.rec_img{
+			display: block;
+			width: .76rem;
+			margin: .1rem auto;
+		}
+		.rec_red{ color:#fa3719; font-size: @size; }
+		.rec_gray{ color: @c_sub; font-size: @size_t3; margin-top: .06rem;}
+		.rec_over{
+			padding: 0 .26rem;
+			text-align: left;
+			font-size: @size_t3;
+			color: #525252;
+		}
+	}
+}

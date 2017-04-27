@@ -15,6 +15,23 @@ var gulp = require('gulp'),
 	clean = require('gulp-clean');
 	var rev = require('gulp-rev');
 	var revCollector = require('gulp-rev-collector');
+	var connect = require('gulp-connect'); 
+
+gulp.task('connect', function () {
+    connect.server({
+        // host : '192.168.1.172', //地址，可不写，不写的话，默认localhost
+        port : 8000, //端口号，可不写，默认8000
+        root: './', //当前项目主目录
+        livereload: true //自动刷新
+    });
+});
+
+gulp.task('devLess', function(){
+	return gulp.src(['./assets/less/*.less','!./assets/less/reset.less'])
+		.pipe(sourcemaps.init())
+		.pipe(less())
+		.pipe(gulp.dest('./assets/css'));
+});
 
 gulp.task('allLess', function(){ 
 	return gulp.src(['./assets/less/*.less','!./assets/less/reset.less'])
@@ -44,13 +61,13 @@ gulp.task('seajs', function(){
 			.pipe(concat({
 				base: './assets/scripts'
 			}))
-			.pipe(gulp.dest('./dist/js_tmp'))
+			.pipe(gulp.dest('./assets/js_tmp'))
 	);
 })
 gulp.task('scripts_uglify', ['seajs'], function(cb){
 	return gulp.src([
-			'./dist/js_tmp/app/**/*.js'
-		], {base : './dist/js_tmp'})
+			'./assets/js_tmp/app/**/*.js'
+		], {base : './assets/js_tmp'})
 			.pipe(uglify({
 				mangle:{
 					except: ['require', 'exports', 'module', '$', 'Zepto', 'jQuery', '_hmt'] //这几个变量不压缩
@@ -86,22 +103,15 @@ gulp.task('html', ['allLess', 'scripts_uglify'], function () {
         .pipe(gulp.dest('./dist'));    
 });
 
-gulp.task('watch', function(){
-	gulp.watch('./assets/*.html',['html']);
-	gulp.watch('./assets/less/*.less',['allLess']);
-	gulp.watch('./assets/scripts/**/*.js',['scripts_uglify']);
-	gulp.watch('./assets/image/**',['image']);
-});
-
 //清空图片、样式、js
 gulp.task('clean', function(){
 	gulp.src([
 		'./dist/css/!(font)', 
 		'./dist/scripts/!(lib)', 
 		'./dist/*.html', 
-		'./dist/js_tmp',
 		'./dist/image', 
 		'./dist/rev', 
+		'./assets/js_tmp',
 		'./assets/css/!(font)'
 		], {read: false})
 		.pipe(clean());
@@ -110,3 +120,11 @@ gulp.task('clean', function(){
 gulp.task('default', ['clean'], function(){
 	gulp.start('allLess', 'scripts_uglify', 'image', 'html');
 });
+
+gulp.task('watch', function(){
+	// gulp.watch('./assets/*.html',['html']);
+	gulp.watch('./assets/less/*.less',['devLess']);
+	// gulp.watch('./assets/scripts/**/*.js',['seajs']);
+	// gulp.watch('./assets/image/**',['image']);
+});
+gulp.task('server', ['connect', 'watch']);
