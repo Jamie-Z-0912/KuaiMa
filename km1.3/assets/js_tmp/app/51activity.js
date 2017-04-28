@@ -127,7 +127,7 @@ define("app/51activity", [ "../mod/base", "../plugs/tipsAd.js" ], function(requi
                     new tipsAd({
                         type: "receive",
                         title: "恭喜您获得奖励",
-                        text: '<img src="./image/mycard_' + rew_num + '.png" class="rec_img" />' + '<p class="rec_red">' + rew_num + "天阅读加速卡一张</p>" + '<p class="rec_gray">奖励正在发送至您的账户</p>',
+                        text: '<img src="./image/mycard.png" class="rec_img" />' + '<p class="rec_red">' + rew_num + "天阅读加速卡一张</p>" + '<p class="rec_gray">奖励已经发送至您的账户</p>',
                         hasAd: "0",
                         isClose: "no",
                         btnType: "1"
