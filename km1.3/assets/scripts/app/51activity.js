@@ -63,6 +63,7 @@ define('app/51activity', function(require, exports, module) {
 			console.log(rewards)
         	Ajax.render('#treasureBox', '#treasureBox-tmpl', rewards, undefined, true);
         	Ajax.render('#reward', '#reward-tmpl', rewards, undefined, true);
+        	$('#reward').append('<span style="left:'+ (data.readArticleDayNum/data.activityTotalDayNum *100).toFixed(5) +'%' +'" class="get">'+data.readArticleDayNum+'天</span>');
 		}
 	});
 	var uid = Tools.uid();

@@ -14,8 +14,8 @@ define('app/invite', function(require, exports, module) {
             channel = _ssy.split(';')[2]
         }
     }
-    var mylink = 'http://browser.kuaima.cn/inviteReg.html?uid=' + Tools.uid() + '&channel=' + channel;
-    var mylink0 = 'http://browser.kuaima.cn/inviteReg.html?uid=' + Tools.uid();
+    var mylink = 'http://share.51xiaoli.cn/inviteReg.html?uid=' + Tools.uid() + '&channel=' + channel;
+    var mylink0 = 'http://share.51xiaoli.cn/inviteReg.html?uid=' + Tools.uid();
 
     seajs.use('./scripts/lib/jquery.qrcode.min', function(){
         $('#userQrCode').qrcode({
@@ -26,13 +26,13 @@ define('app/invite', function(require, exports, module) {
             text: mylink
         });
     });
-    Ajax.custom({
-        url:'api/v1/userinfo/base'
-    }, function(d){
-        $('#photo').append('<img src="'+ d.data.avatar +'" />');
-        $('#Tel').text(d.data.phone);
-        $('#incomeNum').text(d.data.all_income);
-    })
+    // Ajax.custom({
+    //     url:'api/v1/userinfo/base'
+    // }, function(d){
+    //     $('#photo').append('<img src="'+ d.data.avatar +'" />');
+    //     $('#Tel').text(d.data.phone);
+    //     $('#incomeNum').text(d.data.all_income);
+    // })
 
     var cas_dz = $("#canvasDZ")[0], ctx_dz = cas_dz.getContext("2d");
     var cas_gx = $("#canvasGX")[0], ctx_gx = cas_gx.getContext("2d");
@@ -41,11 +41,11 @@ define('app/invite', function(require, exports, module) {
             clearInterval(makeQR);
             var qr_code = $("#userQrCode img")[0];
             /*** 定制 ***/
-            var bg_dz = $('#dzQr')[0];
-            ctx_dz.drawImage(bg_dz,0,0,400,162);
-            ctx_dz.drawImage(qr_code,19,0,162,162);
-            $("#dzQr").attr('src',cas_dz.toDataURL("image/png"));
-            ctx_dz.clearRect(0,0,400,162);
+            // var bg_dz = $('#dzQr')[0];
+            // ctx_dz.drawImage(bg_dz,0,0,400,162);
+            // ctx_dz.drawImage(qr_code,19,0,162,162);
+            // $("#dzQr").attr('src',cas_dz.toDataURL("image/png"));
+            // ctx_dz.clearRect(0,0,400,162);
             /*** 个性 ***/
             var bg1 = $(".qr_code1")[0], bg2 = $(".qr_code2")[0];
             ctx_gx.fillStyle = '#fff';
@@ -63,7 +63,6 @@ define('app/invite', function(require, exports, module) {
             ctx_gx.fillText("长按识别二维码",42,216);
             $(".qr_code1").attr('src',cas_gx.toDataURL("image/png"));
             ctx_gx.clearRect(0,0,528,736);
-
             /***** 图 2 ****/
             ctx_gx.fillStyle = '#fff';
             ctx_gx.drawImage(bg2,0,0,528,736);
@@ -83,11 +82,7 @@ define('app/invite', function(require, exports, module) {
         }
     },100);
 
-    $('#nav').on('click', 'li', function(){
-        var id = $(this).data('id');
-        $(this).addClass('active').siblings().removeClass('active');
-        $('#'+id).show().siblings('.content').hide();
-        if(id == 'gexing' && $('#qrImgsWrap div').length==2){
+        // if($('#qrImgsWrap div').length==2){
             var in_w = $('#qrImgs').width();
             $('#qrImgs, #qrImgsWrap').height(in_w*736/528);
 
@@ -101,7 +96,12 @@ define('app/invite', function(require, exports, module) {
                 }
             });
                 
-        }
+        // }
+
+    $('#nav').on('click', 'li', function(){
+        var id = $(this).data('id');
+        $(this).addClass('active').siblings().removeClass('active');
+        $('#'+id).show().siblings('.content').hide();
     });
 
     $('#guiZe').on('click', function(){
@@ -115,14 +115,14 @@ define('app/invite', function(require, exports, module) {
         });
     })
 
-    if(km.less('1.3.0')){
-        $('#shareBtn1').remove();
-    }else{
-        $('#shareBtn1').show();
-        $('#shareBtn1').on('click', function(){
-            window.location = 'kmb://shareinviteimg';
-        });
-    }
+    // if(km.less('1.3.1')){
+    //     $('#shareBtn1').remove();
+    // }else{
+    //     $('#shareBtn1').show();
+    //     $('#shareBtn1').on('click', function(){
+    //         window.location = 'kmb://shareinviteimg';
+    //     });
+    // }
     $('#shareBtn3').on('click', function(){
         window.location = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"看文章有奖励，既长见识又赚钱，每月轻松多赚500元。你也快来试试吧！"}';
     });
