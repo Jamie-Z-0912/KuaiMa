@@ -59,14 +59,14 @@
                         <li>
                             {{? value.can_receive}}
                                 {{? value.had_receive}}
-                                    <img src="image/wuyi/{{=index}}_.png" />
+                                    <img src="image/wuyi/{{=value.reward_num}}_.png" />
                                     <div class="btn">已领取</div>
                                 {{??}}
-                                    <img src="image/wuyi/{{=index}}_.png" />
+                                    <img src="image/wuyi/{{=value.reward_num}}_.png" />
                                     <div data-id="{{=value.id}}" data-num="{{=value.reward_num}}" class="btn ok">领取奖励</div>
                                 {{?}}
                             {{??}}
-                                <img src="image/wuyi/{{=index}}.png" />
+                                <img src="image/wuyi/{{=value.reward_num}}.png" />
                                 <div class="btn">未达成</div>
                             {{?}}
                         </li>

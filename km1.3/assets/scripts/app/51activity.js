@@ -15,17 +15,6 @@ define('app/51activity', function(require, exports, module) {
 			});
 			return;
 		}
-		if(d.status == 9501){
-			new tipsAd({
-				type: 'activityOver',
-				title: '活动即将开始',
-				text: '<p class="rec_over">感谢您对我们的支持，请您继续关注我们的活动。</p>',
-				hasAd: '0',
-				isClose: 'no',
-				btnType: '1'
-			});
-			return;
-		}
 		if(d.status == 1013){
 			Tools.alertDialog({
                 text: '账号异常，请联系客服',
@@ -35,17 +24,22 @@ define('app/51activity', function(require, exports, module) {
 		}
 		if(d.status == 1000){
 			var data = d.data, act = data.activity;
-			console.log(data)
 			$('#activityImg').html('<img src="'+ act.image +'" />');
-			var todayNum = data.todayReadArticleNum || 0;
-			// if(!Tools.getQueryValue('isLogin') || Tools.getQueryValue('isLogin')!=1){
-			// 	$('#todayBtn').attr('href','kmb://alertlogin').text('去登录');
-			// }
-			todayNum = todayNum > data.everyDayNeedReadArticleNum ? data.everyDayNeedReadArticleNum : todayNum;
-			$('#cur').text(todayNum+'/'+ data.everyDayNeedReadArticleNum);
-			if(todayNum == data.everyDayNeedReadArticleNum){
-				$('#todayStatus').html('<div class="tip">今日活跃已完成</div>');
+			if(data.is_start){
+				var todayNum = data.todayReadArticleNum || 0;
+				// if(!Tools.getQueryValue('isLogin') || Tools.getQueryValue('isLogin')!=1){
+				// 	$('#todayBtn').attr('href','kmb://alertlogin').text('去登录');
+				// }
+				todayNum = todayNum > data.everyDayNeedReadArticleNum ? data.everyDayNeedReadArticleNum : todayNum;
+				$('#cur').text(todayNum+'/'+ data.everyDayNeedReadArticleNum);
+				if(todayNum == data.everyDayNeedReadArticleNum){
+					$('#todayStatus').html('<div class="tip">今日活跃已完成</div>');
+				}
+			}else{
+				$('#todayStatus').html('<div class="tip">活动未开始，敬请关注</div>')
+					.prev().hide();
 			}
+
 			$('#desc').text(act.desc);
 			$('#ruleCon').text(act.rule);
 
@@ -89,18 +83,7 @@ define('app/51activity', function(require, exports, module) {
 						btnType: '1'
 					});
 					return;
-				}
-				if(d.status == 9501){
-					new tipsAd({
-						type: 'activityOver',
-						title: '活动即将开始',
-						text: '<p class="rec_over">感谢您对我们的支持，请您继续关注我们的活动。</p>',
-						hasAd: '0',
-						isClose: 'no',
-						btnType: '1'
-					});
-					return;
-				}				
+				}			
 				if(d.status == 1013){
 					Tools.alertDialog({
 		                text: '账号异常，请联系客服',

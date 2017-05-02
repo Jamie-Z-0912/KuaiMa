@@ -9,6 +9,9 @@ define('app/myCard', function(require, exports, module) {
         startDate !=0 && (d.data.startDate = startDate.replace(/-/g,'/'));
         Ajax.render('#myCard', '#myCard-tmpl', d.data, undefined, true);
     });
+    $('#activity_51').on('click', function(){
+        window.location = 'http://browser.kuaima.cn/51activity.html?auth_token='+Tools.auth_token();
+    })
     Ajax.custom({
         url:'api/v1/cards'
     }, function(d){
