@@ -59,6 +59,13 @@ define("app/51activity", [ "../mod/base", "../plugs/tipsAd.js" ], function(requi
             console.log(rewards);
             Ajax.render("#treasureBox", "#treasureBox-tmpl", rewards, undefined, true);
             Ajax.render("#reward", "#reward-tmpl", rewards, undefined, true);
+            var curtxt;
+            if (sch == 1) {
+                curtxt = "恭喜完成";
+            } else {
+                curtxt = "活跃" + data.readArticleDayNum + "天";
+            }
+            $("#reward").append('<em style="left:' + sch + '" class="curget">' + curtxt + "</em>");
         }
     });
     var uid = Tools.uid();
