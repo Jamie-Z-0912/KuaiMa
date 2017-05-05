@@ -69,7 +69,7 @@ define("app/video", [ "../mod/base", "../plugs/version", "../plugs/cookieStorage
             Ajax.render("#recommend", "#recommend-tmpl", data.recomArticles, contpl);
             $(".recommend-wrap").show();
             if (Tools.getQueryValue("login") == "1") {
-                if (data.idx && data.seconds && auth_token != "null") validread(a_id, auth_token, data.idx, data.seconds);
+                if (data.idx && data.seconds && Tools.auth_token() != "null") validread(a_id, data.idx, data.seconds);
             }
             if (Tools.getQueryValue("login") == "0") {
                 if (Tools.notPC == "Android") {
@@ -486,8 +486,6 @@ define("app/video", [ "../mod/base", "../plugs/version", "../plugs/cookieStorage
 });define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;
-    var u_test = [ "Mozilla/5.0 (Linux; Android 6.0.1; MI 4LTE Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 ssy={Android;KuaiMaBrowser;V1.2.1;360;;MOBILE}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={iOS;KuaiMaBrowser;V1.1.2;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.2.0;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.1.1;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.0.0;AppStore;101010300;;libertyad;ebrowser;}" ];
-    var userAgent = u_test[0];
     util.userAgent = userAgent;
     util.isKM = /KuaiMa/.test(userAgent);
     util.isNews = /KuaiMaNews/.test(userAgent);
@@ -627,63 +625,67 @@ define("app/video", [ "../mod/base", "../plugs/version", "../plugs/cookieStorage
         }
     };
     window.Storage = Storage;
-});var oo = function(a_id, auth, idx, seconds){
-    var _this = this;
-    this.open = false;
-    this.listH = false;
-    this.isTime = false;
-    this.hasRecord = false;
-    this.idx = idx;
-    this.rid = $('#rec_'+idx).data('id');
-    this._ajax = function(){
-        if(_this.open && _this.listH && _this.isTime && !_this.hasRecord){
-            _this.hasRecord = true;
-            Ajax.custom({
-                url: config.view,
-                data: {
-                    articleId: a_id,
-                    rid: _this.rid,
-                    auth_token: auth
-                }
-            }, function(data){
-                if(data.status == 1000){
-                    if(data.data.coin_num!=0){
-                        alertDialog({
-                            text: '获得'+ data.data.coin_num +'金币',
-                            img:'img/coin.png',
-                            time: 1500
-                        });
+});define("plugs/validread", [ "../mod/base" ], function(require, exports, module) {
+    var Ajax = require("../mod/base");
+    var oo = function(a_id, idx, seconds) {
+        var _this = this;
+        this.open = false;
+        this.listH = false;
+        this.isTime = false;
+        this.hasRecord = false;
+        this.idx = idx;
+        this.rid = $("#rec_" + idx).data("id");
+        this._ajax = function() {
+            if (_this.open && _this.listH && _this.isTime && !_this.hasRecord) {
+                _this.hasRecord = true;
+                Ajax.custom({
+                    url: "api/v1/article/view",
+                    data: {
+                        articleId: a_id,
+                        rid: _this.rid
                     }
-                    _this.hasRecord = true;
-                    var iframe = document.createElement('iframe');
-                    iframe.src = 'kmb://refreshgold';
-                    iframe.style.display = 'none';
-                    $('body').append(iframe);
-                    $(iframe).remove();
-                }else _this.hasRecord = false;
+                }, function(data) {
+                    if (data.status == 1e3) {
+                        if (data.data.coin_num != 0) {
+                            Tools.alertDialog({
+                                text: "获得" + data.data.coin_num + "金币",
+                                img: "image/coin.png",
+                                time: 1800
+                            });
+                        }
+                        _this.hasRecord = true;
+                        var iframe = document.createElement("iframe");
+                        iframe.src = "kmb://refreshgold";
+                        iframe.style.display = "none";
+                        $("body").append(iframe);
+                        $(iframe).remove();
+                    } else _this.hasRecord = false;
+                });
+            }
+        };
+        setTimeout(function() {
+            _this.isTime = true;
+            _this._ajax();
+        }, seconds * 1e3);
+        $(window).scroll(function() {
+            var elTop = $("#rec_" + _this.idx).offset().top - innerHeight;
+            var scrollt = document.documentElement.scrollTop || document.body.scrollTop;
+            if (elTop < scrollt) {
+                _this.listH = true;
+                _this._ajax();
+            }
+        });
+        if ($("#videoplayer").length > 0) {
+            $("#videoplayer")[0].addEventListener("play", function() {
+                _this.open = true;
+                _this._ajax();
+            });
+        } else {
+            $("#unfold").on("click", function() {
+                _this.open = true;
+                _this._ajax();
             });
         }
     };
-    /****计时****/
-    setTimeout(function(){
-        _this.isTime = true;_this._ajax();
-    }, seconds*1000);
-    /****距离****/
-    $(window).scroll(function(){
-        var elTop = $('#rec_'+_this.idx).offset().top - innerHeight;
-        var scrollt = document.documentElement.scrollTop || document.body.scrollTop;
-        if(elTop < scrollt){
-            _this.listH = true;_this._ajax();
-        }
-    });
-    /****开始****/
-    if(/v.html/.test(window.location)){
-        $('#videoplayer')[0].addEventListener("play", function(){
-            _this.open = true;_this._ajax();
-        });
-    }else{
-        $('#unfold').on('click', function(){
-            _this.open = true;_this._ajax();
-        });
-    }
-};window.validread = oo;
+    module.exports = oo;
+});
