@@ -26,7 +26,6 @@
 <body>
     <article class="videobox">
         <div id="MainCon"></div>
-        <div class="psInfo" style="display: none;">本文内容来自网络，<a href="javascript:void(0)" style="color:inherit;" id="originUrl">原文地址</a>，版权属原作者所有。如有侵权，请及时联系，我们将予以删除。</div>
     </article>
     <script id="MainCon-tmpl" type="text/x-dot-template">
         <div class="alert">
@@ -40,7 +39,90 @@
                 源自：<span id="source">{{=it.source}}</span> <span class="time" id="pubTime">{{=it.pub_time}}</span>
             </div>
         </div>
+        <div class="psInfo">本文内容来自网络，<a href="{{=it.origin_url}}" style="color:inherit;" id="originUrl">原文地址</a>，版权属原作者所有。如有侵权，请及时联系，我们将予以删除。</div>
     </script>
+    <div class="recommend-wrap">
+        <h4 class="ui-border-b">相关推荐</h4>
+        <ul class="recommend" id="recommend"></ul>
+        <script id="recommend-tmpl" type="text/x-dot-template">
+            {{~it:value:index}}
+                {{?value.layout==3||value.layout==2}}
+                <li class="ui-list-li_3">
+                    <a href="javascript:;" data-url="{{=value.url}}" data-type="{{=value.type}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    <div {{?value.layout==3}} class="ui-list-3img" {{??}} class="ui-list-img" {{?}} >
+                        {{~it[index].images:v }}
+                            <img src="{{=v}}" alt="">
+                        {{~}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <div class="subtit"><span>广告</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{?}}
+                </li>
+                {{??}}
+                <li>
+                    <a href="javascript:;" data-url="{{=value.url}}" data-type="{{=value.type}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <div class="ui-list-thumb">
+                        <img src="{{=value.images[0]}}" alt="">
+                    </div>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <div class="subtit"><span>广告</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{?}}
+                </li>
+                {{?}}
+            {{~}}
+        </script>
+        <script id="recommendPC-tmpl" type="text/x-dot-template">
+            {{~it:value:index}}
+                {{?value.layout==3||value.layout==2}}
+                <li class="ui-list-li_3">
+                    <a href="{{=value.url}}" target="_blank" id="rec_{{=index}}"></a>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    <div {{?value.layout==3}} class="ui-list-3img" {{??}} class="ui-list-img" {{?}} >
+                        {{~it[index].images:v }}
+                            <img src="{{=v}}" alt="">
+                        {{~}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <span class="tag ad">广告</span>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                        {{#def.tags}}
+                    {{?}}
+                </li>
+                {{??}}
+                <li>
+                    <a href="{{=value.url}}" target="_blank" id="rec_{{=index}}"></a>
+                    <div class="ui-list-thumb">
+                        <img src="{{=value.images[0]}}" alt="">
+                    </div>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                        {{?value.content_type!="ads"}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                        {{?}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <span class="tag ad">广告</span>
+                    {{??}}
+                        {{#def.tags}}
+                    {{?}}
+                </li>
+                {{?}}
+            {{~}}
+        </script>
+    </div>
 
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/v_.js"></script>

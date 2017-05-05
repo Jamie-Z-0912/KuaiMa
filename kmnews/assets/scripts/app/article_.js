@@ -86,7 +86,35 @@ define('app/article', function(require, exports, module) {
         if($('#conIframe').length==1){
         	$('#conIframe').height(innerHeight).width(innerWidth);
         }
-        $('.psInfo').show();
+        if(km.less('1.3.1')){
+            var mainH = $('#MainCon').height();
+            if(mainH > innerHeight+80){
+                $('#article').height(innerHeight+80+'px');
+            }else{
+                if (mainH > 250) 
+                    $('#article').height(mainH-50+'px');
+                else
+                    $('#article').height(mainH+40+'px');
+            }
+            $('.unfold').show();
+
+            $('#unfold').on('click', function(){
+                $('#article').css('height',  mainH+10);
+                $(this).parents('.unfold').remove();
+                if(km.gEq('1.2.0')){
+                    var iframe = document.createElement('iframe');
+                    if(km.isNews){
+                        iframe.src = 'kmxb://article?height='+$(document).height();
+                    }
+                    if(km.isBrowser){
+                        iframe.src = 'kmb://article?height='+$(document).height();
+                    }
+                    iframe.style.display = 'none';
+                    $('body').append(iframe);
+                    $(iframe).remove();
+                }
+            });
+        }
         // 微信腾讯视频处理
         $('#MainCon .video_iframe').each(function(){
             var src = $(this).data('src');
@@ -129,7 +157,6 @@ define('app/article', function(require, exports, module) {
     	}, function(d) {
             var data = d.data, article = data.article;
     		document.title = article.title;
-            if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
             try{
                 Ajax.render('#MainCon','#MainCon-tmpl', article);
             }catch(e){
@@ -138,6 +165,7 @@ define('app/article', function(require, exports, module) {
             doCon();
             var contpl = { tags: '<span class="tag red-tag">热门</span>' };
             Ajax.render('#recommend', '#recommend-tmpl', data.recomArticles, contpl);
+            $('.recommend-wrap').show();
 
             if(Tools.getQueryValue('login')=='1'){
                 if(data.idx && data.seconds && auth_token!='null')
@@ -151,8 +179,7 @@ define('app/article', function(require, exports, module) {
                 }
             }
             $('#recommend').on('click', 'a', function() {
-                var url = $(this).data('url'),
-                    id = $(this).data('id');
+                var url = $(this).data('url'), id = $(this).data('id');
                 window.location.href = 'kmb://recommend?url=' + url + '&id=' + id;
             });
     	});
@@ -162,6 +189,7 @@ define('app/article', function(require, exports, module) {
         v1_article();
     }else{
         /** KM V 1.2.0 **/
+        $('.recommend-wrap').remove();
         Ajax.custom({
             url:'api/v2/article/details/'+a_id
         }, function(d){

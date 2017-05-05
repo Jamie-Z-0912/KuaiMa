@@ -66,7 +66,8 @@ define('app/video', function(require, exports, module) {
             }
             doCon();
             var contpl = { tags: '<span class="tag red-tag">热门</span>' };
-            Ajax.render('#recommend', '#recommend-tmpl', data.data.recomArticles, contpl);
+            Ajax.render('#recommend', '#recommend-tmpl', data.recomArticles, contpl);
+            $('.recommend-wrap').show();
 
             if(Tools.getQueryValue('login')=='1'){
                 if(data.idx && data.seconds && auth_token!='null')
@@ -91,6 +92,7 @@ define('app/video', function(require, exports, module) {
         v1_article();
     }else{
         /** KM V 1.2.0 **/
+        $('.recommend-wrap').remove();
         Ajax.custom({
             url:'api/v2/article/details/'+a_id
         }, function(d){

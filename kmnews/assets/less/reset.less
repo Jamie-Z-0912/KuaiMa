@@ -111,3 +111,85 @@ i#lDom~iframe {
     display: none !important;
     opacity: 0 !important;
 }
+
+.recommend-wrap{ 
+    .ui-border-b;.max-w-750; display: none; background-color: #fff; 
+    h4{ padding: .1rem .15rem .05rem; font-size: .18rem;}
+}
+.recommend>li{    
+    overflow: hidden;
+    position: relative;
+    a{    
+        display: block;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 9;
+        bottom: 0;
+    }
+    padding: .1rem .15rem;
+    .ui-border-b;
+    .ui-list-thumb{
+        height: .63rem; overflow: hidden;
+        img{ display: block; width: .84rem;min-height: .63rem;}
+    }
+    .ui-list-info{
+        position: absolute; 
+        top: .1rem;
+        overflow: hidden;
+        margin-right: .15rem;
+        margin-left: .96rem;
+        h2{
+            line-height: 18px;
+            max-height: 36px;
+            font-size: 14px;
+            overflow: hidden;
+        }
+    }
+    .subtit{     
+        overflow: hidden;
+        font-size: 12px; 
+        color: @c_b2;
+        line-height: 1;
+        position: absolute;
+        bottom: .1rem;
+        left: .96rem;
+        span{margin-left: .15rem;}
+    }
+    &.ui-list-li_3{
+        .ui-list-info{
+            position: static;
+            margin-left: 0;
+            margin-bottom: 5px;
+        }
+        .ui-list-img{
+            max-height: 62px;
+            overflow: hidden;
+            img{display: block; width: 100%;}
+        }
+        .ui-list-3img{
+            max-height: 62px;
+            overflow: hidden;
+            img{
+                display:block;
+                width: 31%;
+                float: left;
+                border-right: 6px solid #fff;
+            }
+            &:after{
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: " ";
+                clear: both;
+                height: 0;
+            }
+        }
+        .subtit{     
+            position: static;
+            margin-left: -.15rem;
+            margin-top: .1rem;
+        }
+    }
+    &:last-child{ border-bottom: 0 none;}
+}

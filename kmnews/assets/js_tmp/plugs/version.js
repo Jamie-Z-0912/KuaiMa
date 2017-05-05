@@ -1,7 +1,12 @@
 define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;
+    var u_test = [ "Mozilla/5.0 (Linux; Android 6.0.1; MI 4LTE Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 ssy={Android;KuaiMaBrowser;V1.2.1;360;;MOBILE}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={iOS;KuaiMaBrowser;V1.1.2;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.2.0;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.1.1;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.0.0;AppStore;101010300;;libertyad;ebrowser;}" ];
+    var userAgent = u_test[0];
+    util.userAgent = userAgent;
     util.isKM = /KuaiMa/.test(userAgent);
+    util.isNews = /KuaiMaNews/.test(userAgent);
+    util.isBrowser = /KuaiMaBrowser/.test(userAgent);
     if (util.isKM) {
         var _ssy = userAgent.split("ssy=")[1];
         if (/iOS|Android/.test(_ssy.split(";")[0])) {
@@ -11,6 +16,7 @@ define("plugs/version", [], function(require, exports, module) {
         }
         util.version = version.replace("V", "");
     }
+    console.log(util.version);
     util.equal = function(v) {
         if (util.isKM) {
             if (v == this.version) {

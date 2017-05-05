@@ -419,11 +419,115 @@ i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
 }
+.recommend-wrap {
+  border-bottom: 1px solid #e6e6e6;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  background-color: #fff;
+}
+.recommend-wrap h4 {
+  padding: .1rem .15rem .05rem;
+  font-size: .18rem;
+}
+.recommend > li {
+  overflow: hidden;
+  position: relative;
+  padding: .1rem .15rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+.recommend > li a {
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 9;
+  bottom: 0;
+}
+.recommend > li .ui-list-thumb {
+  height: .63rem;
+  overflow: hidden;
+}
+.recommend > li .ui-list-thumb img {
+  display: block;
+  width: .84rem;
+  min-height: .63rem;
+}
+.recommend > li .ui-list-info {
+  position: absolute;
+  top: .1rem;
+  overflow: hidden;
+  margin-right: .15rem;
+  margin-left: .96rem;
+}
+.recommend > li .ui-list-info h2 {
+  line-height: 18px;
+  max-height: 36px;
+  font-size: 14px;
+  overflow: hidden;
+}
+.recommend > li .subtit {
+  overflow: hidden;
+  font-size: 12px;
+  color: #b2b2b2;
+  line-height: 1;
+  position: absolute;
+  bottom: .1rem;
+  left: .96rem;
+}
+.recommend > li .subtit span {
+  margin-left: .15rem;
+}
+.recommend > li.ui-list-li_3 .ui-list-info {
+  position: static;
+  margin-left: 0;
+  margin-bottom: 5px;
+}
+.recommend > li.ui-list-li_3 .ui-list-img {
+  max-height: 62px;
+  overflow: hidden;
+}
+.recommend > li.ui-list-li_3 .ui-list-img img {
+  display: block;
+  width: 100%;
+}
+.recommend > li.ui-list-li_3 .ui-list-3img {
+  max-height: 62px;
+  overflow: hidden;
+}
+.recommend > li.ui-list-li_3 .ui-list-3img img {
+  display: block;
+  width: 31%;
+  float: left;
+  border-right: 6px solid #fff;
+}
+.recommend > li.ui-list-li_3 .ui-list-3img:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.recommend > li.ui-list-li_3 .subtit {
+  position: static;
+  margin-left: -0.15rem;
+  margin-top: .1rem;
+}
+.recommend > li:last-child {
+  border-bottom: 0 none;
+}
 h1 {
   line-height: 1.5;
   font-size: .2rem;
   padding: .1rem 0;
   color: #151515;
+}
+.videobox {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .videobox .user {
   text-align: left;
@@ -491,4 +595,7 @@ h1 {
   .videobox .alert video {
     height: 180px;
   }
+}
+.videobox .psInfo {
+  padding: 0 .15rem .1rem;
 }
