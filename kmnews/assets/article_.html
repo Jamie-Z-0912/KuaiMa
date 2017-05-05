@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <title>快马：阅读带来价值</title>
+    <meta name="keywords" content="资讯, 新闻资讯,  看新闻, 看资讯, 本地, 天气, 情感, 娱乐, 养生, 社会, 视频, 快马小报，快马浏览器, 快马赚钱, 浏览赚钱，" />
+    <meta name="description" content="快马小报，新闻头条，有趣视频，大量美图，每日及时更新优质内容，使用快马浏览器阅读，每天几分钟，轻松把钱赚，账户金额既可手机充值也可支付宝或银行卡体现，提现门槛低，赚钱效率高！" />
+    <meta content='/favicon.ico' itemprop='image' property='og:image' />
+    <link rel="stylesheet" href="css/article_.css">
+    <script>
+        var _hmt = _hmt || [];
+        // _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/new/ios/article']);
+        }
+        if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/new/android/article']);
+        }
+    </script>
+</head>
+<body>
+    <article class="article" id="article">
+        <div id="MainCon"></div>
+        <div class="psInfo" style="display: none;">本文内容来自网络，<a href="javascript:void(0)" style="color:inherit;" id="originUrl">原文地址</a>，版权属原作者所有。如有侵权，请及时联系，我们将予以删除。</div>
+    </article>
+    <script id="MainCon-tmpl" type="text/x-dot-template">
+        <h1 id="title">{{=it.title}}</h1>
+        <div class="subtit">
+            源自：<span id="source">{{=it.source}}</span> <span class="time" id="pubTime">{{=it.pub_time}}</span>
+        </div>
+        <div class="txt_content">{{=it.content}}</div>
+    </script>
+
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
+    <script src="scripts/app/article_.js"></script>
+    <script>
+        seajs.use("app/article");
+    </script>
+    <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
+</body>
+</html>

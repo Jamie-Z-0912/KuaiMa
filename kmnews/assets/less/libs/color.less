@@ -1,0 +1,64 @@
+@c_bg : #f7f7f7;
+@c_333: #333; //标题
+@c_999: #999; //文本内容
+@c_e6: #e6e6e6; //border颜色
+@c_red: #f15c5c; //警告，提示颜色
+@c_blue: #58abf2;
+
+/** header color **/
+@c_666: #666; //icon
+@c_f5: #f5f5f5; //背景色
+@c_b2: #b2b2b2; //border颜色 辅助颜色
+/********/
+@c_73: #737373;
+@c_b2: #b2b2b2;
+@c_33: #333;
+@c_15: #151515;
+@c_orange: #ffaa00;
+
+a{ display: inline-block;}
+.mt10{margin-top: .1rem;}
+body{
+    background-color: #fafafa;
+}
+h2{
+    font-size: .15rem;
+    color: @c_15;
+}
+h3{
+    font-size: .14rem;
+    line-height: 2;
+}
+h4{
+    font-size: .13rem;
+    color: @c_73;
+}
+
+.f10{ font-size: .1rem; }
+.f11{ font-size: .11rem; }
+.f12{ font-size: .12rem; }
+.f13{ font-size: .13rem; }
+.f14{ font-size: .14rem; }
+.f15{ font-size: .15rem; }
+.f16{ font-size: .16rem; }
+
+.ui-border-b{ border-bottom: 1px solid @c_e6;}
+.ui-border-l{ border-left: 1px solid @c_e6;}
+.ui-border-r{ border-right: 1px solid @c_e6;}
+.ui-border-t{ border-top: 1px solid @c_e6;}
+.ui-bg-white{ background-color: #fff;}
+.ui-bg-gray{ background-color:  @c_bg;}
+.ui-txt-default { color: @c_333; }
+.ui-txt-white { color: #fff; }
+.ui-txt-info, .txt-gray { color: @c_999; }
+.ui-txt-warning,.txt-red { color: @c_red; }
+
+.hidden{ display: none;}
+//行高加高度
+.lineH(@num) {
+  height: @num;line-height: @num;
+}
+.border-box{
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
