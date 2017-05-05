@@ -22,14 +22,16 @@ define('app/taskCenter', function(require, exports, module) {
         $('#close').remove();
         return;
     }
-    if(km.less('1.3.0')){
-    	$('#hotSearch').remove();
-    }else{
-		$('#hotSearch').show();
-		$('#hotSearch').on('click', function(){
-			window.location = 'kmb://hotsearch';
-		});
-    }
+    /*去掉不耻下问*/
+    $('#hotSearch').remove();
+  //   if(km.less('1.3.0')){
+  //   	$('#hotSearch').remove();
+  //   }else{
+		// $('#hotSearch').show();
+		// $('#hotSearch').on('click', function(){
+		// 	window.location = 'kmb://hotsearch';
+		// });
+  //   }
 	if(km.less('1.2.0')){
 		$('#replyC, #likeC').remove();
 	}else{
