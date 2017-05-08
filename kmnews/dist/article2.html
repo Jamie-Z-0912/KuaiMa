@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta http-equiv="pragma" content="no-cache"><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0"><title>快马：阅读带来价值</title><meta name="keywords" content="资讯, 新闻资讯,  看新闻, 看资讯, 本地, 天气, 情感, 娱乐, 养生, 社会, 视频, 快马小报，快马浏览器, 快马赚钱, 浏览赚钱，"><meta name="description" content="快马小报，新闻头条，有趣视频，大量美图，每日及时更新优质内容，使用快马浏览器阅读，每天几分钟，轻松把钱赚，账户金额既可手机充值也可支付宝或银行卡体现，提现门槛低，赚钱效率高！"><meta content="/favicon.ico" itemprop="image" property="og:image"><link rel="stylesheet" href="css/article2-6c29f65154.css"><script>var _hmt=_hmt||[];/iPhone|iPad|iPod/.test(navigator.userAgent)&&_hmt.push(["_trackPageview","/new/ios/article"]),/Android/.test(navigator.userAgent)&&_hmt.push(["_trackPageview","/new/android/article"])</script></head><body><article class="article" id="article"><div id="MainCon"></div><div class="unfold"><div class="topbg"></div><div class="button"><span id="unfold">点击查看全文</span></div></div></article><script id="MainCon-tmpl" type="text/x-dot-template"><h1 id="title">{{=it.title}}</h1>
+        <div class="subtit">
+            源自：<span id="source">{{=it.source}}</span> <span class="time" id="pubTime">{{=it.pub_time}}</span>
+        </div>
+        <div class="txt_content">{{=it.content}}</div>
+        <div class="psInfo">本文内容来自网络，<a href="{{=it.origin_url}}" style="color:inherit;">原文地址</a>，版权属原作者所有。如有侵权，请及时联系，我们将予以删除。</div></script><div class="recommend-wrap"><h4 class="ui-border-b">相关推荐</h4><ul class="recommend" id="recommend"></ul><script id="recommend-tmpl" type="text/x-dot-template">{{~it:value:index}}
+                {{?value.layout==3||value.layout==2}}
+                <li class="ui-list-li_3">
+                    <a href="javascript:;" data-url="{{=value.url}}" data-type="{{=value.type}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    <div {{?value.layout==3}} class="ui-list-3img" {{??}} class="ui-list-img" {{?}} >
+                        {{~it[index].images:v }}
+                            <img src="{{=v}}" alt="">
+                        {{~}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <div class="subtit"><span>广告</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{?}}
+                </li>
+                {{??}}
+                <li>
+                    <a href="javascript:;" data-url="{{=value.url}}" data-type="{{=value.type}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <div class="ui-list-thumb">
+                        <img src="{{=value.images[0]}}" alt="">
+                    </div>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <div class="subtit"><span>广告</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                    {{?}}
+                </li>
+                {{?}}
+            {{~}}</script><script id="recommendPC-tmpl" type="text/x-dot-template">{{~it:value:index}}
+                {{?value.layout==3||value.layout==2}}
+                <li class="ui-list-li_3">
+                    <a href="{{=value.url}}" target="_blank" id="rec_{{=index}}"></a>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                    </div>
+                    <div {{?value.layout==3}} class="ui-list-3img" {{??}} class="ui-list-img" {{?}} >
+                        {{~it[index].images:v }}
+                            <img src="{{=v}}" alt="">
+                        {{~}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <span class="tag ad">广告</span>
+                    {{??}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                        {{#def.tags}}
+                    {{?}}
+                </li>
+                {{??}}
+                <li>
+                    <a href="{{=value.url}}" target="_blank" id="rec_{{=index}}"></a>
+                    <div class="ui-list-thumb">
+                        <img src="{{=value.images[0]}}" alt="">
+                    </div>
+                    <div class="ui-list-info">
+                        <h2>{{=value.title}}</h2>
+                        {{?value.content_type!="ads"}}
+                        <div class="subtit"><span>{{=value.source}}</span><span class="fr">{{=value.pub_time}}</span></div>
+                        {{?}}
+                    </div>
+                    {{?value.content_type=="ads"}}
+                        <span class="tag ad">广告</span>
+                    {{??}}
+                        {{#def.tags}}
+                    {{?}}
+                </li>
+                {{?}}
+            {{~}}</script></div><script src="scripts/lib/sea.js" id="seajsnode"></script><script src="scripts/app/article2-3083ad77a1.js"></script><script>seajs.use("app/article")</script><i id="lDom"></i><script>!function(){var e=document.createElement("script");e.src="//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></body></html>
