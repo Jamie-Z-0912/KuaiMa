@@ -34,7 +34,7 @@
             </li>
         {{??}}
             {{~it.data:value:index}}
-            <li data-type="{{=value.msg_type}}" data-fatherid="{{?value.extra_content.father_comment_id=='0'}}{{=value.extra_content.comment_id}}{{??}}{{=value.extra_content.father_comment_id}}{{?}}">
+            <li data-type="{{=value.msg_type}}" data-action="{{=value.action}}" data-fatherid="{{?value.extra_content.father_comment_id=='0'}}{{=value.extra_content.comment_id}}{{??}}{{=value.extra_content.father_comment_id}}{{?}}">
                 <div class="msg-top">
                     <div class="photo">
                         {{?value.extra_content.avatar!=''}}<img src="{{=value.extra_content.avatar}}" alt="">{{?}}
