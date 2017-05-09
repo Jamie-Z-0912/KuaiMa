@@ -86,6 +86,18 @@ define('app/article', function(require, exports, module) {
         if($('#conIframe').length==1){
         	$('#conIframe').height(innerHeight).width(innerWidth);
         }
+        if(km.gEq('1.2.2')){
+            var iframe = document.createElement('iframe');
+            if(km.isNews){
+                iframe.src = 'kmxb://article?refreshheight='+ $(document).height();
+            }
+            if(km.isBrowser){
+                iframe.src = 'kmb://article?refreshheight='+ $(document).height();
+            }
+            iframe.style.display = 'none';
+            $('body').append(iframe);
+            $(iframe).remove();
+        }
         if(km.less('1.3.1')){
             var mainH = $('#MainCon').height();
             if(mainH > innerHeight+80){
