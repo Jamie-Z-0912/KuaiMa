@@ -172,7 +172,7 @@ define('app/inviteReg', function(require, exports, module) {
         }
         if(!code.isVerifyCode()){
             Tools.alertDialog({
-                text: "验证码为4位数字"
+                text: "请正确输入收到的验证码"
             })
             return;
         };

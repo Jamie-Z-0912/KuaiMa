@@ -74,7 +74,7 @@ gulp.task('scripts_uglify', ['seajs'], function(cb){
 				}
 			}))
 			.pipe(rev())
-        	.pipe(replace('快马浏览器', '快马小报'))
+        	.pipe(replace('#ProjectName#', '快马小报'))
 			.pipe(gulp.dest('./dist/scripts'))
 			.pipe(rev.manifest())
 	        .pipe(gulp.dest('./dist/rev/js'))

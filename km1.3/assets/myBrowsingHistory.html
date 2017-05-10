@@ -36,9 +36,9 @@
                 {{~it.data:value:index}}
                     <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
                         <h3>{{=value.title}}</h3>
-                        <div class="imgbox">
+                        <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgboxHeight}}" {{?}}>
                             {{ for (var i = 0; i < value.images.length; i++) { }}
-                                <img src="{{=value.images[i]}}" >
+                                <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
                             {{ } }}
                         </div>
                         <div class="source">

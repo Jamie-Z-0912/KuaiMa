@@ -183,7 +183,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
         }
         if (!code.isVerifyCode()) {
             Tools.alertDialog({
-                text: "验证码为4位数字"
+                text: "请正确输入收到的验证码"
             });
             return;
         }
@@ -229,7 +229,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
         return /^\s*$/.test(this);
     };
     String.prototype.isVerifyCode = function() {
-        return new RegExp(/^\d{4}?$/).test(this);
+        return new RegExp(/^\d*$/).test(this);
     };
     String.prototype.isNum = function() {
         return /^[0-9]+$/.test(this);

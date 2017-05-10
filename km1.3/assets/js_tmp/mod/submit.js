@@ -14,7 +14,7 @@ define("mod/submit", [ "./base" ], function(require, exports, module) {
         return /^\s*$/.test(this);
     };
     String.prototype.isVerifyCode = function() {
-        return new RegExp(/^\d{4}?$/).test(this);
+        return new RegExp(/^\d*$/).test(this);
     };
     String.prototype.isNum = function() {
         return /^[0-9]+$/.test(this);

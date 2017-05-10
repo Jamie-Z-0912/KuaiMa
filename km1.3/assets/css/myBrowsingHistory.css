@@ -480,7 +480,6 @@ body {
   margin-top: .1rem;
   margin-bottom: .1rem;
   width: 100%;
-  height: 1.92rem;
   overflow: hidden;
 }
 .list-wrap li.view_2 .imgbox img {
@@ -496,6 +495,7 @@ body {
 }
 .list-wrap li.view_3 .imgbox img {
   width: 30%;
+  min-height: 100%;
 }
 .list-wrap li.view_3 .imgbox img:first-child {
   float: left;

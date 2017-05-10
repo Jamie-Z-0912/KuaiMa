@@ -6,7 +6,13 @@ define("app/myCollection", function(require, exports, module) {
         data:{page: 1, page_size: 20}
     },function(){
         var w_ = $('.view_3 .imgbox').width() * .3;
-        $('.view_3 .imgbox').height(w_*148/226);
+        $('.view_3 .imgbox').height(w_*74/113);
+        $('.view_3 .imgbox').each(function(){
+            var that = $(this);
+            if(that.find('img').length<1){
+                that.height(0)
+            }
+        })
     }, true);
     $('#conList').on('click', '.del', function(e){
         e.preventDefault();
