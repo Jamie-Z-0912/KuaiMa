@@ -8,7 +8,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
     if (Tools.auth_token() == "null") {
         var opt = {
             title: "提醒",
-            text: "请在快马浏览器中登录再访问！",
+            text: "请在#ProjectName#中登录再访问！",
             time: 5e3
         };
         Tools.alertDialog(opt, function() {
@@ -19,7 +19,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
     if (km.less("1.1.0")) {
         Tools.alertDialog({
             title: "重大更新",
-            text: '快马浏览器全新改版<br>签到每次得0.5元<br></br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
+            text: '#ProjectName#全新改版<br>签到每次得0.5元<br></br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
             time: "0"
         });
         $("#close").remove();
@@ -342,14 +342,14 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
           case 1004:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中登录再访问！"
+                text: "请在#ProjectName#中登录再访问！"
             };
             break;
 
           case 1002:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中访问！"
+                text: "请在#ProjectName#中访问！"
             };
             break;
 
@@ -798,6 +798,8 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
 });define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;
+    var u_test = [ "Mozilla/5.0 (Linux; Android 6.0.1; MI 4LTE Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 ssy={Android;KuaiMaBrowser;V1.2.1;360;;MOBILE}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={iOS;KuaiMaBrowser;V1.2.2;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.2.0;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.1.1;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.0.0;AppStore;101010300;;libertyad;ebrowser;}" ];
+    var userAgent = u_test[1];
     util.isKM = /KuaiMa/.test(userAgent);
     if (util.isKM) {
         var _ssy = userAgent.split("ssy=")[1];

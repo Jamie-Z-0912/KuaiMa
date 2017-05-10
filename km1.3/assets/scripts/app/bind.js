@@ -2,7 +2,7 @@ define('app/bind', function(require, exports, module) {
 	var submit = require('../mod/submit');
 	var tipsAd = require('../plugs/tipsAd.js');
 	if(Tools.auth_token() == 'null'){
-    	var opt = { title: "提醒", text: "请在快马浏览器中登录再访问！", time: 5000};
+    	var opt = { title: "提醒", text: "请在#ProjectName#中登录再访问！", time: 5000};
     	Tools.alertDialog(opt, function(){
     		window.location = 'kmb://alertlogin';
     	});

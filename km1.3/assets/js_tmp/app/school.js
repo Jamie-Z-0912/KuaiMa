@@ -30,8 +30,7 @@ define("app/school", [ "../mod/base", "../plugs/secondPage.js", "../plugs/versio
     $("#business").on("click", function() {
         var qq = $(this).text();
         if (/Android/.test(navigator.userAgent) && km.less("1.2.3")) {
-            console.log(km);
-            $("#openWX h2").html('长按 <a style="color:#fa0">快马浏览器NJ</a> 复制');
+            $("#openWX h2").html('长按 <a style="color:#fa0">快马小报</a> 复制');
         } else {
             window.location = "kmb://QQ=" + encodeURIComponent(qq);
         }
@@ -92,14 +91,14 @@ define("app/school", [ "../mod/base", "../plugs/secondPage.js", "../plugs/versio
           case 1004:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中登录再访问！"
+                text: "请在#ProjectName#中登录再访问！"
             };
             break;
 
           case 1002:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中访问！"
+                text: "请在#ProjectName#中访问！"
             };
             break;
 
@@ -466,6 +465,8 @@ define("app/school", [ "../mod/base", "../plugs/secondPage.js", "../plugs/versio
 });define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;
+    var u_test = [ "Mozilla/5.0 (Linux; Android 6.0.1; MI 4LTE Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/46.0.2490.76 Mobile Safari/537.36 ssy={Android;KuaiMaBrowser;V1.2.1;360;;MOBILE}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={iOS;KuaiMaBrowser;V1.2.2;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.2.0;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.1.1;AppStore;101010300;;libertyad;ebrowser;}", "Mozilla/5.0 (iPhone; CPU iPhone OS 10_2 like Mac OS X) AppleWebKit/602.3.12 (KHTML, like Gecko) Mobile/14C92  ssy={KuaiMaBrowser;V1.0.0;AppStore;101010300;;libertyad;ebrowser;}" ];
+    var userAgent = u_test[1];
     util.isKM = /KuaiMa/.test(userAgent);
     if (util.isKM) {
         var _ssy = userAgent.split("ssy=")[1];

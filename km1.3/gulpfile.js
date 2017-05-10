@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-seajs-concat'), 		//合并seajs用
 	uglify = require('gulp-uglify'),			//js压缩
 	merge = require('merge-stream'),			//合并多个流
-    replace = require('gulp-replace-task'),//对文件中的字符串进行替换
+	replace = require('gulp-replace'),   //对文件中的字符串进行替换
     htmlmin = require('gulp-htmlmin'),
     rename = require('gulp-rename'),
 	clean = require('gulp-clean');
@@ -74,6 +74,7 @@ gulp.task('scripts_uglify', ['seajs'], function(cb){
 				}
 			}))
 			.pipe(rev())
+        	.pipe(replace('快马浏览器', '快马小报'))
 			.pipe(gulp.dest('./dist/scripts'))
 			.pipe(rev.manifest())
 	        .pipe(gulp.dest('./dist/rev/js'))
@@ -99,6 +100,7 @@ gulp.task('html', ['allLess', 'scripts_uglify'], function () {
                 'scripts/': 'scripts/'
             }
         }))
+        .pipe(replace('#ProjectName#', '快马小报'))
         .pipe(htmlmin(options))
         .pipe(gulp.dest('./dist'));    
 });
@@ -122,9 +124,9 @@ gulp.task('default', ['clean'], function(){
 });
 
 gulp.task('watch', function(){
-	// gulp.watch('./assets/*.html',['html']);
+	gulp.watch('./assets/*.html',['html']);
 	gulp.watch('./assets/less/*.less',['devLess']);
-	// gulp.watch('./assets/scripts/**/*.js',['seajs']);
-	// gulp.watch('./assets/image/**',['image']);
+	gulp.watch('./assets/scripts/**/*.js',['seajs']);
+	gulp.watch('./assets/image/**',['image']);
 });
 gulp.task('server', ['connect', 'watch']);

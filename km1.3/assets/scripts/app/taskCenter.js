@@ -7,7 +7,7 @@ define('app/taskCenter', function(require, exports, module) {
     var SecondPage = require('../plugs/secondPage.js');
 
 	if(Tools.auth_token() == 'null'){
-    	var opt = { title: "提醒", text: "请在快马浏览器中登录再访问！", time: 5000};
+    	var opt = { title: "提醒", text: "请在#ProjectName#中登录再访问！", time: 5000};
     	Tools.alertDialog(opt, function(){
     		window.location = 'kmb://alertlogin';
     	});
@@ -16,7 +16,7 @@ define('app/taskCenter', function(require, exports, module) {
     if(km.less('1.1.0')){
 		Tools.alertDialog({
 			title: '重大更新',
-            text: '快马浏览器全新改版<br>签到每次得0.5元<br></br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
+            text: '#ProjectName#全新改版<br>签到每次得0.5元<br></br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
             time: '0'
         });
         $('#close').remove();

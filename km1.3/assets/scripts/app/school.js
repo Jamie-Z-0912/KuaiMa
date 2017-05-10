@@ -32,8 +32,7 @@ define('app/school', function(require, exports, module) {
     $('#business').on('click', function(){
         var qq = $(this).text();
         if(/Android/.test(navigator.userAgent) && km.less('1.2.3')){
-            console.log(km)
-            $('#openWX h2').html('长按 <a style="color:#fa0">快马浏览器NJ</a> 复制')
+            $('#openWX h2').html('长按 <a style="color:#fa0">快马小报</a> 复制')
         }else{
             window.location = 'kmb://QQ='+encodeURIComponent(qq);
         }

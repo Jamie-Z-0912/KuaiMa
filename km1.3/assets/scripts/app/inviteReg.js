@@ -129,7 +129,7 @@ define('app/inviteReg', function(require, exports, module) {
                 }, function(data){
                     if(data.data.exists){
                         Tools.alertDialog({
-                            text: '您已经注册过啦快去赚钱吧<br><br><a href="javascript:;" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马浏览器</a>',
+                            text: '您已经注册过啦快去赚钱吧<br><br><a href="javascript:;" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载#ProjectName#</a>',
                             time: '0'
                         });
                         $('#openAppBtn').on('click',function(){
@@ -187,7 +187,7 @@ define('app/inviteReg', function(require, exports, module) {
             }else{
                 Tools.alertDialog({
                     title: (data.status == 1000 ? '注册成功': ''),
-                    text: '注册完成，快去赚钱吧<br><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马浏览器</a>',
+                    text: '注册完成，快去赚钱吧<br><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载#ProjectName#</a>',
                     time: '0'
                 },function(){
                     window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser';

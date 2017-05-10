@@ -101,7 +101,7 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
                     break;
 
                   case 1004:
-                    txt = "请在快马浏览器中登录";
+                    txt = "请在#ProjectName#中登录";
                     $el.addClass("disabled");
                     break;
                 }
@@ -236,14 +236,14 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
           case 1004:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中登录再访问！"
+                text: "请在#ProjectName#中登录再访问！"
             };
             break;
 
           case 1002:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中访问！"
+                text: "请在#ProjectName#中访问！"
             };
             break;
 

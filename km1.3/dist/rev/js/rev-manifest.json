@@ -1,8 +1,9 @@
 {
   "app/51activity.js": "app/51activity-c57a27e7be.js",
+  "app/about.js": "app/about-4838c82f05.js",
   "app/bind.js": "app/bind-85b7517b99.js",
   "app/hotSearch.js": "app/hotSearch-d2b421319c.js",
-  "app/invite.js": "app/invite-f11f5146c7.js",
+  "app/invite.js": "app/invite-8957dcf8d5.js",
   "app/inviteReg.js": "app/inviteReg-274cb46aeb.js",
   "app/list.js": "app/list-1b1ae672c2.js",
   "app/message.js": "app/message-118d319af1.js",
@@ -12,8 +13,8 @@
   "app/myCardList.js": "app/myCardList-92854d0e6c.js",
   "app/myCollection.js": "app/myCollection-bc988b5f22.js",
   "app/myfriend.js": "app/myfriend-33a197450c.js",
-  "app/myincome.js": "app/myincome-0172e04f6a.js",
-  "app/mytask.js": "app/mytask-bcaa2bf1dc.js",
-  "app/school.js": "app/school-97a54ac0ff.js",
-  "app/taskCenter.js": "app/taskCenter-0e52d74362.js"
+  "app/myincome.js": "app/myincome-55d68c8c51.js",
+  "app/mytask.js": "app/mytask-dcb3e267f8.js",
+  "app/school.js": "app/school-fb487b5583.js",
+  "app/taskCenter.js": "app/taskCenter-652b7ec763.js"
 }

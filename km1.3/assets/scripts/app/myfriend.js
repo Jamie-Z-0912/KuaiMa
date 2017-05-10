@@ -100,7 +100,7 @@ define('app/myfriend', function(require, exports, module) {
                         $el.addClass('disabled');
                         break;
                     case 1004:
-                        txt = '请在快马浏览器中登录';
+                        txt = '请在#ProjectName#中登录';
                         $el.addClass('disabled');
                         break;
                 }

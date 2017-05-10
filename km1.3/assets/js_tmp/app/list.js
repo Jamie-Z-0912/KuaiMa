@@ -174,14 +174,14 @@ define("app/list", [ "../mod/base", "../plugs/tipsAd.js" ], function(require, ex
           case 1004:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中登录再访问！"
+                text: "请在#ProjectName#中登录再访问！"
             };
             break;
 
           case 1002:
             opt = {
                 title: "提醒",
-                text: "请在快马浏览器中访问！"
+                text: "请在#ProjectName#中访问！"
             };
             break;
 
