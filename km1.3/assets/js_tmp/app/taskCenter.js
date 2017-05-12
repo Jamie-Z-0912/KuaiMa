@@ -25,7 +25,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         $("#close").remove();
         return;
     }
-    if (km.less("1.3.0")) {
+    if (km.less("1.3.2")) {
         $("#hotSearch").remove();
     } else {
         $("#hotSearch").show();

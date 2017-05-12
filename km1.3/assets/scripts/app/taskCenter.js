@@ -24,7 +24,7 @@ define('app/taskCenter', function(require, exports, module) {
     }
     /*去掉不耻下问*/
     // $('#hotSearch').remove();
-    if(km.less('1.3.0')){
+    if(km.less('1.3.2')){
     	$('#hotSearch').remove();
     }else{
 		$('#hotSearch').show();
