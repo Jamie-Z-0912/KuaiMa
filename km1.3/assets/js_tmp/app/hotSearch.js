@@ -1,5 +1,6 @@
-define("app/hotSearch", [ "../mod/base" ], function(require, exports, module) {
+define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require, exports, module) {
     var Ajax = require("../mod/base");
+    var km = require("../plugs/version");
     Ajax.custom({
         url: "api/v1/search/task"
     }, function(d) {
@@ -22,6 +23,11 @@ define("app/hotSearch", [ "../mod/base" ], function(require, exports, module) {
         }
         $("#keywords").html(keywords.join(""));
     });
+    if (km.less("1.3.2")) {
+        $("#upgradeTip").removeClass("hide");
+    } else {
+        $("#upgradeTip").remove();
+    }
     $("#keywords").on("click", ".keyword", function() {
         var txt = $(this).text();
         window.location = "kmb://search?keyword=" + encodeURIComponent(txt);
@@ -429,4 +435,63 @@ define("app/hotSearch", [ "../mod/base" ], function(require, exports, module) {
         }
     };
     window.Tools = Tools;
+});define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
 });

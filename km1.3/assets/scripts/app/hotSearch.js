@@ -1,5 +1,6 @@
 define('app/hotSearch', function(require, exports, module) {
     var Ajax = require('../mod/base');
+    var km = require('../plugs/version');
     Ajax.custom({
     	url:'api/v1/search/task'
     },function(d){
@@ -21,7 +22,12 @@ define('app/hotSearch', function(require, exports, module) {
             keywords.push('<div class="keyword">'+ data.searchHotKeywords[i] +'</div>');
         };
         $('#keywords').html(keywords.join(''));
-    })
+    });
+    if(km.less('1.3.2')){
+        $('#upgradeTip').removeClass('hide')
+    }else{
+        $('#upgradeTip').remove();
+    }
     $('#keywords').on('click', '.keyword', function(){
         var txt = $(this).text();
         window.location = 'kmb://search?keyword=' + encodeURIComponent(txt);
