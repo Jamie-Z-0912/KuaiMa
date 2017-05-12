@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0"> 
+    <title>新版本新福利</title>
+    <meta content='/favicon.ico' itemprop='image' property='og:image' />
+    <link rel="stylesheet" href="../css/newsWelfare.css">
+    <script> 
+        var _hmt = _hmt || []; 
+        _hmt.push(['_setAutoPageview', false]);
+        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/ios/kmBrowser/newsWelfare']);
+        }else if(/Android/.test(navigator.userAgent)){
+            _hmt.push(['_trackPageview', '/Android/kmBrowser/newsWelfare']);
+        }else{
+            _hmt.push(['_trackPageview', '/other/kmBrowser/newsWelfare']);
+        }
+    </script>
+</head>
+<body>
+    <section class="max-w-750 newsWelfare">
+        <div class="box">
+            <div class="title"><img src="../image/static/welfare.png" /></div>
+            <div class="content">
+                <div class="first">亲爱的小马仔们：<br>万众瞩目的1.3.2版本发布啦！以下好消息必须要告诉你们：</div>
+                <div class="con">
+                    <p>快马浏览器正式更名为快马小报了，并且更新了官方微信公众号为：<span class="btn" id="business">快马小报</span></p>
+                    <p>内容更加丰富，另外增加了小说阅读，亲们也可以把自己感兴趣的小说类型/内容通过微信公众号告诉我们</p>
+                    <p>快马小报1.3.0以下版本，将不再支持<span class="red">提现</span>功能，但在新版本中提现可以很快到账啦！</p>
+                    <p>新版本1.3.2增加搜索得金币的任务，记住只有这个版本才可以哦！<span class="btn">马上去赚钱</span></p>
+                    <p>不定时的活动奖励，阅读双倍加速卡，轻松获得</p>
+                </div>
+                <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" class="ui-btn">大家快来更新吧</a>
+            </div>
+        </div>
+    </section>
+    <div class="sidebar sidebar-Yup" id="openWX">
+        <h3>快马小报 已复制</h3>
+        <div class="subtit">快到微信中 搜索 粘贴 即可</div>
+        <img class="img" src="../image/wx_lead.jpg">
+        <div class="option">
+            <a href="weixin://" class="ui-btn">打开微信</a>
+        </div>
+    </div>
+    <div id="sidebar-bg"></div>
+    <script src="../scripts/lib/sea.js" id="seajsnode"></script>
+    <script src="../scripts/app/newsWelfare.js"></script>
+    <script>
+        seajs.use("app/newsWelfare");
+    </script>
+    <i id="lDom"></i>
+    <!-- 百度统计 -->
+    <script>
+        (function() {
+         var hm = document.createElement("script");
+         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+         })();
+    </script>
+</body>
+</html>

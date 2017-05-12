@@ -1,0 +1,112 @@
+@import "reset.less";
+@c_red:#ff560c;
+.newsWelfare{
+	background: url(../image/static/welfare_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.box{
+	position: relative;
+	padding: .63rem .35rem .86rem;
+	.title{
+		position: absolute;
+		width: 2.7rem;
+		height: 2.12rem;
+		top: .28rem;
+		left: 50%;
+    	margin-left: -1.35rem;
+		overflow: hidden;
+		img{width: 100%;display: block;}
+	}
+	.content{
+		background-color: #ffda2f;
+		padding-top: 1.8rem;
+		padding-left: .25rem;
+		padding-right: .25rem;
+		padding-bottom: .24rem;
+		.first{ font-size: @size_t3; color: #2d240d; line-height: .26rem;}
+		.con{
+			color: #615533;
+			font-size: @size_t4;
+			p{
+				position: relative;
+				margin-top: .15rem;
+				padding-left: .28rem;
+				&:before, &:after{
+					position: absolute;
+					left: 0;
+					width: .24rem;
+					height: .24rem;
+					content: "";
+					top: .04rem;
+				}
+				&:before{
+					background-color: @c_red;
+					border-radius: 50%;
+				}
+				&:after{
+					background: url(../image/static/welfare.png) no-repeat;
+					background-size: 1125%;
+					background-position: left bottom;
+					margin-top: -.1rem;
+					margin-left: .1rem;
+				}
+			}
+			p:nth-child(1):after{
+				background-position: 0 -2.04rem;
+			}
+			p:nth-child(2):after{
+				background-position: 0 -2.27rem;
+			}
+			p:nth-child(3):after{
+				background-position: 0 -2.5rem;
+			}
+			p:nth-child(4):after{
+				background-position: 0 -2.74rem;
+			}
+			p:nth-child(5):after{
+				background-position: 0 -2.96rem;
+			}
+			.btn{ 
+				font-family: 'PingFangSC Semibold';
+				color: #fff; 
+				display: inline-block;
+				background-color: @c_red; 
+				border-radius: .16rem;
+			    padding-left: .08rem;
+			    padding-right: .08rem;
+			}
+			.red{ color: @c_red;}
+		}
+		.ui-btn{
+			background-color: @c_red;
+			margin-top: .14rem;
+			border-radius: .2rem;
+			width: 100%;
+			border-bottom: .05rem solid #d44202;
+		}
+	}
+}
+
+@import "libs/sidebar.less";
+.sidebar-Yup.open{
+	-webkit-transform: translateY(30%);
+    transform: translateY(30%);
+}
+#openWX{
+	text-align: center;
+	h3{
+		padding-top: .1rem;
+	}
+	.subtit{
+		color: @c_sub;
+		font-size: .13rem;
+		margin-top: .1rem;
+	}
+	img{
+		display: block;
+		width: 100%;
+		margin-top: .2rem;
+		margin-bottom: .2rem;
+	}
+	.ui-btn{ display: block;}
+}

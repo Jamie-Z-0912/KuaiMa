@@ -92,7 +92,7 @@ gulp.task('html', ['allLess', 'scripts_uglify'], function () {
         minifyJS: true,  //压缩页面JS
         minifyCSS: true  //压缩页面CSS
     };
-    gulp.src(['./dist/rev/**/*.json', './assets/*.html'])
+    gulp.src(['./dist/rev/**/*.json', './assets/**/*.html'])
         .pipe(revCollector({
             replaceReved: true,
             dirReplacements: {
