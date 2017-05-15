@@ -25,6 +25,10 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
     });
     if (km.less("1.3.2")) {
         $("#upgradeTip").removeClass("hide");
+        Tools.alertDialog({
+            text: "本活动仅在1.3.2版本才有效<br/>快快更新升级吧~",
+            time: "9999999"
+        });
     } else {
         $("#upgradeTip").remove();
     }
