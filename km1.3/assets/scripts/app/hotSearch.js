@@ -33,9 +33,20 @@ define('app/hotSearch', function(require, exports, module) {
     }else{
         $('#upgradeTip').remove();
     }
+    function tips(txt){
+        var arr = [];
+        arr.push('<div class="ui-popup-screen km-dialog">');
+        arr.push('<a href="kmb://search?keyword='+encodeURIComponent(txt)+'" class="iconfont icon-close"></a>');
+        arr.push('<div class="hot-tips">');
+            arr.push('<div class="text">点选搜索结果，阅读一段时间<span>才算完成任务</span></div>');
+            arr.push('<img src="image/hotSearch_tip.png" />');
+            arr.push('<a href="kmb://search?keyword='+encodeURIComponent(txt)+'" class="btn">去点击</a>');
+        arr.push('</div></div>');
+        $('body').append(arr.join(''));
+    }
     $('#keywords').on('click', '.keyword', function(){
         var txt = $(this).text();
-        window.location = 'kmb://search?keyword=' + encodeURIComponent(txt);
+        tips(txt);
     });
     $('#schedule').on('click', '.btn', function(){
         var that = $(this);

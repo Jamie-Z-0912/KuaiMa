@@ -628,3 +628,75 @@ i#lDom ~ iframe {
   color: #1f1f1f;
   font-size: 0.13rem;
 }
+.km-dialog {
+  background-color: rgba(0, 0, 0, 0.85);
+  opacity: 1;
+}
+.km-dialog .icon-close {
+  display: block;
+  padding: .1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  font-size: .18rem;
+}
+.hot-tips {
+  position: relative;
+  z-index: 1000;
+  padding-left: .4rem;
+  padding-right: .4rem;
+  text-align: center;
+  margin-top: .7rem;
+}
+.hot-tips img {
+  margin-top: .27rem;
+  width: 98%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hot-tips .text {
+  position: relative;
+  height: .58rem;
+  padding-top: .15rem;
+  padding-bottom: .15rem;
+  border-radius: .44rem;
+  background-color: #fff;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 0.18rem;
+}
+.hot-tips .text span {
+  display: block;
+  color: #ff5a00;
+  font-size: 0.22rem;
+  line-height: 1;
+  margin-top: .05rem;
+}
+.hot-tips .text:after {
+  position: absolute;
+  display: block;
+  content: "";
+  bottom: 0;
+  margin-bottom: -0.48rem;
+  left: 50%;
+  margin-left: -0.26rem;
+  border-width: .26rem;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+.hot-tips .btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: .3rem;
+  height: 0.57rem;
+  line-height: 0.57rem;
+  font-size: 0.22rem;
+  border-radius: .29rem;
+  color: #252525;
+  background-color: #ffda24;
+  width: 2.1rem;
+}
