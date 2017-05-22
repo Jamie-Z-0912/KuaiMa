@@ -14,6 +14,13 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
         }
     }
     var myurl = "http://share.51xiaoli.cn/inviteReg.html";
+    if (!km.isKM || Tools.uid() == "null") {
+        Tools.alertDialog({
+            text: "请在快马小报中正常登录后访问！<br>快马浏览器在1.3.2版本开始<br>更名为快马小报",
+            time: 9999999
+        });
+        return;
+    }
     var mylink = myurl + "?uid=" + Tools.uid() + "&channel=" + channel;
     var mylink0 = myurl + "?uid=" + Tools.uid();
     seajs.use("./scripts/lib/jquery.qrcode.min", function() {
