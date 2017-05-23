@@ -463,6 +463,7 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
         }
         util.version = version.replace("V", "");
     }
+    util.userAgent = userAgent;
     util.equal = function(v) {
         if (util.isKM) {
             if (v == this.version) {
