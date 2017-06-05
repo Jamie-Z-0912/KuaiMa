@@ -58,13 +58,24 @@ define('app/video', function(require, exports, module) {
     	}, function(d) {
             var data = d.data, article = data.article;
     		document.title = article.title;
-            if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
+            if(!article.origin_url && article.source=='风行网'){
+                var str = article.content.split('<iframe')[1];
+                    str = str.split('</iframe>')[0];
+                article.fx_origin = '<iframe' + str + '</iframe>';
+                console.log(article.fx_origin)
+            }else{
+                if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
+            }
             try{
                 Ajax.render('#MainCon','#MainCon-tmpl', article);
             }catch(e){
                 console.log(e);
             }
-            doCon();
+            if($('#videoplayer').length>0){ doCon();}
+            if(!article.origin_url && article.source=='风行网'){
+                $('#originUrl').attr('href', $('iframe[name="ext_urlIframe"]').attr('src'));
+            }
+
             var contpl = { tags: '<span class="tag red-tag">热门</span>' };
             Ajax.render('#recommend', '#recommend-tmpl', data.recomArticles, contpl);
             $('.recommend-wrap').show();
@@ -98,13 +109,23 @@ define('app/video', function(require, exports, module) {
         }, function(d){
             var article = d.data.article;
             document.title = article.title;
-            if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
+            if(!article.origin_url && article.source=='风行网'){
+                var str = article.content.split('<iframe')[1];
+                    str = str.split('</iframe>')[0];
+                article.fx_origin = '<iframe' + str + '</iframe>';
+                console.log(article.fx_origin)
+            }else{
+                if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
+            }
             try{
                 Ajax.render('#MainCon','#MainCon-tmpl', article);
             }catch(e){
                 console.log(e);
-            } 
-            doCon();
+            }
+            if($('#videoplayer').length>0){doCon();}
+            if(!article.origin_url && article.source=='风行网'){
+                $('#originUrl').attr('href', $('iframe[name="ext_urlIframe"]').attr('src'));
+            }
         });
     }
 });

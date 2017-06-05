@@ -29,9 +29,13 @@
     </article>
     <script id="MainCon-tmpl" type="text/x-dot-template">
         <div class="alert">
-            <video controls="controls" id="videoplayer" preload="load" poster="{{=it.images[0]}}">
-                <source src="{{=it.origin_url}}" type="video/mp4" />
-            </video>
+            {{?!it.origin_url && it.source=='风行网'}}
+                {{=it.fx_origin}}
+            {{??}}
+                <video controls="controls" id="videoplayer" preload="load" poster="{{=it.images[0]}}">
+                    <source src="{{=it.origin_url}}" type="video/mp4" />
+                </video>
+            {{?}}
         </div>
         <div class="user">
             <h1>{{=it.title}}</h1>
