@@ -17,11 +17,15 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
             arr.push(d);
         });
         Ajax.render("#schedule", "#schedule-tmpl", arr, undefined, true);
-        var keywords = [];
-        for (var i = 0; i < data.searchHotKeywords.length; i++) {
-            keywords.push('<div class="keyword">' + data.searchHotKeywords[i] + "</div>");
+        if (data.searchHotKeywords.length > 0) {
+            var keywords = [];
+            for (var i = 0; i < data.searchHotKeywords.length; i++) {
+                keywords.push('<div class="keyword">' + data.searchHotKeywords[i] + "</div>");
+            }
+            $("#keywords").html(keywords.join(""));
+        } else {
+            $("#keywords").html('<a href="kmb://search" class="ui-btn">自己去搜索</a>');
         }
-        $("#keywords").html(keywords.join(""));
     });
     if (km.less("1.3.2")) {
         $("#upgradeTip").removeClass("hide");
@@ -37,7 +41,7 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
         arr.push('<div class="ui-popup-screen km-dialog">');
         arr.push('<a href="kmb://search?keyword=' + encodeURIComponent(txt) + '" class="iconfont icon-close"></a>');
         arr.push('<div class="hot-tips">');
-        arr.push('<div class="text">点选搜索结果，阅读一段时间<span>才算完成任务</span></div>');
+        arr.push('<div class="text">点选搜索结果，阅读一段时间<span>重复搜索无奖励</span></div>');
         arr.push('<img src="image/hotSearch_tip.png" />');
         arr.push('<a href="kmb://search?keyword=' + encodeURIComponent(txt) + '" class="btn">去点击</a>');
         arr.push("</div></div>");
