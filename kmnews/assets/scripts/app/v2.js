@@ -62,7 +62,6 @@ define('app/video', function(require, exports, module) {
                 var str = article.content.split('<iframe')[1];
                     str = str.split('</iframe>')[0];
                 article.fx_origin = '<iframe' + str + '</iframe>';
-                console.log(article.fx_origin)
             }else{
                 if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
             }
@@ -74,6 +73,19 @@ define('app/video', function(require, exports, module) {
             if($('#videoplayer').length>0){ doCon();}
             if(!article.origin_url && article.source=='风行网'){
                 $('#originUrl').attr('href', $('iframe[name="ext_urlIframe"]').attr('src'));
+                //调播放的scheme
+                setTimeout(function(){
+                    var iframe = document.createElement('iframe');
+                    if(km.isNews){
+                        iframe.src = 'kmxb://article?height=' + innerHeight;
+                    }
+                    if(km.isBrowser){
+                        iframe.src = 'kmb://article?height=' + innerHeight;
+                    }
+                    iframe.style.display = 'none';
+                    $('body').append(iframe);
+                    $(iframe).remove();
+                }, 10000)
             }
 
             var contpl = { tags: '<span class="tag red-tag">热门</span>' };
@@ -113,7 +125,6 @@ define('app/video', function(require, exports, module) {
                 var str = article.content.split('<iframe')[1];
                     str = str.split('</iframe>')[0];
                 article.fx_origin = '<iframe' + str + '</iframe>';
-                console.log(article.fx_origin)
             }else{
                 if(article.origin_url!='') $('#originUrl').attr('href', article.origin_url);
             }
@@ -125,6 +136,19 @@ define('app/video', function(require, exports, module) {
             if($('#videoplayer').length>0){doCon();}
             if(!article.origin_url && article.source=='风行网'){
                 $('#originUrl').attr('href', $('iframe[name="ext_urlIframe"]').attr('src'));
+                //调播放的scheme
+                setTimeout(function(){
+                    var iframe = document.createElement('iframe');
+                    if(km.isNews){
+                        iframe.src = 'kmxb://article?height=' + innerHeight;
+                    }
+                    if(km.isBrowser){
+                        iframe.src = 'kmb://article?height=' + innerHeight;
+                    }
+                    iframe.style.display = 'none';
+                    $('body').append(iframe);
+                    $(iframe).remove();
+                }, 10000)
             }
         });
     }
