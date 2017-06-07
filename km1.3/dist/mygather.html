@@ -1,10 +1,10 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="format-detection" content="telephone=no"><meta http-equiv="pragma" content="no-cache"><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0"><title>我的采集</title><meta content="/favicon.ico" itemprop="image" property="og:image"><link rel="stylesheet" href="css/mygather-559ce7a5e1.css"><script>var _hmt=_hmt||[];_hmt.push(["_setAutoPageview",!1]),/iPhone|iPad|iPod/.test(navigator.userAgent)?_hmt.push(["_trackPageview","/ios/kmBrowser/mygather"]):/Android/.test(navigator.userAgent)?_hmt.push(["_trackPageview","/Android/kmBrowser/mygather"]):_hmt.push(["_trackPageview","/other/kmBrowser/mygather"])</script></head><body><div class="max-w-750"><div class="hd-total"><img src="image/mygather_bg.png" class="hd-bg"><div class="today"><div class="txt">今日采集收益</div><div class="num" id="yesEarnings">0</div></div><div class="line"></div><div class="yesterday"><div class="txt">昨日采集收益</div><div class="num" id="todEarnings">0</div></div><div class="tips">今日实时数据可能存在延迟</div></div><div class="main"><ul class="nav" id="nav"><li class="active" data-id="onlineWrap">已上线</li><li data-id="shelvedWrap">已下架</li><li data-id="announcingWrap">发布中</li></ul><div class="main-list" id="onlineWrap"><div class="totalNum">您采集的文章已上线 <em id="onlineNum"></em>篇</div><ul class="ui-list" id="onlineList"></ul><div id="onlinePage" class="hide"></div><script id="onlineList-tmpl" type="text/x-dot-template">{{? it.status == 1020 }}
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="format-detection" content="telephone=no"><meta http-equiv="pragma" content="no-cache"><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="expires" content="0"><title>我的采集</title><meta content="/favicon.ico" itemprop="image" property="og:image"><link rel="stylesheet" href="css/mygather-4416fcd4c7.css"><script>var _hmt=_hmt||[];_hmt.push(["_setAutoPageview",!1]),/iPhone|iPad|iPod/.test(navigator.userAgent)?_hmt.push(["_trackPageview","/ios/kmBrowser/mygather"]):/Android/.test(navigator.userAgent)?_hmt.push(["_trackPageview","/Android/kmBrowser/mygather"]):_hmt.push(["_trackPageview","/other/kmBrowser/mygather"])</script></head><body><div class="max-w-750"><div class="hd-total"><img src="image/mygather_bg.png" class="hd-bg"><div class="today"><div class="txt">今日采集收益</div><div class="num" id="yesEarnings">0</div></div><div class="line"></div><div class="yesterday"><div class="txt">昨日采集收益</div><div class="num" id="todEarnings">0</div></div><div class="tips">今日实时数据可能存在延迟</div></div><div class="main"><ul class="nav" id="nav"><li class="active" data-id="onlineWrap">已上线</li><li data-id="shelvedWrap">已下架</li><li data-id="announcingWrap">发布中</li></ul><div class="main-list" id="onlineWrap"><div class="totalNum">您采集的文章已上线 <em id="onlineNum"></em>篇</div><ul class="ui-list" id="onlineList"></ul><div id="onlinePage" class="hide"></div><script id="onlineList-tmpl" type="text/x-dot-template">{{? it.status == 1020 }}
                         <li class="empty">
                             <img src="image/empty_1.png"><p>暂无已上线的文章</p>
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
+                            <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
                                 <h3>{{=value.title}}</h3>
                                 <div class="num"><span>{{=value.view_num}}人阅读</span><span>{{=value.praise_num}}人喜欢</span></div>
                                 <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
@@ -26,20 +26,28 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
-                                <h3>{{=value.title}}</h3>
-                                <div class="num"><span>{{=value.view_num}}人阅读</span><span>{{=value.praise_num}}人喜欢</span></div>
+                            <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
+                                <div class="reason">下架原因：{{=value.message}}</div>
+                                {{? value.title==''}}
+                                <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看全部</a>
+                                <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
+                                <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
+                                <div class="brief_status">已下架</div>
+                                {{??}}
+                                <h3 class="gray">{{=value.title}}</h3>
+                                <div class="brief_status">已下架</div>
+                                <div class="source">
+                                    <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                    <span class="ori_author">{{=value.author_name}}</span>
+                                    <span class="tag">{{=value.tag_name}}</span> 
+                                </div>
                                 <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
                                     {{ for (var i = 0; i < value.images.length; i++) { }}
                                         <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
                                     {{ } }}
                                 </div>
-                                <div class="source">
-                                    <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
-                                    <span class="ori_author">{{=value.author_name}}</span>
-                                    <span class="tag">{{=value.tag_name}}</span>
-                                    <span class="time">{{=value.added_time}}</span>
-                                </div>
+                                <div class="off_time">下架时间：{{=value.pub_time}}</div>
+                                {{?}}
                             </li>
                         {{~}}
                     {{?}}</script></div><div class="main-list" id="announcingWrap" style="display:none"><div class="totalNum">您采集的文章发布中有 <em id="annNum"></em>篇</div><ul class="ui-list" id="annList"></ul><div id="annPage" class="hide"></div><script id="annList-tmpl" type="text/x-dot-template">{{? it.status == 1020 }}
@@ -48,29 +56,11 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li data-id="{{=value.out_unique_id}}" class="ui-border-b">
-                                <div class="item">
-                                    <h3>
-                                        {{=value.subject}}
-                                    </h3>
-                                    <div class="tag">
-                                        {{?value.amount>0}}
-                                            {{?!/签到/.test(value.subject) && !/兑换/.test(value.subject)}}
-                                                {{?/好友/.test(value.subject)}}
-                                                    {{?/注册/.test(this.subject)}}
-                                                        收徒奖励
-                                                    {{??}}
-                                                        好友分成
-                                                    {{?}}
-                                                {{??}}
-                                                    任务收益
-                                                {{?}}
-                                            {{?}}
-                                        {{?}}
-                                    </div>
-                                </div>
-                                <div class="gold">{{=value.amount}}元</div>
-                                <div class="time">{{=value.added_time}}</div>
+                            <li data-id="{{=value.out_unique_id}}">
+                                <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看全部</a>
+                                <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
+                                <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
+                                <div class="brief_status">发布中</div>
                             </li>
                         {{~}}
-                    {{?}}</script></div></div><script src="scripts/lib/sea.js" id="seajsnode"></script><script src="scripts/app/mygather-e9504d5fda.js"></script><script>seajs.use("app/mygather")</script><i id="lDom"></i><script>!function(){var e=document.createElement("script");e.src="//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></body></html>
+                    {{?}}</script></div></div><script src="scripts/lib/sea.js" id="seajsnode"></script><script src="scripts/app/mygather-3611ca11f8.js"></script><script>seajs.use("app/mygather")</script><i id="lDom"></i><script>!function(){var e=document.createElement("script");e.src="//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></div></body></html>
