@@ -1,35 +1,84 @@
-define("app/messageSys", [ "../mod/pagelist" ], function(require, exports, module) {
+define("app/mygather", [ "../mod/pagelist", "../plugs/version" ], function(require, exports, module) {
     var pagelist = require("../mod/pagelist");
-    function isToday(t) {
-        var curY = new Date().getFullYear(), curM = new Date().getMonth() + 1, curD = new Date().getDate();
-        var day = t.split(" ")[0], time = t.split(" ")[1];
-        day = day.split("-");
-        if (day[0] == curY && day[1] == curM && day[2] == curD) {
-            return "今天 " + time;
-        } else {
-            return t;
+    var km = require("../plugs/version");
+    $("#nav").on("click", "li", function() {
+        var id = $(this).data("id");
+        $(this).addClass("active").siblings().removeClass("active");
+        $("#" + id).show().siblings(".main-list").hide();
+    });
+    Ajax.custom({
+        url: "api/v1/post/day_coin"
+    }, function(data) {
+        if (data.status == 1e3) {
+            var d = data.data;
+            $("#yesEarnings").text(d.yesterdayCoin);
+            $("#todEarnings").text(d.todayCoin);
         }
-    }
+        if (data.status == 9702) {
+            Tools.alertDialog({
+                text: "抱歉您没有采集权限"
+            });
+        }
+    });
     pagelist.fun({
-        url: "api/v1/systemMsgs",
+        url: "api/v1/post/personally",
+        renderFor: "#onlineList-tmpl",
+        renderEle: "#onlineList",
+        pagingDom: "#onlinePage",
         data: {
+            status: 2,
             page: 1,
             page_size: 20
         }
     }, function(d) {
-        if (d.page == 1) {
-            for (var i = 0; i < d.data.length; i++) {
-                var data = d.data[i];
-                if (isToday(d.data[i].added_time) == data.added_time) {
-                    break;
-                } else {
-                    d.data[i].added_time = isToday(data.added_time);
-                }
-                if (d.data[i].need_login == 1) {
-                    d.data[i].action = data.action + "?auth_token=" + Tools.auth_token();
-                }
+        var data = d.data;
+        var w_ = parseInt($("#onlineList").width() * .3).toFixed(2);
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].layout == 3) {
+                d.data[i].imgWidth = w_ + "px";
+                d.data[i].imgBoxHeight = (w_ * 74 / 113).toFixed(2) + "px";
             }
         }
+        $("#onlineNum").text(d.total_num).parent().show();
+    });
+    pagelist.fun({
+        url: "api/v1/post/personally",
+        renderFor: "#shelvedList-tmpl",
+        renderEle: "#shelvedList",
+        pagingDom: "#shelvedPage",
+        data: {
+            status: 3,
+            page: 1,
+            page_size: 20
+        }
+    }, function(d) {
+        var data = d.data;
+        var w_ = parseInt($("#onlineList").width() * .3).toFixed(2);
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].layout == 3) {
+                d.data[i].imgWidth = w_ + "px";
+                d.data[i].imgBoxHeight = (w_ * 74 / 113).toFixed(2) + "px";
+            }
+            d.data[i].pub_time = Ajax.formatDate(data[i].pub_time);
+        }
+        $("#shelvedNum").text(d.total_num).parent().show();
+    });
+    pagelist.fun({
+        url: "api/v1/post/personally",
+        renderFor: "#annList-tmpl",
+        renderEle: "#annList",
+        pagingDom: "#annPage",
+        data: {
+            status: 1,
+            page: 1,
+            page_size: 20
+        }
+    }, function(d) {
+        $("#annNum").text(d.total_num).parent().show();
+    });
+    $("#onlineList").on("click", "li", function() {
+        var id = $(this).data("id");
+        window.location = "kmb://worthreading?id=" + id;
     });
 });define("mod/pagelist", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
     var Ajax = require("./base");
@@ -530,4 +579,64 @@ define("app/messageSys", [ "../mod/pagelist" ], function(require, exports, modul
     }, "function" == typeof define ? define("plugs/laypage", [], function() {
         return a;
     }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();
+}();define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.userAgent = userAgent;
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});

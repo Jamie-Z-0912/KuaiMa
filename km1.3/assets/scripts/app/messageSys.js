@@ -19,10 +19,14 @@ define('app/messageSys', function(require, exports, module) {
     },function(d){
         if(d.page == 1){
             for (var i = 0; i < d.data.length; i++) {
-                if(isToday(d.data[i].added_time) == d.data[i].added_time){
+                var data = d.data[i];
+                if(isToday(d.data[i].added_time) == data.added_time){
                     break;
                 }else{
-                    d.data[i].added_time = isToday(d.data[i].added_time);
+                    d.data[i].added_time = isToday(data.added_time);
+                }
+                if(d.data[i].need_login==1){
+                    d.data[i].action = data.action + '?auth_token=' + Tools.auth_token();
                 }
             }
         }
