@@ -34,7 +34,7 @@
                 </li>
             {{??}}
                 {{~it.data:value:index}}
-                    <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
+                    <li class="view_{{=value.layout}}" data-type="{{=value.obj_type}}" data-id="{{=value.article_id}}" data-url="{{=value.url}}">
                         <h3>{{=value.title}}</h3>
                         <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgboxHeight}}" {{?}}>
                             {{ for (var i = 0; i < value.images.length; i++) { }}

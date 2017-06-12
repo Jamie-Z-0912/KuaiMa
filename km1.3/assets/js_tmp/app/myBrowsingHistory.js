@@ -1,5 +1,7 @@
-define("app/myBrowsingHistory", [ "../mod/pagelist" ], function(require, exports, module) {
+define("app/myBrowsingHistory", [ "../mod/pagelist", "../plugs/version" ], function(require, exports, module) {
     var pagelist = require("../mod/pagelist");
+    var km = require("../plugs/version");
+    var lower = km.less("1.4.0");
     pagelist.fun({
         url: "api/v1/readArticles",
         data: {
@@ -17,8 +19,20 @@ define("app/myBrowsingHistory", [ "../mod/pagelist" ], function(require, exports
         });
     }, true);
     $("#conList").on("click", "li", function() {
-        var url = $(this).data("url"), id = $(this).data("id");
-        window.location.href = "kmb://recommend?url=" + url + "&id=" + id;
+        var url = $(this).data("url"), id = $(this).data("id"), type = $(this).data("type");
+        if (type == "2") {
+            window.location.href = "kmb://recommend?url=" + url + "&id=" + id;
+        }
+        if (type == "3") {
+            if (lower) {
+                Tools.alertDialog({
+                    title: "请更新至最新版本",
+                    text: "1.4.0版本以上才能查看采集文章"
+                });
+            } else {
+                window.location = "kmb://worthreading?id=" + id;
+            }
+        }
     });
 });define("mod/pagelist", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
     var Ajax = require("./base");
@@ -519,4 +533,64 @@ define("app/myBrowsingHistory", [ "../mod/pagelist" ], function(require, exports
     }, "function" == typeof define ? define("plugs/laypage", [], function() {
         return a;
     }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();
+}();define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.userAgent = userAgent;
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});

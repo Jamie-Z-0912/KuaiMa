@@ -503,6 +503,12 @@ body {
 .list-wrap li.view_3 .imgbox img:last-child {
   float: right;
 }
+.list-wrap li.view_4 h3 {
+  display: none;
+}
+.list-wrap li.view_5 .imgbox {
+  display: none;
+}
 .list-wrap li.empty {
   border-color: transparent;
   background-color: transparent;

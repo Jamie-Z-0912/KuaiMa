@@ -1,140 +1,170 @@
-define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../plugs/version" ], function(require, exports, module) {
-    var pagelist = require("../mod/pagelist");
+define("app/startgather", [ "../mod/submit", "../plugs/confirmTip.js" ], function(require, exports, module) {
+    var submit = require("../mod/submit");
     var confirmTip = require("../plugs/confirmTip.js");
-    var km = require("../plugs/version");
-    var lower = km.less("1.4.0");
-    pagelist.fun({
-        url: "api/v1/collectArticles",
-        data: {
-            page: 1,
-            page_size: 20
-        }
-    }, function(d) {
-        var data = d.data;
-        var w_ = parseInt($("#onlineList").width() * .3).toFixed(2);
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].layout == 3) {
-                d.data[i].imgWidth = w_ + "px";
-                d.data[i].imgBoxHeight = (w_ * 74 / 113).toFixed(2) + "px";
-            }
-            if (data[i].obj_type == 2) {
-                d.data[i].jsLink = "kmb://recommend?url=" + data[i].url + "&id=" + data[i].article_id;
-            }
-            function tipUpdata() {
-                Tools.alertDialog({
-                    title: "请更新到最新版本",
-                    text: "只有1.4.0版本以上才能查看采集的文章"
-                });
-            }
-            if (data[i].obj_type == 3) {
-                if (lower) {
-                    d.data[i].jsLink = "javascript:Tools.alertDialog({title:'请更新至最新版本',text:'1.4.0版本以上才能查看采集文章'})";
-                } else {
-                    d.data[i].jsLink = "kmb://worthreading?id=" + data[i].article_id;
-                }
-            }
+    $("#qustionList").on("click", "li", function() {
+        var that = $(this);
+        if (!that.hasClass("active")) {
+            that.addClass("active").siblings().removeClass("active");
         }
     });
-    $("#conList").on("click", ".del", function(e) {
+    var arr = [], arr1 = [];
+    $.each($("#applyfor dt"), function() {
+        arr.push($(this).find("span").text());
+        arr1.push(" ");
+    });
+    $("#applyfor").on("click", ".dd", function() {
+        var that = $(this);
+        if (!that.hasClass("selected")) {
+            that.addClass("selected").siblings().removeClass("selected");
+            var index = that.parent().data("id");
+            arr1[index] = that.text().replace("<i></i>", "");
+        }
+    });
+    $("#gatherForm").submit(function(e) {
         e.preventDefault();
-        e.stopPropagation();
-        var that = $(this), id = that.data("id");
-        new confirmTip({
-            title: '<p style="padding: .2rem 0;">确定不再收藏这篇文章</p>'
-        }, function(a) {
-            if (a) {
-                Ajax.custom({
-                    url: "api/v1/collectArticles/delete/" + id
-                }, function(d) {
-                    if (d.status == 1e3) {
-                        Tools.alertDialog({
-                            text: "已取消收藏"
-                        });
-                        that.parent().remove();
-                    }
-                    if (d.status == 8006) {
-                        Tools.alertDialog({
-                            text: "文章尚未被收藏"
-                        });
-                    }
+        var hasOk = true;
+        for (var i = 0; i < arr1.length; i++) {
+            if (arr1[i] == " ") {
+                Tools.alertDialog({
+                    text: "第" + (i + 1) + "题还没有回答！"
                 });
+                hasOk = false;
+                break;
+            }
+        }
+        if (hasOk) {
+            var str = "";
+            for (var i = 0; i < arr.length; i++) {
+                str += arr[i] + ":" + arr1[i] + ";";
+            }
+            $('input[name="question"]').val(str);
+            submit.fun({
+                url: "api/v1/zhdk/initialUsers",
+                data: $(this)
+            }, function(data) {
+                if (data.status == 1e3) {
+                    new confirmTip({
+                        title: "提交成功",
+                        text: "恭喜您提交申请成功！请耐心等待审核。你的申请审核进度将通过QQ告知您。请加客服QQ：3330107868。",
+                        sureTxt: "去加QQ",
+                        cancelTxt: "我知道了"
+                    }, function(a) {
+                        window.location = "tencent://message/?uin=3330107868&Site=kuaima.cn&Menu=yes";
+                    });
+                } else {
+                    Tools.alertDialog({
+                        text: data.desc
+                    });
+                }
+            });
+        }
+    });
+});define("mod/submit", [ "./base" ], function(require, exports, module) {
+    var Ajax = require("./base");
+    window.Ajax = Ajax;
+    String.prototype.isEmail = function() {
+        return new RegExp(/^([a-zA-Z0-9]+[_|\_|\.|-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/).test(this);
+    };
+    String.prototype.isMobile = function() {
+        return new RegExp(/^1[3|4|5|7|8]\d{9}$/).test(this);
+    };
+    String.prototype.isChinese = function() {
+        return /^[\u4E00-\uFA29]*$/.test(this) && !/^[\uE7C7-\uE7F3]*$/.test(this);
+    };
+    String.prototype.isEmpty = function() {
+        return /^\s*$/.test(this);
+    };
+    String.prototype.isVerifyCode = function() {
+        return new RegExp(/^\d*$/).test(this);
+    };
+    String.prototype.isNum = function() {
+        return /^[0-9]+$/.test(this);
+    };
+    exports.fun = function(options, callback) {
+        var formData, isForm = typeof options.data != "string" && !!options.data.length, btnSubmit;
+        if (isForm) {
+            formData = options.data.serializeArray();
+            btnSubmit = options.data.find('[type="submit"]');
+            btnSubmit.attr("disabled", true);
+        } else {
+            formData = options.data;
+        }
+        $.each(formData, function() {
+            this.value = this.value.replace(/\s/gi, "");
+        });
+        options.data = formData;
+        options.type = options.type || "GET";
+        options.logtype = "submit";
+        Ajax.baseAjax(options, function(response, textStatus, jqXHR) {
+            if (isForm) {
+                btnSubmit.removeAttr("disabled");
+            }
+            if (typeof callback == "function") {
+                callback(response);
+            }
+        }, function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+            if (isForm) {
+                btnSubmit.removeAttr("disabled");
+            }
+            if (typeof callbackError == "function") {
+                callbackError(jqXHR, textStatus, errorThrown);
             }
         });
-    });
-});define("mod/pagelist", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
-    var Ajax = require("./base");
-    var laypage = require("../plugs/laypage");
-    window.Ajax = Ajax;
-    exports.defaultListTmpl = "#conList-tmpl";
-    exports.defaultListEle = "#conList";
-    exports.pagingDom = "#listPage";
-    exports.fun = function(options, callback, afterRender) {
-        var isFirst = options.data.page == 1, opt = {
-            renderFor: this.defaultListTmpl,
-            renderEle: this.defaultListEle,
-            pagingDom: this.pagingDom,
-            showLoading: true,
-            hasNext: true,
-            logtype: "paging"
+    };
+    exports.sendSms = function(btnSend, options) {
+        var opt = {
+            phone: "",
+            uid: "",
+            type: "SMS",
+            useto: ""
         };
         for (var i in opt) {
-            options[i] = options[i] || opt[i];
+            opt[i] = options[i] || opt[i];
         }
-        laypage({
-            cont: $(options.pagingDom),
-            pages: 100,
-            groups: 0,
-            curr: 1,
-            prev: false,
-            next: "点击查看更多",
-            skin: "flow",
-            jump: function(obj) {
-                var that = this;
-                options.data.page = obj.curr;
-                Ajax.baseAjax(options, function(data) {
-                    if (data.status == 1020) {
-                        data.data = null;
-                        Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
-                        $(options.pagingDom).remove();
-                    } else {
-                        that.pages = data.total;
-                        if (obj.curr == data.total) {
-                            options.hasNext = false;
-                            $(options.pagingDom).find(".laypage_main").html("<span>没有更多数据</span>");
-                        }
-                        $.each(data.data, function() {
-                            this.added_time = Ajax.formatDate(this.added_time);
-                        });
-                        if (!afterRender) {
-                            $.isFunction(callback) && callback(data);
-                        }
-                        if (data.page != 1) {
-                            Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
-                        } else {
-                            Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
-                        }
-                        if (afterRender) {
-                            $.isFunction(callback) && callback();
-                        }
-                        $(options.pagingDom).removeClass("hide");
+        var inte, duration = 60;
+        if (inte) {
+            clearInterval(inte);
+        }
+        btnSend.addClass("disabled").text("发送中···");
+        Ajax.custom({
+            url: "api/v1/verify_code/web",
+            data: opt
+        }, function(data) {
+            if (data.status == 1e3) {
+                inte = setInterval(function() {
+                    duration--;
+                    if (duration == 0) {
+                        clearInterval(inte);
+                        btnSend.removeClass("disabled").text("重发验证码");
+                        return;
                     }
-                }, function(jqXHR, textStatus, errorThrown) {
-                    if (typeof callbackError == "function") {
-                        callbackError(jqXHR, textStatus, errorThrown);
-                    }
+                    btnSend.text("还剩" + duration + "秒");
+                }, 1e3);
+                return;
+            }
+            if (data.status == 2003) {
+                Tools.alertDialog({
+                    title: "获取失败",
+                    text: "获取验证码太频繁，请明日再试"
+                }, function() {
+                    btnSend.text("明日再获取");
                 });
+                return;
+            }
+            if (data.status == 1008) {
+                Tools.alertDialog({
+                    text: "您已经注册过啦"
+                });
+                return;
+            }
+            if (data.status == 2002) {
+                Tools.alertDialog({
+                    text: "用户不存在"
+                });
+                return;
             }
         });
-        window.onscroll = function() {
-            if (options.hasNext) {
-                var scrollTop = document.body.scrollTop;
-                var scrollHeight = document.body.scrollHeight;
-                var windowHeight = window.screen.height * window.devicePixelRatio;
-                if (scrollTop + windowHeight + 100 > scrollHeight) {
-                    $("#laypage_0 a").click();
-                }
-            }
-        };
     };
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
@@ -499,68 +529,7 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
         }
     };
     window.Tools = Tools;
-});!function() {
-    "use strict";
-    function a(d) {
-        var e = "laypagecss";
-        a.dir = "dir" in a ? a.dir : f.getpath + "../css/skin/laypage.css", new f(d), a.dir && !b[c](e) && f.use(a.dir, e);
-    }
-    a.v = "1.3";
-    var b = document, c = "getElementById", d = "getElementsByTagName", e = 0, f = function(a) {
-        var b = this, c = b.config = a || {};
-        c.item = e++, b.render(!0);
-    };
-    f.on = function(a, b, c) {
-        return a.attachEvent ? a.attachEvent("on" + b, function() {
-            c.call(a, window.even);
-        }) : a.addEventListener(b, c, !1), f;
-    }, f.getpath = function() {
-        var a = document.scripts, b = a[a.length - 1].src;
-        return b.substring(0, b.lastIndexOf("/") + 1);
-    }(), f.use = function(c, e) {}, f.prototype.type = function() {
-        var a = this.config;
-        return "object" == typeof a.cont ? void 0 === a.cont.length ? 2 : 3 : void 0;
-    }, f.prototype.view = function() {
-        var b = this, c = b.config, d = [], e = {};
-        if (c.pages = 0 | c.pages, c.curr = 0 | c.curr || 1, c.groups = "groups" in c ? 0 | c.groups : 5, 
-        c.first = "first" in c ? c.first : "&#x9996;&#x9875;", c.last = "last" in c ? c.last : "&#x5C3E;&#x9875;", 
-        c.prev = "prev" in c ? c.prev : "&#x4E0A;&#x4E00;&#x9875;", c.next = "next" in c ? c.next : "&#x4E0B;&#x4E00;&#x9875;", 
-        c.pages <= 1) return "";
-        for (c.groups > c.pages && (c.groups = c.pages), e.index = Math.ceil((c.curr + (c.groups > 1 && c.groups !== c.pages ? 1 : 0)) / (0 === c.groups ? 1 : c.groups)), 
-        c.curr > 1 && c.prev && d.push('<a href="javascript:;" class="laypage_prev" data-page="' + (c.curr - 1) + '">' + c.prev + "</a>"), 
-        e.index > 1 && c.first && 0 !== c.groups && d.push('<a href="javascript:;" class="laypage_first" data-page="1"  title="&#x9996;&#x9875;">' + c.first + "</a><span>&#x2026;</span>"), 
-        e.poor = Math.floor((c.groups - 1) / 2), e.start = e.index > 1 ? c.curr - e.poor : 1, 
-        e.end = e.index > 1 ? function() {
-            var a = c.curr + (c.groups - e.poor - 1);
-            return a > c.pages ? c.pages : a;
-        }() : c.groups, e.end - e.start < c.groups - 1 && (e.start = e.end - c.groups + 1); e.start <= e.end; e.start++) e.start === c.curr ? d.push('<span class="laypage_curr" ' + (/^#/.test(c.skin) ? 'style="background-color:' + c.skin + '"' : "") + ">" + e.start + "</span>") : d.push('<a href="javascript:;" data-page="' + e.start + '">' + e.start + "</a>");
-        return c.pages > c.groups && e.end < c.pages && c.last && 0 !== c.groups && d.push('<span>&#x2026;</span><a href="javascript:;" class="laypage_last" title="&#x5C3E;&#x9875;"  data-page="' + c.pages + '">' + c.last + "</a>"), 
-        e.flow = !c.prev && 0 === c.groups, (c.curr !== c.pages && c.next || e.flow) && d.push(function() {
-            return e.flow && c.curr === c.pages ? '<span class="page_nomore" title="&#x5DF2;&#x6CA1;&#x6709;&#x66F4;&#x591A;">' + c.next + "</span>" : '<a href="javascript:;" class="laypage_next" data-page="' + (c.curr + 1) + '">' + c.next + "</a>";
-        }()), '<div name="laypage' + a.v + '" class="laypage_main laypageskin_' + (c.skin ? function(a) {
-            return /^#/.test(a) ? "molv" : a;
-        }(c.skin) : "default") + '" id="laypage_' + b.config.item + '">' + d.join("") + function() {
-            return c.skip ? '<span class="laypage_total"><label>&#x5230;&#x7B2C;</label><input type="number" min="1" onkeyup="this.value=this.value.replace(/\\D/, \'\');" class="laypage_skip"><label>&#x9875;</label><button type="button" class="laypage_btn">&#x786e;&#x5b9a;</button></span>' : "";
-        }() + "</div>";
-    }, f.prototype.jump = function(a) {
-        if (a) {
-            for (var b = this, c = b.config, e = a.children, g = a[d]("button")[0], h = a[d]("input")[0], i = 0, j = e.length; j > i; i++) "a" === e[i].nodeName.toLowerCase() && f.on(e[i], "click", function() {
-                var a = 0 | this.getAttribute("data-page");
-                c.curr = a, b.render();
-            });
-            g && f.on(g, "click", function() {
-                var a = 0 | h.value.replace(/\s|\D/g, "");
-                a && a <= c.pages && (c.curr = a, b.render());
-            });
-        }
-    }, f.prototype.render = function(a) {
-        var d = this, e = d.config, f = d.type(), g = d.view();
-        2 === f ? e.cont.innerHTML = g : 3 === f ? e.cont.html(g) : b[c](e.cont).innerHTML = g, 
-        e.jump && e.jump(e, a), d.jump(b[c]("laypage_" + e.item)), e.hash && !a && (location.hash = "!" + e.hash + "=" + e.curr);
-    }, "function" == typeof define ? define("plugs/laypage", [], function() {
-        return a;
-    }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();define("plugs/confirmTip", [], function(require, exports, module) {
+});define("plugs/confirmTip", [], function(require, exports, module) {
     var confirmTip = function(option, callback) {
         var opt = {
             title: "",
@@ -599,64 +568,4 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
         });
     };
     module.exports = confirmTip;
-});define("plugs/version", [], function(require, exports, module) {
-    var util = {}, version;
-    var userAgent = navigator.userAgent;
-    util.isKM = /KuaiMa/.test(userAgent);
-    if (util.isKM) {
-        var _ssy = userAgent.split("ssy=")[1];
-        if (/iOS|Android/.test(_ssy.split(";")[0])) {
-            version = _ssy.split(";")[2];
-        } else {
-            version = _ssy.split(";")[1];
-        }
-        util.version = version.replace("V", "");
-    }
-    util.userAgent = userAgent;
-    util.equal = function(v) {
-        if (util.isKM) {
-            if (v == this.version) {
-                return true;
-            } else {
-                return false;
-            }
-        } else return false;
-    };
-    util.greater = function(v) {
-        if (util.isKM) {
-            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
-            for (var i = 0; i < cur.length; i++) {
-                if (cur[i] < v_arr[i]) {
-                    break;
-                } else {
-                    if (cur[i] > v_arr[i]) {
-                        flag = true;
-                    }
-                }
-            }
-            return flag;
-        } else return false;
-    };
-    util.less = function(v) {
-        if (util.isKM) {
-            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
-            for (var i = 0; i < cur.length; i++) {
-                if (cur[i] > v_arr[i]) {
-                    break;
-                } else {
-                    if (cur[i] < v_arr[i]) {
-                        flag = true;
-                    }
-                }
-            }
-            return flag;
-        } else return false;
-    };
-    util.gEq = function(v) {
-        if (this.equal(v) || this.greater(v)) return true; else return false;
-    };
-    util.lEq = function(v) {
-        if (this.equal(v) || this.less(v)) return true; else return false;
-    };
-    module.exports = util;
 });
