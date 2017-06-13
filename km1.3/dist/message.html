@@ -4,21 +4,7 @@
             </li>
         {{??}}
             {{~it.data:value:index}}
-                {{?value.msg_type==4}}
-                    <li data-type="{{=value.msg_type}}" data-action="{{=value.action}}">
-                        <div class="msg-top">
-                            <div class="photo"><img src="image/logo.png" /></div>
-                            <div class="info">
-                                <div class="info_1">
-                                    <span class="nickname">快马小报</span>
-                                    <span class="intro">到账提醒</span>
-                                </div>
-                                <div class="info_time">{{=value.added_time}}</div>
-                            </div>
-                        </div>
-                        <div class="msg-con">{{=value.msg}} </div>
-                    </li>
-                {{??}}
+                {{?value.msg_type==2}}
                     <li data-type="{{=value.msg_type}}" data-action="{{=value.action}}" data-fatherid="{{?value.extra_content.father_comment_id=='0'}}{{=value.extra_content.comment_id}}{{??}}{{=value.extra_content.father_comment_id}}{{?}}">
                         <div class="msg-top">
                             <div class="photo">
@@ -40,6 +26,21 @@
                         {{?value.extra_content.comment}}
                         <div class="msg-quote">{{=value.extra_content.comment}}</div>
                         {{?}}
+                    </li>
+                {{??}}
+                    <li data-type="{{=value.msg_type}}" data-action="{{=value.action}}">
+                        <div class="msg-top">
+                            <div class="photo"><img src="image/logo.png" /></div>
+                            <div class="info">
+                                <div class="info_1">
+                                    <span class="nickname">快马小报</span>
+                                    {{?value.msg_type==4}}<span class="intro">到账提醒</span>{{?}}
+                                    {{?value.msg_type==5}}{{?}}
+                                </div>
+                                <div class="info_time">{{=value.added_time}}</div>
+                            </div>
+                        </div>
+                        <div class="msg-con">{{=value.msg}} </div>
                     </li>
                 {{?}}
             {{~}}
