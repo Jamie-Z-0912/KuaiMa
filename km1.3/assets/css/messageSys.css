@@ -469,22 +469,3 @@ body {
   color: #fff;
   font-size: 0.13rem;
 }
-.message-wrap .empty {
-  border-bottom: 0 none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
-}
-.message-wrap .empty img {
-  width: 60%;
-  display: block;
-  margin: auto;
-}
-.message-wrap .empty p {
-  padding: .2rem;
-  text-align: center;
-  color: #b2b2b2;
-}

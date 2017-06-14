@@ -1,7 +1,16 @@
 define('app/startgather', function(require, exports, module) {
     var submit = require('../mod/submit');
     var confirmTip = require('../plugs/confirmTip.js');
-
+    Ajax.custom({
+        url: 'api/v1/post/checkAuthority'
+    }, function(data){
+        if(data.status==1000){
+            $('#opengather .answer').html('您已拥有值得看模块采集权限啦，更多问题请加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>')
+        }
+        if(data.status==9706){
+            $('#opengather .answer').html('您已提交申请，请耐心等待，咨询加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>')
+        }
+    });
     $('#qustionList').on('click', 'li', function(){
         var that = $(this);
         if(!that.hasClass('active')){
@@ -44,13 +53,17 @@ define('app/startgather', function(require, exports, module) {
                 data: $(this)
             }, function(data){
                 if(data.status == 1000){
+                    $('#opengather .answer').html('您已提交申请，请耐心等待，咨询加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>');
                     new confirmTip({
                         title: '提交成功',
-                        text: '恭喜您提交申请成功！请耐心等待审核。你的申请审核进度将通过QQ告知您。请加客服QQ：3330107868。',
+                        text: '<p style="padding:0 .16rem;text-align:left;margin-bottom:-.14rem">申请审核进度查询，请加客服QQ：2518437090。</p>',
                         sureTxt: '去加QQ',
                         cancelTxt: '我知道了'
                     },function(a){
-                        window.location = 'tencent://message/?uin=3330107868&Site=kuaima.cn&Menu=yes';
+                        if(a)
+                            window.location = 'mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com';
+                        else
+                            window.location = 'kmb://worthreadingtab';
                     });
                 }else{
                     Tools.alertDialog({
