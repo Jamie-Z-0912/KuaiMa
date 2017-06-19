@@ -10,6 +10,9 @@ define("app/startgather", [ "../mod/submit", "../plugs/confirmTip.js" ], functio
         if (data.status == 9706) {
             $("#opengather .answer").html('您已提交申请，请耐心等待，咨询加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>');
         }
+        if (data.status == 9707) {
+            $("#opengather .answer").html("登录后才可以申请哦~");
+        }
     });
     $("#qustionList").on("click", "li", function() {
         var that = $(this);

@@ -10,7 +10,7 @@ define('app/invite', function(require, exports, module) {
         mast = Tools.uid();
         $('#shareBtn1').remove();
     }else{
-        mast = Tools.auth_token()
+        mast = Tools.auth_token();
         $('#shareBtn1').show();
         $('#shareBtn1').on('click', function(){
             window.location = 'kmb://shareinviteimg?qrurl='+myurl;
@@ -62,6 +62,7 @@ define('app/invite', function(require, exports, module) {
     
     var cas_dz = $("#canvasDZ")[0], ctx_dz = cas_dz.getContext("2d");
     var cas_gx = $("#canvasGX")[0], ctx_gx = cas_gx.getContext("2d");
+    var cas_qr = $("#canvasQR")[0], ctx_qr = cas_qr.getContext("2d");
     var makeQR = setInterval(function(){
         if($("#userQrCode img").length > 0){
             clearInterval(makeQR);
@@ -105,6 +106,13 @@ define('app/invite', function(require, exports, module) {
             ctx_gx.fillText("长按识别二维码",49,706);
             $(".qr_code2").attr('src',cas_gx.toDataURL("image/png"));
             ctx_gx.clearRect(0,0,528,736);
+            /*** 二维码 ***/
+            ctx_qr.fillStyle = '#fff';
+            ctx_qr.fillRect(0, 0, 530, 530);
+            ctx_qr.fill();
+            ctx_qr.drawImage(qr_code,30,30,470,470);
+            $("#userQrTab").css('padding',0).html('<img src="'+ cas_qr.toDataURL("image/png")+'"/>');
+            ctx_qr.clearRect(0,0,530,530);
         }
     },100);
 

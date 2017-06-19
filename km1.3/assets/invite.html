@@ -27,6 +27,7 @@
     <div class="hide">
         <canvas id="canvasDZ" width="400" height="162"></canvas>
         <canvas id="canvasGX" width="528" height="736"></canvas>
+        <canvas id="canvasQR" width="530" height="530"></canvas>
     </div>
     <section class="ui-wrap">
         <div class="nav">
@@ -68,7 +69,7 @@
         </div>
         <div class="content hide" id="qr">
             <div class="qr">
-                <div class="img_box" id="userQrCode"> </div>
+                <div class="img_box" id="userQrTab"> </div>
                 <div class="logoname">#ProjectName#</div>
                 <div class="logosub">边看新闻边赚钱</div>
             </div>
@@ -78,6 +79,7 @@
             <div class="ui-btn" id="shareBtn3"> 分享给好友 </div>
         </div>
     </section>
+    <div class="hide" id="userQrCode"></div>
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/invite.js"></script>
     <script>

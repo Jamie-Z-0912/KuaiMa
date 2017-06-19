@@ -102,9 +102,11 @@
                                     <span class="tag">{{=value.tag_name}}</span> 
                                 </div>
                                 <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
+                                    <a href="{{=value.origin_url}}">
                                     {{ for (var i = 0; i < value.images.length; i++) { }}
-                                        <a href="{{=value.origin_url}}"><img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}></a>
+                                        <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
                                     {{ } }}
+                                    </a>
                                 </div>
                                 <div class="off_time">下架时间：{{=value.pub_time}}</div>
                                 {{?}}
