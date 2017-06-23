@@ -8,7 +8,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>收益明细</title>
+    <title>我的钱包</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/myincome.css">
     <script> 
@@ -25,26 +25,22 @@
 </head>
 <body>
     <div class="max-w-750">
-        <div class="hd-total">
+        <div class="hd">
+            <div class="hd-top">
+                <div calss="txt">钱包余额(元)</div>
+                <div class="rmb" id="YUE">0.00</div>
+                <div><div class="totle">累计收益<em id="TINCOME"></em>元</div></div>
+                
+            </div>
             <div class="gold">
-                <div class="txt">昨日金币</div>
-                <div class="num" id="YCI">0</div>
+                <div class="txt">昨日收益</div>
+                <div class="num" id="YRMB">0</div>
             </div>
             <div class="line"></div>
-            <div class="rmb">
-                <div class="txt">昨日零钱</div>
-                <div class="num" id="YCTR">0</div>
+            <div class="exchange">
+                <div class="txt">昨日汇率</div>
+                <div class="num"><em id="YEXCHANGE">0</em> <i id="exchangeTip"></i></div>
             </div>
-            <ul class="bolang" id="wave">
-                <li class="w1"><img src="image/myincome_bl.png" /></li>
-                <li class="w1"><img src="image/myincome_bl.png" /></li>
-                <li class="w1"><img src="image/myincome_bl.png" /></li>
-                <li class="w2"><img src="image/myincome_bl.png" /></li>
-                <li class="w2"><img src="image/myincome_bl.png" /></li>
-                <li class="w2"><img src="image/myincome_bl.png" /></li>
-            </ul>
-            <div class="erd" id="ERD"></div>
-            <div class="hd-words">※金币转换汇率受每日广告收益影响（上下会有浮动）</div>
         </div>
         <div class="main">
             <ul class="nav" id="nav">
@@ -111,6 +107,7 @@
                 </script>
             </div>
         </div>
+        <a href="kmb://openduiba" class="b-fixed">提现兑换</a>
     </section>
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/myincome.js"></script>

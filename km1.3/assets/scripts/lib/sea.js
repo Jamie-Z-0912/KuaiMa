@@ -5,4 +5,4 @@ seajs.config({
     alias: {
         'zepto': 'lib/zepto.js?v=20170418'
     }
-}); window.server = 'http://api.kuaima.cn/';
+}); window.server = 'http://test.kuaima.cn/';

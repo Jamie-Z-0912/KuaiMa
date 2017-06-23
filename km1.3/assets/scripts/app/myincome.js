@@ -11,16 +11,15 @@ define('app/myincome', function(require, exports, module) {
 	if(p == 'cash'){
 		$('#nav li[data-id="rmbListWrap"]').click();
 	}
-	$('#wave .w1').addClass('slideOutLeft');
-	$('#wave .w2').addClass('slideOutLeft1');
 	//金币汇总
 	Ajax.custom({
 		url: 'api/v1/coin/info'
 	}, function(data){
 		var d = data.data;
-		$('#ERD').text(d.exchange_rate_desc);
-		$('#YCI').text(d.yesterday_coin_income)
-		$('#YCTR').text(d.yesterday_coin_to_rmb)
+		$('#YUE').text(d.yue);
+		$('#TINCOME').text(d.totalIncome);
+		$('#YEXCHANGE').text(d.yesterdayExchangeRate);
+		$('#YRMB').text(d.yesterdayIncome);
 	})
 	//金币明细
 	pagelist.fun({
@@ -53,4 +52,15 @@ define('app/myincome', function(require, exports, module) {
 			$('#rmbPage').html('<div class="laypage_main"><span>仅可查看最近100条数据</span></div>')
 		}
 	});
+	if(km.less('1.4.1')){
+		$('.b-fixed').remove();
+	}else{
+		$('.b-fixed').show();
+	}
+	$('#exchangeTip').on('click', function(){
+		Tools.alertDialog({
+			text:'金币转换汇率会受每日广告收益影响，上下会有浮动',
+			time:5000
+		})
+	})
 });
