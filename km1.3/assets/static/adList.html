@@ -10,7 +10,7 @@
     <meta http-equiv="expires" content="0">
     <title>广告列表</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
-    <link rel="stylesheet" href="../css/myBrowsingHistory.css">
+    <link rel="stylesheet" href="../css/static_adlist.css">
     <script> 
         var _hmt = _hmt || []; 
         _hmt.push(['_setAutoPageview', false]);
@@ -25,6 +25,7 @@
 </head>
 <body>
     <section class="max-w-750">
+        <div class="imgbox"><img src="img/adlist.png" alt=""></div>
         <ul class="list-wrap" id="conList"></ul>
         <div id="listPage" class="hide"></div>
         <script id="conList-tmpl" type="text/x-dot-template">
@@ -34,16 +35,18 @@
                 </li>
             {{??}}
                 {{~it.data:value:index}}
-                    <li class="view_3" data-url="{{=value.url}}">
-                        <h3>{{=value.title}}</h3>
-                        <div class="imgbox">
-                            {{ for (var i = 0; i < value.images.length; i++) { }}
-                                <img src="adImgs/{{=value.images[i]}}" />
-                            {{ } }}
-                        </div>
-                        <div class="source">
-                            <span>{{=value.category}}</span><span>{{=value.added_time}}</span>
-                        </div>
+                    <li class="view_3" data-keyword="{{=value.keyword}}">
+                        <div class="box">
+                            <h3>{{=value.title}}</h3>
+                            <div class="imgbox">
+                                {{ for (var i = 0; i < value.images.length; i++) { }}
+                                    <img src="adImgs/{{=value.images[i]}}" />
+                                {{ } }}
+                            </div>
+                            <div class="source">
+                                <span>{{=value.category}}</span><span>{{=value.added_time}}</span>
+                            </div>
+                        </div> 
                     </li>
                 {{~}}
             {{?}}
