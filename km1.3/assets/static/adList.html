@@ -8,20 +8,9 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>广告列表</title>
+    <title>每日新闻榜</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="../css/static_adlist.css">
-    <script> 
-        var _hmt = _hmt || []; 
-        _hmt.push(['_setAutoPageview', false]);
-        if(/iPhone|iPad|iPod/.test(navigator.userAgent)){
-            _hmt.push(['_trackPageview', '/ios/kmBrowser/adList']);
-        }else if(/Android/.test(navigator.userAgent)){
-            _hmt.push(['_trackPageview', '/Android/kmBrowser/adList']);
-        }else{
-            _hmt.push(['_trackPageview', '/other/kmBrowser/adList']);
-        }
-    </script>
 </head>
 <body>
     <section class="max-w-750">
@@ -31,7 +20,7 @@
         <script id="conList-tmpl" type="text/x-dot-template">
             {{? it.status == 1020 }}
                 <li class="empty">
-                    <img src="image/empty_2.png"><p>您还没有阅读记录</p>
+                    <img src="image/empty_2.png"><p>很抱歉，暂无新闻</p>
                 </li>
             {{??}}
                 {{~it.data:value:index}}
@@ -58,14 +47,7 @@
         seajs.use("app/static_adList");
     </script>
     <i id="lDom"></i>
-    <!-- 百度统计 -->
-    <script>
-        (function() {
-         var hm = document.createElement("script");
-         hm.src = "//hm.baidu.com/hm.js?1f0d6ae0f145fbe8e13e35fcd6e92a41";
-         var s = document.getElementsByTagName("script")[0];
-         s.parentNode.insertBefore(hm, s);
-         })();
-    </script>
+    <!-- umeng统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1262271247'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1262271247%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>
