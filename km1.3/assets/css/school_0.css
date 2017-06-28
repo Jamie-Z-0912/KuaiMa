@@ -448,7 +448,7 @@ body {
   width: 36px;
   height: 100%;
   background: url(../image/school_icon.png) no-repeat left center;
-  background-size: 600%;
+  background-size: 800%;
 }
 .content .box .icon2 {
   background-position: -35px;
@@ -464,6 +464,12 @@ body {
 }
 .content .box .icon6 {
   background-position: -180px;
+}
+.content .box .icon7 {
+  background-position: -216px;
+}
+.content .box .icon8 {
+  background-position: -252px;
 }
 .content .box h2 {
   line-height: 1;
