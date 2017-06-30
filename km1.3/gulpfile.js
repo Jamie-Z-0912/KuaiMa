@@ -127,6 +127,5 @@ gulp.task('watch', function(){
 	gulp.watch('./assets/*.html',['html']);
 	gulp.watch('./assets/less/*.less',['devLess']);
 	gulp.watch('./assets/scripts/**/*.js',['seajs']);
-	gulp.watch('./assets/image/**',['image']);
 });
 gulp.task('server', ['connect', 'watch']);
