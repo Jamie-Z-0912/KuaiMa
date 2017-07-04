@@ -46,7 +46,7 @@ layui.define('layer' , function(exports){
 
       //包裹ui元素
       if(!options.unwrap){
-        form = '<div class="layui-box layui-upload-button">' + form + '<span class="layui-upload-icon"><i class="layui-icon">&#xe608;</i>'+ (
+        form = '<div class="layui-box layui-upload-button layui-upimg">' + form + '<span class="layui-upload-icon"><i class="layui-icon">&#xe608;</i>'+ (
           item.attr('lay-title') || options.title|| ('上传'+ (fileType[type]||'图片') )
         ) +'</span></div>';
       }
@@ -123,6 +123,15 @@ layui.define('layer' , function(exports){
     }
     
     options.before && options.before(input);
+
+    if(options.data){
+      var data = options.data, str = '';
+      for(var i in data){
+        str += '<input type="hidden" name="' + i + '" value="' + data[i] + '" />';
+      } 
+      item.parent().append(str);
+    }
+    
     item.parent().submit();
 
     var iframe = $('#'+elemIframe), timer = setInterval(function() {
@@ -136,12 +145,12 @@ layui.define('layer' , function(exports){
       if(res){
         clearInterval(timer);
         iframe.contents().find('body').html('');
-        try {
-          res = JSON.parse(res);
-        } catch(e){
-          res = {};
-          return layer.msg('请对上传接口返回JSON字符', msgConf);
-        }
+        // try {
+        //   res = JSON.parse(res);
+        // } catch(e){
+        //   res = {};
+        //   return layer.msg('请对上传接口返回JSON字符', msgConf);
+        // }
         typeof options.success === 'function' && options.success(res, input);
       }
     }, 30); 

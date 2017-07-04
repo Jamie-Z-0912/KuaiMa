@@ -287,7 +287,7 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-table tr{transition: all .3s; -webkit-transition: all .3s;}
 .layui-table thead tr{background-color: #f2f2f2;}
 .layui-table th{text-align: left;}
-.layui-table th, .layui-table td{padding: 9px 15px; min-height: 20px; line-height: 20px; border: 1px solid #e2e2e2; font-size: 14px;}
+.layui-table th, .layui-table td{padding: 9px; min-height: 20px; line-height: 20px; border: 1px solid #e2e2e2; font-size: 14px;}
 .layui-table[lay-even] tr:nth-child(even),
 .layui-table tr:hover{background-color: #f8f8f8;}
 
