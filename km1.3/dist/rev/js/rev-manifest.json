@@ -11,7 +11,7 @@
   "app/myBrowsingHistory.js": "app/myBrowsingHistory-6a1a7a60cb.js",
   "app/myCard.js": "app/myCard-76c95c81bf.js",
   "app/myCardList.js": "app/myCardList-92854d0e6c.js",
-  "app/myCollection.js": "app/myCollection-bf56cb69fb.js",
+  "app/myCollection.js": "app/myCollection-e4fdbc4ad4.js",
   "app/myfriend.js": "app/myfriend-33a197450c.js",
   "app/mygather.js": "app/mygather-8dec31b228.js",
   "app/myincome.js": "app/myincome-348749a0d4.js",
@@ -20,6 +20,6 @@
   "app/school.js": "app/school-9a47a8d946.js",
   "app/schoolNew.js": "app/schoolNew-a9647c3108.js",
   "app/startgather.js": "app/startgather-c1c7ff83bc.js",
-  "app/static_adList.js": "app/static_adList-b8129b23ac.js",
-  "app/taskCenter.js": "app/taskCenter-6f4fb98b7c.js"
+  "app/static_adList.js": "app/static_adList-98548f2e5d.js",
+  "app/taskCenter.js": "app/taskCenter-7e31fd52f5.js"
 }
