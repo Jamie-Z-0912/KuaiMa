@@ -68,7 +68,7 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version" ], function(requi
     exports.defaultListTmpl = "#conList-tmpl";
     exports.defaultListEle = "#conList";
     exports.pagingDom = "#listPage";
-    exports.fun = function(options, callback, afterRender) {
+    exports.fun = function(options, beforeCallback, afterCallback) {
         var isFirst = options.data.page == 1, opt = {
             renderFor: this.defaultListTmpl,
             renderEle: this.defaultListEle,
@@ -105,16 +105,16 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version" ], function(requi
                         $.each(data.data, function() {
                             this.added_time = Ajax.formatDate(this.added_time);
                         });
-                        if (!afterRender) {
-                            $.isFunction(callback) && callback(data);
+                        if (beforeCallback) {
+                            $.isFunction(beforeCallback) && beforeCallback(data);
                         }
                         if (data.page != 1) {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
                         } else {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
                         }
-                        if (afterRender) {
-                            $.isFunction(callback) && callback();
+                        if (afterCallback) {
+                            $.isFunction(afterCallback) && afterCallback();
                         }
                         $(options.pagingDom).removeClass("hide");
                     }

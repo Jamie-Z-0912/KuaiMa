@@ -42,6 +42,14 @@ define('app/mygather', function(require, exports, module) {
 			}
 		};
 		$('#onlineNum').text(d.total_num).parent().show();
+
+    }, function(){
+		$('.reli').die().on('click', function(){
+			Tools.alertDialog({
+				text:'热度高的内容可以获取更多的曝光机会哦~'
+			});
+			return false;
+		})
     });
 	//已下架
 	pagelist.fun({
@@ -80,5 +88,6 @@ define('app/mygather', function(require, exports, module) {
 	$('#onlineList').on('click', 'li', function(){
 		var id = $(this).data('id');
 		window.location = 'kmb://worthreading?id='+id;
-	})
+	});
+
 });

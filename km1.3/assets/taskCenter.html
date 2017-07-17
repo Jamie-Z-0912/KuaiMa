@@ -30,77 +30,198 @@
                 <a href="javascript:;" class="rule-link" id="rule">规则</a>
                 <a href="javascript:;" class="view-list" id="viewList">签到榜单</a>
             </div>
-            <div class="hd-pic"><img src="image/tc-hd.png" /></div>
-            <div class="time-area">
-                <h1>距离开始还有</h1>
-                <div class="timer" id="timer"></div>
+            <div id="checkin" class="checkin-box">
+                <div class="pic"><img src="image/tc-hd.png" /></div>
+                <div class="time-area">
+                    <h1>每日10点开始</h1>
+                    <div class="timer" id="timer"></div>
+                </div>
+                <div class="msg" id="leftNum"></div>
+                <div class="signin">
+                    <a href="javascript:;" class="btn" id="signin">签到</a>
+                </div>
             </div>
-            <div class="msg" id="leftNum">今日剩余 0/5000</div>
-            <div class="signin">
-                <a href="javascript:;" class="signin-btn" id="signin">签到</a>
+            <div id="norCheckin" class="normal_checkin hide">
+                <div class="nor_pic"><img src="image/tc-normal.png" /></div>
+                <div class="nor_text"><h1>每天10点准时开始</h1><h4>前5000份可得700金币</h4></div>
+                <div class="nor_signin">
+                    <a href="javascript:;" class="btn" id="signinNormal">普通签到</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-list">
+            <div class="box new" id="newbieTask" style="display: none;">
+                <div class="item">
+                    <h4>新手任务</h4>
+                    <div class="txt">注册后7天内完成任务，可获得2800金币奖励</div>
+                    <div class="right">
+                        <i class="arrow"></i>
+                    </div>
+                </div>
+                <div class="sub_box">
+                    <ul class="n-days" id="newbieDays">
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">1天</div>
+                            <div class="days-num">500金币</div>
+                        </li>
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">2天</div>
+                            <div class="days-num">100金币</div>
+                        </li>
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">3天</div>
+                            <div class="days-num">100金币</div>
+                        </li>
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">4天</div>
+                            <div class="days-num">200金币</div>
+                        </li>
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">5天</div>
+                            <div class="days-num">200金币</div>
+                        </li>
+                        <li>
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">6天</div>
+                            <div class="days-num">200金币</div>
+                        </li>
+                        <li class="card">
+                            <div class="days-icon">
+                                <div class="img"></div>
+                            </div>
+                            <div class="days-txt">7天</div>
+                            <div class="days-num">3天卡</div>
+                        </li>
+                    </ul>
+                    <ul class="n-task">
+                        <li id="newbie_school" data-num="200">
+                            <div class="name">新手教学</div>
+                            <div class="desc">阅读新手教程<span>+200金币</span></div>
+                            <div class="right">去完成</div>
+                            <i class="iconfont ui-arrowlink"></i>
+                        </li>
+                        <li id="newbie_read">
+                            <div class="name">阅读文章</div>
+                            <div class="desc">首次有效阅读文章<span>+300金币</span></div>
+                            <div class="right">去完成</div>
+                            <i class="iconfont ui-arrowlink"></i>
+                        </li>
+                        <li id="newbie_search">
+                            <div class="name">搜索任务</div>
+                            <div class="desc">首次有效搜索<span>+500金币</span></div>
+                            <div class="right">去完成</div>
+                            <i class="iconfont ui-arrowlink"></i>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="main-list">
             <h5>每日任务</h5>
-            <div class="box new" id="hotSearch" style="display: none;">
+            <div class="box" id="hotSearch" style="display: none;">
                 <div class="item">
-                    <h4>搜索任务</h4>
-                    <div class="txt">每天使用搜索功能，或查看推荐热文，可获得大量金币</div>
+                    <h3>搜索任务</h3>
+                    <div class="get_gold">+300 金币</div>
+                    <h6>去搜索</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
             </div>
-            <div class="box" id="replyC" style="display: none;">
+            <div class="box" id="readMesA" style="display: none;">
                 <div class="item">
-                    <h4>评论回复</h4>
-                    <div class="txt">评论被其他人回复，则可获得10金币，每天最多奖励50次</div>
+                    <h3>阅读推送</h3>
+                    <div class="get_gold">+60 金币</div>
+                    <h6>开启推送</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
             </div>
-            <div class="box" id="likeC" style="display: none;">
+            <div class="box" id="welfare" data-num="10" style="display: none;">
                 <div class="item">
-                    <h4>评论点赞</h4>
-                    <div class="txt">评论被其他人点赞，则可获得2金币，每天最多奖励100次</div>
+                    <h3>福利活动</h3>
+                    <div class="get_gold">+10 金币</div>
+                    <h6>去参加</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
             </div>
             <div class="box" id="readA">
                 <div class="item">
-                    <h4>阅读文章</h4>
-                    <div class="txt">每次有效阅读一篇文章系统将会给您金币奖励</div>
+                    <h3>阅读文章</h3>
+                    <div class="get_gold">+10金币/篇</div>
+                    <h6>去阅读</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
             </div>
-            <div class="box" id="inviteF">
+            <div class="box" id="gatherA" style="display: none;">
                 <div class="item">
-                    <h4>邀请好友</h4>
-                    <div class="txt">每成功邀请一位好友，该好友完成一个任务之后您将获得巨额金币奖励</div>
+                    <h3>采集文章</h3>
+                    <div class="get_gold">金币无限得</div>
+                    <h6>去采集</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
             </div>
             <div class="box" id="shareA">
                 <div class="item">
-                    <h4>转发任务</h4>
-                    <div class="txt">转发指定文章到系统要求的社交平台，好友每次阅读都会给您带来金币奖励</div>
+                    <h3>转发任务</h3>
+                    <div class="get_gold">金币无限得</div>
+                    <h6>去做任务</h6>
                 </div>
                 <div class="right">
-                    <i class="go">GO</i>
                     <i class="iconfont ui-arrowlink"></i>
                 </div>
+            </div>
+        </div>
+        <div class="main-list">
+            <h5>常规任务</h5>
+            <div class="box" id="replyC">
+                <div class="item em5">
+                    <h3>评论被回复</h3>
+                    <div class="subtxt">您的评论被回复</div>
+                </div>
+                <div class="right">
+                    <h6>+10金币/次</h6>
+                </div>
+            </div>
+            <div class="box" id="likeC">
+                <div class="item em5">
+                    <h3>评论被点赞</h3>
+                    <div class="subtxt">您的评论被点赞</div>
+                </div>
+                <div class="right">
+                    <h6>+2金币/次</h6>
+                </div>
+            </div>
+        </div>
+        <div class="main-list">
+            <h5>更多收益</h5>
+            <div class="box imgbox" id="inviteF">
+                <img src="image/tc-shoutu.png" />
             </div>
         </div>
     </div>
@@ -127,6 +248,7 @@
         </div>
     </div>
     <div id="sidebar-bg"></div>
+    
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/taskCenter.js"></script>
     <script>

@@ -25,22 +25,40 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         $("#close").remove();
         return;
     }
-    if (km.less("1.3.2")) {
-        $("#hotSearch").remove();
-    } else {
-        $("#hotSearch").show();
-        $("#hotSearch").on("click", function() {
-            window.location = "kmb://hotsearch";
-        });
-    }
-    if (km.less("1.2.0")) {
-        $("#replyC, #likeC").remove();
-    } else {
-        $("#replyC, #likeC").show();
-        $("#replyC, #likeC").on("click", function() {
-            window.location = "kmb://main";
-        });
-    }
+    var checkinStatus = {
+        over: function() {
+            $("#checkin").hide();
+            $("#signinNormal").text("已签到");
+            $("#norCheckin").show();
+        },
+        normal: function() {
+            $("#checkin").hide();
+            $("#signinNormal").addClass("checkin");
+            $("#norCheckin").show();
+        }
+    };
+    var fun = {
+        updateApp: function() {
+            var str = '<div class="pop-mask km-dialog"></div>' + '<div class="pop-screen km-dialog update_pop">' + '<div class="box">' + "<h2>升级新版本</h2>" + '<div class="text">' + '<img src="image/tc-update.png" style="width:100%">' + "<p>开启新任务，快来赚更多！</p>" + "</div>" + '<div class="btnbox">' + '<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">去升级</a>' + "</div>" + "</div>" + "</div>";
+            $("body").append(str);
+        },
+        getCoin: function(type, callback) {
+            Ajax.custom({
+                url: "api/v1/task/receiveReward",
+                data: {
+                    eventType: type
+                }
+            }, function(data) {
+                if (data.status != 1e3) {
+                    Tools.alertDialog({
+                        text: data.desc
+                    });
+                } else {
+                    $.isFunction(callback) && callback();
+                }
+            });
+        }
+    };
     var checkin_jinbi = 700;
     Ajax.custom({
         url: "api/v1/checkin/setting"
@@ -49,27 +67,190 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         checkin_jinbi = d.commission || 700;
         if (d.is_checkin) {
             Storage.set("hasCheckin", "1", true);
-            $("#signin").removeClass("checkin").addClass("hasCheckin").text("已签到");
-            $("#leftNum").text("签到获得 " + checkin_jinbi + "金币");
-            $("#timer").parent().html("开抢时间：每日10点");
+            checkinStatus.over();
         } else {
             if (d.left_num > 0) {
                 $("#leftNum").text("今日剩余 " + d.left_num + "/" + d.total_num);
+                $("#timer").prev().text("距离开始还有");
                 new Timer("#timer", d.left_seconds, d.is_start, function() {
                     $("#signin").addClass("checkin");
                     if (Storage.get("hasCheckin", true) && Storage.get("hasCheckin", true) == 1) {
-                        $("#signin").removeClass("checkin").addClass("hasCheckin");
+                        checkinStatus.over();
                     }
                 });
-                $("#timer").parent().show();
+                $("#timer").show();
             } else {
-                $("#leftNum").text("今日剩余 0" + "/" + d.total_num);
-                $("#timer").parent().html("开抢时间：每日10点").show();
-                $("#signin").addClass("over").text("已抢光");
-                if (Storage.get("hasCheckin", true)) {
-                    Storage.remove("hasCheckin", true);
-                }
+                checkinStatus.normal();
             }
+        }
+    });
+    console.log(km);
+    if (km.less("1.3.2")) {
+        $("#hotSearch").hide();
+    } else {
+        $("#hotSearch").show();
+        $("#hotSearch").on("click", function() {
+            if (km.less("1.3.2")) {
+                fun.updateApp();
+            } else {
+                window.location = "kmb://hotsearch";
+            }
+        });
+    }
+    if (km.less("1.2.0")) {
+        $("#replyC, #likeC").remove();
+    } else {
+        $("#replyC, #likeC").on("click", function() {
+            if (km.less("1.2.0")) {
+                fun.updateApp();
+            } else {
+                window.location = "kmb://main";
+            }
+        });
+    }
+    Ajax.custom({
+        url: "api/v1/task/junior"
+    }, function(d) {
+        var data = d.data;
+        if (data.show_junior_task) {
+            if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.4.2")) {
+                $("#newbie_school").hide();
+            } else {
+                $("#newbie_school").on("click", function() {
+                    var _self = $(this);
+                    if (km.less("1.4.2")) {
+                        fun.updateApp();
+                    } else {
+                        if ($("#newbie_school .over").length > 0) {
+                            window.location = "kmb://newbie";
+                        } else {
+                            fun.getCoin("read_tutorial", function() {
+                                Tools.alertDialog({
+                                    text: "获得" + _self.data("num") + "金币"
+                                });
+                                setTimeout(function() {
+                                    window.location = "kmb://newbie";
+                                }, 1e3);
+                            });
+                        }
+                    }
+                });
+            }
+            if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.3.2")) {
+                $("#newbie_search").hide();
+            } else {
+                $("#newbie_search").show();
+                $("#newbie_search").on("click", function() {
+                    if (km.less("1.3.2")) {
+                        fun.updateApp();
+                    } else {
+                        window.location = "kmb://hotsearch";
+                    }
+                });
+            }
+            $("#newbie_read").on("click", function() {
+                window.location = "kmb://main";
+            });
+            $("#newbieTask").show();
+            var n_day_len = $("#newbieDays li").length;
+            var n_can_day = data.can_receive_junior_reward_day_num;
+            var n_has_day = data.receive_junior_reward_day_num;
+            if (n_can_day != 0) {
+                $("#newbieDays li").eq(n_can_day - 1).addClass("can_get");
+            }
+            for (var i = 0; i < n_has_day; i++) {
+                $("#newbieDays li").eq(i).addClass("has_get");
+            }
+            if (data.has_read_tutorial) {
+                $("#newbie_school .right").text("已完成").addClass("over");
+            }
+            if (data.has_first_read_article) {
+                $("#newbie_read .right").text("已完成").addClass("over");
+            }
+            if (data.has_first_search) {
+                $("#newbie_search .right").text("已完成").addClass("over");
+            }
+            var days_wel = [ "junior_first_day_reward", "junior_second_day_reward", "junior_third_day_reward", "junior_fourth_day_reward", "junior_fifth_day_reward", "junior_sixth_day_reward", "junior_seventh_day_reward" ];
+            $("#newbieDays").on("click", "li", function() {
+                var _self = $(this), i = _self.index();
+                if (_self.hasClass("can_get")) {
+                    fun.getCoin(days_wel[i], function() {
+                        new tipsAd({
+                            type: "ok",
+                            title: "领取成功",
+                            text: "获得第" + (i + 1) + "天奖励",
+                            hasAd: "0"
+                        });
+                        _self.removeClass("can_get").addClass("has_get");
+                    });
+                } else if (_self.hasClass("has_get")) {
+                    Tools.alertDialog({
+                        text: "你已领过第" + (i + 1) + "天的奖励"
+                    });
+                } else {
+                    Tools.alertDialog({
+                        text: "领取时间未到！"
+                    });
+                }
+            });
+        } else {
+            $("#newbieTask").remove();
+        }
+    });
+    Ajax.custom({
+        url: "api/v1/task/daily"
+    }, function(d) {
+        var data = d.data;
+        if (data.show_daily_fuli) {
+            $("#welfare").show();
+            if (data.has_join_fuli_act) {
+                $("#welfare h6").text("已完成").addClass("over");
+            }
+            $("#welfare").on("click", function() {
+                var _self = $(this);
+                if ($("#welfare .over").length > 0) {
+                    window.location = data.daily_fuli_task.origin_url;
+                } else {
+                    fun.getCoin("join_fuli_act", function() {
+                        Tools.alertDialog({
+                            text: "获得" + _self.data("num") + "金币"
+                        });
+                        setTimeout(function() {
+                            window.location = data.daily_fuli_task.origin_url;
+                        }, 1e3);
+                    });
+                }
+            });
+        }
+        if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.4.2")) {
+            $("#readMesA, #gatherA").remove();
+        } else {
+            $("#hotSearch h6").text(data.search_task_status);
+            $("#readMesA, #gatherA").show();
+            if (Tools.getQueryValue("notice") != "open") {
+                $("#readMesA").on("click", function() {
+                    if (km.less("1.4.2")) {
+                        fun.updateApp();
+                    } else {
+                        window.location = "kmb://sysnotificationsetting";
+                    }
+                });
+            }
+            $("#gatherA").on("click", function() {
+                if (data.has_caiji_permission) {
+                    if (km.less("1.4.0")) {
+                        fun.updateApp();
+                    } else {
+                        window.location = "kmb://worthreadingtab";
+                    }
+                } else {
+                    if (km.less("1.4.2")) {
+                        fun.updateApp();
+                    } else {
+                        window.location = "kmb://applyworthreading";
+                    }
+                }
+            });
         }
     });
     var runAD = [];
@@ -79,7 +260,6 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             location: "checkin_alert"
         }
     }, function(d) {
-        console.log(d.data);
         for (var i = 0; i < d.data.length; i++) {
             var ad = {
                 img: "",
@@ -89,6 +269,16 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             ad.link = d.data[i].origin_url;
             runAD.push(ad);
         }
+    });
+    $("#rule").on("click", function() {
+        new tipsAd({
+            type: "rule",
+            subtit: "每天上午10点准时开抢",
+            text: "开启提醒，快人一步！<br>数量有限，先到先得！",
+            hasAd: "0",
+            isClose: "no",
+            btnType: "1"
+        });
     });
     $("#signin").on("click", function() {
         var btn = $(this);
@@ -108,7 +298,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 }, function(data) {
                     waiting.close();
                     if (data.status == 1e3) {
-                        btn.addClass("hasCheckin");
+                        checkinStatus.over();
                         Storage.set("hasCheckin", 1, true);
                         var showad = Math.floor(Math.random() * runAD.length);
                         new tipsAd({
@@ -118,9 +308,6 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                             adImg: runAD[showad].img,
                             adLink: runAD[showad].link
                         });
-                        $("#leftNum").text("签到获得 " + data.data.commission + "金币");
-                        $("#signin").removeClass("checkin").addClass("hasCheckin").text("已签到");
-                        $("#timer").parent().html("开抢时间：每日10点");
                         var iframe = document.createElement("iframe");
                         iframe.src = "kmb://refreshgold";
                         iframe.style.display = "none";
@@ -128,20 +315,18 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         $(iframe).remove();
                     }
                     if (data.status == 9001) {
-                        btn.addClass("hasCheckin");
                         Storage.set("hasCheckin", 1, true);
+                        checkinStatus.over();
                         Tools.alertDialog({
                             text: "今天已签到，明天再来吧"
                         });
                     }
                     if (data.status == 3001 || data.status == 3004) {
-                        btn.addClass("over").text("已抢光");
-                        $("#leftNum").text("今日剩余 0/5000");
-                        var showad = Math.floor(Math.random() * runAD.length);
+                        checkinStatus.normal();
                         new tipsAd({
                             type: "over",
                             title: "签到失败",
-                            text: "今日份额已抢完，明天再来吧",
+                            text: "获得普通签到机会",
                             adImg: runAD[showad].img,
                             adLink: runAD[showad].link
                         });
@@ -149,43 +334,58 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 });
             }, 1e3);
         } else {
-            if ($(this).hasClass("over")) {
-                var showad = Math.floor(Math.random() * runAD.length);
-                new tipsAd({
-                    type: "over",
-                    title: "手慢了",
-                    text: "今日已抢，明天10点准时再来",
-                    adImg: runAD[showad].img,
-                    adLink: runAD[showad].link
-                });
-                return;
-            }
-            if (btn.hasClass("hasCheckin")) {
-                var showad = Math.floor(Math.random() * runAD.length);
-                new tipsAd({
-                    type: "",
-                    title: "恭喜你",
-                    text: "今日签到成功，明天继续哦~",
-                    adImg: runAD[showad].img,
-                    adLink: runAD[showad].link
-                });
-                return;
-            }
             Tools.alertDialog({
                 text: "签到未开始，稍后再试",
                 time: "0"
             });
         }
     });
-    $("#rule").on("click", function() {
-        new tipsAd({
-            type: "rule",
-            subtit: "每天上午10点准时开抢",
-            text: "开启提醒，快人一步！<br>数量有限，先到先得！",
-            hasAd: "0",
-            isClose: "no",
-            btnType: "1"
-        });
+    $("#signinNormal").on("click", function() {
+        var btn = $(this);
+        if (btn.hasClass("checkin")) {
+            btn.removeClass("checkin");
+            setTimeout(function() {
+                Ajax.custom({
+                    url: "api/v1/checkin/common"
+                }, function(data) {
+                    if (data.status == 1e3) {
+                        checkinStatus.over();
+                        Storage.set("hasCheckin", 1, true);
+                        var showad = Math.floor(Math.random() * runAD.length);
+                        new tipsAd({
+                            type: "ok",
+                            isClose: "no",
+                            title: "获得" + data.data.commission + "金币",
+                            text: "提示：每日前5000名可获得700金币",
+                            adImg: runAD[showad].img,
+                            adLink: runAD[showad].link
+                        });
+                        var iframe = document.createElement("iframe");
+                        iframe.src = "kmb://refreshgold";
+                        iframe.style.display = "none";
+                        $("body").append(iframe);
+                        $(iframe).remove();
+                    }
+                    if (data.status == 9001) {
+                        Storage.set("hasCheckin", 1, true);
+                        checkinStatus.over();
+                        Tools.alertDialog({
+                            text: "今天已签到，明天再来吧"
+                        });
+                    }
+                    if (data.status == 3001) {
+                        checkinStatus.normal();
+                        new tipsAd({
+                            type: "over",
+                            title: "签到未开始",
+                            text: "前5000名可获得700金币",
+                            adImg: runAD[showad].img,
+                            adLink: runAD[showad].link
+                        });
+                    }
+                });
+            }, 1e3);
+        }
     });
     $("#readA").on("click", function() {
         window.location = "kmb://main";
@@ -231,7 +431,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
     exports.defaultListTmpl = "#conList-tmpl";
     exports.defaultListEle = "#conList";
     exports.pagingDom = "#listPage";
-    exports.fun = function(options, callback, afterRender) {
+    exports.fun = function(options, beforeCallback, afterCallback) {
         var isFirst = options.data.page == 1, opt = {
             renderFor: this.defaultListTmpl,
             renderEle: this.defaultListEle,
@@ -268,16 +468,16 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         $.each(data.data, function() {
                             this.added_time = Ajax.formatDate(this.added_time);
                         });
-                        if (!afterRender) {
-                            $.isFunction(callback) && callback(data);
+                        if (beforeCallback) {
+                            $.isFunction(beforeCallback) && beforeCallback(data);
                         }
                         if (data.page != 1) {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
                         } else {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
                         }
-                        if (afterRender) {
-                            $.isFunction(callback) && callback();
+                        if (afterCallback) {
+                            $.isFunction(afterCallback) && afterCallback();
                         }
                         $(options.pagingDom).removeClass("hide");
                     }
@@ -909,7 +1109,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             mm = m > 0 ? m - 1 : h == 0 ? 0 : 59;
             $(_self.el + " .m").text(_self.zeroize(mm));
         }
-        if (m == 0) {
+        if (s == 0 && m == 0) {
             hh = h > 0 ? h - 1 : 0;
             $(_self.el + " .h").text(_self.zeroize(hh));
         }

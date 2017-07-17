@@ -48,7 +48,7 @@ define(function(require,exports,module){
 			mm = m > 0 ? m-1 : ( h==0 ? 0 : 59); 
 			$(_self.el+' .m').text(_self.zeroize(mm));
 		}
-		if(m==0){
+		if(s==0&&m==0){
 			hh = h > 0 ? h-1 : 0; 
 			$(_self.el+' .h').text(_self.zeroize(hh));
 		}

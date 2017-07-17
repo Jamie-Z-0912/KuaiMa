@@ -11,7 +11,7 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
         }
     }, function(d) {
         var data = d.data;
-        var w_ = parseInt($("#onlineList").width() * .3).toFixed(2);
+        var w_ = parseInt($("#conList").width() * .3).toFixed(2);
         for (var i = 0; i < data.length; i++) {
             if (data[i].layout == 3) {
                 d.data[i].imgWidth = w_ + "px";
@@ -38,13 +38,16 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
     $("#conList").on("click", ".del", function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var that = $(this), id = that.data("id");
+        var that = $(this), id = that.data("id"), obj_type = that.attr("data-objType");
         new confirmTip({
             title: '<p style="padding: .2rem 0;">确定不再收藏这篇文章</p>'
         }, function(a) {
             if (a) {
                 Ajax.custom({
-                    url: "api/v1/collectArticles/delete/" + id
+                    url: "api/v1/collectArticles/delete/" + id,
+                    data: {
+                        objType: obj_type
+                    }
                 }, function(d) {
                     if (d.status == 1e3) {
                         Tools.alertDialog({
@@ -68,7 +71,7 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
     exports.defaultListTmpl = "#conList-tmpl";
     exports.defaultListEle = "#conList";
     exports.pagingDom = "#listPage";
-    exports.fun = function(options, callback, afterRender) {
+    exports.fun = function(options, beforeCallback, afterCallback) {
         var isFirst = options.data.page == 1, opt = {
             renderFor: this.defaultListTmpl,
             renderEle: this.defaultListEle,
@@ -105,16 +108,16 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
                         $.each(data.data, function() {
                             this.added_time = Ajax.formatDate(this.added_time);
                         });
-                        if (!afterRender) {
-                            $.isFunction(callback) && callback(data);
+                        if (beforeCallback) {
+                            $.isFunction(beforeCallback) && beforeCallback(data);
                         }
                         if (data.page != 1) {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
                         } else {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
                         }
-                        if (afterRender) {
-                            $.isFunction(callback) && callback();
+                        if (afterCallback) {
+                            $.isFunction(afterCallback) && afterCallback();
                         }
                         $(options.pagingDom).removeClass("hide");
                     }

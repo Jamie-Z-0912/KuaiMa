@@ -8,7 +8,7 @@ define("app/myBrowsingHistory", [ "../mod/pagelist", "../plugs/version" ], funct
             page: 1,
             page_size: 20
         }
-    }, function() {
+    }, null, function() {
         var w_ = $(".view_3 .imgbox").width() * .3;
         $(".view_3 .imgbox").height(w_ * 74 / 113);
         $(".view_3 .imgbox").each(function() {
@@ -17,7 +17,7 @@ define("app/myBrowsingHistory", [ "../mod/pagelist", "../plugs/version" ], funct
                 that.height(0);
             }
         });
-    }, true);
+    });
     $("#conList").on("click", "li", function() {
         var url = $(this).data("url"), id = $(this).data("id"), type = $(this).data("type");
         if (type == "2") {
@@ -41,7 +41,7 @@ define("app/myBrowsingHistory", [ "../mod/pagelist", "../plugs/version" ], funct
     exports.defaultListTmpl = "#conList-tmpl";
     exports.defaultListEle = "#conList";
     exports.pagingDom = "#listPage";
-    exports.fun = function(options, callback, afterRender) {
+    exports.fun = function(options, beforeCallback, afterCallback) {
         var isFirst = options.data.page == 1, opt = {
             renderFor: this.defaultListTmpl,
             renderEle: this.defaultListEle,
@@ -78,16 +78,16 @@ define("app/myBrowsingHistory", [ "../mod/pagelist", "../plugs/version" ], funct
                         $.each(data.data, function() {
                             this.added_time = Ajax.formatDate(this.added_time);
                         });
-                        if (!afterRender) {
-                            $.isFunction(callback) && callback(data);
+                        if (beforeCallback) {
+                            $.isFunction(beforeCallback) && beforeCallback(data);
                         }
                         if (data.page != 1) {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
                         } else {
                             Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
                         }
-                        if (afterRender) {
-                            $.isFunction(callback) && callback();
+                        if (afterCallback) {
+                            $.isFunction(afterCallback) && afterCallback();
                         }
                         $(options.pagingDom).removeClass("hide");
                     }

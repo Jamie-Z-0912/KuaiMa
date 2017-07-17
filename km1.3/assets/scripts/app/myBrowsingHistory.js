@@ -5,7 +5,7 @@ define('app/myBrowsingHistory', function(require, exports, module) {
     pagelist.fun({ 
         url: 'api/v1/readArticles',
         data:{page: 1, page_size: 20}
-    },function(){
+    },null,function(){
         var w_ = $('.view_3 .imgbox').width() * .3;
         $('.view_3 .imgbox').height(w_*74/113);
         $('.view_3 .imgbox').each(function(){
@@ -14,7 +14,7 @@ define('app/myBrowsingHistory', function(require, exports, module) {
                 that.height(0)
             }
         })
-    }, true);
+    });
     $('#conList').on('click', 'li', function(){
         var url = $(this).data('url'),
             id = $(this).data('id'),

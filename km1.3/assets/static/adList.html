@@ -24,16 +24,16 @@
                 </li>
             {{??}}
                 {{~it.data:value:index}}
-                    <li class="view_3" data-keyword="{{=value.keyword}}">
+                    <li class="view_3" data-url="{{=value.origin_url}}">
                         <div class="box">
                             <h3>{{=value.title}}</h3>
                             <div class="imgbox">
                                 {{ for (var i = 0; i < value.images.length; i++) { }}
-                                    <img src="adImgs/{{=value.images[i]}}" />
+                                    <img src="{{=value.images[i]}}" />
                                 {{ } }}
                             </div>
                             <div class="source">
-                                <span>{{=value.category}}</span><span>{{=value.added_time}}</span>
+                                <span>{{=value.tips}}</span><span>{{=value.date}}</span>
                             </div>
                         </div> 
                     </li>

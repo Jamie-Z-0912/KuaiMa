@@ -8,7 +8,7 @@ define("app/myCollection", function(require, exports, module) {
         data:{page: 1, page_size: 20}
     },function(d){
         var data = d.data;
-        var w_ = parseInt($('#onlineList').width() * .3).toFixed(2);
+        var w_ = parseInt($('#conList').width() * .3).toFixed(2);
         for (var i = 0; i < data.length; i++) {
             if(data[i].layout==3){
                 d.data[i].imgWidth = w_+'px';
@@ -35,13 +35,16 @@ define("app/myCollection", function(require, exports, module) {
     $('#conList').on('click', '.del', function(e){
         e.preventDefault();
         e.stopPropagation();
-        var that = $(this), id = that.data('id');
+        var that = $(this), id = that.data('id'), obj_type = that.attr('data-objType');
         new confirmTip({
             title: '<p style="padding: .2rem 0;">确定不再收藏这篇文章</p>'
         },function(a){
             if(a){
                 Ajax.custom({
-                    url:'api/v1/collectArticles/delete/'+ id
+                    url:'api/v1/collectArticles/delete/'+ id,
+                    data:{
+                        objType: obj_type
+                    }
                 },function(d){
                     if(d.status == 1000){
                         Tools.alertDialog({

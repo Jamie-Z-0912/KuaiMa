@@ -152,6 +152,7 @@ body{background-color: #fafafa;}
 						display: inline-block;
 						vertical-align: middle;
 						margin-right: .15rem;
+						.lineH(.2rem);
 					}
 					.time{
 						position: absolute;
@@ -160,6 +161,7 @@ body{background-color: #fafafa;}
 					}
 					.ori_icon{
 						width: .12rem;
+						height: .2rem;
 						img{ width:.2rem; height: .2rem; position: absolute; left: 0;top:0;}
 					}
 				}
@@ -194,7 +196,7 @@ body{background-color: #fafafa;}
 				}
 				.source{
 					margin-top: .1rem;
-					margin-bottom: -.04rem;
+					margin-bottom: .1rem;
 				}
 			}
 			li.view_2{
@@ -225,6 +227,7 @@ body{background-color: #fafafa;}
 			}
 			li.view_5{
 				.imgbox{display: none;}
+				h3{padding-bottom: .1rem;}
 			}
 			li.empty{height:3rem; background-color: #fafafa;}
 		}
@@ -245,6 +248,54 @@ body{background-color: #fafafa;}
 			}
 			li.view_5{
 				.source{margin-bottom: .12rem;}
+			}
+		}
+		#onlineList{
+			li{
+				.bottom{
+					margin-top: .1rem;
+					.border-t;
+					font-size: 0;
+					text-align: center;
+					padding-top: .15rem;
+					span{
+						display: inline-block;
+						width: 30%;
+						color: #525252;
+						font-size: .13rem;
+						line-height: 1.2;
+						.border-r;
+						&.reli{
+							position: relative;
+							z-index: 8;
+							border-right: 0 none;
+							width: 39%;
+							color: #ff5e00;
+							i{
+								display: inline-block;
+								width: .14rem;
+								height: .14rem;
+								background-color: #ebebeb;
+								margin-left: .06rem;
+								border-radius: 50%;
+								&:before{
+									display: inline;
+									content: "?";
+									line-height: .14rem;
+									color: #b8b8b8;
+									font-size: .11rem;
+								}
+							}
+						}
+					}
+				}
+			}
+			li.view_1{
+				.source{
+					position: absolute;
+					bottom: .58rem;
+					.time{left: 0;top:.2rem;}
+				}
 			}
 		}
 	}

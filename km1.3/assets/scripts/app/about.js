@@ -1,5 +1,5 @@
 define('app/about', function(require, exports, module) {
-	var pagelist = require('../mod/pagelist');
+    require('../mod/base');
 	var km = require('../plugs/version');
     var SecondPage = require('../plugs/secondPage.js');
 
