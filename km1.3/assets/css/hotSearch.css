@@ -700,3 +700,8 @@ i#lDom ~ iframe {
   background-color: #ffda24;
   width: 2.1rem;
 }
+@media (max-height: 490px) {
+  .hot-tips {
+    margin-top: 0.1rem;
+  }
+}

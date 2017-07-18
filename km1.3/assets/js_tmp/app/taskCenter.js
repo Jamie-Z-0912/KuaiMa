@@ -80,7 +80,10 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 });
                 $("#timer").show();
             } else {
-                checkinStatus.normal();
+                if (d.checkin_type == "common_checkin") {
+                    checkinStatus.normal();
+                }
+                $("#signin").text("已抢光").addClass("over");
             }
         }
     });
@@ -99,15 +102,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
     }
     if (km.less("1.2.0")) {
         $("#replyC, #likeC").remove();
-    } else {
-        $("#replyC, #likeC").on("click", function() {
-            if (km.less("1.2.0")) {
-                fun.updateApp();
-            } else {
-                window.location = "kmb://main";
-            }
-        });
-    }
+    } else {}
     Ajax.custom({
         url: "api/v1/task/junior"
     }, function(d) {
@@ -129,6 +124,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                                     text: "获得" + _self.data("num") + "金币"
                                 });
                                 setTimeout(function() {
+                                    $("#newbie_school .right").text("已完成").addClass("over");
                                     window.location = "kmb://newbie";
                                 }, 1e3);
                             });
@@ -173,12 +169,17 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             var days_wel = [ "junior_first_day_reward", "junior_second_day_reward", "junior_third_day_reward", "junior_fourth_day_reward", "junior_fifth_day_reward", "junior_sixth_day_reward", "junior_seventh_day_reward" ];
             $("#newbieDays").on("click", "li", function() {
                 var _self = $(this), i = _self.index();
+                var coin = _self.data("num");
+                var tt = "成功领取" + coin + "金币";
+                if (_self.hasClass("card")) {
+                    tt = "获得一张" + coin + "天加速卡";
+                }
                 if (_self.hasClass("can_get")) {
                     fun.getCoin(days_wel[i], function() {
                         new tipsAd({
                             type: "ok",
-                            title: "领取成功",
-                            text: "获得第" + (i + 1) + "天奖励",
+                            subtit: tt,
+                            text: "得到第" + (i + 1) + "天奖励",
                             hasAd: "0"
                         });
                         _self.removeClass("can_get").addClass("has_get");
@@ -189,7 +190,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                     });
                 } else {
                     Tools.alertDialog({
-                        text: "领取时间未到！"
+                        text: "第" + (i + 1) + "天领取时间未到！"
                     });
                 }
             });
@@ -204,7 +205,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         if (data.show_daily_fuli) {
             $("#welfare").show();
             if (data.has_join_fuli_act) {
-                $("#welfare h6").text("已完成").addClass("over");
+                $("#welfare h6").text("已完成");
             }
             $("#welfare").on("click", function() {
                 var _self = $(this);
@@ -216,6 +217,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                             text: "获得" + _self.data("num") + "金币"
                         });
                         setTimeout(function() {
+                            $("#welfare h6").text("已完成");
                             window.location = data.daily_fuli_task.origin_url;
                         }, 1e3);
                     });
@@ -235,6 +237,9 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         window.location = "kmb://sysnotificationsetting";
                     }
                 });
+            } else {
+                $("#readMesA h6").text(data.read_push_status);
+                $("#readMesA").addClass("over");
             }
             $("#gatherA").on("click", function() {
                 if (data.has_caiji_permission) {
@@ -326,7 +331,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         new tipsAd({
                             type: "over",
                             title: "签到失败",
-                            text: "获得普通签到机会",
+                            text: "还有普通签到等着你参加",
                             adImg: runAD[showad].img,
                             adLink: runAD[showad].link
                         });
@@ -334,6 +339,17 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 });
             }, 1e3);
         } else {
+            if ($(this).hasClass("over")) {
+                var showad = Math.floor(Math.random() * runAD.length);
+                new tipsAd({
+                    type: "over",
+                    title: "手慢了",
+                    text: "今日已抢光，明天10点再来吧",
+                    adImg: runAD[showad].img,
+                    adLink: runAD[showad].link
+                });
+                return;
+            }
             Tools.alertDialog({
                 text: "签到未开始，稍后再试",
                 time: "0"

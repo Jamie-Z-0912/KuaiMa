@@ -5,6 +5,7 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
     var km = require("../plugs/version.js");
     require("../plugs/swiper-2.7.min.js");
     var mast, myurl = "http://share.51xiaoli.cn/inviteReg.html";
+    var mylink0 = myurl + "?uid=" + uid;
     if (km.less("1.3.2")) {
         mast = Tools.uid();
         $("#shareBtn1").remove();
@@ -12,7 +13,11 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
         mast = Tools.auth_token();
         $("#shareBtn1").show();
         $("#shareBtn1").on("click", function() {
-            window.location = "kmb://shareinviteimg?qrurl=" + myurl;
+            if (km.less("1.4.2")) {
+                window.location = "kmb://shareinviteimg?qrurl=" + myurl;
+            } else {
+                window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻看八卦，涨见识还可以赚零花，很多人都在玩。"}';
+            }
         });
     }
     if (!km.isKM || mast == "null") {
@@ -34,9 +39,8 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
                 text: mylink
             });
         });
-        var mylink0 = myurl + "?uid=" + uid;
         $("#shareBtn3").on("click", function() {
-            window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"看文章有奖励，既长见识又赚钱，每月轻松多赚500元。你也快来试试吧！"}';
+            window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻看八卦，涨见识还可以赚零花，很多人都在玩。"}';
         });
     }
     var channel = "", userAgent = km.userAgent;

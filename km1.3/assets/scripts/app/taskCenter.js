@@ -89,8 +89,12 @@ define('app/taskCenter', function(require, exports, module) {
 					}
 				});
 				$('#timer').show();
-			}else{ //显示普通签到
-				checkinStatus.normal();
+			}else{ 
+				//根据类型控制是否显示普通签到
+				if(d.checkin_type == 'common_checkin'){
+					checkinStatus.normal();
+				}
+				$('#signin').text('已抢光').addClass('over');
 			}
 		}
     });
@@ -112,13 +116,14 @@ define('app/taskCenter', function(require, exports, module) {
 	if(km.less('1.2.0')){
 		$('#replyC, #likeC').remove();
 	}else{
-		$('#replyC, #likeC').on('click', function(){
-			if(km.less('1.2.0')){
-				fun.updateApp();
-			}else{
-				window.location = 'kmb://main';
-			}
-		});
+		//取消跳转
+		// $('#replyC, #likeC').on('click', function(){
+		// 	if(km.less('1.2.0')){
+		// 		fun.updateApp();
+		// 	}else{
+		// 		window.location = 'kmb://main';
+		// 	}
+		// });
 	}
     /*新手任务*/
 	Ajax.custom({
@@ -151,6 +156,7 @@ define('app/taskCenter', function(require, exports, module) {
 									text:'获得'+ _self.data('num') +'金币'
 								})
 								setTimeout(function(){
+									$('#newbie_school .right').text('已完成').addClass('over');
 									window.location = 'kmb://newbie';
 								},1000);
 							})
@@ -201,12 +207,17 @@ define('app/taskCenter', function(require, exports, module) {
 		    ];
 		    $('#newbieDays').on('click', 'li', function(){
 		    	var _self = $(this), i = _self.index();
+		    	var coin = _self.data('num');
+		    	var tt = '成功领取'+coin+'金币';
+		    	if(_self.hasClass('card')){
+		    		tt = '获得一张'+coin+'天加速卡'
+		    	}
 		    	if(_self.hasClass('can_get')){
 		    		fun.getCoin(days_wel[i],function(){
 		    			new tipsAd({
 							type: 'ok',
-							title: '领取成功',
-							text: '获得第'+(i+1)+ '天奖励',
+							subtit: tt,
+							text: '得到第'+(i+1)+ '天奖励',
 							hasAd: '0'
 						});
 		    			_self.removeClass('can_get').addClass('has_get');
@@ -217,7 +228,7 @@ define('app/taskCenter', function(require, exports, module) {
 		    		})
 		    	}else{
 		    		Tools.alertDialog({
-		    			text:'领取时间未到！'
+		    			text:'第'+(i+1)+'天领取时间未到！'
 		    		})
 		    	}
 		    })
@@ -234,7 +245,7 @@ define('app/taskCenter', function(require, exports, module) {
 		if(data.show_daily_fuli){
 			$('#welfare').show();
 			if(data.has_join_fuli_act){
-				$('#welfare h6').text('已完成').addClass('over');
+				$('#welfare h6').text('已完成');
 			}
 			$('#welfare').on('click', function(){
 				var _self = $(this);
@@ -246,6 +257,7 @@ define('app/taskCenter', function(require, exports, module) {
 							text:'获得'+ _self.data('num') +'金币'
 						})
 						setTimeout(function(){
+							$('#welfare h6').text('已完成');
 							window.location = data.daily_fuli_task.origin_url;
 						},1000);
 					});
@@ -257,7 +269,7 @@ define('app/taskCenter', function(require, exports, module) {
 	    }else{
 			$('#hotSearch h6').text(data.search_task_status);
 			$('#readMesA, #gatherA').show();
-			if(Tools.getQueryValue('notice')!='open'){
+			if(Tools.getQueryValue('notice')!='open' ){
 				$('#readMesA').on('click', function(){
 					if(km.less('1.4.2')){
 						fun.updateApp();
@@ -265,6 +277,9 @@ define('app/taskCenter', function(require, exports, module) {
 						window.location = 'kmb://sysnotificationsetting';
 					}
 				});
+			}else{
+				$('#readMesA h6').text(data.read_push_status);
+				$('#readMesA').addClass('over');
 			}
 			$('#gatherA').on('click', function(){
 				if(data.has_caiji_permission){
@@ -354,12 +369,13 @@ define('app/taskCenter', function(require, exports, module) {
 			                text: '今天已签到，明天再来吧'
 			            });
 					}
+					//3001签到未开始;3004数量不足;
 					if(data.status == 3001 || data.status == 3004){
 						checkinStatus.normal();
 						new tipsAd({
 							type: 'over',
 							title: '签到失败',
-							text: '获得普通签到机会',
+							text: '还有普通签到等着你参加',
 							adImg: runAD[showad].img,
 							adLink: runAD[showad].link
 						});
@@ -367,17 +383,17 @@ define('app/taskCenter', function(require, exports, module) {
 				});
 			}, 1000);
 		}else{
-			// if($(this).hasClass('over')){
-			// 	var showad = Math.floor(Math.random()*runAD.length);
-			// 	new tipsAd({
-			// 		type: 'over',
-			// 		title: '手慢了',
-			// 		text: '今日已抢，明天10点准时再来',
-			// 		adImg: runAD[showad].img,
-			// 		adLink: runAD[showad].link
-			// 	});
-			// 	return;
-			// }
+			if($(this).hasClass('over')){
+				var showad = Math.floor(Math.random()*runAD.length);
+				new tipsAd({
+					type: 'over',
+					title: '手慢了',
+					text: '今日已抢光，明天10点再来吧',
+					adImg: runAD[showad].img,
+					adLink: runAD[showad].link
+				});
+				return;
+			}
 			// if(btn.hasClass('hasCheckin')){
 			// 	var showad = Math.floor(Math.random()*runAD.length);
 			// 	new tipsAd({
