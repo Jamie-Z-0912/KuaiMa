@@ -3,7 +3,7 @@
   "app/about.js": "app/about-96745777e1.js",
   "app/bind.js": "app/bind-ddabdcfa79.js",
   "app/hotSearch.js": "app/hotSearch-d4f16120d7.js",
-  "app/invite.js": "app/invite-cf9a364cc2.js",
+  "app/invite.js": "app/invite-15742ade5e.js",
   "app/inviteReg.js": "app/inviteReg-3b20ce02d9.js",
   "app/list.js": "app/list-1b1ae672c2.js",
   "app/message.js": "app/message-caee4763d4.js",
@@ -21,5 +21,5 @@
   "app/schoolNew.js": "app/schoolNew-a9647c3108.js",
   "app/startgather.js": "app/startgather-c1c7ff83bc.js",
   "app/static_adList.js": "app/static_adList-688e956e48.js",
-  "app/taskCenter.js": "app/taskCenter-f60a8b5518.js"
+  "app/taskCenter.js": "app/taskCenter-07b2fb4e2a.js"
 }
