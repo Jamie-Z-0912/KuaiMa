@@ -67,7 +67,7 @@ define('app/taskCenter', function(require, exports, module) {
     	}
     }
 
-	var checkin_jinbi = 700;
+	var checkin_jinbi = 700, showNormal=false;
     Ajax.custom({ 
         url: 'api/v1/checkin/setting'
     },function(data){
@@ -92,6 +92,7 @@ define('app/taskCenter', function(require, exports, module) {
 			}else{ 
 				//根据类型控制是否显示普通签到
 				if(d.checkin_type == 'common_checkin'){
+					showNormal = true;
 					checkinStatus.normal();
 				}
 				$('#signin').text('已抢光').addClass('over');
@@ -100,7 +101,7 @@ define('app/taskCenter', function(require, exports, module) {
     });
 
     /*去掉不耻下问*/
-    console.log(km)
+    // console.log(km)
     if(km.less('1.3.2')){
     	$('#hotSearch').hide();
     }else{
@@ -245,7 +246,7 @@ define('app/taskCenter', function(require, exports, module) {
 		if(data.show_daily_fuli){
 			$('#welfare').show();
 			if(data.has_join_fuli_act){
-				$('#welfare h6').text('已完成');
+				$('#welfare h6').text('已完成').addClass('over');
 			}
 			$('#welfare').on('click', function(){
 				var _self = $(this);
@@ -257,7 +258,7 @@ define('app/taskCenter', function(require, exports, module) {
 							text:'获得'+ _self.data('num') +'金币'
 						})
 						setTimeout(function(){
-							$('#welfare h6').text('已完成');
+							$('#welfare h6').text('已完成').addClass('over');
 							window.location = data.daily_fuli_task.origin_url;
 						},1000);
 					});
@@ -279,7 +280,12 @@ define('app/taskCenter', function(require, exports, module) {
 				});
 			}else{
 				$('#readMesA h6').text(data.read_push_status);
-				$('#readMesA').addClass('over');
+				$('#readMesA').addClass('tips');
+				$('#readMesA').on('click', function(){
+					Tools.alertDialog({
+						text:'阅读每日推送文章<br>可获得额外金币奖励'
+					})
+				})
 			}
 			$('#gatherA').on('click', function(){
 				if(data.has_caiji_permission){
@@ -371,14 +377,24 @@ define('app/taskCenter', function(require, exports, module) {
 					}
 					//3001签到未开始;3004数量不足;
 					if(data.status == 3001 || data.status == 3004){
-						checkinStatus.normal();
-						new tipsAd({
-							type: 'over',
-							title: '签到失败',
-							text: '还有普通签到等着你参加',
-							adImg: runAD[showad].img,
-							adLink: runAD[showad].link
-						});
+						if(showNormal){
+							checkinStatus.normal();
+							new tipsAd({
+								type: 'over',
+								title: '签到失败',
+								text: '还有普通签到等着你参加',
+								adImg: runAD[showad].img,
+								adLink: runAD[showad].link
+							});
+						}else{
+							new tipsAd({
+								type: 'over',
+								title: '签到失败',
+								text: '明天10点准时再来哦~',
+								adImg: runAD[showad].img,
+								adLink: runAD[showad].link
+							});
+						}
 					}
 				});
 			}, 1000);
@@ -424,7 +440,7 @@ define('app/taskCenter', function(require, exports, module) {
 						checkinStatus.over();
 						Storage.set('hasCheckin',1,true);
 						var showad = Math.floor(Math.random()*runAD.length);
-						new tipsAd({
+						var nor_sign_ad = new tipsAd({
 							type: 'ok',
 							isClose: 'no',
 							title: '获得'+data.data.commission + '金币',
@@ -432,6 +448,10 @@ define('app/taskCenter', function(require, exports, module) {
 							adImg: runAD[showad].img,
 							adLink: runAD[showad].link
 						});
+						// console.log(nor_sign_ad);
+						$('#'+nor_sign_ad.id+' .ad a').on('click', function(){
+							$('#'+nor_sign_ad.id).remove();
+						})
 			    		var iframe = document.createElement('iframe');
 			    		iframe.src = 'kmb://refreshgold';
 			    		iframe.style.display = 'none';
@@ -445,16 +465,16 @@ define('app/taskCenter', function(require, exports, module) {
 			                text: '今天已签到，明天再来吧'
 			            });
 					}
-					if(data.status == 3001){
-						checkinStatus.normal();
-						new tipsAd({
-							type: 'over',
-							title: '签到未开始',
-							text: '前5000名可获得700金币',
-							adImg: runAD[showad].img,
-							adLink: runAD[showad].link
-						});
-					}
+					//普通签到人人有份不会有未开始的状态
+					// if(data.status == 3001){
+					// 	new tipsAd({
+					// 		type: 'over',
+					// 		title: '签到未开始',
+					// 		text: '前5000名可获得700金币',
+					// 		adImg: runAD[showad].img,
+					// 		adLink: runAD[showad].link
+					// 	});
+					// }
 				});
 			}, 1000);
 		}

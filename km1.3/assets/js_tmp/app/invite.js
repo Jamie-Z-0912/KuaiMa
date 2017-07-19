@@ -5,20 +5,12 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
     var km = require("../plugs/version.js");
     require("../plugs/swiper-2.7.min.js");
     var mast, myurl = "http://share.51xiaoli.cn/inviteReg.html";
-    var mylink0 = myurl + "?uid=" + uid;
     if (km.less("1.3.2")) {
         mast = Tools.uid();
         $("#shareBtn1").remove();
     } else {
         mast = Tools.auth_token();
         $("#shareBtn1").show();
-        $("#shareBtn1").on("click", function() {
-            if (km.less("1.4.2")) {
-                window.location = "kmb://shareinviteimg?qrurl=" + myurl;
-            } else {
-                window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻看八卦，涨见识还可以赚零花，很多人都在玩。"}';
-            }
-        });
     }
     if (!km.isKM || mast == "null") {
         Tools.alertDialog({
@@ -40,7 +32,8 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
             });
         });
         $("#shareBtn3").on("click", function() {
-            window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻看八卦，涨见识还可以赚零花，很多人都在玩。"}';
+            var mylink0 = myurl + "?uid=" + uid;
+            window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
         });
     }
     var channel = "", userAgent = km.userAgent;
@@ -61,6 +54,14 @@ define("app/invite", [ "../mod/base", "../plugs/tipsAd.js", "../plugs/version.js
         $("#photo").append('<img src="' + d.data.avatar + '" />');
         $("#Tel").text(d.data.phone);
         $("#incomeNum").text(d.data.all_income);
+        var mylink0 = myurl + "?uid=" + d.data.uid;
+        $("#shareBtn1").on("click", function() {
+            if (km.less("1.4.2")) {
+                window.location = "kmb://shareinviteimg?qrurl=" + myurl;
+            } else {
+                window.location = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
+            }
+        });
         if (km.gEq("1.3.2")) {
             make_qr(d.data.uid, channel);
         }

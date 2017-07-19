@@ -949,8 +949,8 @@ body {
   width: 100%;
   display: block;
 }
-.main-list .box.over .right {
-  display: none;
+.main-list .box.tips .right .ui-arrowlink:before {
+  content: '!';
 }
 .pop-mask {
   position: fixed;
