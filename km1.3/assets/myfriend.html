@@ -56,7 +56,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="benefit">贡献<span class="orange">{{=value.bring_profit_to_from}} 金币</span></div>
+                            <div class="benefit">
+                                {{?value.bring_profit_to_from == 15000}}
+                                上贡完成 已出师
+                                {{??}}
+                                贡献<span class="orange">{{=value.bring_profit_to_from}} 金币</span>
+                                {{?}}
+                            </div>
                         </div>
                     </div>
                 {{~}}

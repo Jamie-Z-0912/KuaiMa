@@ -72,11 +72,16 @@ define('app/taskCenter', function(require, exports, module) {
         url: 'api/v1/checkin/setting'
     },function(data){
 		var d = data.data;
+		if(d.checkin_type == 'common_checkin'){
+			showNormal = true;
+		}
 		checkin_jinbi = d.commission || 700;
 		if(d.is_checkin){ //已经签到
 			Storage.set('hasCheckin', '1', true);
 			checkinStatus.over();
-		}else{  //倒计时显示
+		}else{  
+
+			//倒计时显示
 			if(d.left_num > 0){
 				$('#leftNum').text('今日剩余 '+d.left_num+'/'+d.total_num);
 				$('#timer').prev().text('距离开始还有');
@@ -91,8 +96,7 @@ define('app/taskCenter', function(require, exports, module) {
 				$('#timer').show();
 			}else{ 
 				//根据类型控制是否显示普通签到
-				if(d.checkin_type == 'common_checkin'){
-					showNormal = true;
+				if(showNormal){
 					checkinStatus.normal();
 				}
 				$('#signin').text('已抢光').addClass('over');
@@ -377,12 +381,13 @@ define('app/taskCenter', function(require, exports, module) {
 					}
 					//3001签到未开始;3004数量不足;
 					if(data.status == 3001 || data.status == 3004){
+						var showad = Math.floor(Math.random()*runAD.length);
 						if(showNormal){
 							checkinStatus.normal();
 							new tipsAd({
 								type: 'over',
-								title: '签到失败',
-								text: '还有普通签到等着你参加',
+								title: '太遗憾没抢到',
+								text: '还有 普通签到 等你参加',
 								adImg: runAD[showad].img,
 								adLink: runAD[showad].link
 							});

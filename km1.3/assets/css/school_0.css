@@ -433,52 +433,90 @@ body {
 .content {
   background: #FFFFFF;
   border-radius: 12px;
-  padding: 0 .23rem .25rem;
+  padding: 0 .22rem .25rem;
+}
+.content .txt {
+  font-size: .14rem;
+  color: #ff7700;
+  padding-top: .1rem;
 }
 .content .box {
   position: relative;
   padding-top: .25rem;
-  padding-left: .62rem;
+  padding-left: .52rem;
 }
 .content .box .icon {
   display: block;
   position: absolute;
-  top: 0;
-  left: .02rem;
+  top: .25rem;
+  left: 0;
   width: 36px;
-  height: 100%;
-  background: url(../image/school_icon.png) no-repeat left center;
+  height: 45px;
+  background: url(../image/school_icon.png) no-repeat left top;
   background-size: 800%;
 }
 .content .box .icon2 {
-  background-position: -35px;
+  background-position: -35px top;
 }
 .content .box .icon3 {
-  background-position: -71px;
+  background-position: -71px top;
 }
 .content .box .icon4 {
-  background-position: -106px;
+  background-position: -106px top;
 }
 .content .box .icon5 {
-  background-position: -140px;
+  background-position: -140px top;
 }
 .content .box .icon6 {
-  background-position: -180px;
+  background-position: -180px top;
 }
 .content .box .icon7 {
-  background-position: -216px;
+  background-position: -216px top;
 }
 .content .box .icon8 {
-  background-position: -252px;
+  background-position: -252px top;
+}
+.content .box .icon_new_dl {
+  background-position: 0 -52px;
+}
+.content .box .icon_new_jx {
+  background-position: -35px -52px;
+}
+.content .box .icon_new_yd {
+  background-position: -71px -52px;
+}
+.content .box .icon_new_ss {
+  background-position: -109px -52px;
+}
+.content .box .icon_daily_ts {
+  background-position: -148px -52px;
+}
+.content .box .icon_daily_fl {
+  background-position: -188px -52px;
 }
 .content .box h2 {
   line-height: 1;
   font-weight: 500;
 }
+.content .box h2 .download_link {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: .2rem;
+  padding-left: .1rem;
+  padding-right: .1rem;
+  border-radius: 3px;
+  height: 0.2rem;
+  line-height: 0.2rem;
+  color: #fff;
+  background-color: #f93d52;
+  text-align: center;
+  font-size: .1rem;
+}
 .content .box p {
   font-size: 0.15rem;
   color: #858585;
   line-height: 1.4;
-  width: 15.5em;
+  width: 16.2em;
   margin-top: .1rem;
 }

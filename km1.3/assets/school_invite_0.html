@@ -25,6 +25,30 @@
 </head>
 <body>
     <section class="max-w-750">
+        <img src="image/school_0.png" class="title" />
+        <div class="content">
+            <p class="txt">注册7天内完成任务，可获得价值2800金币奖励</p>
+            <div class="box">
+                <i class="icon icon_new_dl"></i>
+                <h2>连续登录</h2>
+                <p>新注册7天内连续登录，可点击“可领取”按钮，领取不同额度奖励。</p>
+            </div>
+            <div class="box">
+                <i class="icon icon_new_jx"></i>
+                <h2>新手教学</h2>
+                <p>首次阅读新手教学内容，了解小报内各种玩法解说，可获得200金币奖励</p>
+            </div>
+            <div class="box">
+                <i class="icon icon_new_yd"></i>
+                <h2>首次阅读</h2>
+                <p>首次有效阅读一篇文章内容，可获得300金币奖励；</p>
+            </div>
+            <div class="box">
+                <i class="icon icon_new_ss"></i>
+                <h2>首次搜索</h2>
+                <p>首次点击关键词，查看任意一条详细内容并认真阅读一段时间，可获得500金币奖励；</p>
+            </div>
+        </div>
         <img src="image/school_1.png" class="title" />
         <div class="content">
             <div class="box">
@@ -33,14 +57,14 @@
                 <p>每次成功签到可获得<span>700金币</span>奖励。</p>
             </div>
             <div class="box">
-                <i class="icon icon2"></i>
-                <h2>抢红包</h2>
-                <p>每隔几分钟会获得一次抢红包机会，连抢次数越多，红包金币奖励越高。</p>
-            </div>
-            <div class="box">
                 <i class="icon icon7"></i>
                 <h2>搜索任务</h2>
                 <p>通过搜索框，输入关键词，点击查看任意结果并认真阅读一段时间，就算完成一条搜索啦，多搜多赚。</p>
+            </div>
+            <div class="box">
+                <i class="icon icon2"></i>
+                <h2>抢红包</h2>
+                <p>每隔几分钟会获得一次抢红包机会，连抢次数越多，红包金币奖励越高。</p>
             </div>
             <div class="box">
                 <i class="icon icon3"></i>
@@ -51,6 +75,16 @@
                 <i class="icon icon4"></i>
                 <h2>每日阅读</h2>
                 <p>选择自己喜欢的文章认真阅读，即可获得丰厚的金币奖励。</p>
+            </div>
+            <div class="box hide v142">
+                <i class="icon icon_daily_ts"></i>
+                <h2>阅读推送</h2>
+                <p>阅读推送框弹出的推送内容，可获得每篇20金币奖励，一天最多3篇；</p>
+            </div>
+            <div class="box hide v142">
+                <i class="icon icon_daily_fl"></i>
+                <h2>福利活动</h2>
+                <p>点击福利活动，等待页面内容加载成功，即可获得奖励</p>
             </div>
         </div>
         <img src="image/school_2.png" class="title" />
@@ -68,10 +102,16 @@
             <div class="box">
                 <i class="icon icon5"></i>
                 <h2>邀请好友</h2>
-                <p>选择自己喜欢的文章认真阅读，即可获得丰厚的金币奖励。</p>
+                <p>每成功邀请一个好友加入，成为你的徒弟，会获得1500金币奖励。</p>
             </div>
         </div>
     </section>
+    <script src="scripts/lib/sea.js" id="seajsnode"></script>
+    <script src="scripts/app/school_0.js"></script>
+    <script>
+        seajs.use("app/school0");
+    </script>
+    <i id="lDom"></i>
     <!-- 百度统计 -->
     <script>
         (function() {

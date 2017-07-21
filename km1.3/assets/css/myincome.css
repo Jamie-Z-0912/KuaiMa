@@ -556,7 +556,7 @@ i#lDom ~ iframe {
   font-size: 0.15rem;
   margin-top: .05rem;
   max-width: 76%;
-  height: 1em;
+  height: 1.1em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -64,6 +64,9 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         url: "api/v1/checkin/setting"
     }, function(data) {
         var d = data.data;
+        if (d.checkin_type == "common_checkin") {
+            showNormal = true;
+        }
         checkin_jinbi = d.commission || 700;
         if (d.is_checkin) {
             Storage.set("hasCheckin", "1", true);
@@ -80,8 +83,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 });
                 $("#timer").show();
             } else {
-                if (d.checkin_type == "common_checkin") {
-                    showNormal = true;
+                if (showNormal) {
                     checkinStatus.normal();
                 }
                 $("#signin").text("已抢光").addClass("over");
@@ -332,12 +334,13 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         });
                     }
                     if (data.status == 3001 || data.status == 3004) {
+                        var showad = Math.floor(Math.random() * runAD.length);
                         if (showNormal) {
                             checkinStatus.normal();
                             new tipsAd({
                                 type: "over",
-                                title: "签到失败",
-                                text: "还有普通签到等着你参加",
+                                title: "太遗憾没抢到",
+                                text: "还有 普通签到 等你参加",
                                 adImg: runAD[showad].img,
                                 adLink: runAD[showad].link
                             });

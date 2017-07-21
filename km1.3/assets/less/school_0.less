@@ -8,37 +8,64 @@ body{background-color: @c_red;}
 .content{
 	background: #FFFFFF;
 	border-radius: 12px;
-	padding: 0 .23rem .25rem;
+	padding: 0 .22rem .25rem;
+	.txt{    
+		font-size: .14rem;
+	    color: #ff7700;
+	    padding-top: .1rem;
+	}
 	.box{
 		position: relative;
 		padding-top: .25rem;
-		padding-left: .62rem;
+		padding-left: .52rem;
 		.icon{
 			display: block;
 			position: absolute;
-			top: 0;
-			left: .02rem;
+			top: .25rem;
+			left: 0;
 			width: 36px;
-			height: 100%;
-			background: url(../image/school_icon.png) no-repeat left center;
+			height: 45px;
+			background: url(../image/school_icon.png) no-repeat left top;
 			background-size: 800%;
 		}
-		.icon2{ background-position: -35px;}
-		.icon3{ background-position: -71px;}
-		.icon4{ background-position: -106px;}
-		.icon5{ background-position: -140px;}
-		.icon6{ background-position: -180px;}
-		.icon7{ background-position: -216px;}
-		.icon8{ background-position: -252px;}
+		.icon2{ background-position: -35px top;}
+		.icon3{ background-position: -71px top;}
+		.icon4{ background-position: -106px top;}
+		.icon5{ background-position: -140px top;}
+		.icon6{ background-position: -180px top;}
+		.icon7{ background-position: -216px top;}
+		.icon8{ background-position: -252px top;}
+
+		.icon_new_dl{ background-position: 0 -52px;}
+		.icon_new_jx{ background-position: -35px -52px;}
+		.icon_new_yd{ background-position: -71px -52px;}
+		.icon_new_ss{ background-position: -109px -52px;}
+
+		.icon_daily_ts{ background-position: -148px -52px;}
+		.icon_daily_fl{ background-position: -188px -52px;}
 		h2{
 			line-height: 1;
 			font-weight: 500;
+			.download_link{
+				position: relative;
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: .2rem;
+				padding-left: .1rem;
+				padding-right: .1rem;
+				border-radius: 3px;
+				.lineH(.2rem);
+				color: #fff;
+				background-color: #f93d52;
+				text-align: center;
+				font-size: .1rem;
+			}
 		}
 		p{
 			font-size: @size;
 			color: @c_text;
 			line-height: 1.4;
-			width: 15.5em;
+			width: 16.2em;
 			margin-top: .1rem;
 		}
 	}
