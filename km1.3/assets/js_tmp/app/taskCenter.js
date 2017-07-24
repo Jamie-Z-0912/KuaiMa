@@ -38,8 +38,13 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
         }
     };
     var fun = {
+        downLink: function() {
+            var w_link = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
+            var ios_link = "https://itunes.apple.com/gb/app/id1217748676?mt=8";
+            return /iPhone|iPad|iPod/.test(km.userAgent) ? ios_link : w_link;
+        },
         updateApp: function() {
-            var str = '<div class="pop-mask km-dialog"></div>' + '<div class="pop-screen km-dialog update_pop">' + '<div class="box">' + "<h2>升级新版本</h2>" + '<div class="text">' + '<img src="image/tc-update.png" style="width:100%">' + "<p>开启新任务，快来赚更多！</p>" + "</div>" + '<div class="btnbox">' + '<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">去升级</a>' + "</div>" + "</div>" + "</div>";
+            var str = '<div class="pop-mask km-dialog"></div>' + '<div class="pop-screen km-dialog update_pop">' + '<div class="box">' + "<h2>升级新版本</h2>" + '<div class="text">' + '<img src="image/tc-update.png" style="width:100%">' + "<p>开启新任务，快来赚更多！</p>" + "</div>" + '<div class="btnbox">' + '<a href="' + this.downLink() + '">去升级</a>' + "</div>" + "</div>" + "</div>";
             $("body").append(str);
         },
         getCoin: function(type, callback) {
@@ -90,62 +95,51 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             }
         }
     });
-    if (km.less("1.3.2")) {
-        $("#hotSearch").hide();
-    } else {
-        $("#hotSearch").show();
-        $("#hotSearch").on("click", function() {
-            if (km.less("1.3.2")) {
-                fun.updateApp();
-            } else {
-                window.location = "kmb://hotsearch";
-            }
+    $("#hotSearch").show();
+    $("#hotSearch").on("click", function() {
+        if (km.less("1.3.2")) {
+            fun.updateApp();
+        } else {
+            window.location = "kmb://hotsearch";
+        }
+    });
+    if (km.less("1.2.0")) {
+        $("#replyC, #likeC").on("click", function() {
+            fun.updateApp();
         });
     }
-    if (km.less("1.2.0")) {
-        $("#replyC, #likeC").remove();
-    } else {}
     Ajax.custom({
         url: "api/v1/task/junior"
     }, function(d) {
         var data = d.data;
         if (data.show_junior_task) {
-            if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.4.2")) {
-                $("#newbie_school").hide();
-            } else {
-                $("#newbie_school").on("click", function() {
-                    var _self = $(this);
-                    if (km.less("1.4.2")) {
-                        fun.updateApp();
+            $("#newbie_school").on("click", function() {
+                var _self = $(this);
+                if (km.less("1.4.2")) {
+                    fun.updateApp();
+                } else {
+                    if ($("#newbie_school .over").length > 0) {
+                        window.location = "kmb://newbie";
                     } else {
-                        if ($("#newbie_school .over").length > 0) {
-                            window.location = "kmb://newbie";
-                        } else {
-                            fun.getCoin("read_tutorial", function() {
-                                Tools.alertDialog({
-                                    text: "获得" + _self.data("num") + "金币"
-                                });
-                                setTimeout(function() {
-                                    $("#newbie_school .right").text("已完成").addClass("over");
-                                    window.location = "kmb://newbie";
-                                }, 1e3);
+                        fun.getCoin("read_tutorial", function() {
+                            Tools.alertDialog({
+                                text: "获得" + _self.data("num") + "金币"
                             });
-                        }
+                            setTimeout(function() {
+                                $("#newbie_school .right").text("已完成").addClass("over");
+                                window.location = "kmb://newbie";
+                            }, 900);
+                        });
                     }
-                });
-            }
-            if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.3.2")) {
-                $("#newbie_search").hide();
-            } else {
-                $("#newbie_search").show();
-                $("#newbie_search").on("click", function() {
-                    if (km.less("1.3.2")) {
-                        fun.updateApp();
-                    } else {
-                        window.location = "kmb://hotsearch";
-                    }
-                });
-            }
+                }
+            });
+            $("#newbie_search").on("click", function() {
+                if (km.less("1.3.2")) {
+                    fun.updateApp();
+                } else {
+                    window.location = "kmb://hotsearch";
+                }
+            });
             $("#newbie_read").on("click", function() {
                 window.location = "kmb://main";
             });
@@ -226,44 +220,40 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 }
             });
         }
-        if (/iPhone|iPad|iPod/.test(km.userAgent) && km.less("1.4.2")) {
-            $("#readMesA, #gatherA").remove();
-        } else {
-            $("#hotSearch h6").text(data.search_task_status);
-            $("#readMesA, #gatherA").show();
-            if (Tools.getQueryValue("notice") != "open") {
-                $("#readMesA").on("click", function() {
-                    if (km.less("1.4.2")) {
-                        fun.updateApp();
-                    } else {
-                        window.location = "kmb://sysnotificationsetting";
-                    }
-                });
-            } else {
-                $("#readMesA h6").text(data.read_push_status);
-                $("#readMesA").addClass("tips");
-                $("#readMesA").on("click", function() {
-                    Tools.alertDialog({
-                        text: "阅读每日推送文章<br>可获得额外金币奖励"
-                    });
-                });
-            }
-            $("#gatherA").on("click", function() {
-                if (data.has_caiji_permission) {
-                    if (km.less("1.4.0")) {
-                        fun.updateApp();
-                    } else {
-                        window.location = "kmb://worthreadingtab";
-                    }
+        $("#hotSearch h6").text(data.search_task_status);
+        $("#readMesA, #gatherA").show();
+        if (Tools.getQueryValue("notice") != "open") {
+            $("#readMesA").on("click", function() {
+                if (km.less("1.4.2")) {
+                    fun.updateApp();
                 } else {
-                    if (km.less("1.4.2")) {
-                        fun.updateApp();
-                    } else {
-                        window.location = "kmb://applyworthreading";
-                    }
+                    window.location = "kmb://sysnotificationsetting";
                 }
             });
+        } else {
+            $("#readMesA h6").text(data.read_push_status);
+            $("#readMesA").addClass("tips");
+            $("#readMesA").on("click", function() {
+                Tools.alertDialog({
+                    text: "阅读每日推送文章<br>可获得额外金币奖励"
+                });
+            });
         }
+        $("#gatherA").on("click", function() {
+            if (data.has_caiji_permission) {
+                if (km.less("1.4.0")) {
+                    fun.updateApp();
+                } else {
+                    window.location = "kmb://worthreadingtab";
+                }
+            } else {
+                if (km.less("1.4.2")) {
+                    fun.updateApp();
+                } else {
+                    window.location = "kmb://applyworthreading";
+                }
+            }
+        });
     });
     var runAD = [];
     Ajax.custom({

@@ -35,6 +35,11 @@ define('app/taskCenter', function(require, exports, module) {
     	}
     }
     var fun = {
+    	downLink: function(){
+    		var w_link = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser';
+    		var ios_link = 'https://itunes.apple.com/gb/app/id1217748676?mt=8';
+    		return /iPhone|iPad|iPod/.test(km.userAgent) ? ios_link : w_link;
+    	},
     	updateApp: function(){
 			var str = '<div class="pop-mask km-dialog"></div>'
 				+'<div class="pop-screen km-dialog update_pop">'
@@ -45,7 +50,7 @@ define('app/taskCenter', function(require, exports, module) {
 						+'<p>开启新任务，快来赚更多！</p>'
 					+'</div>'
 					+'<div class="btnbox">'
-						+'<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">去升级</a>'
+						+'<a href="'+ this.downLink() +'">去升级</a>'
 					+'</div>'
 				+'</div>'
 			+'</div>';
@@ -106,9 +111,9 @@ define('app/taskCenter', function(require, exports, module) {
 
     /*去掉不耻下问*/
     // console.log(km)
-    if(km.less('1.3.2')){
-    	$('#hotSearch').hide();
-    }else{
+    // if(km.less('1.3.2')){
+    // 	$('#hotSearch').hide();
+    // }else{
 		$('#hotSearch').show();
 		$('#hotSearch').on('click', function(){
 			if(km.less('1.3.2')){
@@ -117,19 +122,16 @@ define('app/taskCenter', function(require, exports, module) {
 				window.location = 'kmb://hotsearch';
 			}
 		});
-    }
-	if(km.less('1.2.0')){
-		$('#replyC, #likeC').remove();
-	}else{
-		//取消跳转
-		// $('#replyC, #likeC').on('click', function(){
-		// 	if(km.less('1.2.0')){
-		// 		fun.updateApp();
-		// 	}else{
-		// 		window.location = 'kmb://main';
-		// 	}
-		// });
-	}
+    // }
+	// if(km.less('1.2.0')){
+	// 	$('#replyC, #likeC').remove();
+	// }else{
+		if(km.less('1.2.0')){
+			$('#replyC, #likeC').on('click', function(){
+				fun.updateApp();
+			});
+		}
+	// }
     /*新手任务*/
 	Ajax.custom({
 		url:'api/v1/task/junior'
@@ -145,9 +147,10 @@ define('app/taskCenter', function(require, exports, module) {
 		// }
 
 		if(data.show_junior_task){
-		    if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
-				$('#newbie_school').hide();
-		    }else{
+		    /** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
+		  //   if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
+				// $('#newbie_school').hide();
+		  //   }else{
 				$('#newbie_school').on('click', function(){
 					var _self = $(this);
 					if(km.less('1.4.2')){
@@ -163,16 +166,16 @@ define('app/taskCenter', function(require, exports, module) {
 								setTimeout(function(){
 									$('#newbie_school .right').text('已完成').addClass('over');
 									window.location = 'kmb://newbie';
-								},1000);
+								},900);
 							})
 						}
 					}
 				});
-		    }
-		    if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.3.2')){
-				$('#newbie_search').hide();
-		    }else{
-				$('#newbie_search').show();
+		    // }
+		    /** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
+		  //   if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.3.2')){
+				// $('#newbie_search').hide();
+		  //   }else{
 				$('#newbie_search').on('click', function(){
 					if(km.less('1.3.2')){
 						fun.updateApp();
@@ -180,7 +183,7 @@ define('app/taskCenter', function(require, exports, module) {
 						window.location = 'kmb://hotsearch';
 					}
 				});
-		    }
+		    // }
 			$('#newbie_read').on('click', function(){
 				window.location = 'kmb://main';
 			});
@@ -269,9 +272,11 @@ define('app/taskCenter', function(require, exports, module) {
 				}
 			})
 		}
-	    if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
-	    	$('#readMesA, #gatherA').remove();
-	    }else{
+
+		/** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
+	    // if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
+	    // 	$('#readMesA, #gatherA').remove();
+	    // }else{
 			$('#hotSearch h6').text(data.search_task_status);
 			$('#readMesA, #gatherA').show();
 			if(Tools.getQueryValue('notice')!='open' ){
@@ -306,7 +311,7 @@ define('app/taskCenter', function(require, exports, module) {
 					}
 				}
 			});
-    	}
+    	// }
 	});
 	/** 广告 **/
 	var runAD = [];
