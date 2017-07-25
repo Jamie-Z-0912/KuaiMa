@@ -18,7 +18,7 @@ define(function(require,exports,module){
 				$.isFunction(_self.callback)&&_self.callback();
 				return;
 			}else{ //倒计时重新计算
-				$(_self.el).html('开抢时间：每日10点').show();
+				$(_self.el).prev().html('开抢时间：每日10点');
 				$('#signin').addClass('over');
 			}
 		}else{ //今日还未开抢
