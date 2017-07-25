@@ -5,10 +5,10 @@ define("app/startgather", [ "../mod/submit", "../plugs/confirmTip.js" ], functio
         url: "api/v1/post/checkAuthority"
     }, function(data) {
         if (data.status == 1e3) {
-            $("#opengather .answer").html('您已拥有值得看模块采集权限啦，更多问题请加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>');
+            $("#opengather .answer").html('您已拥有值得看模块采集权限啦，更多问题请加<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=673978716695c4178e1fdabf1d0a395d6e4f48cd5b2a1e1e9871d9778405a562">小报用户qq群：347382327</a>');
         }
         if (data.status == 9706) {
-            $("#opengather .answer").html('您已提交申请，请耐心等待，咨询加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>');
+            $("#opengather .answer").html('您已提交申请，请耐心等待，咨询加<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=673978716695c4178e1fdabf1d0a395d6e4f48cd5b2a1e1e9871d9778405a562">小报用户qq群：347382327</a>');
         }
         if (data.status == 9707) {
             $("#opengather .answer").html("登录后才可以申请哦~");
@@ -56,14 +56,14 @@ define("app/startgather", [ "../mod/submit", "../plugs/confirmTip.js" ], functio
                 data: $(this)
             }, function(data) {
                 if (data.status == 1e3) {
-                    $("#opengather .answer").html('您已提交申请，请耐心等待，咨询加<a href="mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com">客服QQ：2518437090</a>');
+                    $("#opengather .answer").html('您已提交申请，请耐心等待，咨询加<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=673978716695c4178e1fdabf1d0a395d6e4f48cd5b2a1e1e9871d9778405a562">小报用户qq群：347382327</a>');
                     new confirmTip({
                         title: "提交成功",
                         text: '<p style="padding:0 .16rem;text-align:left;margin-bottom:-.14rem">申请审核进度查询，请加客服QQ：2518437090。</p>',
                         sureTxt: "去加QQ",
                         cancelTxt: "我知道了"
                     }, function(a) {
-                        if (a) window.location = "mqqwpa://im/chat?chat_type=wpa&uin=2518437090&version=1&src_type=web&web_src=b.qq.com"; else window.location = "kmb://worthreadingtab";
+                        if (a) window.location = "//shang.qq.com/wpa/qunwpa?idkey=673978716695c4178e1fdabf1d0a395d6e4f48cd5b2a1e1e9871d9778405a562"; else window.location = "kmb://worthreadingtab";
                     });
                 } else {
                     Tools.alertDialog({
