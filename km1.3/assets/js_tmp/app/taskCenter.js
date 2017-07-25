@@ -1,6 +1,6 @@
-define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../plugs/version", "../plugs/timer.js", "../plugs/tipsAd.js", "../plugs/secondPage.js" ], function(require, exports, module) {
+define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../plugs/version", "../plugs/timer.js", "../plugs/tipsAd.js", "../plugs/secondPage.js" ], function(require, exports, module) {
     var pagelist = require("../mod/pagelist");
-    require("../plugs/cookieStorage.js");
+    require("../plugs/storageCache.js");
     var km = require("../plugs/version");
     var Timer = require("../plugs/timer.js");
     var tipsAd = require("../plugs/tipsAd.js");
@@ -86,7 +86,6 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                         checkinStatus.over();
                     }
                 });
-                $("#timer").show();
             } else {
                 if (showNormal) {
                     checkinStatus.normal();
@@ -108,92 +107,104 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             fun.updateApp();
         });
     }
-    Ajax.custom({
-        url: "api/v1/task/junior"
-    }, function(d) {
-        var data = d.data;
-        if (data.show_junior_task) {
-            $("#newbie_school").on("click", function() {
-                var _self = $(this);
-                if (km.less("1.4.2")) {
-                    fun.updateApp();
-                } else {
-                    if ($("#newbie_school .over").length > 0) {
-                        window.location = "kmb://newbie";
+    function getJunior() {
+        Ajax.custom({
+            url: "api/v1/task/junior"
+        }, function(d) {
+            var data = d.data;
+            if (data.show_junior_task) {
+                $("#newbie_school").on("click", function() {
+                    var _self = $(this);
+                    if (km.less("1.4.2")) {
+                        fun.updateApp();
                     } else {
-                        fun.getCoin("read_tutorial", function() {
-                            Tools.alertDialog({
-                                text: "获得" + _self.data("num") + "金币"
+                        if ($("#newbie_school .over").length > 0) {
+                            window.location = "kmb://newbie";
+                        } else {
+                            fun.getCoin("read_tutorial", function() {
+                                Tools.alertDialog({
+                                    text: "获得" + _self.data("num") + "金币"
+                                });
+                                setTimeout(function() {
+                                    $("#newbie_school .right").text("已完成").addClass("over");
+                                    window.location = "kmb://newbie";
+                                }, 900);
                             });
-                            setTimeout(function() {
-                                $("#newbie_school .right").text("已完成").addClass("over");
-                                window.location = "kmb://newbie";
-                            }, 900);
+                        }
+                    }
+                });
+                $("#newbie_search").on("click", function() {
+                    if (km.less("1.3.2")) {
+                        fun.updateApp();
+                    } else {
+                        window.location = "kmb://hotsearch";
+                    }
+                });
+                $("#newbie_read").on("click", function() {
+                    window.location = "kmb://main";
+                });
+                $("#newbieTask").show();
+                var n_day_len = $("#newbieDays li").length;
+                var n_can_day = data.can_receive_junior_reward_day_num;
+                var n_has_day = data.receive_junior_reward_day_num;
+                if (n_can_day != 0) {
+                    $("#newbieDays li").eq(n_can_day - 1).addClass("can_get");
+                }
+                for (var i = 0; i < n_has_day; i++) {
+                    $("#newbieDays li").eq(i).addClass("has_get");
+                }
+                if (data.has_read_tutorial) {
+                    $("#newbie_school .right").text("已完成").addClass("over");
+                }
+                if (data.has_first_read_article) {
+                    $("#newbie_read .right").text("已完成").addClass("over");
+                }
+                if (data.has_first_search) {
+                    $("#newbie_search .right").text("已完成").addClass("over");
+                }
+                var days_wel = [ "junior_first_day_reward", "junior_second_day_reward", "junior_third_day_reward", "junior_fourth_day_reward", "junior_fifth_day_reward", "junior_sixth_day_reward", "junior_seventh_day_reward" ];
+                $("#newbieDays").on("click", "li", function() {
+                    var _self = $(this), i = _self.index();
+                    var coin = _self.data("num");
+                    var tt = "成功领取" + coin + "金币";
+                    if (_self.hasClass("card")) {
+                        tt = "获得一张" + coin + "天加速卡";
+                    }
+                    if (_self.hasClass("can_get")) {
+                        fun.getCoin(days_wel[i], function() {
+                            new tipsAd({
+                                type: "ok",
+                                subtit: tt,
+                                text: "得到第" + (i + 1) + "天奖励",
+                                hasAd: "0"
+                            });
+                            _self.removeClass("can_get").addClass("has_get");
+                        });
+                    } else if (_self.hasClass("has_get")) {
+                        Tools.alertDialog({
+                            text: "你已领过第" + (i + 1) + "天的奖励"
+                        });
+                    } else {
+                        Tools.alertDialog({
+                            text: "第" + (i + 1) + "天领取时间未到！"
                         });
                     }
-                }
-            });
-            $("#newbie_search").on("click", function() {
-                if (km.less("1.3.2")) {
-                    fun.updateApp();
-                } else {
-                    window.location = "kmb://hotsearch";
-                }
-            });
-            $("#newbie_read").on("click", function() {
-                window.location = "kmb://main";
-            });
-            $("#newbieTask").show();
-            var n_day_len = $("#newbieDays li").length;
-            var n_can_day = data.can_receive_junior_reward_day_num;
-            var n_has_day = data.receive_junior_reward_day_num;
-            if (n_can_day != 0) {
-                $("#newbieDays li").eq(n_can_day - 1).addClass("can_get");
+                });
+            } else {
+                Storage.setCache(Storage.AUTH, Tools.auth_token());
+                $("#newbieTask").remove();
             }
-            for (var i = 0; i < n_has_day; i++) {
-                $("#newbieDays li").eq(i).addClass("has_get");
-            }
-            if (data.has_read_tutorial) {
-                $("#newbie_school .right").text("已完成").addClass("over");
-            }
-            if (data.has_first_read_article) {
-                $("#newbie_read .right").text("已完成").addClass("over");
-            }
-            if (data.has_first_search) {
-                $("#newbie_search .right").text("已完成").addClass("over");
-            }
-            var days_wel = [ "junior_first_day_reward", "junior_second_day_reward", "junior_third_day_reward", "junior_fourth_day_reward", "junior_fifth_day_reward", "junior_sixth_day_reward", "junior_seventh_day_reward" ];
-            $("#newbieDays").on("click", "li", function() {
-                var _self = $(this), i = _self.index();
-                var coin = _self.data("num");
-                var tt = "成功领取" + coin + "金币";
-                if (_self.hasClass("card")) {
-                    tt = "获得一张" + coin + "天加速卡";
-                }
-                if (_self.hasClass("can_get")) {
-                    fun.getCoin(days_wel[i], function() {
-                        new tipsAd({
-                            type: "ok",
-                            subtit: tt,
-                            text: "得到第" + (i + 1) + "天奖励",
-                            hasAd: "0"
-                        });
-                        _self.removeClass("can_get").addClass("has_get");
-                    });
-                } else if (_self.hasClass("has_get")) {
-                    Tools.alertDialog({
-                        text: "你已领过第" + (i + 1) + "天的奖励"
-                    });
-                } else {
-                    Tools.alertDialog({
-                        text: "第" + (i + 1) + "天领取时间未到！"
-                    });
-                }
-            });
-        } else {
-            $("#newbieTask").remove();
+        });
+    }
+    if (Storage.getCache(Storage.AUTH)) {
+        var old_auth = Storage.getCache(Storage.AUTH);
+        if (Tools.auth_token() != old_auth) {
+            getJunior();
+            Storage.remove(Storage.AUTH);
         }
-    });
+    } else {
+        getJunior();
+    }
     Ajax.custom({
         url: "api/v1/task/daily"
     }, function(d) {
@@ -255,23 +266,27 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
             }
         });
     });
-    var runAD = [];
-    Ajax.custom({
-        url: "api/v1/ads",
-        data: {
-            location: "checkin_alert"
-        }
-    }, function(d) {
-        for (var i = 0; i < d.data.length; i++) {
-            var ad = {
-                img: "",
-                link: ""
-            };
-            ad.img = d.data[i].images[0];
-            ad.link = d.data[i].origin_url;
-            runAD.push(ad);
-        }
-    });
+    var runAD = Storage.getCache("adImgs");
+    if (runAD) {} else {
+        runAD = [];
+        Ajax.custom({
+            url: "api/v1/ads",
+            data: {
+                location: "checkin_alert"
+            }
+        }, function(d) {
+            for (var i = 0; i < d.data.length; i++) {
+                var ad = {
+                    img: "",
+                    link: ""
+                };
+                ad.img = d.data[i].images[0];
+                ad.link = d.data[i].origin_url;
+                runAD.push(ad);
+            }
+            Storage.setCache("adImgs", runAD, 20);
+        });
+    }
     $("#rule").on("click", function() {
         new tipsAd({
             type: "rule",
@@ -325,24 +340,14 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                     }
                     if (data.status == 3001 || data.status == 3004) {
                         var showad = Math.floor(Math.random() * runAD.length);
-                        if (showNormal) {
-                            checkinStatus.normal();
-                            new tipsAd({
-                                type: "over",
-                                title: "太遗憾没抢到",
-                                text: "还有 普通签到 等你参加",
-                                adImg: runAD[showad].img,
-                                adLink: runAD[showad].link
-                            });
-                        } else {
-                            new tipsAd({
-                                type: "over",
-                                title: "签到失败",
-                                text: "明天10点准时再来哦~",
-                                adImg: runAD[showad].img,
-                                adLink: runAD[showad].link
-                            });
-                        }
+                        checkinStatus.normal();
+                        new tipsAd({
+                            type: "over",
+                            title: "太遗憾没抢到",
+                            text: "还有 普通签到 等你参加",
+                            adImg: runAD[showad].img,
+                            adLink: runAD[showad].link
+                        });
                     }
                 });
             }, 1e3);
@@ -940,44 +945,42 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
     }, "function" == typeof define ? define("plugs/laypage", [], function() {
         return a;
     }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();define("plugs/cookieStorage", [], function() {
-    var Cookie = {
-        get: function(sname) {
-            var sre = "(?:;)?" + sname + "=([^;]*);?";
-            var ore = new RegExp(sre);
-            if (ore.test(document.cookie)) {
-                try {
-                    return unescape(RegExp["$1"]);
-                } catch (e) {
-                    return null;
-                }
-            } else {
-                return null;
-            }
+}();define("plugs/storageCache", [], function() {
+    var _maxExpireDate = new Date("Fri, 31 Dec 9999 23:59:59 UTC");
+    var _defaultExpire = _maxExpireDate.getTime();
+    var handleJSON = {
+        serialize: function(item) {
+            return JSON.stringify(item);
         },
-        set: function(c_name, value, expires) {
-            expires = expires || this.getExpDate(7, 0, 0);
-            if (typeof expires == "number") {
-                expires = this.getExpDate(expires, 0, 0);
-            }
-            document.cookie = c_name + "=" + escape(value) + (expires == null ? "" : ";expires=" + expires) + "; path=/";
-        },
-        remove: function(key) {
-            this.set(key, "", -1);
-        },
-        getExpDate: function(e, t, n) {
-            var r = new Date();
-            if (typeof e == "number" && typeof t == "number" && typeof t == "number") return r.setDate(r.getDate() + parseInt(e)), 
-            r.setHours(r.getHours() + parseInt(t)), r.setMinutes(r.getMinutes() + parseInt(n)), 
-            r.toGMTString();
+        deserialize: function(data) {
+            return data && JSON.parse(data);
         }
     };
-    window.Cookie = Cookie;
+    function CacheItem(value, exp) {
+        var now = new Date().getTime();
+        this.c = now;
+        exp = exp || _defaultExpire;
+        this.e = now + exp * 1e3;
+        this.v = value;
+    }
+    function _isCacheItem(item) {
+        if (typeof item !== "object") {
+            return false;
+        }
+        if (item) {
+            if ("c" in item && "e" in item && "v" in item) {
+                return true;
+            }
+        }
+        return false;
+    }
+    function _checkCacheItemIfEffective(cacheItem) {
+        var timeNow = new Date().getTime();
+        return timeNow < cacheItem.e;
+    }
     var Storage = {
         AUTH: "KMAUTH",
-        LNAME: "MY-LNAME",
-        ACCOUNT: "MY-NAME",
-        HEADIMG: "MY-HEADIMG",
+        NAME: "MY-NAME",
         get: function(key, isSession) {
             if (!this.isLocalStorage()) {
                 return;
@@ -1001,6 +1004,32 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 return;
             }
             this.getStorage(isSession).removeItem(key);
+        },
+        setCache: function(key, value, expire, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var cacheItem = new CacheItem(value, expire);
+            this.getStorage(isSession).setItem(key, handleJSON.serialize(cacheItem));
+        },
+        getCache: function(key, isSession) {
+            var cacheItem = null;
+            try {
+                var value = this.getStorage(isSession).getItem(key);
+                cacheItem = handleJSON.deserialize(value);
+            } catch (e) {
+                return null;
+            }
+            if (_isCacheItem(cacheItem)) {
+                if (_checkCacheItemIfEffective(cacheItem)) {
+                    var value = cacheItem.v;
+                    return value;
+                } else {
+                    this.remove(key);
+                    return null;
+                }
+            }
+            return null;
         },
         getStorage: function(isSession) {
             return isSession ? sessionStorage : localStorage;
@@ -1099,7 +1128,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/cookieStorage.js", "../p
                 $.isFunction(_self.callback) && _self.callback();
                 return;
             } else {
-                $(_self.el).html("开抢时间：每日10点").show();
+                $(_self.el).prev().html("开抢时间：每日10点");
                 $("#signin").addClass("over");
             }
         } else {

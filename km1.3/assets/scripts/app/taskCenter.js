@@ -1,6 +1,6 @@
 define('app/taskCenter', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
-	require('../plugs/cookieStorage.js');
+	require('../plugs/storageCache.js');
 	var km = require('../plugs/version');
 	var Timer = require('../plugs/timer.js');
 	var tipsAd = require('../plugs/tipsAd.js');
@@ -84,13 +84,11 @@ define('app/taskCenter', function(require, exports, module) {
 		if(d.is_checkin){ //已经签到
 			Storage.set('hasCheckin', '1', true);
 			checkinStatus.over();
-		}else{  
-
+		}else{
 			//倒计时显示
 			if(d.left_num > 0){
 				$('#leftNum').text('今日剩余 '+d.left_num+'/'+d.total_num);
 				$('#timer').prev().text('距离开始还有');
-				// d.left_seconds = 3667;
 				new Timer('#timer', d.left_seconds, d.is_start, function(){
 					$('#signin').addClass('checkin');
 					if(Storage.get('hasCheckin', true) && Storage.get('hasCheckin', true) == 1){
@@ -98,7 +96,6 @@ define('app/taskCenter', function(require, exports, module) {
 						checkinStatus.over();
 					}
 				});
-				$('#timer').show();
 			}else{ 
 				//根据类型控制是否显示普通签到
 				if(showNormal){
@@ -109,48 +106,37 @@ define('app/taskCenter', function(require, exports, module) {
 		}
     });
 
-    /*去掉不耻下问*/
-    // console.log(km)
-    // if(km.less('1.3.2')){
-    // 	$('#hotSearch').hide();
-    // }else{
-		$('#hotSearch').show();
-		$('#hotSearch').on('click', function(){
-			if(km.less('1.3.2')){
-				fun.updateApp();
-			}else{
-				window.location = 'kmb://hotsearch';
-			}
-		});
-    // }
-	// if(km.less('1.2.0')){
-	// 	$('#replyC, #likeC').remove();
-	// }else{
-		if(km.less('1.2.0')){
-			$('#replyC, #likeC').on('click', function(){
-				fun.updateApp();
-			});
+	$('#hotSearch').show();
+	$('#hotSearch').on('click', function(){
+		if(km.less('1.3.2')){
+			fun.updateApp();
+		}else{
+			window.location = 'kmb://hotsearch';
 		}
-	// }
-    /*新手任务*/
-	Ajax.custom({
-		url:'api/v1/task/junior'
-	}, function(d){
-		var data = d.data;
-		// data = {
-		// 	"show_junior_task":true, // 是否要显示新手任务, 返回false, 任务页面不展示新手任务区
-		//     "receive_junior_reward_day_num":2,  // 已领取奖励的天数
-		//     "can_receive_junior_reward_day_num":3,  // 可以领取新人奖励天数, 为0表示当前没有可以领取的奖励
-		//     "has_read_tutorial": false, // 是否已阅读新手教程
-		//     "has_first_read_article": false, // 是否已首次有效阅读文章
-		//     "has_first_search": false,  // 是否已首次搜索
-		// }
+	});
 
-		if(data.show_junior_task){
-		    /** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
-		  //   if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
-				// $('#newbie_school').hide();
-		  //   }else{
+	if(km.less('1.2.0')){
+		$('#replyC, #likeC').on('click', function(){
+			fun.updateApp();
+		});
+	}
+
+	/*新手任务*/
+	function getJunior(){
+		Ajax.custom({
+			url:'api/v1/task/junior'
+		}, function(d){
+			var data = d.data;
+			/* //测试数据
+			data = {
+				"show_junior_task":true, // 是否要显示新手任务, 返回false, 任务页面不展示新手任务区
+			    "receive_junior_reward_day_num":2,  // 已领取奖励的天数
+			    "can_receive_junior_reward_day_num":3,  // 可以领取新人奖励天数, 为0表示当前没有可以领取的奖励
+			    "has_read_tutorial": false, // 是否已阅读新手教程
+			    "has_first_read_article": false, // 是否已首次有效阅读文章
+			    "has_first_search": false,  // 是否已首次搜索
+			} */
+			if(data.show_junior_task){
 				$('#newbie_school').on('click', function(){
 					var _self = $(this);
 					if(km.less('1.4.2')){
@@ -171,11 +157,6 @@ define('app/taskCenter', function(require, exports, module) {
 						}
 					}
 				});
-		    // }
-		    /** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
-		  //   if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.3.2')){
-				// $('#newbie_search').hide();
-		  //   }else{
 				$('#newbie_search').on('click', function(){
 					if(km.less('1.3.2')){
 						fun.updateApp();
@@ -183,68 +164,78 @@ define('app/taskCenter', function(require, exports, module) {
 						window.location = 'kmb://hotsearch';
 					}
 				});
-		    // }
-			$('#newbie_read').on('click', function(){
-				window.location = 'kmb://main';
-			});
-			$('#newbieTask').show();
-			/* 新手每天的奖励 */
-			var n_day_len = $('#newbieDays li').length;
-			var n_can_day = data.can_receive_junior_reward_day_num;
-			var n_has_day = data.receive_junior_reward_day_num;
-			if(n_can_day!=0){
-				$('#newbieDays li').eq(n_can_day-1).addClass('can_get');
+				$('#newbie_read').on('click', function(){
+					window.location = 'kmb://main';
+				});
+				$('#newbieTask').show();
+				/* 新手每天的奖励 */
+				var n_day_len = $('#newbieDays li').length;
+				var n_can_day = data.can_receive_junior_reward_day_num;
+				var n_has_day = data.receive_junior_reward_day_num;
+				if(n_can_day!=0){
+					$('#newbieDays li').eq(n_can_day-1).addClass('can_get');
+				}
+				for (var i = 0; i < n_has_day; i++) {
+					$('#newbieDays li').eq(i).addClass('has_get');
+				};
+
+			    if(data.has_read_tutorial){
+			    	$('#newbie_school .right').text('已完成').addClass('over');
+			    }
+			    if(data.has_first_read_article){
+			    	$('#newbie_read .right').text('已完成').addClass('over');
+			    }
+			    if(data.has_first_search){
+			    	$('#newbie_search .right').text('已完成').addClass('over');
+			    }
+			    var days_wel = [
+			    	'junior_first_day_reward', 'junior_second_day_reward', 'junior_third_day_reward',
+			    	'junior_fourth_day_reward', 'junior_fifth_day_reward', 'junior_sixth_day_reward',
+			    	'junior_seventh_day_reward'
+			    ];
+			    $('#newbieDays').on('click', 'li', function(){
+			    	var _self = $(this), i = _self.index();
+			    	var coin = _self.data('num');
+			    	var tt = '成功领取'+coin+'金币';
+			    	if(_self.hasClass('card')){
+			    		tt = '获得一张'+coin+'天加速卡'
+			    	}
+			    	if(_self.hasClass('can_get')){
+			    		fun.getCoin(days_wel[i],function(){
+			    			new tipsAd({
+								type: 'ok',
+								subtit: tt,
+								text: '得到第'+(i+1)+ '天奖励',
+								hasAd: '0'
+							});
+			    			_self.removeClass('can_get').addClass('has_get');
+			    		})
+			    	}else if(_self.hasClass('has_get')){
+			    		Tools.alertDialog({
+			    			text:'你已领过第'+(i+1)+'天的奖励'
+			    		})
+			    	}else{
+			    		Tools.alertDialog({
+			    			text:'第'+(i+1)+'天领取时间未到！'
+			    		})
+			    	}
+			    })
+			}else{
+				/** 根据auth_token 做前端存储 **/
+				Storage.setCache(Storage.AUTH, Tools.auth_token());
+				$('#newbieTask').remove();
 			}
-			for (var i = 0; i < n_has_day; i++) {
-				$('#newbieDays li').eq(i).addClass('has_get');
-			};
-
-		    if(data.has_read_tutorial){
-		    	$('#newbie_school .right').text('已完成').addClass('over');
-		    }
-		    if(data.has_first_read_article){
-		    	$('#newbie_read .right').text('已完成').addClass('over');
-		    }
-		    if(data.has_first_search){
-		    	$('#newbie_search .right').text('已完成').addClass('over');
-		    }
-		    var days_wel = [
-		    	'junior_first_day_reward', 'junior_second_day_reward', 'junior_third_day_reward',
-		    	'junior_fourth_day_reward', 'junior_fifth_day_reward', 'junior_sixth_day_reward',
-		    	'junior_seventh_day_reward'
-		    ];
-		    $('#newbieDays').on('click', 'li', function(){
-		    	var _self = $(this), i = _self.index();
-		    	var coin = _self.data('num');
-		    	var tt = '成功领取'+coin+'金币';
-		    	if(_self.hasClass('card')){
-		    		tt = '获得一张'+coin+'天加速卡'
-		    	}
-		    	if(_self.hasClass('can_get')){
-		    		fun.getCoin(days_wel[i],function(){
-		    			new tipsAd({
-							type: 'ok',
-							subtit: tt,
-							text: '得到第'+(i+1)+ '天奖励',
-							hasAd: '0'
-						});
-		    			_self.removeClass('can_get').addClass('has_get');
-		    		})
-		    	}else if(_self.hasClass('has_get')){
-		    		Tools.alertDialog({
-		    			text:'你已领过第'+(i+1)+'天的奖励'
-		    		})
-		    	}else{
-		    		Tools.alertDialog({
-		    			text:'第'+(i+1)+'天领取时间未到！'
-		    		})
-		    	}
-		    })
-		}else{
-			$('#newbieTask').remove();
+		});
+	}
+	if(Storage.getCache(Storage.AUTH)){
+		var old_auth = Storage.getCache(Storage.AUTH);
+		if(Tools.auth_token()!=old_auth){
+			getJunior();
+			Storage.remove(Storage.AUTH);
 		}
-	});
-
+	}else{
+	   	getJunior();
+	}
 	/* 每日任务 */
 	Ajax.custom({
 		url:'api/v1/task/daily'
@@ -272,64 +263,63 @@ define('app/taskCenter', function(require, exports, module) {
 				}
 			})
 		}
-
-		/** 2017-07-24 ios1.4.2版本通过，所以去掉ios新功能不显示的代码 **/
-	    // if(/iPhone|iPad|iPod/.test(km.userAgent) && km.less('1.4.2')){
-	    // 	$('#readMesA, #gatherA').remove();
-	    // }else{
-			$('#hotSearch h6').text(data.search_task_status);
-			$('#readMesA, #gatherA').show();
-			if(Tools.getQueryValue('notice')!='open' ){
-				$('#readMesA').on('click', function(){
-					if(km.less('1.4.2')){
-						fun.updateApp();
-					}else{
-						window.location = 'kmb://sysnotificationsetting';
-					}
-				});
-			}else{
-				$('#readMesA h6').text(data.read_push_status);
-				$('#readMesA').addClass('tips');
-				$('#readMesA').on('click', function(){
-					Tools.alertDialog({
-						text:'阅读每日推送文章<br>可获得额外金币奖励'
-					})
-				})
-			}
-			$('#gatherA').on('click', function(){
-				if(data.has_caiji_permission){
-					if(km.less('1.4.0')){
-						fun.updateApp();
-					}else{
-						window.location = 'kmb://worthreadingtab';
-					}
+		$('#hotSearch h6').text(data.search_task_status);
+		$('#readMesA, #gatherA').show();
+		if(Tools.getQueryValue('notice')!='open' ){
+			$('#readMesA').on('click', function(){
+				if(km.less('1.4.2')){
+					fun.updateApp();
 				}else{
-					if(km.less('1.4.2')){
-						fun.updateApp();
-					}else{
-						window.location = 'kmb://applyworthreading';
-					}
+					window.location = 'kmb://sysnotificationsetting';
 				}
 			});
-    	// }
-	});
-	/** 广告 **/
-	var runAD = [];
-	Ajax.custom({
-		url:'api/v1/ads',
-		data:{
-			location:'checkin_alert'
+		}else{
+			$('#readMesA h6').text(data.read_push_status);
+			$('#readMesA').addClass('tips');
+			$('#readMesA').on('click', function(){
+				Tools.alertDialog({
+					text:'阅读每日推送文章<br>可获得额外金币奖励'
+				})
+			})
 		}
-	}, function(d){
-		for (var i = 0; i < d.data.length; i++) {
-			var ad = {img:'',link:''};
-			ad.img = d.data[i].images[0];
-			ad.link = d.data[i].origin_url;
-			runAD.push(ad);
-		};
-
-	})
-
+		$('#gatherA').on('click', function(){
+			if(data.has_caiji_permission){
+				if(km.less('1.4.0')){
+					fun.updateApp();
+				}else{
+					window.location = 'kmb://worthreadingtab';
+				}
+			}else{
+				if(km.less('1.4.2')){
+					fun.updateApp();
+				}else{
+					window.location = 'kmb://applyworthreading';
+				}
+			}
+		});
+	});
+	/* 广告 */
+	var runAD = Storage.getCache('adImgs');
+	if(runAD){
+		// console.log(runAD);
+	}else{
+		runAD = [];
+		Ajax.custom({
+			url:'api/v1/ads',
+			data:{
+				location:'checkin_alert'
+			}
+		}, function(d){
+			for (var i = 0; i < d.data.length; i++) {
+				var ad = {img:'',link:''};
+				ad.img = d.data[i].images[0];
+				ad.link = d.data[i].origin_url;
+				runAD.push(ad);
+			};
+			Storage.setCache('adImgs', runAD, 20);
+		})
+	}
+	/* 规则 */
     $('#rule').on('click', function(){
 		new tipsAd({
 			type: 'rule',
@@ -340,6 +330,7 @@ define('app/taskCenter', function(require, exports, module) {
 			btnType: '1'
 		});
     });
+    /* 签到 */
 	$('#signin').on('click', function(){
 		var btn = $(this);
 		if(btn.hasClass('checkin')){
@@ -387,24 +378,14 @@ define('app/taskCenter', function(require, exports, module) {
 					//3001签到未开始;3004数量不足;
 					if(data.status == 3001 || data.status == 3004){
 						var showad = Math.floor(Math.random()*runAD.length);
-						if(showNormal){
-							checkinStatus.normal();
-							new tipsAd({
-								type: 'over',
-								title: '太遗憾没抢到',
-								text: '还有 普通签到 等你参加',
-								adImg: runAD[showad].img,
-								adLink: runAD[showad].link
-							});
-						}else{
-							new tipsAd({
-								type: 'over',
-								title: '签到失败',
-								text: '明天10点准时再来哦~',
-								adImg: runAD[showad].img,
-								adLink: runAD[showad].link
-							});
-						}
+						checkinStatus.normal();
+						new tipsAd({
+							type: 'over',
+							title: '太遗憾没抢到',
+							text: '还有 普通签到 等你参加',
+							adImg: runAD[showad].img,
+							adLink: runAD[showad].link
+						});
 					}
 				});
 			}, 1000);
@@ -437,7 +418,7 @@ define('app/taskCenter', function(require, exports, module) {
             });
 		}
 	});
-
+    /* 普通签到 */
 	$('#signinNormal').on('click', function(){
 		var btn = $(this);
 		if(btn.hasClass('checkin')){

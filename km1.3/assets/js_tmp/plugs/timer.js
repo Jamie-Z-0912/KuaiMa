@@ -18,7 +18,7 @@ define("plugs/timer", [], function(require, exports, module) {
                 $.isFunction(_self.callback) && _self.callback();
                 return;
             } else {
-                $(_self.el).html("开抢时间：每日10点").show();
+                $(_self.el).prev().html("开抢时间：每日10点");
                 $("#signin").addClass("over");
             }
         } else {
