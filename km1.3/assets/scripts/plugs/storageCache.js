@@ -81,7 +81,7 @@ define(function() {
 	            if(_checkCacheItemIfEffective(cacheItem)) {
 	                var value = cacheItem.v;
 	                return value;
-	            } else {
+	            }else {
 	                this.remove(key);
 	                return null;
 	            }

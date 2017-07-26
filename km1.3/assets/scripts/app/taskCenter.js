@@ -23,12 +23,25 @@ define('app/taskCenter', function(require, exports, module) {
         return;
     }
     var checkinStatus = {
+    	expire: function(){
+    		var mydate = new Date(),
+    			today = mydate.toLocaleDateString(),
+    			now = Math.ceil(mydate.getTime()/1000);
+    		var expTime = new Date(today +' 23:50:00').getTime()/1000;
+			return (expTime-now) > 0 ? expTime-now : null;
+    	},
     	over: function(){
+    		if(this.expire()){
+    			Storage.setCache('checkin','over',this.expire());
+    		}
 			$('#checkin').hide();
 			$('#signinNormal').text('已签到');
 			$('#norCheckin').show();
     	},
     	normal: function(){
+    		if(this.expire()){
+    			Storage.setCache('checkin','normal',this.expire());
+    		}
 			$('#checkin').hide();
 			$('#signinNormal').addClass('checkin');
 			$('#norCheckin').show();
@@ -73,38 +86,43 @@ define('app/taskCenter', function(require, exports, module) {
     }
 
 	var checkin_jinbi = 700, showNormal=false;
-    Ajax.custom({ 
-        url: 'api/v1/checkin/setting'
-    },function(data){
-		var d = data.data;
-		if(d.checkin_type == 'common_checkin'){
-			showNormal = true;
-		}
-		checkin_jinbi = d.commission || 700;
-		if(d.is_checkin){ //已经签到
-			Storage.set('hasCheckin', '1', true);
-			checkinStatus.over();
-		}else{
-			//倒计时显示
-			if(d.left_num > 0){
-				$('#leftNum').text('今日剩余 '+d.left_num+'/'+d.total_num);
-				$('#timer').prev().text('距离开始还有');
-				new Timer('#timer', d.left_seconds, d.is_start, function(){
-					$('#signin').addClass('checkin');
-					if(Storage.get('hasCheckin', true) && Storage.get('hasCheckin', true) == 1){
-						// $('#signin').removeClass('checkin').addClass('hasCheckin');
-						checkinStatus.over();
-					}
-				});
-			}else{ 
-				//根据类型控制是否显示普通签到
-				if(showNormal){
-					checkinStatus.normal();
-				}
-				$('#signin').text('已抢光').addClass('over');
+	if(Storage.getCache('checkin')){
+		var status = Storage.getCache('checkin');
+		checkinStatus[status]();
+	}else{
+	    Ajax.custom({ 
+	        url: 'api/v1/checkin/setting'
+	    },function(data){
+			var d = data.data;
+			if(d.checkin_type == 'common_checkin'){
+				showNormal = true;
 			}
-		}
-    });
+			checkin_jinbi = d.commission || 700;
+			if(d.is_checkin){ //已经签到
+				Storage.set('hasCheckin', '1', true);
+				checkinStatus.over();
+			}else{
+				//倒计时显示
+				if(d.left_num > 0){
+					$('#leftNum').text('今日剩余 '+d.left_num+'/'+d.total_num);
+					$('#timer').prev().text('距离开始还有');
+					new Timer('#timer', d.left_seconds, d.is_start, function(){
+						$('#signin').addClass('checkin');
+						if(Storage.get('hasCheckin', true) && Storage.get('hasCheckin', true) == 1){
+							// $('#signin').removeClass('checkin').addClass('hasCheckin');
+							checkinStatus.over();
+						}
+					});
+				}else{ 
+					//根据类型控制是否显示普通签到
+					if(showNormal){
+						checkinStatus.normal();
+					}
+					$('#signin').text('已抢光').addClass('over');
+				}
+			}
+	    });
+	}
 
 	$('#hotSearch').show();
 	$('#hotSearch').on('click', function(){
@@ -316,7 +334,7 @@ define('app/taskCenter', function(require, exports, module) {
 				ad.link = d.data[i].origin_url;
 				runAD.push(ad);
 			};
-			Storage.setCache('adImgs', runAD, 20);
+			Storage.setCache('adImgs', runAD, 600);
 		})
 	}
 	/* 规则 */
@@ -423,51 +441,49 @@ define('app/taskCenter', function(require, exports, module) {
 		var btn = $(this);
 		if(btn.hasClass('checkin')){
 			btn.removeClass('checkin');
-			setTimeout(function(){
-				Ajax.custom({
-					url: 'api/v1/checkin/common'
-				},function(data){
-					if(data.status == 1000){
-						checkinStatus.over();
-						Storage.set('hasCheckin',1,true);
-						var showad = Math.floor(Math.random()*runAD.length);
-						var nor_sign_ad = new tipsAd({
-							type: 'ok',
-							isClose: 'no',
-							title: '获得'+data.data.commission + '金币',
-							text: '提示：每日前5000名可获得700金币',
-							adImg: runAD[showad].img,
-							adLink: runAD[showad].link
-						});
-						// console.log(nor_sign_ad);
-						$('#'+nor_sign_ad.id+' .ad a').on('click', function(){
-							$('#'+nor_sign_ad.id).remove();
-						})
-			    		var iframe = document.createElement('iframe');
-			    		iframe.src = 'kmb://refreshgold';
-			    		iframe.style.display = 'none';
-			    		$('body').append(iframe);
-			    		$(iframe).remove();
-					}
-					if(data.status == 9001){
-						Storage.set('hasCheckin',1,true);
-						checkinStatus.over();
-						Tools.alertDialog({
-			                text: '今天已签到，明天再来吧'
-			            });
-					}
-					//普通签到人人有份不会有未开始的状态
-					// if(data.status == 3001){
-					// 	new tipsAd({
-					// 		type: 'over',
-					// 		title: '签到未开始',
-					// 		text: '前5000名可获得700金币',
-					// 		adImg: runAD[showad].img,
-					// 		adLink: runAD[showad].link
-					// 	});
-					// }
-				});
-			}, 1000);
+			Ajax.custom({
+				url: 'api/v1/checkin/common'
+			},function(data){
+				if(data.status == 1000){
+					checkinStatus.over();
+					Storage.set('hasCheckin',1,true);
+					var showad = Math.floor(Math.random()*runAD.length);
+					var nor_sign_ad = new tipsAd({
+						type: 'ok',
+						isClose: 'no',
+						title: '获得'+data.data.commission + '金币',
+						text: '提示：每日前5000名可获得700金币',
+						adImg: runAD[showad].img,
+						adLink: runAD[showad].link
+					});
+					// console.log(nor_sign_ad);
+					$('#'+nor_sign_ad.id+' .ad a').on('click', function(){
+						$('#'+nor_sign_ad.id).remove();
+					})
+		    		var iframe = document.createElement('iframe');
+		    		iframe.src = 'kmb://refreshgold';
+		    		iframe.style.display = 'none';
+		    		$('body').append(iframe);
+		    		$(iframe).remove();
+				}
+				if(data.status == 9001){
+					Storage.set('hasCheckin',1,true);
+					checkinStatus.over();
+					Tools.alertDialog({
+		                text: '今天已签到，明天再来吧'
+		            });
+				}
+				//普通签到人人有份不会有未开始的状态
+				// if(data.status == 3001){
+				// 	new tipsAd({
+				// 		type: 'over',
+				// 		title: '签到未开始',
+				// 		text: '前5000名可获得700金币',
+				// 		adImg: runAD[showad].img,
+				// 		adLink: runAD[showad].link
+				// 	});
+				// }
+			});
 		}
 	});
 
