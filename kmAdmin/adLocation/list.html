@@ -1,4 +1,4 @@
- id="queryForm"<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -13,104 +13,91 @@
 <link rel="stylesheet" href="../src/css/global.css" media="all">
 </head>
 <body>
-
 <div class="layui-layout layui-layout-admin">
-	<div class="layui-header header">
-		<h1 class="logo">快马后台管理</h1>
-		<ul class="layui-nav" pc>
-			<li class="layui-nav-item"> 2017/08/09 11:11:55</li>
-			<li class="layui-nav-item ">
-				<i class="layui-icon">&#xe612;</i> 郑佳稳
-			</li>
-		</ul>
-	</div>
+	<div class="layui-header header" id="siteTop"></div>
 	<div class="layui-side layui-bg-black" id="side"> </div>
-	<div class="layui-tab layui-tab-brief">
-		<div class="layui-body layui-tab-content site-demo site-demo-body">
-			<div class="layui-main">
-	  			<form class="layui-form layui-inline" id="queryForm" action="">
-					<div class="layui-inline">
-						<select name="application" lay-verify="">
-							<option value="">请选择应用</option>
-							<option value="kmbrowser">kmbrowser</option>
-							<option value="kmnews">kmnews</option>
-						</select>  
-				    </div>
-					<button class="layui-btn" lay-submit lay-filter="check">查询</button>
-				</form>
-				<a class="layui-btn js-btn" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
-				<table class="layui-table" lay-even="" lay-skin="row">
-					<colgroup>
-					    <col width="46">
-					    <col width="60">
-					    <col width="12%">
-					    <col width="96">
-					    <col width="60">
-					    <col width="10%">
-					    <col>
-					    <col width="10%">
-					    <col width="10%">
-					    <col width="12%">
-					</colgroup>
-					<thead>
-					    <tr>
-							<th>ID</th>
-							<th>应用</th>
-							<th>广告位</th>
-							<th>支持设备</th>
-							<th>支持版本</th>
-							<th>支持布局</th>
-							<th>支持渠道</th>
-							<th>添加时间</th>
-							<th>修改时间</th>
-							<th>操作</th>
-					    </tr> 
-					</thead>
-					<tbody>
-				    	<tr>
-							<td>1</td>
-							<td>kmbrowser</td>
-							<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">推荐分类置顶</a></td>
-							<td>ANDROID IPHONE</td>
-							<td>122 121 120</td>
-							<td>左右图文 单个大图</td>
-							<td>快马直投 百度SDK 广点通SDK 快马广告系统api</td>
-							<td>2017-06-20 12:00:00</td>
-							<td>2017-06-20 12:00:00</td>
-							<td class="option">
-								<a class="js-btn" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-								<a class="js-btn" data-type="del" data-id="23" href="javascript:;">删除</a>
-								<a class="js-btn" data-id="23" href="javascript:;">广告开个</a>
-								<span>状态正常</span>
-							</td>
-				    	</tr>
-				    	<tr>
-							<td>1</td>
-							<td>默认</td>
-							<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">查看全文按钮下面</a></td>
-							<td>ANDROID IPHONE</td>
-							<td>>=122版本</td>
-							<td>左右图文 单个大图</td>
-							<td>快马直投</td>
-							<td>2017-06-20 12:00:00</td>
-							<td>2017-06-20 12:00:00</td>
-							<td class="option">
-								<a class="js-btn" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-								<a class="js-btn" data-type="del" data-id="23" href="javascript:;">删除</a>
-								<a class="js-btn" data-id="23" href="javascript:;">广告开个</a>
-								<span>状态正常</span>
-							</td>
-				    	</tr>
-					</tbody>
-				</table>
-			</div>
+	<div class="layui-body">
+		<div class="layui-main min_w_860">
+  			<form class="layui-form layui-inline" id="queryForm" action="">
+				<div class="layui-inline">
+					<select name="application" lay-verify="">
+						<option value="">请选择应用</option>
+						<option value="kmbrowser">kmbrowser</option>
+						<option value="kmnews">kmnews</option>
+					</select>  
+			    </div>
+				<button class="layui-btn" lay-submit lay-filter="check">查询</button>
+			</form>
+			<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
+			<table class="layui-table" lay-even="" lay-skin="row">
+				<colgroup>
+				    <col width="46">
+				    <col width="60">
+				    <col width="12%">
+				    <col width="96">
+				    <col width="60">
+				    <col width="10%">
+				    <col>
+				    <col width="10%">
+				    <col width="10%">
+				    <col width="12%">
+				</colgroup>
+				<thead>
+				    <tr>
+						<th>ID</th>
+						<th>应用</th>
+						<th>广告位</th>
+						<th>支持设备</th>
+						<th>支持版本</th>
+						<th>支持布局</th>
+						<th>支持渠道</th>
+						<th>添加时间</th>
+						<th>修改时间</th>
+						<th>操作</th>
+				    </tr> 
+				</thead>
+				<tbody>
+			    	<tr>
+						<td>1</td>
+						<td>kmbrowser</td>
+						<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">推荐分类置顶</a></td>
+						<td>ANDROID IPHONE</td>
+						<td>122 121 120</td>
+						<td>左右图文 单个大图</td>
+						<td>快马直投 百度SDK 广点通SDK 快马广告系统api</td>
+						<td>2017-06-20 12:00:00</td>
+						<td>2017-06-20 12:00:00</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
+							<a class="js-operation" data-type="onOff" data-id="23" href="javascript:;">广告开个</a>
+							<span>状态正常</span>
+						</td>
+			    	</tr>
+			    	<tr>
+						<td>1</td>
+						<td>默认</td>
+						<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">查看全文按钮下面</a></td>
+						<td>ANDROID IPHONE</td>
+						<td>>=122版本</td>
+						<td>左右图文 单个大图</td>
+						<td>快马直投</td>
+						<td>2017-06-20 12:00:00</td>
+						<td>2017-06-20 12:00:00</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
+							<a class="js-operation" data-id="23" href="javascript:;">广告开个</a>
+							<span>状态正常</span>
+						</td>
+			    	</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-	<div class="layui-footer footer"></div>
 </div>
 <!-- 表单 -->
-
-<div id="formPane" style="display: none;padding: 20px;">
+<div id="formPane" style="display: none;padding: 10px;">
 	<form class="layui-form layui-form-pane1" action="">
 		<div class="layui-form-item">
 	    	<label class="layui-form-label">应用</label>
@@ -204,161 +191,12 @@
 <script src="../src/layui.js"></script>
 <script>
 	layui.config({
-	  	base: '../src/lay/modules/layui/',
-	  	version: '1498502182151'
-	}).use('global');
-
-	layui.use('layer', function(exports){
-	    var $ = layui.jquery;
-	    $('#side').load('../include/side.html', function(a,b){
-	    	$('#1_2').addClass('layui-this');
-	    });
+		base: '../src/lay/page/', 
+		version: '20170724', //一般用于更新组件缓存.
+		debug: false 
 	})
-	layui.use(['layer', 'form', 'upload'], function(exports){
-	    var $ = layui.jquery, form = layui.form();
-		$('.ad_position').on('click', function(){
-			var _self = $(this), img = '<img src="'+ _self.data('img')+ '" class="ad_position_show" />';
-			layer.open({
-				type:4,
-				shadeClose: true,
-				content:[img, _self]
-			})
-		})
-	    var active = {
-	    	add: function() {
-	    		$('#updateBtn').remove();
-				layer.open({
-					title:'新增广告位',
-					type: 1,
-					skin: 'layui-layer-rim', 
-					area: ['480px', '670px'], 
-					content: $('#formPane'),
-					cancel: function(){ 
-						$('#reset').click()
-					}
-				});
-	    	},
-	    	update: function() {
-	    		$('#addBtn').remove();
-				layer.open({
-					title:'修改广告位',
-					type: 1,
-					skin: 'layui-layer-rim', 
-					area: ['480px', '670px'], 
-					content: $('#formPane'),
-					cancel: function(){ 
-						$('#reset').click()
-					}
-				});
-	    	}
-	    }
-		$('.js-btn').on('click', function(){
-		    var type = $(this).data('type');
-		    if(type == 'add'){
-		    	active['add'].call(this);
-		    }else{
-		    	var id = $(this).data('id');
-		    	active['update'].call(this);
-		    }
-		});
-
-		function getAuth(isCross,callback,type){
-	    	if(!type) type = 'image_req';
-	    	var url = "http://test.kuaima.cn/km_task/upload_preparing?"+type+"=1";
-	    	if(isCross) { url = url + "&cross=1"; }
-	    	$.ajax({
-	    		url:url,
-	    		type: "get",
-	    		dataType: "json",
-	    		success: function(d){
-	    			!!callback&&$.isFunction(callback)&&callback(d);
-	    		}
-	    	});
-	    }
-	    
-
-	    getAuth(true,function(d){
-	    	console.log(d)
-			layui.upload({
-				url: 'http://v0.api.upyun.com/'+ d.data.IMAGE.path +'/',
-				data:{
-					"expire_at": d.data.IMAGE.policy,
-					"policy": d.data.IMAGE.policy,
-					"signature": d.data.IMAGE.signature
-				},
-	    		ext: 'jpg|png|gif',
-				before: function(input){
-	    			//返回的参数item，即为当前的input DOM对象
-	    			console.log('文件上传中');
-	  			},
-				success: function(data, input){
-					// try {
-			  //         res = JSON.parse(res);
-			  //       } catch(e){
-			  //         res = {};
-			  //       }
-            		function flightHandler(data){
-            			console.log(data)
-	            	}
-			  		console.log(input);
-			  		typeof data;
-
-				}
-			});  
-	    })
-
-		function checkbox_val(plat, cruVal, isCheck){
-			var value = $('input[name="'+ plat +'"]').val();
-		    if(isCheck){
-		    	if(value==''){
-					$('input[name="'+ plat +'"]').val(cruVal)
-		    	}else{ 
-		    		$('input[name="'+ plat +'"]').val(value+','+cruVal)
-		    	}
-		    }else{
-		    	var _v = value.split(','),v=[];
-		    	if(_v.length==1) $('input[name="'+ plat +'"]').val('');
-		    	else{
-		    		for (var i = 0; i < _v.length; i++) {
-		    			if(_v[i] != cruVal){
-		    				v.push(_v[i]);
-		    			}
-		    		};
-		    		$('input[name="'+ plat +'"]').val(v.join(','));
-		    	}
-		    }
-		    console.log($('input[name="'+ plat +'"]').val());
-		}
-
-		form.on('checkbox(platform)', function(data){
-		    checkbox_val('platform',data.value,data.elem.checked)
-		});
-
-		form.on('checkbox(version)', function(data){
-		    checkbox_val('version',data.value,data.elem.checked)
-		});
-
-		form.on('checkbox(layout)', function(data){
-		    checkbox_val('layout',data.value,data.elem.checked)
-		});
-
-		form.on('checkbox(adsType)', function(data){
-		    checkbox_val('adsType',data.value,data.elem.checked)
-		});
-		//监听提交
-		form.on('submit(check)', function(data){
-		    console.log(data)
-		    return false;
-		});
-		form.on('submit(add)', function(data){
-		    console.log(data)
-		    return false;
-		});
-		form.on('submit(update)', function(data){
-		    console.log(data)
-		    return false;
-		});
-	})
+	.extend({'global': 'public/global'})
+	.use('adLocation');
 </script>
 
 </body>

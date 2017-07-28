@@ -51,5 +51,7 @@ layui.define(['layer', 'form', 'element'], function(exports){
     $('body').removeClass('site-mobile');
   });
 
+  if(innerWidth < 860  && $('#queryForm').width() > innerWidth-40) $('#queryForm').width(innerWidth-40);
+
   exports('global', {});
 });

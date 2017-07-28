@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>快马-系统通知</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="../src/css/layui.css"  media="all">
+<link rel="stylesheet" href="../src/css/global.css" media="all">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header header" id="siteTop"></div>
+	<div class="layui-side layui-bg-black" id="side"> </div>
+	<div class="layui-body">
+		<div class="layui-main min_w_860">
+  			<form class="layui-form" id="queryForm" action="">
+	  			<div class="layui-form-item">
+					<div class="layui-inline">
+					    <label class="layui-form-label">开始时间</label>
+						<div class="layui-input-inline">
+							<input class="layui-input" name="startTime" id="startTime" placeholder="开始时间"/>
+						</div>
+					</div>
+					<div class="layui-inline">
+					    <label class="layui-form-label">结束时间</label>
+						<div class="layui-input-inline">
+							<input class="layui-input" name="endTime" id="endTime" placeholder="结束时间"/>
+						</div>
+					</div>
+				</div>
+	  			<div class="layui-form-item">
+				  	<div class="layui-inline">
+					    <label class="layui-form-label">链接</label>
+					    <div class="layui-input-inline">
+        					<input type="text" name="url" class="layui-input">
+					    </div>
+				  	</div>
+				  	<div class="layui-inline">
+					    <label class="layui-form-label">来源</label>
+					    <div class="layui-input-inline">
+        					<input type="text" name="source" class="layui-input">
+					    </div>
+				  	</div>
+				</div>
+				<button class="layui-btn" lay-submit lay-filter="check">查询</button>
+				<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
+			</form>
+			<table class="layui-table" lay-even="" lay-skin="row">
+				<colgroup>
+				    <col width="80">
+				    <col>
+				    <col width="80">
+				    <col width="10%">
+				    <col width="10%">
+				    <col width="10%">
+				    <col width="80">
+				    <col width="80">
+				    <col width="10%">
+				    <col width="10%">
+				</colgroup>
+				<thead>
+				    <tr>
+						<th>关键词</th>
+						<th>链接</th>
+                        <th>投放平台</th>
+                        <th>来源</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>投放量</th>
+						<th>搜索量</th>
+						<th>添加时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="#">开运礼包</a></td>
+                        <td>https://mm.37zone.com/pad/fopaizhwnlsytwxxl0721/</td>
+                        <td>DEFAULT</td>
+                        <td>佛牌</td>
+						<td>2017-07-01 19:31:18</td>
+						<td>2017-07-09 19:31:18</td>
+                        <td><span class="red">5000</span></td>
+						<td>1666</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">上架</a>
+                            <span style="color:gray">已下架</span>
+                        </td>
+					</tr>
+					<tr>
+						<td><a href="#">楚乔传</a></td>
+                        <td>http://browser.kuaima.cn/tongji/5taskBanner1_3_0.html?url=http://buy.bianxianmao.com/common/awardModel/ggk.html?appKey=b41574a7527744269e3d09ec423c23b3&appType=app&appEntrance=4&business=money&i=__IMEI__&f=__IDFA__</td>
+                        <td>DEFAULT</td>
+                        <td>变现猫-任务tab banner</td>
+						<td>2017-07-01 19:31:18</td>
+						<td>2017-07-09 19:31:18</td>
+                        <td><span class="red">5000</span></td>
+						<td>0</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">下架</a>
+                            <span class="green">已上架</span>
+                        </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<!-- 表单 -->
+<div id="formPane" style="display: none;padding: 10px;">
+	<form class="layui-form layui-form-pane1" action="">
+		<div class="layui-form-item" pane>
+		    <label class="layui-form-label">推送应用</label>
+		    <div class="layui-input-block">
+				<select name="application" lay-verify="">
+					<option value="kmnews">快马小报</option>
+					<option value="kmbrowser">快马浏览器</option>
+				</select>  
+		    </div>
+		</div>
+		<div class="layui-form-item" pane>
+		    <label class="layui-form-label">投放平台</label>
+		    <div class="layui-input-block">
+				<select name="platform" lay-verify="">
+					<option value="">DEFAULT</option>
+					<option value="ANDROID">ANDROID</option>
+					<option value="IPHONE">IPHONE</option>
+				</select>  
+		    </div>
+		</div>
+		<div class="layui-form-item">
+	    	<label class="layui-form-label">通知内容</label>
+			<div class="layui-input-block">
+				<textarea name="msg" class="layui-textarea"></textarea>
+			</div>
+		</div>
+	    <div class="layui-form-item">
+	      	<label class="layui-form-label">跳转链接</label>
+	      	<div class="layui-input-block">
+	        	<input type="text" name="url" class="layui-input">
+	      	</div>
+	    </div>
+		<div class="layui-form-item" pane>
+		    <label class="layui-form-label">跳转是否登录</label>
+		    <div class="layui-input-block">
+				<input type="checkbox" lay-skin="switch" lay-text="是|否">
+				<input type="hidden" name="needLogin" />  
+		    </div>
+		</div>
+	  	<div class="layui-form-item">
+		    <label class="layui-form-label">定时发送时间</label>
+		    <div class="layui-input-block">
+		      	 <input class="layui-input" name="send_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+		    </div>
+		    <a href="#">清除定时</a>
+	  	</div>
+		<div class="layui-form-item">
+		    <div class="red">**注意**</div>
+		    <p>
+				点击通知动作选择: 打开App, 跳转链接为空<br>
+				点击通知动作选择: 打开Url, 跳转链接必须是: http://XXX; <br>
+				点击通知动作选择打开App指定页面时,跳转链接如下:<br>
+				<ol class="has_order">
+					<li>kmb://taskdetail?param={"taskid": 1} //赏金任务详情</li>
+					<li>kmb://recommend?url=http://news.kuaima.cn/article.html?id=116667 //资讯详情</li>
+					<li>kmb://makemoney //赚钱tab</li>
+					<li>kmb://video //视频tab</li>
+					<li>kmb://mine //单播都先跳到“我的”界面</li>
+					<li>kmb://msgcenter //消息中心</li>
+					<li>kmb://worthreading?id=116667 //值得看详情</li>
+					<li>kmb://worthreadingtab //值得看tab</li>
+				</ol>
+		    </p>
+		</div>
+		<div class="layui-form-item t-r" id="addBtn">
+	    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
+	  	</div>
+		<div class="layui-form-item t-r" id="updateBtn">
+	    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
+	  	</div>
+	  	<button type="reset" id="reset" class="layui-hide">重置</button>
+	</form>
+</div>
+<!-- mobile side -->
+<div class="site-tree-mobile layui-hide">
+  <i class="layui-icon">&#xe602;</i>
+</div>
+<div class="site-mobile-shade"></div>
+<script src="../src/layui.js"></script>
+<script>
+	layui.config({
+		base: '../src/lay/page/', 
+		version: '20170724', //一般用于更新组件缓存.
+		debug: false 
+	})
+	.extend({'global': 'public/global'})
+	.use('searchKeywords');
+</script>
+
+</body>
+</html>

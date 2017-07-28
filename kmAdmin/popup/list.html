@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>快马-广告列表</title>
+<title>快马-弹窗管理</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -21,15 +21,6 @@
   			<form class="layui-form" id="queryForm" action="">
 	  			<div class="layui-form-item">
 				  	<div class="layui-inline">
-					    <label class="layui-form-label">应用</label>
-					    <div class="layui-input-inline">
-							<select name="application" >
-								<option value="kmbrowser">kmbrowser</option>
-								<option value="kmnews">kmnews</option>
-							</select>  
-					    </div>
-				  	</div>
-				  	<div class="layui-inline">
 					    <label class="layui-form-label">投放平台</label>
 					    <div class="layui-input-inline">
 							<select name="platform" >
@@ -39,16 +30,18 @@
 							</select>  
 						</div>
 				  	</div>
-			  	</div>
-	  			<div class="layui-form-item">
 				  	<div class="layui-inline">
-					    <label class="layui-form-label">广告标题</label>
+					    <label class="layui-form-label">投放位置</label>
 					    <div class="layui-input-inline">
-        					<input type="text" name="keyword" class="layui-input">
+							<select name="location" >
+								<option value="timeline_tab">首页tab</option>
+								<option value="km_zq_tab">赚钱tab</option>
+								<option value="zdk_tab">值得看tab</option>
+							</select>  
 					    </div>
 				  	</div>
 					<div class="layui-inline">
-					    <label class="layui-form-label">广告状态</label>
+					    <label class="layui-form-label">弹窗状态</label>
 					    <div class="layui-input-inline">
 							<select name="status" >
 								<option value="-1">所有</option>
@@ -58,22 +51,18 @@
 							</select>  
 						</div>
 					</div>
-				</div>
+			  	</div>
 	  			<div class="layui-form-item">
-				  	<div class="layui-inline">
-					    <label class="layui-form-label">投放位置</label>
-					    <div class="layui-input-inline">
-							<select name="location" >
-								<option value="timeline_first">推荐分类置顶</option>
-								<option value="common_cat_first">普通分类置顶</option>
-								<option value="all_cat_fifth">所有分类第五位</option>
-							</select>  
-					    </div>
-					</div>
 					<div class="layui-inline">
 					    <label class="layui-form-label">开始时间</label>
 					    <div class="layui-input-block">
-					      	 <input class="layui-input" name="startTime" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+					      	 <input class="layui-input" name="startTime" id="startTime">
+					    </div>
+					</div>
+					<div class="layui-inline">
+					    <label class="layui-form-label">结束时间</label>
+					    <div class="layui-input-block">
+					      	 <input class="layui-input" name="endTime" id="endTime" />
 					    </div>
 					</div>
 				</div>
@@ -85,86 +74,145 @@
 			<table class="layui-table" lay-even="" lay-skin="row">
 				<colgroup>
 				    <col width="46">
-				    <col width="60">
 				    <col>
 				    <col width="80">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
-				    <col width="7%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
+				    <col width="9%">
 				</colgroup>
 				<thead>
 				    <tr>
 						<th>ID</th>
-						<th>应用</th>
-						<th>广告标题</th>
+						<th>弹窗标题</th>
                         <th>图片</th>
-                        <th>来源</th>
-                        <th>布局</th>
-                        <th>投放区域</th>
                         <th>投放平台</th>
                         <th>投放位置</th>
                         <th>是否要登录</th>
-                        <th>tips(标识)</th>
+                        <th>弹窗次数</th>
 						<th>开始时间</th>
                         <th>结束时间</th>
+						<th>添加时间</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>111</td>
-						<td> 默认 </td>
 						<td>
-                           <a href="http://www.baidu.com">波音737-300告别中国 服役21载落幕</a>
+                           <a href="http://www.baidu.com">五一活动</a>
                         </td>
-                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/7387ab8a04242fca69d9f39c73b40457.png" > <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/0078930f295becf0a020684529b652dd.jpg" > <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/85af849f6e0f32188444d1a02d432f10.png" > </td>
-                        <td>搜狗</td>
-                        <td> 上下三图 </td>
-                        <td>全国</td>
-                        <td> DEFAULT </td>
-                        <td>推荐分类置顶</td>
-                        <td>否</td>
-                        <td>广告</td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
 						<td>2017-05-09 00:00:00</td>
                         <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">上架</a>
+                            <span style="color:gray">已下架</span>
+                        </td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>
+                           <a href="http://www.baidu.com">五一活动</a>
+                        </td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
+						<td>2017-05-09 00:00:00</td>
+                        <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
 						<td class="option">
 							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
 							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">下架</a>
-                            <a class="js-operation" data-type="toTop" data-id="23" href="javascript:;"> 置顶 </a>
-                            <a class="js-operation" data-type="viewData" data-id="23" href="javascript:;"> 统计 </a>
                             <span class="green">已上架</span>
                         </td>
 					</tr>
 					<tr>
 						<td>111</td>
-						<td> 默认 </td>
 						<td>
-                           <a href="http://www.baidu.com">波音737-300告别中国 服役21载落幕</a>
+                           <a href="http://www.baidu.com">五一活动</a>
                         </td>
-                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/7387ab8a04242fca69d9f39c73b40457.png" > <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/0078930f295becf0a020684529b652dd.jpg" > <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/85af849f6e0f32188444d1a02d432f10.png" > </td>
-                        <td>搜狗</td>
-                        <td> 上下三图 </td>
-                        <td>全国</td>
-                        <td> DEFAULT </td>
-                        <td>推荐分类置顶</td>
-                        <td>否</td>
-                        <td>广告</td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
 						<td>2017-05-09 00:00:00</td>
                         <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">上架</a>
+                            <span style="color:gray">已下架</span>
+                        </td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>
+                           <a href="http://www.baidu.com">五一活动</a>
+                        </td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
+						<td>2017-05-09 00:00:00</td>
+                        <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
 						<td class="option">
 							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
 							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">下架</a>
-                            <a class="js-operation" data-type="toTop" data-id="23" href="javascript:;"> 置顶 </a>
-                            <a class="js-operation" data-type="viewData" data-id="23" href="javascript:;"> 统计 </a>
-                            <span style="color:gray">已过期</span>
+                            <span class="green">已上架</span>
+                        </td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>
+                           <a href="http://www.baidu.com">五一活动</a>
+                        </td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
+						<td>2017-05-09 00:00:00</td>
+                        <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">上架</a>
+                            <span style="color:gray">已下架</span>
+                        </td>
+					</tr>
+					<tr>
+						<td>111</td>
+						<td>
+                           <a href="http://www.baidu.com">五一活动</a>
+                        </td>
+                        <td class="td-img"> <img src="http://img1000.static.suishenyun.net/2e52e1dc5ac9d868e9983bd3fd8ced1c/c50b423782f3987b49a53a9acee9b3d2.png"></td>
+                        <td>DEFAULT</td>
+                        <td>首页tab</td>
+                        <td>是</td>
+                        <td> 1500 </td>
+						<td>2017-05-09 00:00:00</td>
+                        <td>2017-05-31 23:59:00</td>
+						<td>2017-05-09 19:31:18</td>
+						<td class="option">
+							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+							<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">下架</a>
+                            <span class="green">已上架</span>
                         </td>
 					</tr>
 				</tbody>
@@ -176,9 +224,9 @@
 <div id="formPane" style="display: none;padding: 10px;">
 	<form class="layui-form layui-form-pane1" action="">
 		<div class="layui-form-item">
-	    	<label class="layui-form-label">广告标题 / 热词</label>
+	    	<label class="layui-form-label">弹窗标题</label>
 			<div class="layui-input-block">
-				<textarea name="title" placeholder="热词可批量添加,以英文逗号分隔,一次最多50个" class="layui-textarea"></textarea>
+	        	<input type="text" name="title" autocomplete="off" class="layui-input">
 			</div>
 		</div>
 	    <div class="layui-form-item">
@@ -189,38 +237,11 @@
 	      	</div>
 	    </div>
 	    <div class="layui-form-item">
-	      	<label class="layui-form-label">广告来源</label>
+	      	<label class="layui-form-label">跳转链接</label>
 	      	<div class="layui-input-block">
-	        	<input type="text" name="source" autocomplete="off" class="layui-input">
+	        	<input type="text" name="url" palceholder="必须以http://开头" class="layui-input">
 	      	</div>
 	    </div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">广告布局</label>
-		    <div class="layui-input-block">
-				<select name="layout" lay-verify="">
-					<option value="左右图文">左右图文</option>
-					<option value="上下图文">上下图文</option>
-					<option value="上下三图">上下三图</option>
-				</select>  
-		    </div>
-		</div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">原始链接</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="originUrl" autocomplete="off" class="layui-input">
-	      	</div>
-	      	<a href="#">转成sogou链接</a>
-	    </div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">投放应用</label>
-		    <div class="layui-input-block">
-				<select name="application" lay-verify="">
-					<option value="">默认</option>
-					<option value="ANDROID">kmbrowser</option>
-					<option value="IPHONE">kmnews</option>
-				</select>  
-		    </div>
-		</div>
 		<div class="layui-form-item" pane>
 		    <label class="layui-form-label">投放平台</label>
 		    <div class="layui-input-block">
@@ -250,7 +271,7 @@
 		<div class="layui-form-item" pane>
 		    <label class="layui-form-label">结束时间</label>
 			<div class="layui-input-inline">
-				<input class="layui-input" name="end_time" id="endTime" placeholder="结束时间"/>
+				<input class="layui-input" name="end_time" id="end_time" placeholder="结束时间"/>
 			</div>
 		</div>
 		<div class="layui-form-item" pane>
@@ -261,9 +282,9 @@
 		    </div>
 		</div>
 	    <div class="layui-form-item">
-	      	<label class="layui-form-label">广告标识</label>
+	      	<label class="layui-form-label">弹窗次数</label>
 	      	<div class="layui-input-block">
-	        	<input type="text" name="tips" value="广告" autocomplete="off" class="layui-input" placeholder="建议2个字" />
+	        	<input type="text" name="num" class="layui-input">
 	      	</div>
 	    </div>
 		<div class="layui-form-item t-r" id="addBtn">
@@ -288,7 +309,7 @@
 		debug: false 
 	})
 	.extend({'global': 'public/global'})
-	.use('ads');
+	.use('popup');
 </script>
 
 </body>

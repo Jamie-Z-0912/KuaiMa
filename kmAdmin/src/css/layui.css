@@ -75,10 +75,11 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-side-scroll{width: 220px; height: 100%; overflow-x: hidden;}
 .layui-body{position: absolute; left: 200px; right: 0; top: 0; bottom: 0; z-index: 998; width: auto; overflow: hidden; overflow-y: auto; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
 
-/* 后台布局风格 */.layui-layout-admin .layui-header{background-color: #23262E;}
+/* 后台布局风格 */
+.layui-layout-admin .layui-header{background-color: #23262E;}
 .layui-layout-admin .layui-side{top: 60px; width: 200px; overflow-x: hidden;}
 .layui-layout-admin .layui-body{top: 60px; bottom: 44px;}
-.layui-layout-admin .layui-main{width: auto; margin: 0 15px;}
+.layui-layout-admin .layui-main{width: auto; margin: 0 10px;}
 .layui-layout-admin .layui-footer{position: fixed; left: 200px; right: 0; bottom: 0; height: 44px; background-color: #eee;}
 
 
@@ -240,9 +241,10 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-form-radioed i,.layui-form-radio i:hover{color: #5FB878;}
 .layui-radio-disbaled i{color: #e2e2e2 !important;}
 
-/* 表单方框风格 */.layui-form-pane .layui-form-label{width: 110px; padding: 8px 15px; height: 38px; line-height: 20px; border: 1px solid #e6e6e6; border-radius: 2px 0 0 2px; text-align: center; background-color: #FBFBFB; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; box-sizing: border-box !important;}
+/* 表单方框风格 */
+.layui-form-pane .layui-form-label{width: 140px; padding: 8px 10px; height: 38px; line-height: 20px; border: 1px solid #e6e6e6; border-radius: 2px 0 0 2px; text-align: center; background-color: #FBFBFB; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; box-sizing: border-box !important;}
 .layui-form-pane .layui-input-inline{margin-left: -1px;}
-.layui-form-pane .layui-input-block{margin-left: 110px; left: -1px;}
+.layui-form-pane .layui-input-block{margin-left: 140px; left: -1px;}
 .layui-form-pane .layui-input{border-radius: 0 2px 2px 0;}
 .layui-form-pane .layui-form-text .layui-form-label{float: none; width: 100%; border-right: 1px solid #e6e6e6; border-radius: 2px; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; box-sizing: border-box !important; text-align: left;}
 .layui-form-pane .layui-form-text .layui-input-inline{display: block; margin: 0; top: -1px; clear: both;}
@@ -541,6 +543,7 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
   .layui-form-item .layui-input-inline+.layui-form-mid{margin-left: 110px; top: -5px; padding: 0;}
   .layui-form-item .layui-form-checkbox{margin-right: 5px; margin-bottom: 5px;}
 }
+
 
 
 
