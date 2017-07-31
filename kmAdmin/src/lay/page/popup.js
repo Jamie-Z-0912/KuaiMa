@@ -50,36 +50,89 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 	});
 	/* 增加和操作处的点击 e */
 	
-	/* 开始和结束时间 */
-	var start = {
-		min: laydate.now(),
-		max: '2099-06-16 23:59:59',
-		start: '2014-6-15 23:00:00',
-		istime: true,
-		format: 'YYYY-MM-DD hh:mm:ss',
-		choose: function(datas){
-			end.min = datas; //开始日选好后，重置结束日的最小日期
-			end.start = datas //将结束日的初始值设定为开始日
-		}
-	};
+	/* 查询的 开始和结束时间 */
+	var query = {
+		start:{
+			min: laydate.now(),
+			max: '2099-06-16 23:59:59',
+			start: '2014-6-15 23:00:00',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+			choose: function(datas){
+				query.end.min = datas; //开始日选好后，重置结束日的最小日期
+				query.end.start = datas //将结束日的初始值设定为开始日
+			}
+		},
+		end:{
+	    	min: laydate.now(),
+	    	max: '2099-06-16 23:59:59',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+	    	choose: function(datas){
+	      		query.start.max = datas; //结束日选好后，重置开始日的最大日期
+	    	}
+  		}
+	}
+	$('#q_startTime').on('click', function(){
+		query.start.elem = this;
+	    laydate(query.start);
+	})
+	$('#q_endTime').on('click', function(){
+		query.end.elem = this;
+	    laydate(query.end);
+	});
+	/* 查询的 开始和结束时间 e */
 
-  	var end = {
-    	min: laydate.now(),
-    	max: '2099-06-16 23:59:59',
-		istime: true,
-		format: 'YYYY-MM-DD hh:mm:ss',
-    	choose: function(datas){
-      		start.max = datas; //结束日选好后，重置开始日的最大日期
-    	}
-  	};
-	document.getElementById('startTime').onclick = function(){
-	    start.elem = this;
-	    laydate(start);
+	var query = {
+		start:{
+			min: laydate.now(),
+			max: '2099-06-16 23:59:59',
+			start: '2014-6-15 23:00:00',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+			choose: function(datas){
+				query.end.min = datas; //开始日选好后，重置结束日的最小日期
+				query.end.start = datas //将结束日的初始值设定为开始日
+			}
+		},
+		end:{
+	    	min: laydate.now(),
+	    	max: '2099-06-16 23:59:59',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+	    	choose: function(datas){
+	      		query.start.max = datas; //结束日选好后，重置开始日的最大日期
+	    	}
+  		}
 	}
-	document.getElementById('endTime').onclick = function(){
-	    end.elem = this
-	    laydate(end);
-	}
+	// var start = {
+	// 	min: laydate.now(),
+	// 	max: '2099-06-16 23:59:59',
+	// 	start: '2014-6-15 23:00:00',
+	// 	istime: true,
+	// 	format: 'YYYY-MM-DD hh:mm:ss',
+	// 	choose: function(datas){
+	// 		end.min = datas; //开始日选好后，重置结束日的最小日期
+	// 		end.start = datas //将结束日的初始值设定为开始日
+	// 	}
+	// };
+ //  	var end = {
+ //    	min: laydate.now(),
+ //    	max: '2099-06-16 23:59:59',
+	// 	istime: true,
+	// 	format: 'YYYY-MM-DD hh:mm:ss',
+ //    	choose: function(datas){
+ //      		start.max = datas; //结束日选好后，重置开始日的最大日期
+ //    	}
+ //  	};
+	// document.getElementById('startTime').onclick = function(){
+	//     start.elem = this;
+	//     laydate(start);
+	// }
+	// document.getElementById('endTime').onclick = function(){
+	//     end.elem = this
+	//     laydate(end);
+	// }
 	/* 上传图片方法 s */
 	function getAuth(isCross,callback,type){
     	if(!type) type = 'image_req';

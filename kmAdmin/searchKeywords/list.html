@@ -119,14 +119,17 @@
 <div id="formPane" style="display: none;padding: 10px;">
 	<form class="layui-form layui-form-pane1" action="">
 		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">推送应用</label>
-		    <div class="layui-input-block">
-				<select name="application" lay-verify="">
-					<option value="kmnews">快马小报</option>
-					<option value="kmbrowser">快马浏览器</option>
-				</select>  
-		    </div>
+		    <label class="layui-form-label">搜索关键词</label>
+			<div class="layui-input-block">
+				<textarea name="msg" class="layui-textarea"></textarea>
+			</div>
 		</div>
+	    <div class="layui-form-item">
+	      	<label class="layui-form-label">关键词链接</label>
+	      	<div class="layui-input-block">
+	        	<input type="text" name="url" class="layui-input">
+	      	</div>
+	    </div>
 		<div class="layui-form-item" pane>
 		    <label class="layui-form-label">投放平台</label>
 		    <div class="layui-input-block">
@@ -137,50 +140,34 @@
 				</select>  
 		    </div>
 		</div>
-		<div class="layui-form-item">
-	    	<label class="layui-form-label">通知内容</label>
-			<div class="layui-input-block">
-				<textarea name="msg" class="layui-textarea"></textarea>
-			</div>
-		</div>
 	    <div class="layui-form-item">
-	      	<label class="layui-form-label">跳转链接</label>
+	      	<label class="layui-form-label">来源</label>
 	      	<div class="layui-input-block">
 	        	<input type="text" name="url" class="layui-input">
 	      	</div>
 	    </div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">跳转是否登录</label>
-		    <div class="layui-input-block">
-				<input type="checkbox" lay-skin="switch" lay-text="是|否">
-				<input type="hidden" name="needLogin" />  
-		    </div>
+	    <div class="layui-form-item">
+	      	<label class="layui-form-label">投放数目</label>
+	      	<div class="layui-input-block">
+	        	<input type="text" name="url" class="layui-input">
+	      	</div>
+	    </div>
+	    <div class="layui-form-item">
+			<div class="layui-inline">
+			    <label class="layui-form-label">开始时间</label>
+			    <div class="layui-input-block">
+			      	 <input class="layui-input" name="startTime" id="startTime">
+			    </div>
+			</div>
+			<div class="layui-inline">
+			    <label class="layui-form-label">结束时间</label>
+			    <div class="layui-input-block">
+			      	 <input class="layui-input" name="endTime" id="endTime" />
+			    </div>
+			</div>
 		</div>
-	  	<div class="layui-form-item">
-		    <label class="layui-form-label">定时发送时间</label>
-		    <div class="layui-input-block">
-		      	 <input class="layui-input" name="send_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
-		    </div>
-		    <a href="#">清除定时</a>
-	  	</div>
-		<div class="layui-form-item">
-		    <div class="red">**注意**</div>
-		    <p>
-				点击通知动作选择: 打开App, 跳转链接为空<br>
-				点击通知动作选择: 打开Url, 跳转链接必须是: http://XXX; <br>
-				点击通知动作选择打开App指定页面时,跳转链接如下:<br>
-				<ol class="has_order">
-					<li>kmb://taskdetail?param={"taskid": 1} //赏金任务详情</li>
-					<li>kmb://recommend?url=http://news.kuaima.cn/article.html?id=116667 //资讯详情</li>
-					<li>kmb://makemoney //赚钱tab</li>
-					<li>kmb://video //视频tab</li>
-					<li>kmb://mine //单播都先跳到“我的”界面</li>
-					<li>kmb://msgcenter //消息中心</li>
-					<li>kmb://worthreading?id=116667 //值得看详情</li>
-					<li>kmb://worthreadingtab //值得看tab</li>
-				</ol>
-		    </p>
-		</div>
+
+
 		<div class="layui-form-item t-r" id="addBtn">
 	    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
 	  	</div>
