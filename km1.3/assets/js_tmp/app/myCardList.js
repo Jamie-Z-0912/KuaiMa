@@ -116,34 +116,17 @@ define("app/myCardList", [ "../mod/pagelist" ], function(require, exports, modul
         var opt, fun = function() {};
         if (!data.status) {
             Tools.alertDialog({
-                title: "提醒",
-                text: "系统错误，请稍后重试！"
+                title: "出错了",
+                text: "没有返回status"
             });
             return;
         }
-        switch (data.status) {
-          case 1101:
+        if (/1001|1002|1003|1004|1008|1009|1013|1015/.test(data.status)) {
             opt = {
                 title: "提醒",
-                text: "请打开设置->通用->日期与时间校准您的系统时间"
+                text: data.desc
             };
-            break;
-
-          case 1004:
-            opt = {
-                title: "提醒",
-                text: "请在#ProjectName#中登录再访问！"
-            };
-            break;
-
-          case 1002:
-            opt = {
-                title: "提醒",
-                text: "请在#ProjectName#中访问！"
-            };
-            break;
-
-          case 1006:
+        } else if (/1006|1007/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",
@@ -157,12 +140,14 @@ define("app/myCardList", [ "../mod/pagelist" ], function(require, exports, modul
                 }
                 $("#closeTimer").text(n);
             }, 1e3);
-            break;
-
-          default:
+        } else if (data.status == 1101) {
+            opt = {
+                title: "提醒",
+                text: "请打开设置->通用->日期与时间校准您的系统时间"
+            };
+        } else {
             opt = null;
             return true;
-            break;
         }
         if (opt != null) {
             Tools.alertDialog(opt, fun);

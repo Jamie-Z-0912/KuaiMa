@@ -1,22 +1,86 @@
 @import "reset.less";
-body{background-color: #ed7500;}
+@import "libs/confirmTip.less";
+body{background-color: #f72f83;}
 .head{
-	text-align: center;
-	background-color: #fff;
-	padding: .15rem 0;
-	.text{line-height: 1.6;padding: .05rem 0;}
-	.card{
-		margin: .1rem auto;
-		width: 24%;
-		img{display: block;width: 100%;}
-	}
+	img{display: block; width: 100%;}
 	.option{
+		padding-top: .18rem;
+		.ui-btn{
+			.lineH(.57rem);
+			width: 2.2rem;
+			font-family: "PingFangSC Semibold";
+			color: #000;
+			background-color: #fff242;
+			box-shadow: 0px .06rem 0px #da2c75;
+			font-size: .24rem;
+		}
 		a.gray{background-color: #ccc;}
 	}
+	.text{
+		line-height: .24rem; 
+		font-size: @size_t4; 
+		color: #fff; 
+		text-align: center;
+		margin-top: .2rem;
+	}
+
 }
-.main-list{
+.second-box{
+	padding: .1rem;
+	margin-top: .2rem;
+	.con{
+		background-color: #fff;
+		border-radius: .04rem;
+		padding: .15rem .3rem;
+		.item{
+			position: relative;
+			padding: .2rem 0 .22rem;
+			padding-left: .49rem;
+			.icon{
+				position: absolute;
+				display: block;
+				top: .16rem;
+				left: 0;
+				width: .34rem;
+				height: .4rem;
+				background: url(../image/school_icon.png) no-repeat left top;
+				background-size: 800%;
+			}
+			.icon8{ background-position: -2.38rem top;}
+			.icon_new_ss{ background-position: -1.03rem -0.49rem;}
+			.icon_new_yd{ background-position: -.68rem -.49rem;}
+			.icon_daily_fl{background-position: -1.77rem -0.49rem;}
+			h4,.coin{
+				display: inline-block;
+				vertical-align: middle;
+				.lineH(.28rem);
+			}
+			.coin{
+				text-align: right;
+				width: .66rem;
+				color: #b8b4b5;
+				line-height: .3rem;
+				font-size: .13rem;
+			}
+			.right{
+				position: absolute;
+				right: 0;
+				top: .2rem;
+				width: .72rem;
+				.lineH(.28rem);
+				border-radius: .04rem;
+				box-shadow: 0px .03rem 0px #f3a302;
+				text-align: center;
+				color: #996b29;
+				font-size: .13rem;
+				background-color: #ffd505;
+			}
+		}
+	}
+}
+.third-box{
 	margin-top: .1rem;
-	padding: 0 .1rem;
+	padding: 0 .1rem .2rem;
 	h5{
 	    position: relative;
 	    width: 100%;
@@ -41,86 +105,6 @@ body{background-color: #ed7500;}
 			margin-left: 3em;
 		}
 	}
-	.box{
-		position: relative;
-		background-color: #fff;
-		padding: 0 .15rem;
-		.item{
-			position: relative;
-			.border-b;
-			padding: .1rem 0;
-			h3{
-				position: relative;
-				width: 4.1em; 
-				line-height: .16rem;
-				padding-top: .1rem;
-				padding-bottom: .1rem;
-				display: inline-block;
-			    vertical-align: middle;
-			    margin-right: .28rem;
-				&:after{
-					content: "";
-					position: absolute;
-					height: .18rem;
-					width: 1px;
-					background-color: @c_title;
-					transform: rotate(10deg);
-				    top: .1rem;
-				    right: -.14rem;
-				}
-			}
-			&.em5 h3{ width: 5.1em;}
-			.get_gold{
-				display: inline-block;
-			    vertical-align: middle;
-				line-height: 1.6;
-				font-size: @size;
-				color: #ff9100;
-				width: 10em;
-			}
-			.subtxt{
-				display: inline-block;
-			    vertical-align: middle;
-				line-height: 1.6;
-				font-size: @size;
-				color: @c_text;
-				width: 10em;
-			}
-			h6{
-				position: absolute;
-				top: .17rem;
-    			right: .24rem;
-				text-align: right;
-			}
-		}
-		.right{
-			position: absolute;
-			right: .15rem;
-			top: 50%;
-			margin-top: -.15rem;
-			line-height: .3rem;
-			i{display: block;}
-			.ui-arrowlink{
-			    width: .16rem;
-			    .lineH(.16rem);
-			    margin-top: .06rem;
-			    border-radius: 50%;
-			    background-color: #ff9100;
-			    color: #fff;
-			    text-align: center;
-			    &:before{    
-			    	font-size: .11rem;
-				    height: 0.16rem;
-				    line-height: 0.16rem;
-				    width: .16rem;
-				    right: 0;
-			    }
-			}
-		}
-		&.imgbox{
-			padding: 0;background-color: transparent;
-			img{ width: 100%; display: block;}
-		}
-		&.tips .right .ui-arrowlink:before{content: '!'}
-	}
+	img{display: block; width: 100%;}
+
 }
