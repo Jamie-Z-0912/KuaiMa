@@ -1,0 +1,126 @@
+@import "reset.less";
+body{background-color: #ed7500;}
+.head{
+	text-align: center;
+	background-color: #fff;
+	padding: .15rem 0;
+	.text{line-height: 1.6;padding: .05rem 0;}
+	.card{
+		margin: .1rem auto;
+		width: 24%;
+		img{display: block;width: 100%;}
+	}
+	.option{
+		a.gray{background-color: #ccc;}
+	}
+}
+.main-list{
+	margin-top: .1rem;
+	padding: 0 .1rem;
+	h5{
+	    position: relative;
+	    width: 100%;
+		font-size: @size; 
+		color: #fff;
+	    text-align: center;
+	    margin: .22rem 0 .1rem;
+	    font-weight: normal;
+		&:before,&:after{
+			position: absolute;
+			content: "";
+			top: 50%;
+			left: 50%;
+			height: 1px;
+			background-color: #ffda24;
+			width: .74rem;
+		}
+		&:before{
+			margin-left: -8em;
+		}
+		&:after{
+			margin-left: 3em;
+		}
+	}
+	.box{
+		position: relative;
+		background-color: #fff;
+		padding: 0 .15rem;
+		.item{
+			position: relative;
+			.border-b;
+			padding: .1rem 0;
+			h3{
+				position: relative;
+				width: 4.1em; 
+				line-height: .16rem;
+				padding-top: .1rem;
+				padding-bottom: .1rem;
+				display: inline-block;
+			    vertical-align: middle;
+			    margin-right: .28rem;
+				&:after{
+					content: "";
+					position: absolute;
+					height: .18rem;
+					width: 1px;
+					background-color: @c_title;
+					transform: rotate(10deg);
+				    top: .1rem;
+				    right: -.14rem;
+				}
+			}
+			&.em5 h3{ width: 5.1em;}
+			.get_gold{
+				display: inline-block;
+			    vertical-align: middle;
+				line-height: 1.6;
+				font-size: @size;
+				color: #ff9100;
+				width: 10em;
+			}
+			.subtxt{
+				display: inline-block;
+			    vertical-align: middle;
+				line-height: 1.6;
+				font-size: @size;
+				color: @c_text;
+				width: 10em;
+			}
+			h6{
+				position: absolute;
+				top: .17rem;
+    			right: .24rem;
+				text-align: right;
+			}
+		}
+		.right{
+			position: absolute;
+			right: .15rem;
+			top: 50%;
+			margin-top: -.15rem;
+			line-height: .3rem;
+			i{display: block;}
+			.ui-arrowlink{
+			    width: .16rem;
+			    .lineH(.16rem);
+			    margin-top: .06rem;
+			    border-radius: 50%;
+			    background-color: #ff9100;
+			    color: #fff;
+			    text-align: center;
+			    &:before{    
+			    	font-size: .11rem;
+				    height: 0.16rem;
+				    line-height: 0.16rem;
+				    width: .16rem;
+				    right: 0;
+			    }
+			}
+		}
+		&.imgbox{
+			padding: 0;background-color: transparent;
+			img{ width: 100%; display: block;}
+		}
+		&.tips .right .ui-arrowlink:before{content: '!'}
+	}
+}
