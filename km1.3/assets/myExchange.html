@@ -26,44 +26,7 @@
 <body>
     <section class="max-w-750">
         <div class="tips">请尽快保存兑换资源，避免资源失效</div>
-        <ul class="list-wrap" id="conList">
-            <li class="view_1" data-id="222">
-                <h3>我采集的资源</h3>
-                <div class="imgbox">
-                    <img src="http://imgcom.static.suishenyun.net/crawl/background/33017ed5-7bae-42f0-b38b-57ff30cfb501.png">
-                </div>
-                <div class="source">
-                    <span class="photo">
-                        <img src="http://imgcom.kuaima.suishenyun.net/cfcd208495d565ef66e7dff9f98764da/9d1374ecc7a97cc71678246c5db08daf.jpg" alt="">
-                    </span>
-                    <span class="author">我的百度</span>
-                    <span class="tag">资源</span>
-                    <span class="pay">0.03零钱</span>
-                </div>
-                <div class="bottom clearfix">
-                    <span>兑换于2017-08-08</span>
-                    <a href="kmb://worthreading?id=703" class="gray">查看资源</a>
-                    <a href="kmb://worthreadingreport?id=703">举报</a>
-                </div>
-            </li>
-            <li class="view_5" data-id="222">
-                <h3>我采集的资源</h3>
-                <div class="imgbox"> </div>
-                <div class="source">
-                    <span class="photo">
-                        <img src="http://imgcom.kuaima.suishenyun.net/cfcd208495d565ef66e7dff9f98764da/9d1374ecc7a97cc71678246c5db08daf.jpg" alt="">
-                    </span>
-                    <span class="author">我的百度</span>
-                    <span class="tag">资源</span>
-                    <span class="pay">0.03零钱</span>
-                </div>
-                <div class="bottom clearfix">
-                    <span>兑换于2017-08-08</span>
-                    <a href="kmb://worthreading?id=673" class="gray">查看资源</a>
-                    <a href="kmb://worthreadingreport?id=673">举报</a>
-                </div>
-            </li>
-        </ul>
+        <ul class="list-wrap" id="conList"></ul>
         <div id="listPage" class="hide"></div>
         <script id="conList-tmpl" type="text/x-dot-template">
             {{? it.status == 1020 }}
@@ -72,15 +35,19 @@
                 </li>
             {{??}}
                 {{~it.data:value:index}}
-                    <li class="view_{{=value.layout}}" data-id="{{=value.article_id}}">
-                        <h3>{{=value.title}}</h3>
-                        <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgboxHeight}}" {{?}}>
-                            {{ for (var i = 0; i < value.images.length; i++) { }}
-                                <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
-                            {{ } }}
-                        </div>
+                    <li class="view_{{=value.post_layout}}">
+                        <h3>{{=value.post_title}}</h3>
+                        {{? value.post_layout == 1}}
+                            <div class="imgbox"> <img src="{{=value.post_images[0]}}"/> </div>
+                        {{?}}
                         <div class="source">
-                            <span>{{=value.view_num}}人看过</span><span>{{=value.added_time}}</span>
+                            <div class="author">由<span>{{=value.post_author_nick}}</span>采集</div>
+                            <div class="pay">{{=value.amount}}零钱</div>
+                        </div>
+                        <div class="bottom clearfix">
+                            <span>兑换于{{=value.added_time}}</span>
+                            <a href="kmb://worthreading?id={{=value.post_id}}" class="gray">查看资源</a>
+                            {{?value.can_report}}<a href="kmb://worthreadingreport?id={{=value.post_id}}">举报</a>{{?}}
                         </div>
                     </li>
                 {{~}}
