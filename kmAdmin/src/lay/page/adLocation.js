@@ -3,8 +3,13 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 		layer = layui.layer ,
 		form = layui.form(), 
 		laydate = layui.laydate;
+
+	var modName = '广告位';
+
     $('#side').load('../include/side.html', function(a,b){
-    	$('#1_2').addClass('layui-this');
+    	$('#1_2').addClass('layui-this')
+    		.parents('li').addClass('layui-nav-itemed')
+    			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
 	  		var element = layui.element();
 		});
@@ -17,7 +22,7 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
     	add: function() {
     		$('#updateBtn').remove();
 			layer.open({
-				title:'新增广告位',
+				title:'新增',
 				type: 1,
 				skin: 'layui-layer-rim', 
 				area: ['480px', '670px'], 
@@ -30,7 +35,7 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
     	edit: function() {
     		$('#addBtn').remove();
 			layer.open({
-				title:'修改广告位',
+				title:'修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
 				area: ['480px', '670px'], 

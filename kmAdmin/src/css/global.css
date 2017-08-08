@@ -1,6 +1,7 @@
 /* 头部 */
 .header{height: 59px; border-bottom: 1px solid #404553;  background-color: #393D49;}
-.logo{position: absolute; left: 0; top: 16px; color: #fff; padding-left: 10px; font-size: 24px;}
+.logo{position: absolute; left: 0; top: 16px; color: #fff; padding-left: 10px; font-size: 24px;line-height: 34px;}
+.logo .cur{  color: #d2d2d2; line-height: 34px; font-size: 14px;}
 .header .layui-nav{position: absolute; right: 0; top: 0; padding: 0; background: none;}
 .header .layui-nav .layui-nav-item{margin: 0 20px; }
 .header .layui-nav .layui-nav-item[mobile]{display: none;}
@@ -9,7 +10,7 @@
 /* 适配多设备 */
 @media screen and (max-width: 750px) {
   .layui-main{width: auto; margin: 0 10px;}
-  .header .logo{left: 10px;}
+  .header .layui-nav .layui-nav-item{margin: 0 5px 0 0; }
 
   .site-tree-mobile{display: block!important; position: fixed; z-index: 100000; bottom: 15px; left: 15px; width: 50px; height: 50px; line-height: 50px; border-radius: 2px; text-align: center; background-color: rgba(0,0,0,.7); color: #fff;}
   .site-home .site-tree-mobile{display: none!important;}
@@ -56,6 +57,10 @@ ol.has_order li{list-style-type: decimal}
     right: 0;
     background-color: rgba(255,255,255,.6);
 }
+.layui-form input:disabled{background-color: #eee;}
+.layui-form label.w40{ width: 40px;}
+.layui-form label.w40~div{margin-left: 70px;}
+
 
 
 

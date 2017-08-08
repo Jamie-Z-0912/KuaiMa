@@ -4,7 +4,9 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
-    	$('#1_4').addClass('layui-this');
+    	$('#1_4').addClass('layui-this')
+    		.parents('li').addClass('layui-nav-itemed')
+    			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
 	  		var element = layui.element();
 		});

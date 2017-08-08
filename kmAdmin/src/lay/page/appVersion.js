@@ -4,7 +4,9 @@ layui.define(['global', 'form', 'laydate'], function(exports){
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
-    	$('#1_1').addClass('layui-this');
+    	$('#1_1').addClass('layui-this')
+    		.parents('li').addClass('layui-nav-itemed')
+    			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
 	  		var element = layui.element();
 		});
@@ -20,7 +22,7 @@ layui.define(['global', 'form', 'laydate'], function(exports){
 				title:'广告位开关添加',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['390px', '616px'], 
+				area: ['320px', '330px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()
@@ -33,7 +35,7 @@ layui.define(['global', 'form', 'laydate'], function(exports){
 				title:'广告位开关修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['390px', '616px'], 
+				area: ['320px', '330px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>快马-系统通知</title>
+<title>快马-搜索补量</title>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,13 +23,13 @@
 					<div class="layui-inline">
 					    <label class="layui-form-label">开始时间</label>
 						<div class="layui-input-inline">
-							<input class="layui-input" name="startTime" id="startTime" placeholder="开始时间"/>
+							<input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
 						</div>
 					</div>
 					<div class="layui-inline">
 					    <label class="layui-form-label">结束时间</label>
 						<div class="layui-input-inline">
-							<input class="layui-input" name="endTime" id="endTime" placeholder="结束时间"/>
+							<input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
 						</div>
 					</div>
 				</div>
@@ -47,7 +47,7 @@
 					    </div>
 				  	</div>
 				</div>
-				<button class="layui-btn" lay-submit lay-filter="check">查询</button>
+				<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
 				<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
 			</form>
 			<table class="layui-table" lay-even="" lay-skin="row">
@@ -153,21 +153,17 @@
 	      	</div>
 	    </div>
 	    <div class="layui-form-item">
-			<div class="layui-inline">
-			    <label class="layui-form-label">开始时间</label>
-			    <div class="layui-input-block">
-			      	 <input class="layui-input" name="startTime" id="startTime">
-			    </div>
-			</div>
-			<div class="layui-inline">
-			    <label class="layui-form-label">结束时间</label>
-			    <div class="layui-input-block">
-			      	 <input class="layui-input" name="endTime" id="endTime" />
-			    </div>
-			</div>
+		    <label class="layui-form-label">开始时间</label>
+		    <div class="layui-input-block">
+		      	 <input class="layui-input" name="startTime" id="startTime">
+		    </div>
 		</div>
-
-
+	    <div class="layui-form-item">
+		    <label class="layui-form-label">结束时间</label>
+		    <div class="layui-input-block">
+		      	 <input class="layui-input" name="endTime" id="endTime" />
+		    </div>
+		</div>
 		<div class="layui-form-item t-r" id="addBtn">
 	    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
 	  	</div>

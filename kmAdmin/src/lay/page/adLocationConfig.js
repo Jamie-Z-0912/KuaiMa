@@ -4,7 +4,9 @@ layui.define(['global', 'form', 'laydate'], function(exports){
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
-    	$('#1_3').addClass('layui-this');
+    	$('#1_3').addClass('layui-this')
+    		.parents('li').addClass('layui-nav-itemed')
+    			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
 	  		var element = layui.element();
 		});
@@ -17,7 +19,7 @@ layui.define(['global', 'form', 'laydate'], function(exports){
     	add: function() {
     		$('#updateBtn').remove();
 			layer.open({
-				title:'广告位开关添加',
+				title:'添加',
 				type: 1,
 				skin: 'layui-layer-rim', 
 				area: ['390px', '616px'], 
@@ -30,7 +32,7 @@ layui.define(['global', 'form', 'laydate'], function(exports){
     	edit: function() {
     		$('#addBtn').remove();
 			layer.open({
-				title:'广告位开关修改',
+				title:'修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
 				area: ['390px', '616px'], 

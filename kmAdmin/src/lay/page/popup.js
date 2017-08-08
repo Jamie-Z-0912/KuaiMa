@@ -4,7 +4,9 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
-    	$('#1_5').addClass('layui-this');
+    	$('#1_5').addClass('layui-this')
+    		.parents('li').addClass('layui-nav-itemed')
+    			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
 	  		var element = layui.element();
 		});
@@ -23,7 +25,10 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 				area: ['480px', '600px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
-					$('#reset').click()
+					$('#reset').click();
+					editDate.end.min = laydate.now();
+					editDate.end.start = '2099-06-16 23:59:59';
+					query.start.max = '2099-06-16 23:59:59';
 				}
 			});
     	},
@@ -36,7 +41,10 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 				area: ['480px', '600px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
-					$('#reset').click()
+					$('#reset').click();
+					editDate.end.min = laydate.now();
+					editDate.end.start = '2099-06-16 23:59:59';
+					query.start.max = '2099-06-16 23:59:59';
 				}
 			});
     	},
@@ -49,6 +57,36 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 	    operation[type].call(this);
 	});
 	/* 增加和操作处的点击 e */
+	var editDate = {
+		start:{
+			min: laydate.now(),
+			max: '2099-06-16 23:59:59',
+			start: '2014-6-15 23:00:00',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+			choose: function(datas){
+				editDate.end.min = datas; //开始日选好后，重置结束日的最小日期
+				editDate.end.start = datas //将结束日的初始值设定为开始日
+			}
+		},
+		end:{
+	    	min: laydate.now(),
+	    	max: '2099-06-16 23:59:59',
+			istime: true,
+			format: 'YYYY-MM-DD hh:mm:ss',
+	    	choose: function(datas){
+	      		editDate.start.max = datas; //结束日选好后，重置开始日的最大日期
+	    	}
+  		}
+	}
+	$('#startTime').on('click', function(){
+	    editDate.start.elem = this;
+	    laydate(editDate.start);
+	});
+	$('#endTime').on('click', function(){
+	    editDate.end.elem = this
+	    laydate(editDate.end);
+	})
 	
 	/* 查询的 开始和结束时间 */
 	var query = {
@@ -82,57 +120,6 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 	    laydate(query.end);
 	});
 	/* 查询的 开始和结束时间 e */
-
-	var query = {
-		start:{
-			min: laydate.now(),
-			max: '2099-06-16 23:59:59',
-			start: '2014-6-15 23:00:00',
-			istime: true,
-			format: 'YYYY-MM-DD hh:mm:ss',
-			choose: function(datas){
-				query.end.min = datas; //开始日选好后，重置结束日的最小日期
-				query.end.start = datas //将结束日的初始值设定为开始日
-			}
-		},
-		end:{
-	    	min: laydate.now(),
-	    	max: '2099-06-16 23:59:59',
-			istime: true,
-			format: 'YYYY-MM-DD hh:mm:ss',
-	    	choose: function(datas){
-	      		query.start.max = datas; //结束日选好后，重置开始日的最大日期
-	    	}
-  		}
-	}
-	// var start = {
-	// 	min: laydate.now(),
-	// 	max: '2099-06-16 23:59:59',
-	// 	start: '2014-6-15 23:00:00',
-	// 	istime: true,
-	// 	format: 'YYYY-MM-DD hh:mm:ss',
-	// 	choose: function(datas){
-	// 		end.min = datas; //开始日选好后，重置结束日的最小日期
-	// 		end.start = datas //将结束日的初始值设定为开始日
-	// 	}
-	// };
- //  	var end = {
- //    	min: laydate.now(),
- //    	max: '2099-06-16 23:59:59',
-	// 	istime: true,
-	// 	format: 'YYYY-MM-DD hh:mm:ss',
- //    	choose: function(datas){
- //      		start.max = datas; //结束日选好后，重置开始日的最大日期
- //    	}
- //  	};
-	// document.getElementById('startTime').onclick = function(){
-	//     start.elem = this;
-	//     laydate(start);
-	// }
-	// document.getElementById('endTime').onclick = function(){
-	//     end.elem = this
-	//     laydate(end);
-	// }
 	/* 上传图片方法 s */
 	function getAuth(isCross,callback,type){
     	if(!type) type = 'image_req';
