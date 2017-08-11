@@ -36,13 +36,22 @@
                 {{~it.data:value:index}}
                     <li class="view_{{=value.layout}}">
                         <h3><a href="{{=value.jsLink}}">{{=value.title}}</a></h3>
-                        <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
+                        {{?value.layout==3}} 
+                        <div class="imgbox" style="height:{{=value.imgBoxHeight}}">
                             <a href="{{=value.jsLink}}">
                             {{ for (var i = 0; i < value.images.length; i++) { }}
-                                <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
+                                <img src="{{=value.images[i]}}" style="width:{{=value.imgWidth}}"/>
                             {{ } }}
                             </a>
                         </div>
+                        {{??}}
+                        <div class="imgbox">
+                            <a href="{{=value.jsLink}}">
+                                {{?value.isGif}} <i class="gif"></i>{{?}}
+                                <img src="{{=value.images[0]}}" />
+                            </a>
+                        </div>
+                         {{?}}
                         <div class="source">
                             <span>{{=value.added_time}}</span>
                         </div>

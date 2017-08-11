@@ -481,6 +481,7 @@ body {
   margin-bottom: .1rem;
   width: 100%;
   overflow: hidden;
+  max-height: 1.8rem;
 }
 .list-wrap li.view_2 .imgbox img {
   width: 100%;
@@ -512,40 +513,6 @@ body {
 .list-wrap li.empty {
   border-color: transparent;
   background-color: transparent;
-}
-.list-wrap li a {
-  font-size: inherit;
-  color: inherit;
-  display: block;
-}
-.del {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 0;
-  z-index: 3;
-  width: .28rem;
-  padding: .1rem .06rem .13rem;
-  height: .18rem;
-  text-align: right;
-}
-.del:before {
-  display: inline-block;
-  border: 1px solid #ebebeb;
-  width: .28rem;
-  height: .18rem;
-  border-radius: .07rem;
-  text-align: center;
-  vertical-align: top;
-  content: "×";
-  color: #b8b8b8;
-  font-size: .13rem;
-  line-height: .18rem;
-  font-family: "PingFang ExtraLight";
-}
-.view_1 .del {
-  right: 1.28rem;
 }
 .pop-mask {
   position: fixed;
@@ -611,4 +578,65 @@ body {
 }
 .pop-screen .box .btnbox a.sureBtn {
   color: #ff9100;
+}
+.list-wrap li a {
+  font-size: inherit;
+  color: inherit;
+  display: block;
+}
+.del {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 0;
+  z-index: 3;
+  width: .28rem;
+  padding: .1rem .06rem .13rem;
+  height: .18rem;
+  text-align: right;
+}
+.del:before {
+  display: inline-block;
+  border: 1px solid #ebebeb;
+  width: .28rem;
+  height: .18rem;
+  border-radius: .07rem;
+  text-align: center;
+  vertical-align: top;
+  content: "×";
+  color: #b8b8b8;
+  font-size: .13rem;
+  line-height: .18rem;
+  font-family: "PingFang ExtraLight";
+}
+.view_1 .del {
+  right: 1.28rem;
+}
+li.view_2 .imgbox {
+  position: relative;
+}
+li.view_2 .imgbox .gif {
+  display: block;
+  position: absolute;
+  width: .42rem;
+  left: 50%;
+  margin-left: -0.22rem;
+  top: 50%;
+  height: 0.2rem;
+  line-height: 0.2rem;
+  margin-top: -0.1rem;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  font-size: .11rem;
+  border-radius: .12rem;
+  border-style: solid;
+  border-width: .02rem;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+li.view_2 .imgbox .gif:before {
+  content: "GIF";
+  display: inline;
 }

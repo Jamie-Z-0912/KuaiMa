@@ -1,7 +1,13 @@
 define('app/recallUser', function(require, exports, module) {
 	var Ajax = require('../mod/base');
 	var confirmTip = require('../plugs/confirmTip.js');
-
+	Ajax.custom({
+		url: 'api/v1/recall/receiveReward',
+	},function(data){
+		if(data.status!=1000){
+			$('#receiveAward').addClass('gray').text('召回用户专享')
+		}
+	});
 	$('#receiveAward').on('click', function(){
 		var _self = $(this);
 		if(!_self.hasClass('gray')){

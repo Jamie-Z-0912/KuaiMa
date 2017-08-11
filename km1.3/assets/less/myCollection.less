@@ -1,4 +1,5 @@
 @import "myBrowsingHistory.less";
+@import "libs/confirmTip.less";
 .list-wrap li a{font-size: inherit; color: inherit; display: block;}
 .del{
 	display: block;
@@ -29,4 +30,31 @@
 .view_1 .del{
 	right: 1.28rem;;
 }
-@import "libs/confirmTip.less";
+li.view_2{
+	.imgbox{
+		position: relative;
+		.gif{
+			display: block;
+			position: absolute;
+			width: .42rem;
+			left: 50%;
+			margin-left: -.22rem;
+			top: 50%;
+			.lineH(.2rem);
+			margin-top: -.1rem;
+			z-index: 9;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: #fff;
+			text-align: center;
+			font-size: .11rem;
+			border-radius: .12rem;
+			border-style: solid;
+			border-width: .02rem;
+			border-color: rgba(255, 255, 255, 0.5);
+			&:before{
+				content: "GIF";
+				display: inline;
+			}
+		}
+	}
+}

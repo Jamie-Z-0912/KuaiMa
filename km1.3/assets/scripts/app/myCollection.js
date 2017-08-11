@@ -30,7 +30,20 @@ define("app/myCollection", function(require, exports, module) {
                     d.data[i].jsLink = 'kmb://worthreading?id=' +  data[i].article_id;
                 }
             }
+            if(data[i].obj_type ==3 && data[i].type==2 && /.gif/.test(data[i].images[0]) ){
+                var gif = data[i].images[0];
+                d.data[i].images[0] = gif.replace(/.gif/g , '.png');
+                d.data[i].isGif = true;
+            }
         };
+    }, function(){
+        $('.gif').die().on('click', function(){
+            var img = $(this).next();
+            var src = img.attr('src');
+            img.attr('src', src.replace(/.png/g, '.gif'));
+            $(this).remove();
+            return false;
+        })
     });
     $('#conList').on('click', '.del', function(e){
         e.preventDefault();

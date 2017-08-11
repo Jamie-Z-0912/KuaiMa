@@ -481,6 +481,7 @@ body {
   margin-bottom: .1rem;
   width: 100%;
   overflow: hidden;
+  max-height: 1.8rem;
 }
 .list-wrap li.view_2 .imgbox img {
   width: 100%;

@@ -13,7 +13,7 @@ define('app/myBrowsingHistory', function(require, exports, module) {
             if(that.find('img').length<1){
                 that.height(0)
             }
-        })
+        });
     });
     $('#conList').on('click', 'li', function(){
         var url = $(this).data('url'),

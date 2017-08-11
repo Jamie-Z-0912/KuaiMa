@@ -58,13 +58,22 @@
                         {{~it.data:value:index}}
                             <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
                                 <h3>{{=value.title}}</h3>
-                                <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
+                                {{?value.layout==3}} 
+                                <div class="imgbox"style="height:{{=value.imgBoxHeight}}">
                                     {{ for (var i = 0; i < value.images.length; i++) { }}
-                                        <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
+                                    <img src="{{=value.images[i]}}" style="width:{{=value.imgWidth}}">
                                     {{ } }}
                                 </div>
+                                {{??}}
+                                    <div class="imgbox">
+                                        {{?value.isGif}} <i class="gif"></i>{{?}}
+                                        <img src="{{=value.images[0]}}"/>
+                                    </div>
+                                {{?}}
                                 <div class="source">
-                                    <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                    {{?value.origin_icon!=""}}
+                                        <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                    {{?}}
                                     <span class="ori_author">{{=value.author_name}}</span>
                                     <span class="tag">{{=value.tag_name}}</span>
                                     <span class="time">{{=value.added_time}}</span>
@@ -72,7 +81,7 @@
                                 <div class="bottom">
                                     <span>{{=value.view_num}}人阅读</span>
                                     <span>{{=value.praise_num}}人喜欢</span>
-                                    <span class="reli">热度：{{?value.hot_value==0}}暂无{{??}}{{=value.hot_value}} {{?}}<i></i></span>
+                                    <span class="reli">热度：{{?value.hot_value<=0}}暂无{{??}}{{=value.hot_value}} {{?}}<i></i></span>
                                 </div>
                             </li>
                         {{~}}

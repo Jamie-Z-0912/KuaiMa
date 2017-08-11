@@ -40,6 +40,11 @@ define('app/mygather', function(require, exports, module) {
 				d.data[i].imgWidth = w_+'px';
 				d.data[i].imgBoxHeight = (w_*74/113).toFixed(2)+'px';
 			}
+			if(data[i].content_type=='photo' && /.gif/.test(data[i].images[0]) ){
+				var gif = data[i].images[0];
+				d.data[i].images[0] = gif.replace(/.gif/g , '.png');
+				d.data[i].isGif = true;
+			}
 		};
 		$('#onlineNum').text(d.total_num).parent().show();
 
@@ -48,6 +53,13 @@ define('app/mygather', function(require, exports, module) {
 			Tools.alertDialog({
 				text:'热度高的内容可以获取更多的曝光机会哦~'
 			});
+			return false;
+		});
+		$('.gif').die().on('click', function(){
+			var img = $(this).next();
+			var src = img.attr('src');
+			img.attr('src', src.replace(/.png/g, '.gif'));
+			$(this).remove();
 			return false;
 		})
     });

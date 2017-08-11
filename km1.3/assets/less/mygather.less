@@ -194,13 +194,15 @@ body{background-color: #fafafa;}
 					overflow: hidden;
 					img{ width: 100%; }
 				}
-				.source{
+				.source{    
+					width: 2.4rem;
 					margin-top: .1rem;
 					margin-bottom: .1rem;
 				}
 			}
 			li.view_2{
 				.imgbox{
+					position: relative;
 					display: block;
 					margin-top: .1rem;
 					margin-bottom: .1rem;
@@ -208,6 +210,29 @@ body{background-color: #fafafa;}
 					overflow: hidden;
 					max-height: 1.8rem;
 					img{ width: 100%; vertical-align: middle; }
+				}
+				.gif{
+					display: block;
+					position: absolute;
+					width: .42rem;
+					left: 50%;
+					margin-left: -.22rem;
+					top: 50%;
+					.lineH(.2rem);
+					margin-top: -.1rem;
+					z-index: 9;
+					background-color: rgba(0, 0, 0, 0.4);
+					color: #fff;
+					text-align: center;
+					font-size: .11rem;
+					border-radius: .12rem;
+					border-style: solid;
+					border-width: .02rem;
+					border-color: rgba(255, 255, 255, 0.5);
+					&:before{
+						content: "GIF";
+						display: inline;
+					}
 				}
 			}
 			li.view_3{

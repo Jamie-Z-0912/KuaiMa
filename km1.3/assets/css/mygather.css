@@ -650,10 +650,12 @@ body {
   width: 100%;
 }
 .main .main-list ul li.view_1 .source {
+  width: 2.4rem;
   margin-top: .1rem;
   margin-bottom: .1rem;
 }
 .main .main-list ul li.view_2 .imgbox {
+  position: relative;
   display: block;
   margin-top: .1rem;
   margin-bottom: .1rem;
@@ -664,6 +666,30 @@ body {
 .main .main-list ul li.view_2 .imgbox img {
   width: 100%;
   vertical-align: middle;
+}
+.main .main-list ul li.view_2 .gif {
+  display: block;
+  position: absolute;
+  width: .42rem;
+  left: 50%;
+  margin-left: -0.22rem;
+  top: 50%;
+  height: 0.2rem;
+  line-height: 0.2rem;
+  margin-top: -0.1rem;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  font-size: .11rem;
+  border-radius: .12rem;
+  border-style: solid;
+  border-width: .02rem;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.main .main-list ul li.view_2 .gif:before {
+  content: "GIF";
+  display: inline;
 }
 .main .main-list ul li.view_3 .imgbox {
   display: block;
