@@ -56,7 +56,7 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
+                            <li class="view_{{=value.layout}}" data-id="{{=value.id}}" data-type="{{=value.content_type}}">
                                 <h3>{{=value.title}}</h3>
                                 {{?value.layout==3}} 
                                 <div class="imgbox"style="height:{{=value.imgBoxHeight}}">
@@ -70,13 +70,17 @@
                                         <img src="{{=value.images[0]}}"/>
                                     </div>
                                 {{?}}
-                                <div class="source">
+                                <div class="source clearfix">
                                     {{?value.origin_icon!=""}}
                                         <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
                                     {{?}}
-                                    <span class="ori_author">{{=value.author_name}}</span>
-                                    <span class="tag">{{=value.tag_name}}</span>
-                                    <span class="time">{{=value.added_time}}</span>
+                                    {{?value.author_name!=""}}
+                                        <span class="ori_author">{{=value.author_name}}</span>
+                                    {{?}}
+                                    {{?value.tag_name!=""}}
+                                        <span class="tag">{{=value.tag_name}}</span>
+                                    {{?}}
+                                    <span class="time fr">{{=value.added_time}}</span>
                                 </div>
                                 <div class="bottom">
                                     <span>{{=value.view_num}}人阅读</span>
@@ -107,20 +111,37 @@
                                 <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
                                 <div class="brief_status">已下架</div>
                                 {{??}}
-                                <h3><a class="gray" href="{{=value.origin_url}}">{{=value.title}}</a></h3>
+                                <h3>
+                                {{?value.content_type=="post" && value.origin_url!=""}}
+                                <a class="gray" href="{{=value.origin_url}}">{{=value.title}}</a>
+                                {{??}}
+                                    {{=value.title}}
+                                {{?}}
+                                </h3>
                                 <div class="brief_status">已下架</div>
                                 <div class="source">
-                                    <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
-                                    <span class="ori_author">{{=value.author_name}}</span>
-                                    <span class="tag">{{=value.tag_name}}</span> 
+                                    {{?value.origin_icon!=""}}
+                                        <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                    {{?}}
+                                    {{?value.author_name!=""}}
+                                        <span class="ori_author">{{=value.author_name}}</span>
+                                    {{?}}
+                                    {{?value.tag_name!=""}}
+                                        <span class="tag">{{=value.tag_name}}</span>
+                                    {{?}}
                                 </div>
-                                <div class="imgbox" {{?value.layout==3}} style="height:{{=value.imgBoxHeight}}" {{?}}>
-                                    <a href="{{=value.origin_url}}">
-                                    {{ for (var i = 0; i < value.images.length; i++) { }}
-                                        <img src="{{=value.images[i]}}" {{?value.layout==3}} style="width:{{=value.imgWidth}}" {{?}}>
-                                    {{ } }}
-                                    </a>
-                                </div>
+                                {{?value.layout==3}} 
+                                    <div class="imgbox"style="height:{{=value.imgBoxHeight}}">
+                                        {{ for (var i = 0; i < value.images.length; i++) { }}
+                                        <img src="{{=value.images[i]}}" style="width:{{=value.imgWidth}}">
+                                        {{ } }}
+                                    </div>
+                                {{??}}
+                                    <div class="imgbox">
+                                        {{?value.isGif}} <i class="gif"></i>{{?}}
+                                        <img src="{{=value.images[0]}}"/>
+                                    </div>
+                                {{?}}
                                 <div class="off_time">下架时间：{{=value.pub_time}}</div>
                                 {{?}}
                             </li>

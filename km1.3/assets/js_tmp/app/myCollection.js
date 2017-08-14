@@ -30,7 +30,23 @@ define("app/myCollection", [ "../mod/pagelist", "../plugs/confirmTip.js", "../pl
                 if (lower) {
                     d.data[i].jsLink = "javascript:Tools.alertDialog({title:'请更新至最新版本',text:'1.4.0版本以上才能查看采集文章'})";
                 } else {
-                    d.data[i].jsLink = "kmb://worthreading?id=" + data[i].article_id;
+                    if (data[i].type != 1 && km.less("1.4.4")) {
+                        d.data[i].jsLink = "javascript:Tools.alertDialog({title:'版本更新提示',text:'1.4.4版本及以上才能查看采集的图片和资源'})";
+                    } else {
+                        switch (data[i].type) {
+                          case 1:
+                            d.data[i].jsLink = "kmb://worthreading?id=" + data[i].article_id;
+                            break;
+
+                          case 2:
+                            d.data[i].jsLink = "kmb://worthreadingimg?id=" + data[i].article_id;
+                            break;
+
+                          case 3:
+                            d.data[i].jsLink = "kmb://worthreadingresource?id=" + data[i].article_id;
+                            break;
+                        }
+                    }
                 }
             }
             if (data[i].obj_type == 3 && data[i].type == 2 && /.gif/.test(data[i].images[0])) {

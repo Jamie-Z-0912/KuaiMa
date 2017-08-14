@@ -19,11 +19,17 @@ define('app/myExchange', function(require, exports, module) {
     //kmb://worthreading?id=
 
     // $('#conList').on('click', 'li', function(){
-    //     var url = $(this).data('url'),
-    //         id = $(this).data('id'),
-    //         type = $(this).data('type');
-    //     if(type=='2'){
-    //         window.location.href = 'kmb://recommend?url=' + url + '&id=' + id;
-    //     }
+    //     var id = $(this).data('id'), type=$(this).data('type');
+    //         switch(type){
+    //             case 'post':
+    //                 window.location = 'kmb://worthreading?id='+id;
+    //                 break;
+    //             case 'photo':
+    //                 window.location = 'kmb://worthreadingimg?id='+id;
+    //                 break;
+    //             case 'resource':
+    //                 window.location = 'kmb://worthreadingresource?id='+id;
+    //                 break;
+    //         }
     // })
 })

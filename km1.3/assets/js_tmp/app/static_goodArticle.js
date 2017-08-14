@@ -44,9 +44,15 @@ define("app/static_goodArticle", [ "../mod/base" ], function(require, exports, m
         $("#conList_comment").show();
         $("#conList_read").hide();
     });
-    $("#conList_read").on("click", ".item", function() {
-        var id = $(this).data("id");
-        window.location = "kmb://worthreading?id=" + id;
+    $("#conList_read,#conList_comment").on("click", ".item", function() {
+        var id = $(this).data("id"), type = $(this).data("type");
+        console.log(type);
+        if (type == "post") {
+            window.location = "kmb://worthreading?id=" + id;
+        }
+        if (type == "photo") {
+            window.location = "kmb://worthreadingimg?id=" + id;
+        }
     });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;

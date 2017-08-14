@@ -80,9 +80,22 @@ define('app/mygather', function(require, exports, module) {
 				d.data[i].imgWidth = w_+'px';
 				d.data[i].imgBoxHeight = (w_*74/113).toFixed(2)+'px';
 			}
+			if(data[i].content_type=='photo' && /.gif/.test(data[i].images[0]) ){
+				var gif = data[i].images[0];
+				d.data[i].images[0] = gif.replace(/.gif/g , '.png');
+				d.data[i].isGif = true;
+			}
 			d.data[i].pub_time = Ajax.formatDate(data[i].pub_time);
 		};
 		$('#shelvedNum').text(d.total_num).parent().show();
+    }, function(){
+		$('.gif').die().on('click', function(){
+			var img = $(this).next();
+			var src = img.attr('src');
+			img.attr('src', src.replace(/.png/g, '.gif'));
+			$(this).remove();
+			return false;
+		})
     });
 	//发布中
 	pagelist.fun({
@@ -98,8 +111,26 @@ define('app/mygather', function(require, exports, module) {
 	});
 
 	$('#onlineList').on('click', 'li', function(){
-		var id = $(this).data('id');
-		window.location = 'kmb://worthreading?id='+id;
+		var id = $(this).data('id'), type=$(this).data('type');
+		if(type!='post'&&km.less('1.4.4')){
+			Tools.alertDialog({
+				title:'版本更新提示',
+				text:'1.4.4版本及以上版本才可以查看采集的图片和资源'
+			})
+		}else{
+			switch(type){
+				case 'post':
+					window.location = 'kmb://worthreading?id='+id;
+					break;
+				case 'photo':
+					window.location = 'kmb://worthreadingimg?id='+id;
+					break;
+				case 'resource':
+					window.location = 'kmb://worthreadingresource?id='+id;
+					break;
+			}
+		}
+		
 	});
 
 });

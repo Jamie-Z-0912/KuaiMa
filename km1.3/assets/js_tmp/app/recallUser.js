@@ -2,10 +2,14 @@ define("app/recallUser", [ "../mod/base", "../plugs/confirmTip.js" ], function(r
     var Ajax = require("../mod/base");
     var confirmTip = require("../plugs/confirmTip.js");
     Ajax.custom({
-        url: "api/v1/recall/receiveReward"
+        url: "api/v1/recall/canReceiveReward"
     }, function(data) {
         if (data.status != 1e3) {
-            $("#receiveAward").addClass("gray").text("召回用户专享");
+            if (data.status == 9820) {
+                $("#receiveAward").addClass("gray").text("召回用户专享");
+            } else {
+                $("#receiveAward").addClass("gray").text("已领取奖励");
+            }
         }
     });
     $("#receiveAward").on("click", function() {
