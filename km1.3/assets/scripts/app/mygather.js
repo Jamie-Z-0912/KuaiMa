@@ -47,7 +47,6 @@ define('app/mygather', function(require, exports, module) {
 			}
 		};
 		$('#onlineNum').text(d.total_num).parent().show();
-
     }, function(){
 		$('.reli').die().on('click', function(){
 			Tools.alertDialog({
@@ -88,14 +87,6 @@ define('app/mygather', function(require, exports, module) {
 			d.data[i].pub_time = Ajax.formatDate(data[i].pub_time);
 		};
 		$('#shelvedNum').text(d.total_num).parent().show();
-    }, function(){
-		$('.gif').die().on('click', function(){
-			var img = $(this).next();
-			var src = img.attr('src');
-			img.attr('src', src.replace(/.png/g, '.gif'));
-			$(this).remove();
-			return false;
-		})
     });
 	//发布中
 	pagelist.fun({
@@ -108,7 +99,22 @@ define('app/mygather', function(require, exports, module) {
 		}
 	},function(d){
 		$('#annNum').text(d.total_num).parent().show();
+		var data = d.data;
+		for (var i = 0; i < data.length; i++) {
+			if(data[i].content_type=='photo' && /.gif/.test(data[i].images[0]) ){
+				var gif = data[i].images[0];
+				d.data[i].images[0] = gif.replace(/.gif/g , '.png');
+				d.data[i].isGif = true;
+			}
+		};
 	});
+	$('#shelvedList,#annList').on('click','.gif_1', function(){
+		var img = $(this).next();
+		var src = img.attr('src');
+		img.attr('src', src.replace(/.png/g, '.gif'));
+		$(this).remove();
+		return false;
+	})
 
 	$('#onlineList').on('click', 'li', function(){
 		var id = $(this).data('id'), type=$(this).data('type');

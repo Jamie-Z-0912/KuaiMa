@@ -148,6 +148,7 @@ body{background-color: #fafafa;}
 					color: @c_sub;
 					text-align: left;
 					line-height: 1;
+					background: #fff;
 					span{
 						display: inline-block;
 						vertical-align: middle;
@@ -165,7 +166,6 @@ body{background-color: #fafafa;}
 						img{ width:.2rem; height: .2rem; position: absolute; left: 0;top:0;}
 					}
 				}
-				.reason{ color: #000; font-size: @size_t2;}
 				.brief_tit, .brief_subtit{
 					display: block;
 					font-size: @size_t4;
@@ -174,8 +174,9 @@ body{background-color: #fafafa;}
 				.brief_subtit{ color: @c_sub;}
 				.brief_status{
 					position: absolute;
-					top: .2rem;
+					top: .15rem;
 					right: .15rem;
+					.lineH(.3rem);
 					font-size: @size_t4;
 					color: #ff9100;
 				}
@@ -197,7 +198,6 @@ body{background-color: #fafafa;}
 				.source{    
 					width: 2.4rem;
 					margin-top: .1rem;
-					margin-bottom: .1rem;
 				}
 			}
 			li.view_2{
@@ -211,7 +211,7 @@ body{background-color: #fafafa;}
 					max-height: 1.8rem;
 					img{ width: 100%; vertical-align: middle; }
 				}
-				.gif{
+				.gif, .gif_1{
 					display: block;
 					position: absolute;
 					width: .42rem;
@@ -259,8 +259,11 @@ body{background-color: #fafafa;}
 		}
 		#shelvedList{
 			li{
-				h3{padding-top: .06rem; padding-bottom: .06rem;}
+				.reason{ color: #000; font-size: @size_t3;.lineH(.3rem);}
+				h3{padding-top: .05rem;}
+				h3, .brief_tit{color: @c_sub;}
 				.imgbox{ opacity: .7;img{min-height: 100%;}}
+				.source{ margin-top: .06rem;}
 				.off_time{ margin-bottom: -.06rem;}
 			}
 			li.view_1{
@@ -268,7 +271,7 @@ body{background-color: #fafafa;}
 				.source{
 					position: absolute;
 				    padding-right: 1.3rem;
-				    bottom: .5rem;
+				    bottom: .44rem;
 				}
 				.off_time{padding-top: .06rem;}
 			}
@@ -319,7 +322,7 @@ body{background-color: #fafafa;}
 			li.view_1{
 				.source{
 					position: absolute;
-					bottom: .58rem;
+					bottom: .68rem;
 					.time{left: 0;top:.2rem;}
 				}
 			}

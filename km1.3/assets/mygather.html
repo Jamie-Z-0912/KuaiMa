@@ -67,7 +67,15 @@
                                 {{??}}
                                     <div class="imgbox">
                                         {{?value.isGif}} <i class="gif"></i>{{?}}
-                                        <img src="{{=value.images[0]}}"/>
+                                        {{?value.content_type=="photo"||value.content_type=="resource"}}
+                                            {{?value.layout==1}}
+                                                <img src="{{=value.images[0]}}!w160.jpg"/>
+                                            {{??}}
+                                                <img src="{{=value.images[0]}}!w480.jpg"/>
+                                            {{?}}
+                                        {{??}}
+                                            <img src="{{=value.images[0]}}"/>
+                                        {{?}}
                                     </div>
                                 {{?}}
                                 <div class="source clearfix">
@@ -105,44 +113,51 @@
                         {{~it.data:value:index}}
                             <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
                                 <div class="reason">下架原因：{{=value.message}}</div>
+                                <div class="brief_status">已下架</div>
                                 {{? value.title==''}}
-                                <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
-                                <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
-                                <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
-                                <div class="brief_status">已下架</div>
+                                    <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
+                                    <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
+                                    <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
                                 {{??}}
-                                <h3>
-                                {{?value.content_type=="post" && value.origin_url!=""}}
-                                <a class="gray" href="{{=value.origin_url}}">{{=value.title}}</a>
-                                {{??}}
-                                    {{=value.title}}
-                                {{?}}
-                                </h3>
-                                <div class="brief_status">已下架</div>
-                                <div class="source">
-                                    {{?value.origin_icon!=""}}
-                                        <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                    <h3>
+                                    {{?value.content_type=="post" && value.origin_url!=""}}
+                                    <a class="gray" href="{{=value.origin_url}}">{{=value.title}}</a>
+                                    {{??}}
+                                        {{=value.title}}
                                     {{?}}
-                                    {{?value.author_name!=""}}
-                                        <span class="ori_author">{{=value.author_name}}</span>
-                                    {{?}}
-                                    {{?value.tag_name!=""}}
-                                        <span class="tag">{{=value.tag_name}}</span>
-                                    {{?}}
-                                </div>
-                                {{?value.layout==3}} 
-                                    <div class="imgbox"style="height:{{=value.imgBoxHeight}}">
-                                        {{ for (var i = 0; i < value.images.length; i++) { }}
-                                        <img src="{{=value.images[i]}}" style="width:{{=value.imgWidth}}">
-                                        {{ } }}
+                                    </h3>
+                                    <div class="source">
+                                        {{?value.origin_icon!=""}}
+                                            <span class="ori_icon"><img src="{{=value.origin_icon}}" /></span>
+                                        {{?}}
+                                        {{?value.author_name!=""}}
+                                            <span class="ori_author">{{=value.author_name}}</span>
+                                        {{?}}
+                                        {{?value.tag_name!=""}}
+                                            <span class="tag">{{=value.tag_name}}</span>
+                                        {{?}}
                                     </div>
-                                {{??}}
-                                    <div class="imgbox">
-                                        {{?value.isGif}} <i class="gif"></i>{{?}}
-                                        <img src="{{=value.images[0]}}"/>
-                                    </div>
-                                {{?}}
-                                <div class="off_time">下架时间：{{=value.pub_time}}</div>
+                                    {{?value.layout==3}} 
+                                        <div class="imgbox"style="height:{{=value.imgBoxHeight}}">
+                                            {{ for (var i = 0; i < value.images.length; i++) { }}
+                                            <img src="{{=value.images[i]}}" style="width:{{=value.imgWidth}}">
+                                            {{ } }}
+                                        </div>
+                                    {{??}}
+                                        <div class="imgbox">
+                                            {{?value.isGif}} <i class="gif_1"></i>{{?}}
+                                            {{?value.content_type=="photo"||value.content_type=="resource"}}
+                                                {{?value.layout==1}}
+                                                    <img src="{{=value.images[0]}}!w160.jpg"/>
+                                                {{??}}
+                                                    <img src="{{=value.images[0]}}!w480.jpg"/>
+                                                {{?}}
+                                            {{??}}
+                                                <img src="{{=value.images[0]}}"/>
+                                            {{?}}
+                                        </div>
+                                    {{?}}
+                                    <div class="off_time">下架时间：{{=value.pub_time}}</div>
                                 {{?}}
                             </li>
                         {{~}}
@@ -160,12 +175,28 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li data-id="{{=value.out_unique_id}}">
-                                <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
-                                <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
-                                <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
+                            {{?value.content_type=="photo"}}
+                            <li class="view_2">
+                                <div class="brief_tit">{{=value.title}}</div>
+                                <div class="imgbox">
+                                    {{?value.isGif}} <i class="gif_1"></i>{{?}}
+                                    <img src="{{=value.images[0]}}!w480.jpg" />
+                                </div>
                                 <div class="brief_status">发布中</div>
                             </li>
+                            {{??}}
+                                <li data-id="{{=value.id}}">
+                                    {{?value.origin_url==""}}
+                                        <div class="brief_tit">{{=value.title}}</div>
+                                    {{??}}
+                                        <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
+                                    {{?}}
+
+                                    <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
+                                    <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
+                                    <div class="brief_status">发布中</div>
+                                </li>
+                            {{?}}
                         {{~}}
                     {{?}}
                 </script>

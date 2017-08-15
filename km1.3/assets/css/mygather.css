@@ -583,6 +583,7 @@ body {
   color: #b8b8b8;
   text-align: left;
   line-height: 1;
+  background: #fff;
 }
 .main .main-list ul li .source span {
   display: inline-block;
@@ -607,10 +608,6 @@ body {
   left: 0;
   top: 0;
 }
-.main .main-list ul li .reason {
-  color: #000;
-  font-size: 0.2rem;
-}
 .main .main-list ul li .brief_tit,
 .main .main-list ul li .brief_subtit {
   display: block;
@@ -624,8 +621,10 @@ body {
 }
 .main .main-list ul li .brief_status {
   position: absolute;
-  top: .2rem;
+  top: .15rem;
   right: .15rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
   font-size: 0.16rem;
   color: #ff9100;
 }
@@ -652,7 +651,6 @@ body {
 .main .main-list ul li.view_1 .source {
   width: 2.4rem;
   margin-top: .1rem;
-  margin-bottom: .1rem;
 }
 .main .main-list ul li.view_2 .imgbox {
   position: relative;
@@ -667,7 +665,8 @@ body {
   width: 100%;
   vertical-align: middle;
 }
-.main .main-list ul li.view_2 .gif {
+.main .main-list ul li.view_2 .gif,
+.main .main-list ul li.view_2 .gif_1 {
   display: block;
   position: absolute;
   width: .42rem;
@@ -687,7 +686,8 @@ body {
   border-width: .02rem;
   border-color: rgba(255, 255, 255, 0.5);
 }
-.main .main-list ul li.view_2 .gif:before {
+.main .main-list ul li.view_2 .gif:before,
+.main .main-list ul li.view_2 .gif_1:before {
   content: "GIF";
   display: inline;
 }
@@ -724,15 +724,27 @@ body {
   height: 3rem;
   background-color: #fafafa;
 }
+.main .main-list #shelvedList li .reason {
+  color: #000;
+  font-size: 0.18rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+}
 .main .main-list #shelvedList li h3 {
-  padding-top: .06rem;
-  padding-bottom: .06rem;
+  padding-top: .05rem;
+}
+.main .main-list #shelvedList li h3,
+.main .main-list #shelvedList li .brief_tit {
+  color: #b8b8b8;
 }
 .main .main-list #shelvedList li .imgbox {
   opacity: .7;
 }
 .main .main-list #shelvedList li .imgbox img {
   min-height: 100%;
+}
+.main .main-list #shelvedList li .source {
+  margin-top: .06rem;
 }
 .main .main-list #shelvedList li .off_time {
   margin-bottom: -0.06rem;
@@ -744,7 +756,7 @@ body {
 .main .main-list #shelvedList li.view_1 .source {
   position: absolute;
   padding-right: 1.3rem;
-  bottom: .5rem;
+  bottom: .44rem;
 }
 .main .main-list #shelvedList li.view_1 .off_time {
   padding-top: .06rem;
@@ -791,7 +803,7 @@ body {
 }
 .main .main-list #onlineList li.view_1 .source {
   position: absolute;
-  bottom: .58rem;
+  bottom: .68rem;
 }
 .main .main-list #onlineList li.view_1 .source .time {
   left: 0;
