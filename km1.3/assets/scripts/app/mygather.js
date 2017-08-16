@@ -99,16 +99,8 @@ define('app/mygather', function(require, exports, module) {
 		}
 	},function(d){
 		$('#annNum').text(d.total_num).parent().show();
-		var data = d.data;
-		for (var i = 0; i < data.length; i++) {
-			if(data[i].content_type=='photo' && /.gif/.test(data[i].images[0]) ){
-				var gif = data[i].images[0];
-				d.data[i].images[0] = gif.replace(/.gif/g , '.png');
-				d.data[i].isGif = true;
-			}
-		};
 	});
-	$('#shelvedList,#annList').on('click','.gif_1', function(){
+	$('#shelvedList').on('click','.gif_1', function(){
 		var img = $(this).next();
 		var src = img.attr('src');
 		img.attr('src', src.replace(/.png/g, '.gif'));

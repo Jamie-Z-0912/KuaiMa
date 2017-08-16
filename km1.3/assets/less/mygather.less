@@ -119,7 +119,7 @@ body{background-color: #fafafa;}
 			li{
 				position: relative;
 				display: block;
-				padding: .15rem .1rem;
+				padding: .12rem .1rem;
 				.border-b(.08rem, #fafafa);
 				background-color: #fff;
 				h3{
@@ -170,7 +170,7 @@ body{background-color: #fafafa;}
 					display: block;
 					font-size: @size_t4;
 				}
-				.brief_tit{ color: #000;}
+				.brief_tit{ color: #000; line-height: 1.3; padding-top: .03rem; margin-bottom: .03rem;}
 				.brief_subtit{ color: @c_sub;}
 				.brief_status{
 					position: absolute;
@@ -180,6 +180,7 @@ body{background-color: #fafafa;}
 					font-size: @size_t4;
 					color: #ff9100;
 				}
+				.reason{ color: #000; font-size: @size_t3;.lineH(.3rem);}
 			}
 			li.view_1{
 				text-align: right;
@@ -286,7 +287,7 @@ body{background-color: #fafafa;}
 					.border-t;
 					font-size: 0;
 					text-align: center;
-					padding-top: .15rem;
+					padding-top: .12rem;
 					span{
 						display: inline-block;
 						width: 30%;
@@ -325,6 +326,23 @@ body{background-color: #fafafa;}
 					bottom: .68rem;
 					.time{left: 0;top:.2rem;}
 				}
+			}
+		}
+
+		#annList{
+			li{
+				.brief_status{
+					top: auto;
+					bottom: .15rem;
+				}
+			}
+			li.view_1{
+				padding-bottom: .15rem;
+				.brief_subtit{
+					position: absolute;
+					bottom: .1rem;
+				}
+				.brief_status{ bottom: .08rem;}
 			}
 		}
 	}

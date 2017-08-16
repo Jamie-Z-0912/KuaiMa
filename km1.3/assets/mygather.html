@@ -113,7 +113,6 @@
                         {{~it.data:value:index}}
                             <li class="view_{{=value.layout}}" data-id="{{=value.id}}">
                                 <div class="reason">下架原因：{{=value.message}}</div>
-                                <div class="brief_status">已下架</div>
                                 {{? value.title==''}}
                                     <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
                                     <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
@@ -175,28 +174,19 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            {{?value.content_type=="photo"}}
-                            <li class="view_2">
-                                <div class="brief_tit">{{=value.title}}</div>
-                                <div class="imgbox">
-                                    {{?value.isGif}} <i class="gif_1"></i>{{?}}
-                                    <img src="{{=value.images[0]}}!w480.jpg" />
-                                </div>
-                                <div class="brief_status">发布中</div>
+                            <li data-id="{{=value.id}}">
+                                {{?value.origin_url==""}}
+                                    <div class="brief_tit">{{=value.title}}</div>
+                                {{??}}
+                                    <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
+                                {{?}}
+                                {{?value.content_type=="photo"}}
+                                    <div class="brief_status">图片</div>
+                                {{??}}
+                                    <div class="brief_status">{{=value.tag_name}}</div>
+                                {{?}}
+                                <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
                             </li>
-                            {{??}}
-                                <li data-id="{{=value.id}}">
-                                    {{?value.origin_url==""}}
-                                        <div class="brief_tit">{{=value.title}}</div>
-                                    {{??}}
-                                        <a href="{{=value.origin_url}}" class="brief_tit">采集连接：点击查看原链接</a>
-                                    {{?}}
-
-                                    <div class="brief_tit">内容分类：{{=value.tag_name}}</div>
-                                    <div class="brief_subtit"><span>采集时间：{{=value.added_time}}</span></div>
-                                    <div class="brief_status">发布中</div>
-                                </li>
-                            {{?}}
                         {{~}}
                     {{?}}
                 </script>

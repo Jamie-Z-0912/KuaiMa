@@ -547,7 +547,7 @@ body {
 .main .main-list ul li {
   position: relative;
   display: block;
-  padding: .15rem .1rem;
+  padding: .12rem .1rem;
   border-bottom: 0.08rem solid #fafafa;
   background-color: #fff;
 }
@@ -615,6 +615,9 @@ body {
 }
 .main .main-list ul li .brief_tit {
   color: #000;
+  line-height: 1.3;
+  padding-top: .03rem;
+  margin-bottom: .03rem;
 }
 .main .main-list ul li .brief_subtit {
   color: #b8b8b8;
@@ -627,6 +630,12 @@ body {
   line-height: 0.3rem;
   font-size: 0.16rem;
   color: #ff9100;
+}
+.main .main-list ul li .reason {
+  color: #000;
+  font-size: 0.18rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
 }
 .main .main-list ul li.view_1 {
   text-align: right;
@@ -769,7 +778,7 @@ body {
   border-top: 1px solid #ebebeb;
   font-size: 0;
   text-align: center;
-  padding-top: .15rem;
+  padding-top: .12rem;
 }
 .main .main-list #onlineList li .bottom span {
   display: inline-block;
@@ -808,4 +817,18 @@ body {
 .main .main-list #onlineList li.view_1 .source .time {
   left: 0;
   top: .2rem;
+}
+.main .main-list #annList li .brief_status {
+  top: auto;
+  bottom: .15rem;
+}
+.main .main-list #annList li.view_1 {
+  padding-bottom: .15rem;
+}
+.main .main-list #annList li.view_1 .brief_subtit {
+  position: absolute;
+  bottom: .1rem;
+}
+.main .main-list #annList li.view_1 .brief_status {
+  bottom: .08rem;
 }
