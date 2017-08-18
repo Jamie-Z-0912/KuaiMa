@@ -16,6 +16,15 @@ body{background-color: #fafafa;}
 		.border-r(.15rem, #fff);
 		padding: .1rem 0;
 		background-color: #fff;
+		a.view{
+			position: absolute;
+			display: block;
+			z-index: 9;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: .44rem;
+		}
 		h3{
 			line-height: 1.4;
 			max-height: 2.6em;
@@ -53,27 +62,23 @@ body{background-color: #fafafa;}
 			margin-top: .12rem;
 			text-align: right;
 			padding-top: .1rem;
+			height: .24rem;
 			span{
 				color: @c_sub;
 				font-size: @size;
 				float: left;
-				width: 9em;
 			    overflow: hidden;
-			    height: 1.5em;
+			    height: .24rem;
 			    text-align: left;
 			}
 			a{
 				display: inline-block;
 				text-align: center;
 				vertical-align: top;
-				color: #fff;
+				color: #ff0000;
 				font-size: .13rem;
+				padding: 0 .1rem;
 				.lineH(.24rem);
-				border-radius: .02rem;
-				padding: 0 .15rem;
-				min-width: .42rem;
-				background-color: #ffc524;
-				&.gray{background-color: #ccc; margin-right: .06rem;}
 			}
 		}
 	}

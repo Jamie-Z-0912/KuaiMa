@@ -554,6 +554,19 @@ body.move {
   transition: transform .2s;
   transform: rotate(90deg);
 }
+.qustion-list li .news:after {
+  display: inline-block;
+  vertical-align: middle;
+  content: "new";
+  font-size: 10px;
+  height: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  background-color: red;
+  color: #fff;
+  margin-left: .06rem;
+  border-radius: 3px;
+}
 .qustion-list li .answer {
   display: none;
   border-top: 1px solid #ebebeb;
@@ -566,12 +579,18 @@ body.move {
   list-style-type: decimal;
   margin-left: 20px;
 }
+.qustion-list li .answer p {
+  padding-top: .05rem;
+}
 .qustion-list li .answer .copy_type {
   padding: 0 .1rem;
 }
 .qustion-list li .answer .copy_type img {
   display: block;
   width: 100%;
+}
+.qustion-list li .answer .red {
+  color: #ff6000;
 }
 .qustion-list li .answer a {
   color: #ff9100;

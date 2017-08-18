@@ -8,7 +8,7 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <title>我的兑换</title>
+    <title>打赏记录</title>
     <meta content='/favicon.ico' itemprop='image' property='og:image' />
     <link rel="stylesheet" href="css/myExchange.css">
     <script> 
@@ -25,7 +25,7 @@
 </head>
 <body>
     <section class="max-w-750">
-        <div class="tips">请尽快保存兑换资源，避免资源失效</div>
+        <div class="tips">请尽快保存资源，避免资源失效</div>
         <ul class="list-wrap" id="conList"></ul>
         <div id="listPage" class="hide"></div>
         <script id="conList-tmpl" type="text/x-dot-template">
@@ -36,6 +36,7 @@
             {{??}}
                 {{~it.data:value:index}}
                     <li class="view_{{=value.post_layout}}">
+                        <a href="kmb://worthreadingresource?id={{=value.post_id}}" class="view"></a>
                         <h3>{{=value.post_title}}</h3>
                         {{? value.post_layout == 1}}
                             <div class="imgbox"> <img src="{{=value.post_images[0]}}"/> </div>
@@ -45,8 +46,7 @@
                             <div class="pay">{{=value.amount}}零钱</div>
                         </div>
                         <div class="bottom clearfix">
-                            <span>兑换于{{=value.added_time}}</span>
-                            <a href="kmb://worthreadingresource?id={{=value.post_id}}" class="gray">查看资源</a>
+                            <span>{{=value.added_time}}</span>
                             {{?value.can_report}}<a href="kmb://worthreadingreport?type=resource&id={{=value.post_id}}">举报</a>{{?}}
                         </div>
                     </li>

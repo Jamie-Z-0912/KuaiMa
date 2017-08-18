@@ -577,37 +577,6 @@ body {
 .main .main-list ul li .imgbox img {
   display: inline-block;
 }
-.main .main-list ul li .source {
-  position: relative;
-  font-size: .12rem;
-  color: #b8b8b8;
-  text-align: left;
-  line-height: 1;
-  background: #fff;
-}
-.main .main-list ul li .source span {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: .15rem;
-  height: 0.2rem;
-  line-height: 0.2rem;
-}
-.main .main-list ul li .source .time {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.main .main-list ul li .source .ori_icon {
-  width: .12rem;
-  height: .2rem;
-}
-.main .main-list ul li .source .ori_icon img {
-  width: .2rem;
-  height: .2rem;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
 .main .main-list ul li .brief_tit,
 .main .main-list ul li .brief_subtit {
   display: block;
@@ -624,18 +593,38 @@ body {
 }
 .main .main-list ul li .brief_status {
   position: absolute;
-  top: .15rem;
+  bottom: .15rem;
   right: .15rem;
   height: 0.3rem;
   line-height: 0.3rem;
   font-size: 0.16rem;
   color: #ff9100;
 }
-.main .main-list ul li .reason {
-  color: #000;
-  font-size: 0.18rem;
-  height: 0.3rem;
-  line-height: 0.3rem;
+.main .main-list ul li .gif,
+.main .main-list ul li .gif_1 {
+  display: block;
+  position: absolute;
+  width: .42rem;
+  left: 50%;
+  margin-left: -0.22rem;
+  top: 50%;
+  height: 0.2rem;
+  line-height: 0.2rem;
+  margin-top: -0.1rem;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  text-align: center;
+  font-size: .11rem;
+  border-radius: .12rem;
+  border-style: solid;
+  border-width: .02rem;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.main .main-list ul li .gif:before,
+.main .main-list ul li .gif_1:before {
+  content: "GIF";
+  display: inline;
 }
 .main .main-list ul li.view_1 {
   text-align: right;
@@ -656,10 +645,8 @@ body {
 }
 .main .main-list ul li.view_1 .imgbox img {
   width: 100%;
-}
-.main .main-list ul li.view_1 .source {
-  width: 2.4rem;
-  margin-top: .1rem;
+  min-height: .74rem;
+  vertical-align: middle;
 }
 .main .main-list ul li.view_2 .imgbox {
   position: relative;
@@ -673,32 +660,6 @@ body {
 .main .main-list ul li.view_2 .imgbox img {
   width: 100%;
   vertical-align: middle;
-}
-.main .main-list ul li.view_2 .gif,
-.main .main-list ul li.view_2 .gif_1 {
-  display: block;
-  position: absolute;
-  width: .42rem;
-  left: 50%;
-  margin-left: -0.22rem;
-  top: 50%;
-  height: 0.2rem;
-  line-height: 0.2rem;
-  margin-top: -0.1rem;
-  z-index: 9;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  text-align: center;
-  font-size: .11rem;
-  border-radius: .12rem;
-  border-style: solid;
-  border-width: .02rem;
-  border-color: rgba(255, 255, 255, 0.5);
-}
-.main .main-list ul li.view_2 .gif:before,
-.main .main-list ul li.view_2 .gif_1:before {
-  content: "GIF";
-  display: inline;
 }
 .main .main-list ul li.view_2 .time {
   position: relative;
@@ -734,44 +695,78 @@ body {
   background-color: #fafafa;
 }
 .main .main-list #shelvedList li .reason {
-  color: #000;
-  font-size: 0.18rem;
-  height: 0.3rem;
-  line-height: 0.3rem;
-}
-.main .main-list #shelvedList li h3 {
-  padding-top: .05rem;
-}
-.main .main-list #shelvedList li h3,
-.main .main-list #shelvedList li .brief_tit {
+  position: relative;
+  padding-top: .1rem;
+  margin-top: .1rem;
   color: #b8b8b8;
-}
-.main .main-list #shelvedList li .imgbox {
-  opacity: .7;
-}
-.main .main-list #shelvedList li .imgbox img {
-  min-height: 100%;
-}
-.main .main-list #shelvedList li .source {
-  margin-top: .06rem;
-}
-.main .main-list #shelvedList li .off_time {
-  margin-bottom: -0.06rem;
-}
-.main .main-list #shelvedList li.view_1 .reason,
-.main .main-list #shelvedList li.view_1 .off_time {
   text-align: left;
+  line-height: 1.3;
+  border-top: 1px solid #ebebeb;
 }
-.main .main-list #shelvedList li.view_1 .source {
+.main .main-list #shelvedList li .reason .off_time {
+  position: absolute;
+  top: .1rem;
+  right: .1rem;
+}
+.main .main-list #shelvedList li .reason .gather_rule {
+  color: #ff9100;
+}
+.main .main-list #shelvedList li .brief_status {
+  bottom: .4rem;
+  background-color: #fff;
+  padding: 0 .1rem;
+  right: .05rem;
+}
+.main .main-list #shelvedList li.view_1 .brief_status {
   position: absolute;
   padding-right: 1.3rem;
+  right: auto;
+  left: 0;
   bottom: .44rem;
 }
-.main .main-list #shelvedList li.view_1 .off_time {
-  padding-top: .06rem;
+.main .main-list #shelvedList li.view_1 .imgbox {
+  opacity: .7;
+}
+.main .main-list #shelvedList li.view_1 .imgbox img {
+  min-height: 100%;
+}
+.main .main-list #shelvedList li.view_5 h3 {
+  padding-bottom: 0;
 }
 .main .main-list #shelvedList li.view_5 .source {
-  margin-bottom: .12rem;
+  margin-top: .08rem;
+  margin-bottom: .08rem;
+}
+.main .main-list #onlineList li .source {
+  position: relative;
+  font-size: .12rem;
+  color: #b8b8b8;
+  text-align: left;
+  line-height: 1;
+  background: #fff;
+}
+.main .main-list #onlineList li .source span {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: .15rem;
+  height: 0.2rem;
+  line-height: 0.2rem;
+}
+.main .main-list #onlineList li .source .time {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.main .main-list #onlineList li .source .ori_icon {
+  width: .12rem;
+  height: .2rem;
+}
+.main .main-list #onlineList li .source .ori_icon img {
+  width: .2rem;
+  height: .2rem;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .main .main-list #onlineList li .bottom {
   margin-top: .1rem;
@@ -812,15 +807,15 @@ body {
 }
 .main .main-list #onlineList li.view_1 .source {
   position: absolute;
-  bottom: .68rem;
+  bottom: .59rem;
+  width: 2.4rem;
 }
 .main .main-list #onlineList li.view_1 .source .time {
   left: 0;
   top: .2rem;
 }
-.main .main-list #annList li .brief_status {
-  top: auto;
-  bottom: .15rem;
+.main .main-list #onlineList li.view_2 .source .time {
+  position: relative;
 }
 .main .main-list #annList li.view_1 {
   padding-bottom: .15rem;

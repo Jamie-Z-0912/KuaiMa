@@ -86,10 +86,11 @@ define('app/taskCenter', function(require, exports, module) {
     }
 
 	var checkin_jinbi = 700, showNormal=false;
-	if(Storage.getCache('checkin')){
+	if(Storage.getCache(Storage.AUTH)==Tools.auth_token() && Storage.getCache('checkin')){
 		var status = Storage.getCache('checkin');
 		checkinStatus[status]();
 	}else{
+		Storage.remove('checkin');
 	    Ajax.custom({ 
 	        url: 'api/v1/checkin/setting'
 	    },function(data){

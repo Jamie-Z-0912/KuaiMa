@@ -74,9 +74,8 @@ define("app/mygather", [ "../mod/pagelist", "../plugs/version" ], function(requi
         var data = d.data;
         var w_ = parseInt($("#onlineList").width() * .3).toFixed(2);
         for (var i = 0; i < data.length; i++) {
-            if (data[i].layout == 3) {
-                d.data[i].imgWidth = w_ + "px";
-                d.data[i].imgBoxHeight = (w_ * 74 / 113).toFixed(2) + "px";
+            if (!/文章异常/.test(data[i].message)) {
+                d.data[i].message = '不符合<a href="javascript:void(0)" class="gather_rule">《采集规范》</a>';
             }
             if (data[i].content_type == "photo" && /.gif/.test(data[i].images[0])) {
                 var gif = data[i].images[0];
@@ -105,6 +104,14 @@ define("app/mygather", [ "../mod/pagelist", "../plugs/version" ], function(requi
         var src = img.attr("src");
         img.attr("src", src.replace(/.png/g, ".gif"));
         $(this).remove();
+        return false;
+    });
+    $("#shelvedList").on("click", ".gather_rule", function() {
+        if (/browser.kuaima/.test(location.hostname)) {
+            window.location = "http://browser.kuaima.cn/startgather.html?auth_token=" + Tools.auth_token();
+        } else {
+            window.location = "http://t.kuaima.cn/browser/startgather.html?auth_token=" + Tools.auth_token();
+        }
         return false;
     });
     $("#onlineList").on("click", "li", function() {

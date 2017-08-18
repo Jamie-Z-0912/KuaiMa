@@ -438,6 +438,15 @@ body {
   padding: .1rem 0;
   background-color: #fff;
 }
+.list-wrap li a.view {
+  position: absolute;
+  display: block;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: .44rem;
+}
 .list-wrap li h3 {
   line-height: 1.4;
   max-height: 2.6em;
@@ -482,32 +491,25 @@ body {
   margin-top: .12rem;
   text-align: right;
   padding-top: .1rem;
+  height: .24rem;
 }
 .list-wrap li .bottom span {
   color: #b8b8b8;
   font-size: 0.15rem;
   float: left;
-  width: 9em;
   overflow: hidden;
-  height: 1.5em;
+  height: .24rem;
   text-align: left;
 }
 .list-wrap li .bottom a {
   display: inline-block;
   text-align: center;
   vertical-align: top;
-  color: #fff;
+  color: #ff0000;
   font-size: .13rem;
+  padding: 0 .1rem;
   height: 0.24rem;
   line-height: 0.24rem;
-  border-radius: .02rem;
-  padding: 0 .15rem;
-  min-width: .42rem;
-  background-color: #ffc524;
-}
-.list-wrap li .bottom a.gray {
-  background-color: #ccc;
-  margin-right: .06rem;
 }
 .list-wrap li.view_1 {
   text-align: right;
