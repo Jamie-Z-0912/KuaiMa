@@ -22,7 +22,7 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 				title:'修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['280px', '224px'], 
+				area: ['310px', '420px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()

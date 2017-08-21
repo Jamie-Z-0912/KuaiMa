@@ -28,14 +28,20 @@ a:hover{color: #1E9FFF;}
 ol.has_order {margin-left: 30px;}
 ol.has_order li{list-style-type: decimal}
 /* my */
-.layui-body{overflow-x: auto;}
+.layui-body{overflow-x: auto;left: 180px;}
 .min_w_860{min-width: 860px;}
+.layui-layout-admin .layui-side{ width: 180px;}
+.layui-layout-admin .layui-side .layui-side-scroll{ width: 200px;}
+.layui-layout-admin .layui-side .layui-side-scroll .layui-nav{width: 180px;}
 .layui-layout-admin .layui-side .layui-nav-item>a{background-color: #2b2e37; border-top: 1px solid #23262e;}
+.layui-layout-admin .layui-side .layui-nav-item .layui-icon{font-size: 18px; margin-right: 5px; margin-left: -5px;}
+
 .ad_position_show{ width: 200px;}
 .layui-layout-admin .layui-table tr:hover{background-color: #eeeeee;}
 .layui-table th, .layui-table td{ word-break: break-all;}
 .layui-layout-admin .layui-table .td-img img{display: block; width: 100%; margin-bottom: 10px;}
-.layui-layout-admin .layui-table .option *{display: block;}
+.layui-layout-admin .layui-table .option *{display: block;line-height: 1.2;padding: 4px 0;}
+.layui-layout-admin .layui-table .option .hide{ display: none;}
 .layui-layout-admin .layui-table .option span{margin-top: 10px; color: #FF5722; font-size: 14px;}
 .layui-layout-admin .layui-table td .gray{color:gray;}
 .layui-layout-admin .layui-table td .green{color:#00c500;}

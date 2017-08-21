@@ -4,7 +4,7 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
-    	$('#0_1').addClass('layui-this')
+    	$('#0_3').addClass('layui-this')
     		.parents('li').addClass('layui-nav-itemed')
     			.siblings().removeClass('layui-nav-itemed');
     	layui.use('element', function(){
@@ -22,7 +22,7 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 				title:'修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['280px', '224px'], 
+				area: ['310px', '440px'], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()
@@ -38,6 +38,22 @@ layui.define(['global', 'form', 'laydate', 'upload'], function(exports){
 	    operation[type].call(this);
 	});
 	/* 增加和操作处的点击 e */
+
+    /* 显示图片 */
+	$('.show_bak').on('click', function(){
+		var _self = $(this), date = _self.data('date');
+		_self.next().appendTo($('#bakView'));
+		layer.open({
+			title:date+' 备注信息',
+			type: 1,
+			skin: 'layui-layer-rim', 
+			content: $('#bakView'), 
+			cancel: function(){ 
+				$('#bakView .hide').appendTo(_self.parent());
+				$('#bakView').empty();
+			}
+		});
+	})
 	/* 查询的 开始和结束时间 */
 	var query = {
 		start:{
