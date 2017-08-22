@@ -39,7 +39,12 @@
                                     <span class="time fr">{{=value.added_time}}</span>
                                 </div>
                                 <div class="bottom">
+                                    {{?value.content_type=="resource"}}
+                                    <span>{{=value.exchange_num}}人兑换</span>
+                                    {{?}}
+                                    {{?value.content_type=="post"}}
                                     <span>{{=value.view_num}}人阅读</span>
+                                    {{?}}
                                     <span>{{=value.praise_num}}人喜欢</span>
                                     <span class="reli">热度：{{?value.hot_value<=0}}暂无{{??}}{{=value.hot_value}} {{?}}<i></i></span>
                                 </div>
