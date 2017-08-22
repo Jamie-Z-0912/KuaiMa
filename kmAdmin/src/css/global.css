@@ -46,6 +46,7 @@ ol.has_order li{list-style-type: decimal}
 .layui-layout-admin .layui-table td .gray{color:gray;}
 .layui-layout-admin .layui-table td .green{color:#00c500;}
 .layui-layout-admin .layui-table td .red{color:red;}
+#page{text-align: right;}
 
 .layui-form .layui-form-item .red{color: red;}
 .layui-form .t-r{ text-align: right;}

@@ -1,6 +1,7 @@
-layui.define(['global', 'form', 'laydate'], function(exports){
+layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
 	var $ = layui.jquery, 
-		layer = layui.layer ,
+		layer = layui.layer,
+        laypage = layui.laypage,
 		form = layui.form(), 
 		laydate = layui.laydate;
     $('#side').load('../include/side.html', function(a,b){
@@ -14,6 +15,9 @@ layui.define(['global', 'form', 'laydate'], function(exports){
     $('#siteTop').load('../include/top.html', function(a,b){
         $('#cur').text('广告开关');
     });
+    /*分页*/
+    laypage({ cont: 'page', pages: 100, groups: 5, skip: true });
+    
     /* 增加和操作处的点击 s */
     var operation = {
     	add: function() {
