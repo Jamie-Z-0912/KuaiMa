@@ -1,7 +1,40 @@
 define('app/myincome', function(require, exports, module) {
 	var pagelist = require('../mod/pagelist');
 	var km = require('../plugs/version');
-	
+    if( km.less('1.4.4') ){
+		require('../plugs/storageCache.js');
+		var confirmTip = require('../plugs/confirmTip.js');
+		var updateTips = {
+	    	expire: function(){
+	    		var mydate = new Date(),
+	    			today = mydate.toLocaleDateString(),
+	    			now = Math.ceil(mydate.getTime()/1000);
+	    		var expTime = new Date(today +' 23:50:00').getTime()/1000;
+				return (expTime-now) > 0 ? expTime-now : null;
+	    	},
+	    	yes: function(){
+	    		if(Storage.getCache('updateTips')){
+	    			return false;
+	    		}else{
+		    		if(this.expire()){
+		    			Storage.setCache('updateTips',1,this.expire());
+		    		}
+	    			return true;
+	    		}
+	    	}
+	    };
+	    if(updateTips.yes()){
+		    new confirmTip({
+		        title: '<p style="padding: .1rem 0; line-height:1.8">请升级至1.4.4版本<br>8月30日起低版本将不能提现！</p>',
+		        sureTxt: '去升级',
+		        cancelTxt: '知道了'
+		    },function(a){
+		        if(a){
+		        	window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser';
+		        }
+		    });
+	    }
+	}
 	$('#nav').on('click', 'li', function(){
 		var id = $(this).data('id');
 		$(this).addClass('active').siblings().removeClass('active');
@@ -62,5 +95,8 @@ define('app/myincome', function(require, exports, module) {
 			text:'金币转换汇率会受每日广告收益影响，上下会有浮动',
 			time:5000
 		})
+	});
+	$('#duiba').on('click', function(){
+		window.location = 'kmb://openduiba';
 	})
 });

@@ -1,6 +1,38 @@
-define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require, exports, module) {
+define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCache.js", "../plugs/confirmTip.js" ], function(require, exports, module) {
     var Ajax = require("../mod/base");
     var km = require("../plugs/version");
+    if (km.less("1.4.4")) {
+        require("../plugs/storageCache.js");
+        var confirmTip = require("../plugs/confirmTip.js");
+        var updateTips = {
+            expire: function() {
+                var mydate = new Date(), today = mydate.toLocaleDateString(), now = Math.ceil(mydate.getTime() / 1e3);
+                var expTime = new Date(today + " 23:50:00").getTime() / 1e3;
+                return expTime - now > 0 ? expTime - now : null;
+            },
+            yes: function() {
+                if (Storage.getCache("updateTipsH")) {
+                    return false;
+                } else {
+                    if (this.expire()) {
+                        Storage.setCache("updateTipsH", 1, this.expire());
+                    }
+                    return true;
+                }
+            }
+        };
+        if (updateTips.yes()) {
+            new confirmTip({
+                title: '<p style="padding: .1rem 0; line-height:1.8">请升级至1.4.4版本<br>8月30日起低版本将不能提现！</p>',
+                sureTxt: "去升级",
+                cancelTxt: "知道了"
+            }, function(a) {
+                if (a) {
+                    window.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
+                }
+            });
+        }
+    }
     Ajax.custom({
         url: "api/v1/search/task"
     }, function(d) {
@@ -38,7 +70,7 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
     }
     function tips(txt) {
         var arr = [];
-        arr.push('<div class="ui-popup-screen km-dialog">');
+        arr.push('<div class="ui-popup-screen search_tip km-dialog">');
         arr.push('<a href="kmb://search?keyword=' + encodeURIComponent(txt) + '" class="iconfont icon-close"></a>');
         arr.push('<div class="hot-tips">');
         arr.push('<div class="text">点选搜索结果，阅读一段时间<span>重复搜索无奖励</span></div>');
@@ -499,4 +531,146 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version" ], function(require,
         if (this.equal(v) || this.less(v)) return true; else return false;
     };
     module.exports = util;
+});define("plugs/storageCache", [], function() {
+    var _maxExpireDate = new Date("Fri, 31 Dec 9999 23:59:59 UTC");
+    var _defaultExpire = _maxExpireDate.getTime();
+    var handleJSON = {
+        serialize: function(item) {
+            return JSON.stringify(item);
+        },
+        deserialize: function(data) {
+            return data && JSON.parse(data);
+        }
+    };
+    function CacheItem(value, exp) {
+        var now = new Date().getTime();
+        this.c = now;
+        exp = exp || _defaultExpire;
+        this.e = now + exp * 1e3;
+        this.v = value;
+    }
+    function _isCacheItem(item) {
+        if (typeof item !== "object") {
+            return false;
+        }
+        if (item) {
+            if ("c" in item && "e" in item && "v" in item) {
+                return true;
+            }
+        }
+        return false;
+    }
+    function _checkCacheItemIfEffective(cacheItem) {
+        var timeNow = new Date().getTime();
+        return timeNow < cacheItem.e;
+    }
+    var Storage = {
+        AUTH: "KMAUTH",
+        NAME: "MY-NAME",
+        get: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var value = this.getStorage(isSession).getItem(key);
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return undefined;
+            }
+        },
+        set: function(key, value, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            value = JSON.stringify(value);
+            this.getStorage(isSession).setItem(key, value);
+        },
+        remove: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            this.getStorage(isSession).removeItem(key);
+        },
+        setCache: function(key, value, expire, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var cacheItem = new CacheItem(value, expire);
+            this.getStorage(isSession).setItem(key, handleJSON.serialize(cacheItem));
+        },
+        getCache: function(key, isSession) {
+            var cacheItem = null;
+            try {
+                var value = this.getStorage(isSession).getItem(key);
+                cacheItem = handleJSON.deserialize(value);
+            } catch (e) {
+                return null;
+            }
+            if (_isCacheItem(cacheItem)) {
+                if (_checkCacheItemIfEffective(cacheItem)) {
+                    var value = cacheItem.v;
+                    return value;
+                } else {
+                    this.remove(key);
+                    return null;
+                }
+            }
+            return null;
+        },
+        getStorage: function(isSession) {
+            return isSession ? sessionStorage : localStorage;
+        },
+        isLocalStorage: function() {
+            try {
+                if (!window.localStorage) {
+                    console.log("不支持本地存储");
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.log("本地存储已关闭");
+                return false;
+            }
+        }
+    };
+    window.Storage = Storage;
+});define("plugs/confirmTip", [], function(require, exports, module) {
+    var confirmTip = function(option, callback) {
+        var opt = {
+            title: "",
+            text: "",
+            sureTxt: "确定",
+            cancelTxt: "取消"
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    confirmTip.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [], divId = that.id;
+        arr.push('<div class="pop-mask km-dialog"></div>');
+        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
+        arr.push('<div class="box">');
+        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
+        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
+        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
+        arr.push("</div></div>");
+        $("body").append(arr.join(""));
+        $("#" + divId).height($("#" + divId + " .box").height());
+        $("#" + divId + " .sureBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $("#" + divId + " .cancelBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    module.exports = confirmTip;
 });

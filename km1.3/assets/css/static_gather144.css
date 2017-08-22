@@ -420,159 +420,103 @@ i#lDom ~ iframe {
   opacity: 0 !important;
 }
 body {
-  background-color: #fff;
+  background-color: #fafafa;
 }
-.logo {
-  display: block;
-  width: 21.33333%;
-  margin: .3rem auto .2rem;
+.imgbox {
+  padding: .06rem;
+  background-color: #000;
+  color: #fff;
 }
-.about h2,
-.about h6 {
-  text-align: center;
-}
-.about h2 {
-  margin-bottom: .1rem;
-}
-.about h2 span {
-  margin-left: .1rem;
-}
-.list {
-  border-top: 1px solid #ebebeb;
-  margin-top: .35rem;
-}
-.list li {
-  position: relative;
-  padding-left: .15rem;
-  border-bottom: 1px solid #ebebeb;
-}
-.list li h3 {
-  height: 0.47rem;
-  line-height: 0.47rem;
-}
-.list li .txt_tips {
-  position: absolute;
-  right: .3rem;
-  text-align: right;
-  top: 0;
-  color: #b8b8b8;
-  height: 0.47rem;
-  line-height: 0.47rem;
-}
-.list li a {
+.imgbox img {
+  width: 100%;
   display: block;
 }
-.list li i.ui-arrowlink:before {
-  line-height: .47rem;
+.orange {
+  color: #ff8a00;
 }
-.bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+.bg_red {
+  background-color: #ff0000;
+  color: #fff;
 }
-.bottom .box {
-  position: relative;
-  width: 100%;
-  text-align: right;
-  margin: 0 auto;
-  max-width: 750px;
+.bg_yellow {
+  background-color: #ffdc00;
+  color: #242217;
 }
-.bottom .box .qr {
-  width: 28%;
-  margin-right: .18rem;
-  display: inline-block;
-}
-.bottom .box .qr img {
-  display: block;
-  width: 100%;
-}
-.bottom .box .txt {
-  position: absolute;
-  left: .18rem;
-  width: 58%;
+.t_l {
   text-align: left;
 }
-.bottom .box .txt h2 {
-  color: #1f1f1f;
-  font-size: .18rem;
-  line-height: 2.2;
-  padding-top: .1rem;
-}
-.bottom .box .txt p {
-  color: #b8b8b8;
-  font-size: .13rem;
-  line-height: 1.5;
-}
-#sidebar-bg {
-  display: none;
-  background: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  z-index: 101;
-}
-body.move {
-  width: 100%;
-  overflow-x: hidden;
-}
-.sidebar {
-  display: none;
-  position: fixed;
-  z-index: 102;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: #fff;
-  overflow-y: auto;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-.sidebar-Xleft {
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-}
-.sidebar-Xright {
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-}
-.sidebar-Xleft.open,
-.sidebar-Xright.open {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-}
-.sidebar-Yup {
-  -webkit-transform: translateY(100%);
-  transform: translateY(100%);
-}
-.sidebar-Yup.open {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-}
-.sidebar-Yup.open {
-  -webkit-transform: translateY(30%);
-  transform: translateY(30%);
-}
-#openWX {
+.t_c {
   text-align: center;
 }
-#openWX h3 {
-  padding-top: .1rem;
+.t_r {
+  text-align: right;
 }
-#openWX .subtit {
-  color: #b8b8b8;
-  font-size: .13rem;
-  margin-top: .1rem;
-}
-#openWX img {
+.download {
   display: block;
-  width: 100%;
-  margin-top: .2rem;
-  margin-bottom: .2rem;
+  width: 1em;
+  height: 7.2em;
+  line-height: 1.2;
+  padding: .1rem;
+  z-index: 99;
+  position: fixed;
+  bottom: 20%;
+  right: 0;
+  font-size: .16rem;
+  background-color: #ff9600;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
-#openWX .ui-btn {
+.gather144 .box {
+  padding: .1rem .15rem;
+}
+.gather144 h2 {
+  color: #000;
+  padding: .05rem 0 .1rem;
+}
+.gather144 .time {
+  font-size: .12rem;
+  color: #858585;
+  text-align: left;
+}
+.gather144 .content {
+  text-align: center;
+  line-height: 1.8;
+}
+.gather144 .content p {
+  padding: .1rem 0;
+}
+.gather144 .content .border_box {
+  position: relative;
+  border: 2px solid #999;
+  padding: .15rem;
+}
+.gather144 .content .border_box:before {
+  position: absolute;
   display: block;
+  content: "";
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  border: 1px solid #aaa;
+}
+.gather144 .content .shade_box {
+  position: relative;
+  border: 2px dashed #999;
+  padding: .1rem;
+}
+.gather144 .content .shade_box:before {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  border: 1px #aaa dashed;
+}
+.gather144 .content .shade_box a {
+  position: relative;
+  z-index: 2;
 }

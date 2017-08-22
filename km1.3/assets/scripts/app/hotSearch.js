@@ -1,6 +1,40 @@
 define('app/hotSearch', function(require, exports, module) {
     var Ajax = require('../mod/base');
     var km = require('../plugs/version');
+    if( km.less('1.4.4') ){
+        require('../plugs/storageCache.js');
+        var confirmTip = require('../plugs/confirmTip.js');
+        var updateTips = {
+            expire: function(){
+                var mydate = new Date(),
+                    today = mydate.toLocaleDateString(),
+                    now = Math.ceil(mydate.getTime()/1000);
+                var expTime = new Date(today +' 23:50:00').getTime()/1000;
+                return (expTime-now) > 0 ? expTime-now : null;
+            },
+            yes: function(){
+                if(Storage.getCache('updateTipsH')){
+                    return false;
+                }else{
+                    if(this.expire()){
+                        Storage.setCache('updateTipsH',1,this.expire());
+                    }
+                    return true;
+                }
+            }
+        };
+        if(updateTips.yes()){
+            new confirmTip({
+                title: '<p style="padding: .1rem 0; line-height:1.8">请升级至1.4.4版本<br>8月30日起低版本将不能提现！</p>',
+                sureTxt: '去升级',
+                cancelTxt: '知道了'
+            },function(a){
+                if(a){
+                    window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser';
+                }
+            });
+        }
+    }
     Ajax.custom({
     	url:'api/v1/search/task'
     },function(d){
@@ -39,7 +73,7 @@ define('app/hotSearch', function(require, exports, module) {
     }
     function tips(txt){
         var arr = [];
-        arr.push('<div class="ui-popup-screen km-dialog">');
+        arr.push('<div class="ui-popup-screen search_tip km-dialog">');
         arr.push('<a href="kmb://search?keyword='+encodeURIComponent(txt)+'" class="iconfont icon-close"></a>');
         arr.push('<div class="hot-tips">');
             arr.push('<div class="text">点选搜索结果，阅读一段时间<span>重复搜索无奖励</span></div>');
