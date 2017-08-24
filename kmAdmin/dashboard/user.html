@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+    <div class="admin-main">
+        <form class="layui-form" id="queryForm" action="">
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
+                </div>
+                <div class="layui-input-inline t-c">—</div>
+                <div class="layui-input-inline">
+                    <input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
+                </div>
+            </div>
+            <button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+            <a class="layui-btn js-operation" data-type="derived"><i class="layui-icon">&#xe601;</i> 导出</a>
+        </form>
+        <table class="layui-table" lay-even="" lay-skin="row">
+            <colgroup>
+			    <col width="70">
+			    <col width="6.8%">
+                <col >
+                <col width="6.8%">
+                <col width="7.2%">
+                <col width="6.8%">
+                <col width="6.8%">
+                <col width="7.5%">
+                <col width="6.8%">
+                <col width="7.2%">
+                <col width="7%">
+                <col width="6.8%">
+                <col width="7.2%">
+                <col width="6.9%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>新增</th>
+                    <th>日活</th>
+                    <th>总注册</th>
+                    <th>邀请注册</th>
+                    <th>邀请注册占比</th>
+                    <th>有效邀请注册</th>
+                    <th>有效邀请注册比</th>
+                    <th>DNU安卓</th>
+                    <th>DAU安卓</th>
+                    <th>次日留存安卓</th>
+                    <th>DNU_IOS</th>
+                    <th>DAU_IOS</th>
+                    <th>次日留存IOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>合计</td>
+                    <td>77688</td>
+                    <td>768057</td>
+                    <td>70395</td>
+                    <td>60739</td>
+                    <td>86.28%</td>
+                    <td>28510</td>
+                    <td>46.94%</td>
+                    <td>70004</td>
+                    <td>660048</td>
+                    <td>96.65%</td>
+                    <td>7684</td>
+                    <td>108009</td>
+                    <td>0.0%</td>
+                </tr>
+                <tr>
+                    <td>20170822</td>
+                    <td>3472</td>
+                    <td>35373</td>
+                    <td>2549</td>
+                    <td>2102</td>
+                    <td>82.46%</td>
+                    <td>934</td>
+                    <td>44.43%</td>
+                    <td>3160</td>
+                    <td>30512</td>
+                    <td>0.0%</td>
+                    <td>312</td>
+                    <td>4861</td>
+                    <td>0.0%</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="page"></div>
+    </div>
+
+<script src="../src/layui.js"></script>
+<script>
+    layui.config({
+        base: '../src/lay/page/', 
+        version: '20170724', //一般用于更新组件缓存.
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
+    .use('daUser');
+</script>
+
+</body>
+</html>

@@ -1,272 +1,265 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>快马-汇总统计</title>
-<meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="../src/css/layui.css"  media="all">
-<link rel="stylesheet" href="../src/css/global.css" media="all">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<div class="layui-header header" id="siteTop"></div>
-	<div class="layui-side layui-bg-black" id="side"> </div>
-	<div class="layui-body">
-		<div class="layui-main min_w_860">
-  			<form class="layui-form" id="queryForm" action="">
-				<div class="layui-inline">
-					<div class="layui-input-inline">
-						<input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
-					</div>
-				    <div class="layui-input-inline t-c">—</div>
-					<div class="layui-input-inline">
-						<input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
-					</div>
+    <div class="admin-main">
+		<form class="layui-form" id="queryForm" action="">
+			<div class="layui-inline">
+				<div class="layui-input-inline">
+					<input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
 				</div>
-				<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
-				<a class="layui-btn js-operation" data-type="derived"><i class="layui-icon">&#xe601;</i> 导出</a>
-			</form>
-			<table class="layui-table" lay-even="" lay-skin="row">
-				<colgroup>
-				    <col width="54">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="7.2%">
-				    <col width="">
-				</colgroup>
-				<thead>
-				    <tr>
-                        <th>日期</th>
-                        <th>总收入</th>
-                        <th>广点通</th>
-                        <th>推啊</th>
-                        <th>变现猫</th>
-                        <th>搜狗</th>
-                        <th>联想</th>
-                        <th>欧朋</th>
-                        <th>360</th>
-                        <th>小说</th>
-                        <th>H5广告</th>
-                        <th>系统内部收入</th>
-                        <th>其他</th>
-                        <th>操作</th>
-	                </tr>
-				</thead>
-				<tbody>
-					<tr>
-                        <td>20170820</td>
-                        <td>8327.49</td>
-                        <td>2261.55</td>
-                        <td>2383.56</td>
-                        <td>376.0</td>
-                        <td>325.51</td>
-                        <td>500.0</td>
-                        <td>0.0</td>
-                        <td>217.35</td>
-                        <td>70.0</td>
-                        <td>5.23</td>
-                        <td>151.59</td>
-                        <td>1536.70</td>
-						<td class="option">
-							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-							<span>无备注</span>
-                        </td>
-					</tr>
-					<tr>
-                        <td>20170819</td>
-                        <td>8059.43</td>
-                        <td>2142.23</td>
-                        <td>2269.31</td>
-                        <td>500.0</td>
-                        <td>311.53</td>
-                        <td>500.0</td>
-                        <td>497.66</td>
-                        <td>221.67</td>
-                        <td>95.0</td>
-                        <td>6.51</td>
-                        <td>194.71</td>
-                        <td>1320.81</td>
-						<td class="option">
-							<a class="js-operation" data-type="edit" data-id="22" href="javascript:;">编辑</a>
-							<a class="show_bak" data-date="20170819" href="javascript:;">查看备注</a>
-							<div class="hide">2222.欧朋和联想搜索数据延迟，为预估数。 2.推啊收入上涨较明显。 3.谷歌收入已降至7.1元，16日起暂停文章（含谷歌广告）的转发投放。 4.日新增总用户数：3926；日活跃总用户数：35637。	</div>
-                        </td>
-					</tr>
-					<tr>
-                        <td>20170817</td>
-                        <td>8257.14</td>
-                        <td>2121.21</td>
-                        <td>2305.82</td>
-                        <td>600.0</td>
-                        <td>310.62</td>
-                        <td>500.0</td>
-                        <td>526.26</td>
-                        <td>224.82</td>
-                        <td>85.0</td>
-                        <td>5.13</td>
-                        <td>395.91</td>
-                        <td>1182.37</td>
-						<td class="option">
-							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-							<a class="show_bak" data-date="20170817" href="javascript:;">查看备注</a>
-							<div class="hide">232323.欧朋和联想搜索数据延迟，为预估数。2.百度api广告下线，替换为原来的广点通广告。故广点通收入略有上涨。3.联盟系统收入（其他收入）略有下降。4.日新增总用户数：4093；日活跃总用户数：36632。</div>
-                        </td>
-					</tr>
-				</tbody>
-			</table>
-			<div id="page"></div>
-		</div>
-	</div>
-</div>
-<div id="bakView" style="display: none;padding: 10px;"></div>
-<!-- 表单 -->
-<div id="formPane" style="display: none;padding: 10px;">
-	<form class="layui-form layui-form-pane1" action="">
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label w40">日期</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="date" class="layui-input" disabled>
-	      	</div>
-	    </div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">广点通</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">百度广告</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">欧朋</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">推啊</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">搜狗搜索</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">360搜索</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">神马搜索</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">百度搜索</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">联想搜索</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">变现猫</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">小说</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">销售</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">58</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">Google广告</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">卡券</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">兑换资源</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">召回失败,清空余额</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">其他</label>
-		    <div class="layui-input-block">
-	        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
-		    </div>
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label w40">备注</label>
-			<div class="layui-input-block">
-				<textarea name="msg" class="layui-textarea"></textarea>
+			    <div class="layui-input-inline t-c">—</div>
+				<div class="layui-input-inline">
+					<input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
+				</div>
 			</div>
-		</div>
-		<div class="layui-form-item t-r" id="updateBtn">
-	    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
-	  	</div>
-	  	<button type="reset" id="reset" class="layui-hide">重置</button>
-	</form>
-</div>
-<!-- mobile side -->
-<div class="site-tree-mobile layui-hide">
-  <i class="layui-icon">&#xe602;</i>
-</div>
-<div class="site-mobile-shade"></div>
+			<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+			<a class="layui-btn js-operation" data-type="derived"><i class="layui-icon">&#xe601;</i> 导出</a>
+		</form>
+		<table class="layui-table" lay-even="" lay-skin="row">
+			<colgroup>
+			    <col width="6%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="7.2%">
+			    <col width="">
+			</colgroup>
+			<thead>
+			    <tr>
+                    <th>日期</th>
+                    <th>总收入</th>
+                    <th>广点通</th>
+                    <th>推啊</th>
+                    <th>变现猫</th>
+                    <th>搜狗</th>
+                    <th>联想</th>
+                    <th>欧朋</th>
+                    <th>360</th>
+                    <th>小说</th>
+                    <th>H5广告</th>
+                    <th>系统内部收入</th>
+                    <th>其他</th>
+                    <th>操作</th>
+                </tr>
+			</thead>
+			<tbody>
+				<tr>
+                    <td>20170820</td>
+                    <td>8327.49</td>
+                    <td>2261.55</td>
+                    <td>2383.56</td>
+                    <td>376.0</td>
+                    <td>325.51</td>
+                    <td>500.0</td>
+                    <td>0.0</td>
+                    <td>217.35</td>
+                    <td>70.0</td>
+                    <td>5.23</td>
+                    <td>151.59</td>
+                    <td>1536.70</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<span>无备注</span>
+                    </td>
+				</tr>
+				<tr>
+                    <td>20170819</td>
+                    <td>8059.43</td>
+                    <td>2142.23</td>
+                    <td>2269.31</td>
+                    <td>500.0</td>
+                    <td>311.53</td>
+                    <td>500.0</td>
+                    <td>497.66</td>
+                    <td>221.67</td>
+                    <td>95.0</td>
+                    <td>6.51</td>
+                    <td>194.71</td>
+                    <td>1320.81</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="22" href="javascript:;">编辑</a>
+						<a class="show_bak" data-date="20170819" href="javascript:;">查看备注</a>
+						<div class="hide">2222.欧朋和联想搜索数据延迟，为预估数。 2.推啊收入上涨较明显。 3.谷歌收入已降至7.1元，16日起暂停文章（含谷歌广告）的转发投放。 4.日新增总用户数：3926；日活跃总用户数：35637。	</div>
+                    </td>
+				</tr>
+				<tr>
+                    <td>20170817</td>
+                    <td>8257.14</td>
+                    <td>2121.21</td>
+                    <td>2305.82</td>
+                    <td>600.0</td>
+                    <td>310.62</td>
+                    <td>500.0</td>
+                    <td>526.26</td>
+                    <td>224.82</td>
+                    <td>85.0</td>
+                    <td>5.13</td>
+                    <td>395.91</td>
+                    <td>1182.37</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<a class="show_bak" data-date="20170817" href="javascript:;">查看备注</a>
+						<div class="hide">232323.欧朋和联想搜索数据延迟，为预估数。2.百度api广告下线，替换为原来的广点通广告。故广点通收入略有上涨。3.联盟系统收入（其他收入）略有下降。4.日新增总用户数：4093；日活跃总用户数：36632。</div>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="page"></div>
+	</div>
+	<div class="note">
+		Note：
+		<ul>
+			<li>H5广告 = 百度广告收入 + Google广告收入</li>
+			<li>系统内部收入 = 卡券收入 + 资源兑换收入 + 召回清空余额</li>
+			<li>其他 = 百度搜索 + 58 + 销售收入 + 神马搜索 + 其他</li>
+		</ul>
+	</div>
+
+	<div id="bakView" style="display: none;padding: 10px;"></div>
+	<!-- 表单 -->
+	<div id="formPane" style="display: none;padding: 10px;">
+		<form class="layui-form layui-form-pane1" action="">
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label w40">日期</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="date" class="layui-input" disabled>
+		      	</div>
+		    </div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">广点通</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">百度广告</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">欧朋</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">推啊</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">搜狗搜索</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">360搜索</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">神马搜索</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">百度搜索</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">联想搜索</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">变现猫</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">小说</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">销售</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">58</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">Google广告</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">卡券</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">兑换资源</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">召回失败,清空余额</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">其他</label>
+			    <div class="layui-input-block">
+		        	<input type="text" name="gdtIncome" class="layui-input" value="0.0">
+			    </div>
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label w40">备注</label>
+				<div class="layui-input-block">
+					<textarea name="msg" class="layui-textarea"></textarea>
+				</div>
+			</div>
+			<div class="layui-form-item t-r" id="updateBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
+		  	</div>
+		  	<button type="reset" id="reset" class="layui-hide">重置</button>
+		</form>
+	</div>
+	
 <script src="../src/layui.js"></script>
 <script>
 	layui.config({

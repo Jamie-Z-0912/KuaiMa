@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+    <div class="admin-main">
+		<form class="layui-form" id="queryForm" action="">
+			<div class="layui-inline">
+				<div class="layui-input-inline">
+					<input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
+				</div>
+			    <div class="layui-input-inline t-c">—</div>
+				<div class="layui-input-inline">
+					<input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
+				</div>
+			</div>
+			<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+			<a class="layui-btn js-operation" data-type="derived"><i class="layui-icon">&#xe601;</i> 导出</a>
+		</form>
+		<table class="layui-table" lay-even="" lay-skin="row">
+			<colgroup>
+			    <col width="70">
+			    <col width="6.4%">
+			    <col width="7.4%">
+			    <col width="9%">
+			    <col width="9%">
+			    <col width="8%">
+			    <col width="9%">
+			    <col width="9%">
+			    <col width="7%">
+			    <col width="8%">
+			    <col width="9%">
+			    <col >
+			</colgroup>
+			<thead>
+				<tr>
+                    <th>日期</th>
+                    <th>日活</th>
+                    <th>总阅读量</th>
+                    <th>转发总投放量</th>
+                    <th>转发有效阅读</th>
+                    <th>转发完成度</th>
+                    <th>文章有效阅读</th>
+                    <th>文章有效阅读占比</th>
+                    <th>转发用户</th>
+                    <th>阅读用户</th>
+                    <th>转发用户占比</th>
+                    <th>阅读用户占比</th>
+                </tr>
+			</thead>
+			<tbody>
+				<tr>
+                    <td>20170822</td>
+                    <td>35373</td>
+                    <td>684633</td>
+                    <td>22000</td>
+                    <td>13592</td>
+                    <td>61.78%</td>
+                    <td>671041</td>
+                    <td>98.01%</td>
+                    <td>2417</td>
+                    <td>25039</td>
+                    <td>6.83%</td>
+                    <td>70.79%</td>
+                </tr>
+				<tr>
+                    <td>20170821</td>
+                    <td>36339</td>
+                    <td>690765</td>
+                    <td>17100</td>
+                    <td>14037</td>
+                    <td>82.09%</td>
+                    <td>676728</td>
+                    <td>97.97%</td>
+                    <td>2270</td>
+                    <td>25142</td>
+                    <td>6.25%</td>
+                    <td>69.19%</td>
+                </tr>
+			</tbody>
+		</table>
+		<div id="page"></div>
+	</div>
+<script src="../src/layui.js"></script>
+<script>
+	layui.config({
+		base: '../src/lay/page/', 
+		version: '20170724', //一般用于更新组件缓存.
+		debug: false 
+	})
+	.extend({'global': 'public/global'})
+	.use('daRead');
+</script>
+
+</body>
+</html>

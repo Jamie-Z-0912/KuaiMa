@@ -1,0 +1,144 @@
+/* 头部 */
+.header{height: 59px; border-bottom: 1px solid #404553;  background-color: #393D49;}
+.logo{position: absolute; left: 0; top: 16px; color: #fff; padding-left: 10px; font-size: 24px;line-height: 34px;}
+.logo .cur{  color: #d2d2d2; line-height: 34px; font-size: 14px;}
+.header .layui-nav{position: absolute; right: 0; top: 0; padding: 0; background: none;}
+.header .layui-nav .layui-nav-item{margin: 0 20px; }
+.header .layui-nav .layui-nav-item[mobile]{display: none;}
+/* 底部 */
+.layui-layout-admin .footer{height: 0;}
+/* 适配多设备 */
+@media screen and (max-width: 750px) {
+  .layui-main{width: auto; margin: 0 10px;}
+  .header .layui-nav .layui-nav-item{margin: 0 5px 0 0; }
+
+  .site-tree-mobile{display: block!important; position: fixed; z-index: 100000; bottom: 15px; left: 15px; width: 50px; height: 50px; line-height: 50px; border-radius: 2px; text-align: center; background-color: rgba(0,0,0,.7); color: #fff;}
+  .site-home .site-tree-mobile{display: none!important;}
+  .site-mobile .site-tree-mobile{display: none !important;}
+  .site-mobile .site-tree{left: 0;}
+  .site-mobile .site-mobile-shade{content: ''; position: fixed; top: 0; bottom: 0; left: 0; right: 0; background-color: rgba(0,0,0,.8); z-index: 999;}
+  .site-tree-mobile i{font-size: 20px;}
+
+  .layui-layout-admin .layui-side{position: fixed; top: 0; left: -260px; transition: all .3s; -webkit-transition: all .3s; z-index: 10000;}
+  .layui-body{position: static; bottom: 0; left: 0;}
+  .site-mobile .layui-side{left: 0;}
+}
+a{color: #01AAED;}
+a:hover{color: #1E9FFF;}
+ol.has_order {margin-left: 30px;}
+ol.has_order li{list-style-type: decimal}
+/* my */
+.layui-body{overflow-x: auto;left: 180px;overflow-y: hidden;}
+.layui-layout-admin .layui-side{ width: 180px;}
+.layui-layout-admin .layui-side .layui-side-scroll{ width: 200px;}
+.layui-layout-admin .layui-side .layui-side-scroll .layui-nav{width: 180px;}
+.layui-layout-admin .layui-side .layui-nav-item>a{background-color: #2b2e37; border-top: 1px solid #23262e;}
+.layui-layout-admin .layui-side .layui-nav-item .layui-icon{font-size: 18px; margin-right: 5px; margin-left: -5px;}
+/* 自定义css */
+.admin-header-item-mobile{
+  position: absolute; right: 0px; height: 70px;line-height: 70px; 
+  padding: 0 20px; text-align: center; top:0;
+  display: none;
+}
+
+.admin-nav-tree .layui-nav-child a {
+  padding-left: 30px;
+}
+
+.admin{
+  border: 0;
+  margin: 0;
+  box-shadow:none;
+}
+.admin-nav-card{ margin: 0; }
+.admin-nav-card .layui-icon{
+  position: relative;
+}
+.admin-nav-card .layui-tab-item iframe{
+  width: 100%;
+  border: 0;
+  height: 100%;
+}
+.admin-nav-card>.layui-tab-title{
+  border-bottom: 1px solid #1AA094;
+}
+.admin-nav-card .layui-tab-title cite{
+  font-style: normal;
+  padding-left: 5px;
+}
+.admin-nav-card>.layui-tab-title .layui-this{
+  color: white;
+    background-color: #1AA094;
+}
+.admin-nav-card>.layui-tab-title .layui-this:after{
+  border-bottom: 0;
+}
+.admin-header-user img{
+  width: 40px; height: 40px; border-radius: 100%; 
+}
+.admin-header-user .layui-nav-more{
+  top:33px;
+}
+.admin-header-user .layui-nav-mored{
+  top: 26px;
+}
+.ifm .layui-tab-item {
+  -webkit-overflow-scrolling: touch;  
+    overflow: auto;  
+}
+.ifm .layui-tab-item  iframe{ }
+
+/*table*/
+.site-table tbody tr td {text-align: center;}
+.site-table tbody tr td .layui-btn+.layui-btn{margin-left: 0px;}
+.admin-table-page {position: fixed;z-index: 19940201;bottom: 0;width: 100%;background-color: #eee;border-bottom: 1px solid #ddd;left: 0px;}
+.admin-table-page .page{padding-left:20px;}
+.admin-table-page .page .layui-laypage {margin: 6px 0 0 0;}
+
+/**/
+.admin-main {margin: 15px;}
+
+.admin-side-toggle,.admin-side-full{
+  position: absolute; cursor: pointer;
+    z-index: 19940201;
+    left: 200px;
+    color: white;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    background-color: #1AA094;
+    line-height: 30px;
+    top: 25%;
+}
+.admin-side-toggle:hover{
+  background-color: #5FB878;
+}
+.admin-side-full{
+  left: 240px;
+}
+.admin-login-box{
+  width: 185px; height: 70px; position: relative;
+}
+
+.beg-navbar .layui-nav-child dd a{
+  padding-left: 30px;
+}
+
+
+.admin-contextmenu{
+  position: absolute;line-height: 36px;padding: 5px 0;
+  border: 1px solid #d2d2d2;background-color: white;z-index: 19940201;border-radius: 2px;white-space: nowrap;top:30px;
+  /*width: 100px;height: 200px; */
+}
+.admin-contextmenu ul li{
+  padding: 0 15px;
+}
+.admin-contextmenu ul li:hover{
+  background-color: #eee;
+  cursor: pointer;
+}
+
+
+
+
+
