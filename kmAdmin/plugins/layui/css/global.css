@@ -20,6 +20,7 @@
   .site-tree-mobile i{font-size: 20px;}
 
   .layui-layout-admin .layui-side{position: fixed; top: 0; left: -260px; transition: all .3s; -webkit-transition: all .3s; z-index: 10000;}
+  .layui-header .admin-side-toggle{display: none;}
   .layui-body{position: static; bottom: 0; left: 0;}
   .site-mobile .layui-side{left: 0;}
 }

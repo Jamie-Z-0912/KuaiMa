@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+    <div class="admin-main">
+		<form class="layui-form" id="queryForm" action="">
+  			<div class="layui-form-item">
+				<div class="layui-inline">
+				    <label class="layui-form-label">开始时间</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
+					</div>
+				</div>
+				<div class="layui-inline">
+				    <label class="layui-form-label">结束时间</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
+					</div>
+				</div>
+			</div>
+  			<div class="layui-form-item">
+			  	<div class="layui-inline">
+				    <label class="layui-form-label">链接</label>
+				    <div class="layui-input-inline">
+    					<input type="text" name="url" class="layui-input">
+				    </div>
+			  	</div>
+			  	<div class="layui-inline">
+				    <label class="layui-form-label">来源</label>
+				    <div class="layui-input-inline">
+    					<input type="text" name="source" class="layui-input">
+				    </div>
+			  	</div>
+			</div>
+			<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+			<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
+		</form>
+		<table class="layui-table" lay-even="" lay-skin="row">
+			<colgroup>
+			    <col width="7.5%">
+			    <col>
+			    <col width="76">
+			    <col width="10%">
+			    <col width="9.6%">
+			    <col width="9.6%">
+			    <col width="7%">
+			    <col width="7%">
+			    <col width="9.6%">
+			    <col width="6.6%">
+			</colgroup>
+			<thead>
+			    <tr>
+					<th>关键词</th>
+					<th>链接</th>
+                    <th>投放平台</th>
+                    <th>来源</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>投放量</th>
+					<th>搜索量</th>
+					<th>添加时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><a href="#">开运礼包</a></td>
+                    <td>https://mm.37zone.com/pad/fopaizhwnlsytwxxl0721/</td>
+                    <td>DEFAULT</td>
+                    <td>佛牌</td>
+					<td>2017-07-01 19:31:18</td>
+					<td>2017-07-09 19:31:18</td>
+                    <td><span class="red">5000</span></td>
+					<td>1666</td>
+					<td>2017-05-09 19:31:18</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">上架</a>
+                        <span style="color:gray">已下架</span>
+                    </td>
+				</tr>
+				<tr>
+					<td><a href="#">楚乔传</a></td>
+                    <td>http://browser.kuaima.cn/tongji/5taskBanner1_3_0.html?url=http://buy.bianxianmao.com/common/awardModel/ggk.html?appKey=b41574a7527744269e3d09ec423c23b3&appType=app&appEntrance=4&business=money&i=__IMEI__&f=__IDFA__</td>
+                    <td>DEFAULT</td>
+                    <td>变现猫-任务tab banner</td>
+					<td>2017-07-01 19:31:18</td>
+					<td>2017-07-09 19:31:18</td>
+                    <td><span class="red">5000</span></td>
+					<td>0</td>
+					<td>2017-05-09 19:31:18</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<a class="js-operation" data-type="shelves" data-id="23" href="javascript:;">下架</a>
+                        <span class="green">已上架</span>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="page"></div>
+	</div>
+	
+	<!-- 表单 -->
+	<div id="formPane" style="display: none;padding: 10px;">
+		<form class="layui-form layui-form-pane1" action="">
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">搜索关键词</label>
+				<div class="layui-input-block">
+					<textarea name="msg" class="layui-textarea"></textarea>
+				</div>
+			</div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">关键词链接</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="url" class="layui-input">
+		      	</div>
+		    </div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">投放平台</label>
+			    <div class="layui-input-block">
+					<select name="platform" lay-verify="">
+						<option value="">DEFAULT</option>
+						<option value="ANDROID">ANDROID</option>
+						<option value="IPHONE">IPHONE</option>
+					</select>  
+			    </div>
+			</div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">来源</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="url" class="layui-input">
+		      	</div>
+		    </div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">投放数目</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="url" class="layui-input">
+		      	</div>
+		    </div>
+		    <div class="layui-form-item">
+			    <label class="layui-form-label">开始时间</label>
+			    <div class="layui-input-block">
+			      	 <input class="layui-input" name="startTime" id="startTime">
+			    </div>
+			</div>
+		    <div class="layui-form-item">
+			    <label class="layui-form-label">结束时间</label>
+			    <div class="layui-input-block">
+			      	 <input class="layui-input" name="endTime" id="endTime" />
+			    </div>
+			</div>
+			<div class="layui-form-item t-r" id="addBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
+		  	</div>
+			<div class="layui-form-item t-r" id="updateBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
+		  	</div>
+		  	<button type="reset" id="reset" class="layui-hide">重置</button>
+		</form>
+	</div> 
+
+<script src="../plugins/layui/layui.min.js"></script>
+<script>
+    layui.config({
+        base: '../js/page/',
+        version: new Date().getTime(),
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
+	.use('searchKeywords');
+</script>
+
+</body>
+</html>

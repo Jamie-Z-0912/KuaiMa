@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>快马-广告位开关</title>
-<meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="../src/css/layui.css"  media="all">
-<link rel="stylesheet" href="../src/css/global.css" media="all">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<div class="layui-header header" id="siteTop"></div>
-	<div class="layui-side layui-bg-black" id="side"> </div>
-	<div class="layui-body">
-		<div class="layui-main min_w_860">
+    <div class="admin-main">
   			<form class="layui-form" id="queryForm" action="">
 	  			<div class="layui-form-item">
 				  	<div class="layui-inline">
@@ -138,110 +128,105 @@
 			<div id="page"></div>
 		</div>
 	</div>
-</div>
 
-<div id="formPane" style="display: none;padding: 10px;">
-	<form class="layui-form">
-		<div class="layui-form-item">
-	    	<label class="layui-form-label">应用</label>
-	    	<div class="layui-input-block">
-				<select name="application" lay-verify="">
-					<option value="kmbrowser">kmbrowser</option>
-					<option value="kmnews">kmnews</option>
-				</select>  
-	    	</div>
-		</div>
-		<div class="layui-form-item">
-		    <label class="layui-form-label">广告位</label>
-		    <div class="layui-input-block">
-				<select name="location" >
-					<option value="timeline_first">推荐分类置顶</option>
-					<option value="common_cat_first">普通分类置顶</option>
-					<option value="all_cat_fifth">所有分类第五位</option>
-				</select>  
+	<div id="formPane" style="display: none;padding: 10px;">
+		<form class="layui-form">
+			<div class="layui-form-item">
+		    	<label class="layui-form-label">应用</label>
+		    	<div class="layui-input-block">
+					<select name="application" lay-verify="">
+						<option value="kmbrowser">kmbrowser</option>
+						<option value="kmnews">kmnews</option>
+					</select>  
+		    	</div>
+			</div>
+			<div class="layui-form-item">
+			    <label class="layui-form-label">广告位</label>
+			    <div class="layui-input-block">
+					<select name="location" >
+						<option value="timeline_first">推荐分类置顶</option>
+						<option value="common_cat_first">普通分类置顶</option>
+						<option value="all_cat_fifth">所有分类第五位</option>
+					</select>  
+			    </div>
+			</div>
+			<div class="layui-form-item">
+			    <label class="layui-form-label">设备平台</label>
+			    <div class="layui-input-block">
+					<select name="platform" lay-verify="">
+						<option value="IPHONE">IPHONE</option>
+						<option value="ANDROID">ANDROID</option>
+					</select>  
+			    </div>
+			</div>
+		  	<div class="layui-form-item">
+			    <label class="layui-form-label">版本</label>
+			    <div class="layui-input-block">
+					<select name="version" lay-verify="">
+						<option value="130">130</option>
+						<option value="140">140</option>
+						<option value="122">122</option>
+					</select>  
+			    </div>
+		  	</div>
+		  	<div class="layui-form-item">
+			    <label class="layui-form-label">支持布局</label>
+			    <div class="layui-input-block">
+					<select name="layout" lay-verify="">
+						<option value="左右图文">左右图文</option>
+						<option value="上下图文">上下图文</option>
+						<option value="上下三图">上下三图</option>
+					</select>  
+			    </div>
+		  	</div>
+		  	<div class="layui-form-item">
+			    <label class="layui-form-label">支持渠道</label>
+			    <div class="layui-input-block">
+					<select name="adsType" lay-verify="">
+						<option value="快马直投">快马直投</option>
+						<option value="百度SDK">百度SDK</option>
+						<option value="广点通SDK">广点通SDK</option>
+						<option value="快马广告系统api">快马广告系统api</option>
+						<option value="feed流大图广告">feed流大图广告</option>
+					</select>  
+			    </div>
+		  	</div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">第三方授权AppID</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="adAppId" autocomplete="off" class="layui-input">
+		      	</div>
 		    </div>
-		</div>
-		<div class="layui-form-item">
-		    <label class="layui-form-label">设备平台</label>
-		    <div class="layui-input-block">
-				<select name="platform" lay-verify="">
-					<option value="IPHONE">IPHONE</option>
-					<option value="ANDROID">ANDROID</option>
-				</select>  
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">第三方广告位ID</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="thirdLocationId" autocomplete="off" class="layui-input">
+		      	</div>
 		    </div>
-		</div>
-	  	<div class="layui-form-item">
-		    <label class="layui-form-label">版本</label>
-		    <div class="layui-input-block">
-				<select name="version" lay-verify="">
-					<option value="130">130</option>
-					<option value="140">140</option>
-					<option value="122">122</option>
-				</select>  
-		    </div>
-	  	</div>
-	  	<div class="layui-form-item">
-		    <label class="layui-form-label">支持布局</label>
-		    <div class="layui-input-block">
-				<select name="layout" lay-verify="">
-					<option value="左右图文">左右图文</option>
-					<option value="上下图文">上下图文</option>
-					<option value="上下三图">上下三图</option>
-				</select>  
-		    </div>
-	  	</div>
-	  	<div class="layui-form-item">
-		    <label class="layui-form-label">支持渠道</label>
-		    <div class="layui-input-block">
-				<select name="adsType" lay-verify="">
-					<option value="快马直投">快马直投</option>
-					<option value="百度SDK">百度SDK</option>
-					<option value="广点通SDK">广点通SDK</option>
-					<option value="快马广告系统api">快马广告系统api</option>
-					<option value="feed流大图广告">feed流大图广告</option>
-				</select>  
-		    </div>
-	  	</div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">第三方授权AppID</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="adAppId" autocomplete="off" class="layui-input">
-	      	</div>
-	    </div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">第三方广告位ID</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="thirdLocationId" autocomplete="off" class="layui-input">
-	      	</div>
-	    </div>
-		<div class="layui-form-item">
-		    <label class="layui-form-label">备注</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="remarks" placeholder="输入备注内容" class="layui-input">
-	      	</div>
-		</div>
-		<div class="layui-form-item" id="addBtn">
-	    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
-	  	</div>
-		<div class="layui-form-item" id="updateBtn">
-	    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
-	  	</div>
-	  	<button type="reset" id="reset" class="layui-hide">重置</button>
-	</form>
-</div>
-<!-- mobile side -->
-<div class="site-tree-mobile layui-hide">
-  <i class="layui-icon">&#xe602;</i>
-</div>
-<div class="site-mobile-shade"></div>
-<script src="../src/layui.js"></script>
+			<div class="layui-form-item">
+			    <label class="layui-form-label">备注</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="remarks" placeholder="输入备注内容" class="layui-input">
+		      	</div>
+			</div>
+			<div class="layui-form-item" id="addBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
+		  	</div>
+			<div class="layui-form-item" id="updateBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
+		  	</div>
+		  	<button type="reset" id="reset" class="layui-hide">重置</button>
+		</form>
+	</div>
+
+<script src="../plugins/layui/layui.min.js"></script>
 <script>
-	layui.config({
-		base: '../src/lay/page/', 
-		version: '20170724', //一般用于更新组件缓存.
-		debug: false 
-	})
-	.extend({'global': 'public/global'})
+    layui.config({
+        base: '../js/page/',
+        version: new Date().getTime(),
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
 	.use('adLocationConfig');
 </script>
 

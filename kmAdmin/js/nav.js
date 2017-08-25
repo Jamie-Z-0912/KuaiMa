@@ -26,25 +26,25 @@ var navs = [
 		"spread": true,
 		"children": [{
 			"title": "应用版本",
-			"href": "main.html"
+			"href": "../appVersion/list.html"
 		}, {
 			"title": "广告位",
-			"href": "main.html"
+			"href": "../adLocation/list.html"
 		}, {
 			"title": "广告位开关",
-			"href": "main.html"
+			"href": "../adLocationConfig/list.html"
 		}, {
 			"title": "广告管理",
-			"href": "main.html"
+			"href": "../ads/list.html"
 		}, {
 			"title": "弹窗管理",
-			"href": "main.html"
+			"href": "../popup/list.html"
 		}, {
 			"title": "系统通知",
-			"href": "main.html"
+			"href": "../systemMsg/list.html"
 		}, {
 			"title": "搜索补量",
-			"href": "main.html"
+			"href": "../searchKeyword/list.html"
 		}]
 	}, 
 	{

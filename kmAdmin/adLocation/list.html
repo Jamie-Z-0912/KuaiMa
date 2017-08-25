@@ -1,202 +1,186 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>快马-广告位列表</title>
-<meta name="renderer" content="webkit">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="format-detection" content="telephone=no">
-<link rel="stylesheet" href="../src/css/layui.css"  media="all">
-<link rel="stylesheet" href="../src/css/global.css" media="all">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
-<div class="layui-layout layui-layout-admin">
-	<div class="layui-header header" id="siteTop"></div>
-	<div class="layui-side layui-bg-black" id="side"> </div>
-	<div class="layui-body">
-		<div class="layui-main min_w_860">
-  			<form class="layui-form layui-inline" id="queryForm" action="">
-				<div class="layui-inline">
-					<select name="application" lay-verify="">
-						<option value="">请选择应用</option>
-						<option value="kmbrowser">kmbrowser</option>
-						<option value="kmnews">kmnews</option>
-					</select>  
-			    </div>
-				<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
-			</form>
-			<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
-			<table class="layui-table" lay-even="" lay-skin="row">
-				<colgroup>
-				    <col width="46">
-				    <col width="60">
-				    <col width="12%">
-				    <col width="96">
-				    <col width="60">
-				    <col width="10%">
-				    <col>
-				    <col width="10%">
-				    <col width="10%">
-				    <col width="12%">
-				</colgroup>
-				<thead>
-				    <tr>
-						<th>ID</th>
-						<th>应用</th>
-						<th>广告位</th>
-						<th>支持设备</th>
-						<th>支持版本</th>
-						<th>支持布局</th>
-						<th>支持渠道</th>
-						<th>添加时间</th>
-						<th>修改时间</th>
-						<th>操作</th>
-				    </tr> 
-				</thead>
-				<tbody>
-			    	<tr>
-						<td>1</td>
-						<td>kmbrowser</td>
-						<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">推荐分类置顶</a></td>
-						<td>ANDROID IPHONE</td>
-						<td>122 121 120</td>
-						<td>左右图文 单个大图</td>
-						<td>快马直投 百度SDK 广点通SDK 快马广告系统api</td>
-						<td>2017-06-20 12:00:00</td>
-						<td>2017-06-20 12:00:00</td>
-						<td class="option">
-							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-							<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
-							<a class="js-operation" data-type="onOff" data-id="23" href="javascript:;">广告开个</a>
-							<span>状态正常</span>
-						</td>
-			    	</tr>
-			    	<tr>
-						<td>1</td>
-						<td>默认</td>
-						<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">查看全文按钮下面</a></td>
-						<td>ANDROID IPHONE</td>
-						<td>>=122版本</td>
-						<td>左右图文 单个大图</td>
-						<td>快马直投</td>
-						<td>2017-06-20 12:00:00</td>
-						<td>2017-06-20 12:00:00</td>
-						<td class="option">
-							<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
-							<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
-							<a class="js-operation" data-id="23" href="javascript:;">广告开个</a>
-							<span>状态正常</span>
-						</td>
-			    	</tr>
-				</tbody>
-			</table>
-			<div id="page"></div>
-		</div>
-	</div>
-</div>
-<!-- 表单 -->
-<div id="formPane" style="display: none;padding: 10px;">
-	<form class="layui-form layui-form-pane1" action="">
-		<div class="layui-form-item">
-	    	<label class="layui-form-label">应用</label>
-	    	<div class="layui-input-block">
-				<select name="application">
+    <div class="admin-main">
+    	<form class="layui-form layui-inline" id="queryForm" action="">
+			<div class="layui-inline">
+				<select name="application" lay-verify="">
+					<option value="">请选择应用</option>
 					<option value="kmbrowser">kmbrowser</option>
 					<option value="kmnews">kmnews</option>
 				</select>  
-	    	</div>
-		</div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">广告位code</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="location" autocomplete="off" class="layui-input">
-	      	</div>
-	    </div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">广告位描述</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="desc" autocomplete="off" class="layui-input">
-	      	</div>
-	    </div>
-	    <div class="layui-form-item">
-	      	<label class="layui-form-label">图片</label>
-	      	<div class="layui-input-block layui-upimg">
-	        	<input type="file" name="file" class="layui-upload-file">
-	        	<img src="../tempimg/0.jpg" alt="">
-	      	</div>
+		    </div>
+			<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+			<a class="layui-btn js-operation" data-type="add"><i class="layui-icon">&#xe608;</i> 添加</a>
+		</form>
+		<table class="layui-table" lay-even="" lay-skin="row">
+			<colgroup>
+			    <col width="46">
+			    <col width="60">
+			    <col width="12%">
+			    <col width="96">
+			    <col width="60">
+			    <col width="10%">
+			    <col>
+			    <col width="10%">
+			    <col width="10%">
+			    <col width="12%">
+			</colgroup>
+			<thead>
+			    <tr>
+					<th>ID</th>
+					<th>应用</th>
+					<th>广告位</th>
+					<th>支持设备</th>
+					<th>支持版本</th>
+					<th>支持布局</th>
+					<th>支持渠道</th>
+					<th>添加时间</th>
+					<th>修改时间</th>
+					<th>操作</th>
+			    </tr> 
+			</thead>
+			<tbody>
+		    	<tr>
+					<td>1</td>
+					<td>kmbrowser</td>
+					<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">推荐分类置顶</a></td>
+					<td>ANDROID IPHONE</td>
+					<td>122 121 120</td>
+					<td>左右图文 单个大图</td>
+					<td>快马直投 百度SDK 广点通SDK 快马广告系统api</td>
+					<td>2017-06-20 12:00:00</td>
+					<td>2017-06-20 12:00:00</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
+						<a class="js-operation" data-type="onOff" data-id="23" href="javascript:;">广告开个</a>
+						<span>状态正常</span>
+					</td>
+		    	</tr>
+		    	<tr>
+					<td>1</td>
+					<td>默认</td>
+					<td class="ad_position" data-img="../tempimg/0.jpg"><a href="javascript:;" title="点击可查看图片">查看全文按钮下面</a></td>
+					<td>ANDROID IPHONE</td>
+					<td>>=122版本</td>
+					<td>左右图文 单个大图</td>
+					<td>快马直投</td>
+					<td>2017-06-20 12:00:00</td>
+					<td>2017-06-20 12:00:00</td>
+					<td class="option">
+						<a class="js-operation" data-type="edit" data-id="23" href="javascript:;">编辑</a>
+						<a class="js-operation" data-type="del" data-id="23" href="javascript:;">删除</a>
+						<a class="js-operation" data-id="23" href="javascript:;">广告开个</a>
+						<span>状态正常</span>
+					</td>
+		    	</tr>
+			</tbody>
+		</table>
+		<div id="page"></div>
+	</div>
+	<!-- 表单 -->
+	<div id="formPane" style="display: none;padding: 10px;">
+		<form class="layui-form layui-form-pane1" action="">
+			<div class="layui-form-item">
+		    	<label class="layui-form-label">应用</label>
+		    	<div class="layui-input-block">
+					<select name="application">
+						<option value="kmbrowser">kmbrowser</option>
+						<option value="kmnews">kmnews</option>
+					</select>  
+		    	</div>
+			</div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">广告位code</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="location" autocomplete="off" class="layui-input">
+		      	</div>
+		    </div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">广告位描述</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="desc" autocomplete="off" class="layui-input">
+		      	</div>
+		    </div>
+		    <div class="layui-form-item">
+		      	<label class="layui-form-label">图片</label>
+		      	<div class="layui-input-block layui-upimg">
+		        	<input type="file" name="file" class="layui-upload-file">
+		        	<img src="../tempimg/0.jpg" alt="">
+		      	</div>
 
-	    </div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">支持平台</label>
-		    <div class="layui-input-block">
-		      <input type="checkbox" title="ANDROID" value="ANDROID" lay-filter="platform" checked>
-		      <input type="checkbox" title="IPHONE" value="IPHONE" lay-filter="platform" checked>
 		    </div>
-		    <input type="hidden" name="platform" value="ANDROID,IPHONE">
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">支持版本</label>
-		    <div class="layui-input-block">
-		      <input type="checkbox" title="140" value="140" lay-filter="version" lay-skin="primary">
-		      <input type="checkbox" title="130" value="130" lay-filter="version" lay-skin="primary">
-		      <input type="checkbox" title="123" value="123" lay-filter="version" lay-skin="primary">
-		      <input type="checkbox" title="122" value="122" lay-filter="version" lay-skin="primary">
-		    </div>
-		    <input type="hidden" name="version">
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">支持布局</label>
-		    <div class="layui-input-block">
-		      <input type="checkbox" title="左右图文" value="左右图文" lay-filter="layout" lay-skin="primary">
-		      <input type="checkbox" title="上下图文" value="上下图文" lay-filter="layout" lay-skin="primary">
-		      <input type="checkbox" title="上下三图" value="上下三图" lay-filter="layout" lay-skin="primary">
-		      <input type="checkbox" title="单个大图" value="单个大图" lay-filter="layout" lay-skin="primary">
-		      <input type="checkbox" title="无图" value="无图" lay-filter="layout" lay-skin="primary">
-		    </div>
-		    <input type="hidden" name="layout">
-		</div>
-		<div class="layui-form-item" pane>
-		    <label class="layui-form-label">支持渠道</label>
-		    <div class="layui-input-block">
-		      <input type="checkbox" title="快马直投" value="快马直投" lay-filter="adsType" lay-skin="primary">
-		      <input type="checkbox" title="百度SDK" value="百度SDK" lay-filter="adsType" lay-skin="primary">
-		      <input type="checkbox" title="广点通SDK" value="广点通SDK" lay-filter="adsType" lay-skin="primary">
-		      <input type="checkbox" title="快马广告系统api" value="快马广告系统api" lay-filter="adsType" lay-skin="primary">
-		      <input type="checkbox" title="feed流大图广告" value="feed流大图广告" lay-filter="adsType" lay-skin="primary">
-		    </div>
-		    <input type="hidden" name="adsType">
-		</div>
-		<div class="layui-form-item">
-		    <label class="layui-form-label">备注</label>
-	      	<div class="layui-input-block">
-	        	<input type="text" name="remarks" placeholder="输入备注内容" class="layui-input">
-	      	</div>
-		</div>
-		<div class="layui-form-item t-r" id="addBtn">
-	    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
-	  	</div>
-		<div class="layui-form-item t-r" id="updateBtn">
-	    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
-	  	</div>
-	  	<button type="reset" id="reset" class="layui-hide">重置</button>
-	</form>
-</div>
-<!-- mobile side -->
-<div class="site-tree-mobile layui-hide">
-  <i class="layui-icon">&#xe602;</i>
-</div>
-<div class="site-mobile-shade"></div>
-<script src="../src/layui.js"></script>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">支持平台</label>
+			    <div class="layui-input-block">
+			      <input type="checkbox" title="ANDROID" value="ANDROID" lay-filter="platform" checked>
+			      <input type="checkbox" title="IPHONE" value="IPHONE" lay-filter="platform" checked>
+			    </div>
+			    <input type="hidden" name="platform" value="ANDROID,IPHONE">
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">支持版本</label>
+			    <div class="layui-input-block">
+			      <input type="checkbox" title="140" value="140" lay-filter="version" lay-skin="primary">
+			      <input type="checkbox" title="130" value="130" lay-filter="version" lay-skin="primary">
+			      <input type="checkbox" title="123" value="123" lay-filter="version" lay-skin="primary">
+			      <input type="checkbox" title="122" value="122" lay-filter="version" lay-skin="primary">
+			    </div>
+			    <input type="hidden" name="version">
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">支持布局</label>
+			    <div class="layui-input-block">
+			      <input type="checkbox" title="左右图文" value="左右图文" lay-filter="layout" lay-skin="primary">
+			      <input type="checkbox" title="上下图文" value="上下图文" lay-filter="layout" lay-skin="primary">
+			      <input type="checkbox" title="上下三图" value="上下三图" lay-filter="layout" lay-skin="primary">
+			      <input type="checkbox" title="单个大图" value="单个大图" lay-filter="layout" lay-skin="primary">
+			      <input type="checkbox" title="无图" value="无图" lay-filter="layout" lay-skin="primary">
+			    </div>
+			    <input type="hidden" name="layout">
+			</div>
+			<div class="layui-form-item" pane>
+			    <label class="layui-form-label">支持渠道</label>
+			    <div class="layui-input-block">
+			      <input type="checkbox" title="快马直投" value="快马直投" lay-filter="adsType" lay-skin="primary">
+			      <input type="checkbox" title="百度SDK" value="百度SDK" lay-filter="adsType" lay-skin="primary">
+			      <input type="checkbox" title="广点通SDK" value="广点通SDK" lay-filter="adsType" lay-skin="primary">
+			      <input type="checkbox" title="快马广告系统api" value="快马广告系统api" lay-filter="adsType" lay-skin="primary">
+			      <input type="checkbox" title="feed流大图广告" value="feed流大图广告" lay-filter="adsType" lay-skin="primary">
+			    </div>
+			    <input type="hidden" name="adsType">
+			</div>
+			<div class="layui-form-item">
+			    <label class="layui-form-label">备注</label>
+		      	<div class="layui-input-block">
+		        	<input type="text" name="remarks" placeholder="输入备注内容" class="layui-input">
+		      	</div>
+			</div>
+			<div class="layui-form-item t-r" id="addBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
+		  	</div>
+			<div class="layui-form-item t-r" id="updateBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="update">修改</div>
+		  	</div>
+		  	<button type="reset" id="reset" class="layui-hide">重置</button>
+		</form>
+	</div>
+	  
+<script src="../plugins/layui/layui.min.js"></script>
 <script>
-	layui.config({
-		base: '../src/lay/page/', 
-		version: '20170724', //一般用于更新组件缓存.
-		debug: false 
-	})
-	.extend({'global': 'public/global'})
+    layui.config({
+        base: '../js/page/',
+        version: new Date().getTime(),
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
 	.use('adLocation');
 </script>
 

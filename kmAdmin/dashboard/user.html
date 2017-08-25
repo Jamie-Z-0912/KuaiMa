@@ -94,11 +94,11 @@
         <div id="page"></div>
     </div>
 
-<script src="../src/layui.js"></script>
+<script src="../plugins/layui/layui.min.js"></script>
 <script>
     layui.config({
-        base: '../src/lay/page/', 
-        version: '20170724', //一般用于更新组件缓存.
+        base: '../js/page/',
+        version: new Date().getTime(),
         debug: false 
     })
     .extend({'global': 'public/global'})

@@ -167,7 +167,7 @@ a cite{font-style: normal; *cursor:pointer;}
 
 .layui-form-item{margin-bottom: 15px; clear: both; *zoom: 1;}
 .layui-form-item:after{content:'\20'; clear: both; *zoom: 1; display: block; height:0;}
-.layui-form-label{position: relative; float: left; display: block; padding: 9px 15px;  width: 80px; font-weight:normal;line-height: 20px; text-align: right;}
+.layui-form-label{position: relative; float: left; display: block; padding: 9px 0;  width: 90px; font-weight:normal;line-height: 20px; text-align: right;}
 .layui-form-item .layui-inline{margin-bottom: 5px; margin-right: 10px;}
 .layui-input-block, .layui-input-inline{position: relative;}
 .layui-input-block{margin-left: 110px; min-height: 36px;}
@@ -290,8 +290,8 @@ a cite{font-style: normal; *cursor:pointer;}
 .layui-table thead tr{background-color: #f2f2f2;}
 .layui-table th{text-align: left;}
 .layui-table th, .layui-table td{padding: 5px; min-height: 20px; line-height: 20px; border: 1px solid #e2e2e2; font-size: 13px;}
-.layui-table[lay-even] tr:nth-child(even),
-.layui-table tr:hover{background-color: #f8f8f8;}
+.layui-table[lay-even] tr:nth-child(even){background-color: #f5f5f5;}
+.layui-table[lay-even] tbody tr:hover{background-color: #e0f1f1;}
 
 .layui-table[lay-skin="line"], .layui-table[lay-skin="row"]{border: 1px solid #e2e2e2;}
 .layui-table[lay-skin="line"] th, .layui-table[lay-skin="line"] td{border: none; border-bottom: 1px solid #e2e2e2}

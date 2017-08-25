@@ -12,7 +12,7 @@
 .ad_position_show{ width: 200px;}
 .layui-layout-admin .layui-table tr:hover{background-color: #eeeeee;}
 .layui-table th, .layui-table td{ word-break: break-all;}
-.layui-table .td-img img{display: block; width: 100%; margin-bottom: 10px;}
+.layui-table .td-img img{display: block; width: 100%; margin-bottom: 2px;}
 .layui-table .option *{display: block;line-height: 1.2;padding: 4px 0;}
 .layui-table .option .hide{ display: none;}
 .layui-table .option span{ color: #FF5722; font-size: 14px;}
