@@ -54,7 +54,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             $("#hbB").animate({
                 transform: "translateY(600px)"
             }, 800, "swing");
-            $('input[name="fu"]').val(Tools.uid());
+            $('input[name="fu"]').val(Tools.uid() == "null" ? 0 : Tools.uid());
             $('input[name="channel"]').val(Tools.getQueryValue("channel"));
             var code = Tools.getQueryValue("code");
             var code_ = location.href.split(code)[1];
@@ -110,6 +110,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             if (gv == gvCode) {
                 that.attr("disabled", "disabled");
                 that.parent().next().show();
+                $("#yuyin").css("display", "block");
                 return;
             } else {
                 that.val("");
@@ -118,8 +119,9 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
         }
     });
     seajs.use("./scripts/lib/jquery.base64", function() {
-        $("#repeatSend").on("click", function() {
+        $("#repeatSend,#yuyin").on("click", function() {
             var phone = $('input[name="phone"]').val();
+            var type = $(this).data("type");
             if (phone.isEmpty()) {
                 Tools.alertDialog({
                     text: "手机号不能为空"
@@ -133,6 +135,10 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
                 return;
             }
             if (!$(this).hasClass("disabled")) {
+                $("#yuyin").addClass("disabled");
+                setTimeout(function() {
+                    $("#yuyin").removeClass("disabled");
+                }, 6e4);
                 Ajax.custom({
                     url: "api/v1/account/exists",
                     data: {
@@ -151,7 +157,8 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
                         Cookie.set("_KKMMMMMCMMM", Ajax.formatDate(new Date().getTime(), "yyyyMMdd"));
                         submit.sendSms($("#repeatSend"), {
                             phone: base64.encode(phone),
-                            useto: "register"
+                            useto: "register",
+                            type: type
                         });
                     }
                 });

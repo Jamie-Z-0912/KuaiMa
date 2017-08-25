@@ -548,6 +548,11 @@ body.move {
 .invite-form .item input::-webkit-input-placeholder {
   color: #1f1f1f;
 }
+.invite-form #yuyin {
+  color: red;
+  display: none;
+  padding: .1rem;
+}
 .invite-form #gvCode {
   display: inline-block;
   height: 100%;
@@ -579,7 +584,7 @@ body.move {
   padding: 0 .15rem;
 }
 .invite-form .option {
-  padding-top: .3rem;
+  padding-top: .22rem;
 }
 .invite-form .option .submit {
   background-color: transparent;

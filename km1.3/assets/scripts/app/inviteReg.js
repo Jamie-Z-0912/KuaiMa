@@ -43,7 +43,7 @@ define('app/inviteReg', function(require, exports, module) {
             $('#hbT').animate({'transform': 'translateY(-600px)'},800,'swing');
             $('#hbB').animate({'transform': 'translateY(600px)'},800,'swing');
             /*二层页面加载*/
-            $('input[name="fu"]').val(Tools.uid());
+            $('input[name="fu"]').val(Tools.uid()=='null'?0:Tools.uid());
             $('input[name="channel"]').val(Tools.getQueryValue('channel'));
             var code = Tools.getQueryValue('code');
             var code_ = location.href.split(code)[1];
@@ -103,6 +103,7 @@ define('app/inviteReg', function(require, exports, module) {
             if(gv==gvCode){
                 that.attr('disabled','disabled');
                 that.parent().next().show();
+                $('#yuyin').css('display','block');
                 return;
             }else{
                 that.val('');
@@ -112,8 +113,9 @@ define('app/inviteReg', function(require, exports, module) {
     });
     /***********/
     seajs.use('./scripts/lib/jquery.base64', function(){
-        $('#repeatSend').on('click', function(){
+        $('#repeatSend,#yuyin').on('click', function(){
             var phone = $('input[name="phone"]').val();
+            var type = $(this).data('type');
             if(phone.isEmpty()){
                 Tools.alertDialog({ text: "手机号不能为空" });
                 return;
@@ -123,6 +125,10 @@ define('app/inviteReg', function(require, exports, module) {
                 return;
             }
             if(!$(this).hasClass('disabled')){
+                $('#yuyin').addClass('disabled');
+                setTimeout(function(){
+                    $('#yuyin').removeClass('disabled');
+                }, 60000);
                 Ajax.custom({
                     url: 'api/v1/account/exists',
                     data: { phone: phone }
@@ -139,7 +145,8 @@ define('app/inviteReg', function(require, exports, module) {
                         Cookie.set('_KKMMMMMCMMM',Ajax.formatDate(new Date().getTime(),'yyyyMMdd'));
                         submit.sendSms($('#repeatSend'),{
                             phone: base64.encode(phone),
-                            useto: 'register'
+                            useto: 'register',
+                            type: type
                         });
                     }
                 });
