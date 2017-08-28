@@ -14,9 +14,16 @@ define('app/invite', function(require, exports, module) {
         mast = Tools.auth_token();
         $('#shareBtn1').show();
     }
-    if(!km.isKM || mast =='null'){
+    if(!km.isKM){
         Tools.alertDialog({
-            text:'请在快马小报中正常登录后访问！<br>快马浏览器在1.3.2版本开始<br>更名为快马小报',
+            text:'请在快马小报中打开！<br>'+km.userAgent,
+            time: 9999999
+        })
+        return;
+    }
+    if(mast=='null'){
+        Tools.alertDialog({
+            text:'请在快马小报登录访问<br>'+(location.search==""?location.href:location.search),
             time: 9999999
         })
         return;
