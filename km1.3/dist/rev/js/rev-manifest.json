@@ -3,7 +3,7 @@
   "app/about.js": "app/about-16b1d4a856.js",
   "app/bind.js": "app/bind-d64d630ecb.js",
   "app/hotSearch.js": "app/hotSearch-a3acede4ca.js",
-  "app/invite.js": "app/invite-8c3e94f275.js",
+  "app/invite.js": "app/invite-5551fe098d.js",
   "app/inviteReg.js": "app/inviteReg-e59e568d4b.js",
   "app/list.js": "app/list-0a986008b0.js",
   "app/message.js": "app/message-094e814ec7.js",
@@ -25,5 +25,6 @@
   "app/startgather.js": "app/startgather-28e416f1dc.js",
   "app/static_adList.js": "app/static_adList-29277ab6af.js",
   "app/static_goodArticle.js": "app/static_goodArticle-fa473de2ab.js",
-  "app/taskCenter.js": "app/taskCenter-54f25228eb.js"
+  "app/static_qmInvite.js": "app/static_qmInvite-568dd763b0.js",
+  "app/taskCenter.js": "app/taskCenter-655e199061.js"
 }
