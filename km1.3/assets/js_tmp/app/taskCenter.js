@@ -407,12 +407,8 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
                     });
                     $("#" + nor_sign_ad.id + " .ad a").on("click", function() {
                         $("#" + nor_sign_ad.id).remove();
+                        $(".pop-mask").remove();
                     });
-                    var iframe = document.createElement("iframe");
-                    iframe.src = "kmb://refreshgold";
-                    iframe.style.display = "none";
-                    $("body").append(iframe);
-                    $(iframe).remove();
                 }
                 if (data.status == 9001) {
                     Storage.set("hasCheckin", 1, true);

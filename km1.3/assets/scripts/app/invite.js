@@ -5,6 +5,13 @@ define('app/invite', function(require, exports, module) {
     var km =  require('../plugs/version.js');
     require('../plugs/swiper-2.7.min.js');
     require('../plugs/cookieStorage.js');
+    var km_error = location.href;
+    $('#kmError').on('click', function(){
+        Tools.alertDialog({
+            text:'<span style="display:block;width:99%;word-wrap: break-word;">'+location.href+'</span>',
+            time: '0'
+        })
+    })
 
     var mast, myurl = 'http://share.51xiaoli.cn/inviteReg.html';
     if(km.less('1.3.2')){
@@ -17,13 +24,6 @@ define('app/invite', function(require, exports, module) {
     if(!km.isKM){
         Tools.alertDialog({
             text:'请在快马小报中打开！<br>'+km.userAgent,
-            time: 9999999
-        })
-        return;
-    }
-    if(mast=='null'){
-        Tools.alertDialog({
-            text:'请在快马小报登录访问<br>'+(location.search==""?location.href:location.search),
             time: 9999999
         })
         return;
