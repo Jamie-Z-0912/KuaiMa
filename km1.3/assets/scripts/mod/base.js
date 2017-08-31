@@ -38,7 +38,7 @@ define(function(require, exports, module) {
             });
             return;
         }
-        if(/1001|1002|1003|1004|1008|1009|1013|1015/.test(data.status)){
+        if(/1001|1002|1003|1004|1008|1009|1015/.test(data.status)){
             opt = { title: "提醒", text: data.desc };
         }else if(/1006|1007/.test(data.status)){
             var n = 5;

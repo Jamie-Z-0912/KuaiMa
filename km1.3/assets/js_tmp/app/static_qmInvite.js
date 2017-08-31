@@ -138,6 +138,14 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
             activityId: 3
         }
     }, function(data) {
+        if (data.status == 1013) {
+            Tools.alertDialog({
+                title: "提醒",
+                text: "收徒异常，请联系客服！<br>客服QQ：251843709",
+                time: "999999999"
+            });
+            return;
+        }
         var d = data.data;
         var desc_arr = d.activity.desc.split(";"), desc = "";
         for (var i = 0; i < desc_arr.length; i++) {
@@ -241,7 +249,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
             });
             return;
         }
-        if (/1001|1002|1003|1004|1008|1009|1013|1015/.test(data.status)) {
+        if (/1001|1002|1003|1004|1008|1009|1015/.test(data.status)) {
             opt = {
                 title: "提醒",
                 text: data.desc

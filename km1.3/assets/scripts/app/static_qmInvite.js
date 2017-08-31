@@ -142,6 +142,14 @@ define('app/static_qmInvite', function(require, exports, module) {
         	activityId:3
         }
     }, function(data){
+    	if(data.status==1013){
+    		Tools.alertDialog({
+    			title:'提醒',
+    			text:'收徒异常，请联系客服！<br>客服QQ：251843709',
+    			time:'999999999'
+    		})
+    		return;
+    	}
     	var d = data.data;
    //  	console.log(d);
    //  	d = {

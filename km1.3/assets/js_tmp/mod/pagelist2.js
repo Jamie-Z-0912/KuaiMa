@@ -112,7 +112,7 @@ define("mod/pagelist2", [ "./base", "../plugs/laypage" ], function(require, expo
             });
             return;
         }
-        if (/1001|1002|1003|1004|1008|1009|1013|1015/.test(data.status)) {
+        if (/1001|1002|1003|1004|1008|1009|1015/.test(data.status)) {
             opt = {
                 title: "提醒",
                 text: data.desc
