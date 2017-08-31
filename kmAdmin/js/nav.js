@@ -53,16 +53,16 @@ var navs = [
 		"spread": true,
 		"children": [{
 			"title": "分类管理",
-			"href": "main.html"
+			"href": "../category/list.html"
 		}, {
 			"title": "文章管理",
-			"href": "main.html"
+			"href": "../article/list.html?categoryId=0"
 		}, {
 			"title": "文章抓取",
-			"href": "main.html"
+			"href": "../article/fetch.html"
 		}, {
 			"title": "文章排行榜",
-			"href": "main.html"
+			"href": "../article/toplist.html?categoryId=0"
 		}]
 	},
 	{

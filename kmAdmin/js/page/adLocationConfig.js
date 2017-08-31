@@ -20,13 +20,18 @@ layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
     
     /* 增加和操作处的点击 s */
     var operation = {
+    	con_size: {
+    		h:(innerHeight-60)+'px',
+    		w:innerWidth<480?(innerWidth-20)+'px':'480px'
+    	},
     	add: function() {
-    		$('#updateBtn').remove();
+    		var size = operation.con_size;
+    		$('#updateBtn').hide();
 			layer.open({
 				title:'添加',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['390px', '616px'], 
+				area: [ size.w, size.h], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()
@@ -34,12 +39,13 @@ layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
 			});
     	},
     	edit: function() {
-    		$('#addBtn').remove();
+    		var size = operation.con_size;
+    		$('#addBtn').hide();
 			layer.open({
 				title:'修改',
 				type: 1,
 				skin: 'layui-layer-rim', 
-				area: ['390px', '616px'], 
+				area: [ size.w, size.h], 
 				content: $('#formPane'),
 				cancel: function(){ 
 					$('#reset').click()
