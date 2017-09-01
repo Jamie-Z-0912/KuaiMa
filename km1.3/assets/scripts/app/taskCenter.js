@@ -492,7 +492,7 @@ define('app/taskCenter', function(require, exports, module) {
 	$('#readA').on('click', function(){
 		window.location = 'kmb://main';
 	});
-	$('#inviteF').on('click', function(){
+	$('#inviteF,#inviteFri').on('click', function(){
 		window.location = 'kmb://invite';
 	});
 	$('#shareA').on('click', function(){

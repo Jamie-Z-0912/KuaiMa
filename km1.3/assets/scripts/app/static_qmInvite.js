@@ -222,10 +222,19 @@ define('app/static_qmInvite', function(require, exports, module) {
 					$('body').append(arr.join(''));
 					$('#success').height($('#success .box').height());
 	    		}else{
-	    			Tools.alertDialog({
-	    				title: '报名失败',
-	    				text: d.desc
-	    			});
+			    	if(data.status==1013){
+			    		Tools.alertDialog({
+			    			title:'报名失败',
+			    			text:'收徒异常，请联系客服！<br>客服QQ：251843709',
+			    			time:'999999999'
+			    		})
+			    		return;
+			    	}else{
+		    			Tools.alertDialog({
+		    				title: '报名失败',
+		    				text: d.desc
+		    			});
+			    	}
 	    		}
 	    	})
     	}

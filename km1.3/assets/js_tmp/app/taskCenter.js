@@ -423,7 +423,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
     $("#readA").on("click", function() {
         window.location = "kmb://main";
     });
-    $("#inviteF").on("click", function() {
+    $("#inviteF,#inviteFri").on("click", function() {
         window.location = "kmb://invite";
     });
     $("#shareA").on("click", function() {
