@@ -1,0 +1,197 @@
+@import "reset.less";
+@import "libs/swiper.less";
+.ui-wrap{
+    .max-w-750;
+    background: url(../image/invite_bg.png) no-repeat top;
+    background-size: 100%;
+}
+.nav{
+    text-align: center;
+    font-size: 0;
+    ul{
+        display: inline-block;
+        border-radius: 4px;
+        overflow: hidden;
+        .border(1px, @c_title);
+        margin: .16rem auto;
+        display: inline-block;
+    }
+    li{
+        float: left;
+        width: .8rem;
+        .lineH(.36rem);
+        text-align: center;
+        font-size: @size_t4;
+        .border-l(1px, @c_title);
+        &:first-child{ border-left: 0 none;}
+        &.active{
+            background-color: @c_title;
+            color: #fff;
+        }
+    }
+}
+.content{
+    .dz{
+        position: relative;
+        text-align: center;
+        line-height: 1; 
+        .bg{
+            display: block;
+            width: 100%;
+        }
+        .photo{
+            width: 0.72rem;
+            height: 0.72rem;
+            .border(.04rem, #fff);
+            position: absolute;
+            left: 50%;
+            margin-left: -0.4rem;
+            top: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            background: url(../image/news_icon.png) bottom left no-repeat;
+            background-size: 100%;
+            img{ display: block; width: 100%; height: 100%;}
+        }
+        .box{
+            position: absolute;
+            top: 0.76rem;
+            width: 100%;
+            .tel{
+                color: @c_title; 
+                font-size: @size_t4;
+                margin-top: .1rem;
+                &:after{
+                    width: .32rem;
+                    height: 4px;
+                    content: "";
+                    display: block;
+                    margin: 6px auto 0;
+                    background-color: @c_border;
+                }
+            }
+            .ljsy{
+                position: relative;
+                font-family: "PingFangSC Semibold";
+                color: @c_title; 
+                font-size: @size_t3;
+                margin-top: .25rem;
+                &:before, &:after{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    height: 1px;
+                    width: .56rem;
+                    background-color: @c_border;
+                    top: 50%;
+                    left: 50%;
+                }
+                &:before{
+                    margin-left: -5.6em;;
+                } 
+                &:after{
+                    margin-left: 2.5em;
+                }
+            }
+            .income_num{
+                font-family: "AvenirNextCondensed DemiBold";
+                color: #fa3719;
+                font-size: 40px;
+                margin-top: .2rem;
+                font-weight: 600;
+                &:after{
+                    content: '￥';
+                    display: inline-block;
+                    vertical-align: top;
+                    color: @c_sub;
+                    font-size: .11rem;
+                }
+            }
+            .logo_qr{
+                width: 2rem;
+                margin: .3rem auto 0;
+                img{width: 100%;}
+            }
+        }
+    }
+    .guize{
+        font-size: @size_t2;
+        color: @c_title;
+        text-align: center;
+        margin-top: .4rem;
+        .lineH(.26rem);
+        span{ 
+            display: inline-block; 
+            background-color: #ffc524;
+            color: #fff;
+            border-radius: 50%;
+            width: .26rem;
+            height: .26rem;
+            margin-left: .04rem;
+        }
+    }
+    .ui-btn{
+        .lineH(.52rem);
+        width: 2.94rem;
+        margin-top: .45rem;
+        margin-bottom: .25rem;
+    }
+    .gexing{
+        position: relative;
+        width: 70.4%;
+        margin: 0 auto;
+        padding-top: .15rem;
+        padding-bottom: .26rem;
+        .swiper-wrapper{width: 100%; overflow: hidden;}
+        img{
+            display: block;
+            width: 100%;
+        }
+        .pagination{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            span{
+                display: inline-block;
+                width: .16rem;
+                height: .04rem;
+                margin: 0 .04rem;
+                background-color: #ebebeb;
+                &.swiper-active-switch{
+                    background-color: #ff9100;
+                }
+            }
+        }
+    }
+
+    .qr{
+        line-height: 1;
+        text-align: center;
+        width: 100%;
+        padding-top: .3rem;
+        .img_box{
+            width: 2rem;
+            height: 2rem;
+            padding: .2rem;
+            overflow: hidden;
+            border-radius: .1rem;
+            background-color: #fff;
+            margin: 0 auto;
+            img{width: 100%; display: block;}
+        }
+        .logoname{
+            font-family: "PingFangSC Semibold";
+            font-size: .24rem;
+            color: @c_title;
+            margin-top: .18rem;
+        }
+        .logosub{
+            font-size: @size_t3;
+            color: @c_sub;
+            margin-top: .13rem;
+        }
+    }
+}
+@import "libs/tipsAd.less";
