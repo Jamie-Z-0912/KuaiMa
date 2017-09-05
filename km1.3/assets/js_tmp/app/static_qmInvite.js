@@ -101,15 +101,19 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
     function gameOver(d, jiangli) {
         $("#tudi").text(d);
         var rmb, find = true;
-        for (var i = 0; i < jiangli.length; i++) {
-            if (find) for (var j = 0; j < 2; j++) {
-                if (d < jiangli[i][0]) {
-                    rmb = jiangli[i - 1][1];
-                    find = false;
-                }
-                if (d == jiangli[i][0]) {
-                    rmb = jiangli[i][1];
-                    find = false;
+        if (d == 0) {
+            rmb = 0;
+        } else {
+            for (var i = 0; i < jiangli.length; i++) {
+                if (find) for (var j = 0; j < 2; j++) {
+                    if (d < jiangli[i][0]) {
+                        rmb = i < 1 ? 0 : jiangli[i - 1][1];
+                        find = false;
+                    }
+                    if (d == jiangli[i][0]) {
+                        rmb = jiangli[i][1];
+                        find = false;
+                    }
                 }
             }
         }
@@ -138,40 +142,53 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
             activityId: 3
         }
     }, function(data) {
-        if (data.status == 1013) {
-            Tools.alertDialog({
-                title: "提醒",
-                text: "收徒异常，请联系客服！<br>客服QQ：251843709",
-                time: "999999999"
-            });
-            return;
-        }
-        var d = data.data;
-        var desc_arr = d.activity.desc.split(";"), desc = "";
-        for (var i = 0; i < desc_arr.length; i++) {
-            desc += "<li>" + desc_arr[i] + "</li>";
-        }
-        $(".rule ol").html(desc);
-        var _d = d.activity.rule, d_arr = _d.split(";"), jiangli_arr = [];
-        rewardTable(d_arr);
-        for (var i = 0; i < d_arr.length; i++) {
-            var dd = d_arr[i].split(":");
-            if (dd.length == 2) {
-                jiangli_arr.push(dd);
+        if (data.status == 1e3) {
+            var d = data.data;
+            var desc_arr = d.activity.desc.split(";"), desc = "";
+            for (var i = 0; i < desc_arr.length; i++) {
+                desc += "<li>" + desc_arr[i] + "</li>";
             }
-        }
-        if (d.isJoin) {
-            if (d.isEnd) {
-                gameOver(d.validSonNum, jiangli_arr);
+            $(".rule ol").html(desc);
+            var _d = d.activity.rule, d_arr = _d.split(";"), jiangli_arr = [];
+            rewardTable(d_arr);
+            for (var i = 0; i < d_arr.length; i++) {
+                var dd = d_arr[i].split(":");
+                if (dd.length == 2) {
+                    jiangli_arr.push(dd);
+                }
+            }
+            if (d.isJoin) {
+                if (d.isEnd) {
+                    gameOver(d.validSonNum, jiangli_arr);
+                } else {
+                    gameing(d.leftSeconds, d.validSonNum, jiangli_arr);
+                }
+                $("#yuRe").remove();
             } else {
-                gameing(d.leftSeconds, d.validSonNum, jiangli_arr);
+                if (d.isEnd) {
+                    gameOver(0, jiangli_arr);
+                } else {
+                    if (!d.isStart) {
+                        $("#baoMing").addClass("gray").find("a").text("活动即将开始");
+                    }
+                    $("#yuRe").removeClass("hide");
+                }
             }
-            $("#yuRe").remove();
         } else {
-            if (!d.isStart) {
-                $("#baoMing").addClass("gray").find("a").text("活动即将开始");
+            if (data.status == 1013) {
+                Tools.alertDialog({
+                    title: "提醒",
+                    text: "收徒异常，请联系客服！<br>客服QQ：251843709",
+                    time: "999999999"
+                });
+                return;
+            } else {
+                Tools.alertDialog({
+                    title: "提醒",
+                    text: data.desc,
+                    time: "0"
+                });
             }
-            $("#yuRe").removeClass("hide");
         }
     });
     $("#toFriend").on("click", function() {

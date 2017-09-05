@@ -103,19 +103,23 @@ define('app/static_qmInvite', function(require, exports, module) {
 	function gameOver(d,jiangli){
 		$('#tudi').text(d);
 		var rmb, find = true;
-    	for (var i = 0; i < jiangli.length; i++) {
-    		if(find)
-	    		for (var j = 0; j < 2; j++) {
-	    			if(d < jiangli[i][0]){
-	    				rmb = jiangli[i-1][1];
-	    				find = false;
-	    			}
-	    			if(d == jiangli[i][0]){
-	    				rmb = jiangli[i][1];
-	    				find = false;
-	    			}
-	    		};
-    	};
+		if(d==0){
+			rmb = 0;
+		}else{
+	    	for (var i = 0; i < jiangli.length; i++) {
+	    		if(find)
+		    		for (var j = 0; j < 2; j++) {
+		    			if(d < jiangli[i][0]){
+		    				rmb = i<1?0:jiangli[i-1][1];
+		    				find = false;
+		    			}
+		    			if(d == jiangli[i][0]){
+		    				rmb = jiangli[i][1];
+		    				find = false;
+		    			}
+		    		};
+	    	};
+		}
     	$('#rmb').text(rmb);
 		$('#over').removeClass('hide'); //活动结束
 		$('#activity').remove();
@@ -142,60 +146,55 @@ define('app/static_qmInvite', function(require, exports, module) {
         	activityId:3
         }
     }, function(data){
-    	if(data.status==1013){
-    		Tools.alertDialog({
-    			title:'提醒',
-    			text:'收徒异常，请联系客服！<br>客服QQ：251843709',
-    			time:'999999999'
-    		})
-    		return;
-    	}
-    	var d = data.data;
-   //  	console.log(d);
-   //  	d = {
-   //  		isJoin: true,
-   //  		validSonNum: 1,
-			// activity: {
-			// 	id: 3,
-			// 	name: "全民收徒",
-			// 	image: "",
-			// 	desc: "以活动期间内收取有效徒弟为准，多收多得;活动有效徒弟需要重新定义，有效徒弟为：领取任务后，所收取徒弟连续进贡3天以上即为有效徒弟;暂定奖励对照表如下：（收取有效徒弟数与奖励之间的比例及梯度可调整）",
-			// 	act_type: 2,
-			// 	rule: "2:2;5:10;10:30;15:60;20:100;30:180;60:420;100:800;300:3000;500:5000;1000:13000;2000:36000;",
-			// 	start_time: 1503936000000,
-			// 	end_time: 1504454340000
-			// },
-			// leftSeconds: 968963,
-			// isEnd: false,
-			// isStart: true
-   //  	}
-    	/* 描述 */
-    	var desc_arr =  d.activity.desc.split(';'), desc='';
-    	for (var i = 0; i < desc_arr.length; i++) {
-    		desc += '<li>'+ desc_arr[i] +'</li>';
-    	};
-    	$('.rule ol').html(desc);
-    	/* 规则对照表 */
-		var _d = d.activity.rule, d_arr = _d.split(';'),jiangli_arr = [];
-    	rewardTable(d_arr); //生成对照表
-    	for (var i = 0; i < d_arr.length; i++) {
-    		var dd = d_arr[i].split(':');
-    		if(dd.length==2){
-    			jiangli_arr.push(dd);
-    		};
-    	};
-    	if(d.isJoin){
-    		if(d.isEnd){    		
-    			gameOver(d.validSonNum, jiangli_arr)
-    		}else{ //活动进行中
-				gameing(d.leftSeconds, d.validSonNum, jiangli_arr)
-    		}
-    		$('#yuRe').remove();
+    	if(data.status==1000){
+	    	var d = data.data;
+	    	/* 描述 */
+	    	var desc_arr =  d.activity.desc.split(';'), desc='';
+	    	for (var i = 0; i < desc_arr.length; i++) {
+	    		desc += '<li>'+ desc_arr[i] +'</li>';
+	    	};
+	    	$('.rule ol').html(desc);
+	    	/* 规则对照表 */
+			var _d = d.activity.rule, d_arr = _d.split(';'),jiangli_arr = [];
+	    	rewardTable(d_arr); //生成对照表
+	    	for (var i = 0; i < d_arr.length; i++) {
+	    		var dd = d_arr[i].split(':');
+	    		if(dd.length==2){
+	    			jiangli_arr.push(dd);
+	    		};
+	    	};
+	    	if(d.isJoin){
+	    		if(d.isEnd){    		
+	    			gameOver(d.validSonNum, jiangli_arr)
+	    		}else{ //活动进行中
+					gameing(d.leftSeconds, d.validSonNum, jiangli_arr)
+	    		}
+	    		$('#yuRe').remove();
+	    	}else{
+	    		if(d.isEnd){
+	    			gameOver(0, jiangli_arr)
+	    		}else{
+		    		if(!d.isStart){
+		    			$('#baoMing').addClass('gray').find('a').text('活动即将开始');
+		    		}
+		    		$('#yuRe').removeClass('hide');
+	    		}
+	    	}
     	}else{
-    		if(!d.isStart){
-    			$('#baoMing').addClass('gray').find('a').text('活动即将开始');
-    		}
-    		$('#yuRe').removeClass('hide');
+	    	if(data.status==1013){
+	    		Tools.alertDialog({
+	    			title:'提醒',
+	    			text:'收徒异常，请联系客服！<br>客服QQ：251843709',
+	    			time:'999999999'
+	    		})
+	    		return;
+	    	}else{
+	    		Tools.alertDialog({
+	    			title:'提醒',
+	    			text: data.desc,
+	    			time:'0'
+	    		})
+	    	}
     	}
     });
 	$('#toFriend').on('click', function(){

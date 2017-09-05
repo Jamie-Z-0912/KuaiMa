@@ -121,6 +121,8 @@ define('app/hotSearch', function(require, exports, module) {
                         break;
                 }
             })
+        }else{
+            window.location = 'kmb://search';
         }
     })
 })

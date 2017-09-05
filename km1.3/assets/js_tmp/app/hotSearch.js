@@ -121,6 +121,8 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCa
                     break;
                 }
             });
+        } else {
+            window.location = "kmb://search";
         }
     });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
