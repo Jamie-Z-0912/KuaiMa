@@ -260,6 +260,21 @@ define('app/taskCenter', function(require, exports, module) {
 		url:'api/v1/task/daily'
 	}, function(d){
 		var data = d.data;
+		if(data.show_share_km){
+			//data.has_shared_km
+			$('#shareKM').show();
+			if(data.has_shared_km){
+				$('#welfare h6').text('已完成').addClass('over');
+			}
+			$('#shareKM').on('click', function(){
+				var _self = $(this);
+				if($('#welfare .over').length > 0){
+					window.location = 'kmb://sharetask?coin=0&shareurl=http://share.51xiaoli.cn/inviteReg.html';
+				}else{
+					window.location = 'kmb://sharetask?coin='+ _self.data('num') +'&shareurl=http://share.51xiaoli.cn/inviteReg.html';
+				}
+			})
+		}
 		if(data.show_daily_fuli){
 			$('#welfare').show();
 			if(data.has_join_fuli_act){
