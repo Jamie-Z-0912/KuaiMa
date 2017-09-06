@@ -478,23 +478,39 @@ i#lDom ~ iframe {
 .swiper-wp8-vertical {
   -ms-touch-action: pan-x;
 }
-.ui-wrap {
-  max-width: 750px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  position: relative;
-  background: url(../image/invite_bg.png) no-repeat top;
-  background-size: 100%;
+body {
+  background-image: -webkit-linear-gradient(top, color-stop(#9fc0c2 56%), color-stop(#86b1b9 100%));
+  background-image: -o-linear-gradient(top, #9fc0c2 56%, #86b1b9 100%);
+  background-image: linear-gradient(to bottom, #9fc0c2 56%, #86b1b9 100%);
+  background-repeat: repeat-y;
+  min-height: 6.68rem;
+}
+.bg {
+  position: absolute;
+  width: 100%;
+  background-image: url(../image/recruit_bg.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  top: 0 ;
+}
+@media (min-width: 500px) {
+  .bg {
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+  }
 }
 .nav {
   text-align: center;
   font-size: 0;
+  position: relative;
+  z-index: 2;
 }
 .nav ul {
-  border-radius: 4px;
+  border-radius: .04rem;
   overflow: hidden;
-  border: 1px solid #1f1f1f;
+  border: 1px solid #fff;
   margin: .16rem auto;
   display: inline-block;
 }
@@ -504,172 +520,53 @@ i#lDom ~ iframe {
   height: 0.36rem;
   line-height: 0.36rem;
   text-align: center;
+  color: #fff;
   font-size: 0.16rem;
-  border-left: 1px solid #1f1f1f;
+  background-color: #97b7b6;
+  border-left: 1px solid #fff;
 }
 .nav li:first-child {
   border-left: 0 none;
 }
 .nav li.active {
-  background-color: #1f1f1f;
-  color: #fff;
-}
-.content .dz {
-  position: relative;
-  text-align: center;
-  line-height: 1;
-}
-.content .dz .bg {
-  display: block;
-  width: 100%;
-}
-.content .dz .photo {
-  width: 0.72rem;
-  height: 0.72rem;
-  border: 0.04rem solid #fff;
-  position: absolute;
-  left: 50%;
-  margin-left: -0.4rem;
-  top: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  background: url(../image/news_icon.png) bottom left no-repeat;
-  background-size: 100%;
-}
-.content .dz .photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.content .dz .box {
-  position: absolute;
-  top: 0.76rem;
-  width: 100%;
-}
-.content .dz .box .tel {
+  background-color: #fff;
   color: #1f1f1f;
-  font-size: 0.16rem;
-  margin-top: .1rem;
 }
-.content .dz .box .tel:after {
-  width: .32rem;
-  height: 4px;
-  content: "";
-  display: block;
-  margin: 6px auto 0;
-  background-color: #ebebeb;
-}
-.content .dz .box .ljsy {
+.content {
   position: relative;
-  font-family: "PingFangSC Semibold";
-  color: #1f1f1f;
-  font-size: 0.18rem;
-  margin-top: .25rem;
-}
-.content .dz .box .ljsy:before,
-.content .dz .box .ljsy:after {
-  content: "";
-  display: block;
-  position: absolute;
-  height: 1px;
-  width: .56rem;
-  background-color: #ebebeb;
-  top: 50%;
-  left: 50%;
-}
-.content .dz .box .ljsy:before {
-  margin-left: -5.6em;
-}
-.content .dz .box .ljsy:after {
-  margin-left: 2.5em;
-}
-.content .dz .box .income_num {
-  font-family: "AvenirNextCondensed DemiBold";
-  color: #fa3719;
-  font-size: 40px;
-  margin-top: .2rem;
-  font-weight: 600;
-}
-.content .dz .box .income_num:after {
-  content: '￥';
-  display: inline-block;
-  vertical-align: top;
-  color: #b8b8b8;
-  font-size: .11rem;
-}
-.content .dz .box .logo_qr {
-  width: 2rem;
-  margin: .3rem auto 0;
-}
-.content .dz .box .logo_qr img {
-  width: 100%;
-}
-.content .guize {
-  font-size: 0.2rem;
-  color: #1f1f1f;
-  text-align: center;
-  margin-top: .4rem;
-  height: 0.26rem;
-  line-height: 0.26rem;
-}
-.content .guize span {
-  display: inline-block;
-  background-color: #ffc524;
-  color: #fff;
-  border-radius: 50%;
-  width: .26rem;
-  height: .26rem;
-  margin-left: .04rem;
-}
-.content .ui-btn {
-  height: 0.52rem;
-  line-height: 0.52rem;
-  width: 2.94rem;
-  margin-top: .45rem;
-  margin-bottom: .25rem;
-}
-.content .gexing {
-  position: relative;
-  width: 70.4%;
-  margin: 0 auto;
-  padding-top: .15rem;
-  padding-bottom: .26rem;
-}
-.content .gexing .swiper-wrapper {
-  width: 100%;
-  overflow: hidden;
-}
-.content .gexing img {
-  display: block;
-  width: 100%;
-}
-.content .gexing .pagination {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
   z-index: 2;
 }
-.content .gexing .pagination span {
-  display: inline-block;
-  width: .16rem;
-  height: .04rem;
-  margin: 0 .04rem;
-  background-color: #ebebeb;
+.content .jiqiao {
+  font-size: 0.16rem;
+  color: #fff;
+  width: 14.6em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: .22rem;
 }
-.content .gexing .pagination span.swiper-active-switch {
-  background-color: #ff9100;
+.content .jiqiao h4 {
+  color: #fff;
+  width: 5em;
+  text-align: center;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: .08rem 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.content .jiqiao p {
+  margin-top: .15rem;
 }
 .content .qr {
-  line-height: 1;
-  text-align: center;
   width: 100%;
   padding-top: .3rem;
+  padding-bottom: .16rem;
+  line-height: 1;
+  text-align: center;
 }
 .content .qr .img_box {
-  width: 2rem;
-  height: 2rem;
-  padding: .2rem;
+  width: 2.56rem;
+  height: 2.56rem;
   overflow: hidden;
   border-radius: .1rem;
   background-color: #fff;
@@ -679,16 +576,47 @@ i#lDom ~ iframe {
   width: 100%;
   display: block;
 }
-.content .qr .logoname {
-  font-family: "PingFangSC Semibold";
-  font-size: .24rem;
-  color: #1f1f1f;
-  margin-top: .18rem;
+.content .box {
+  width: 100%;
+  padding-top: .3rem;
+  padding-bottom: .16rem;
 }
-.content .qr .logosub {
-  font-size: 0.18rem;
-  color: #b8b8b8;
-  margin-top: .13rem;
+.content .box .invite_code {
+  width: 1.84rem;
+  padding: .32rem .36rem .37rem;
+  border-radius: .1rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  text-align: center;
+}
+.content .box .invite_code h3 {
+  color: #858585;
+}
+.content .box .invite_code .code {
+  width: 1.84rem;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  margin: .24rem auto 0;
+  background-color: #f0f4f5;
+  color: #000;
+  border-radius: 2px;
+}
+.content .box .social {
+  width: 1.84rem;
+  padding: .32rem .36rem .37rem;
+  border-radius: .1rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  text-align: center;
+}
+.content .ui-btn {
+  width: 2.56rem;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  margin-top: .35rem;
+  background-color: #6e9394;
 }
 .pop-mask {
   position: fixed;
