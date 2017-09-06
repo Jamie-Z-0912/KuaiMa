@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <title>快马：阅读带来价值</title>
+    <meta content='/favicon.ico' itemprop='image' property='og:image' />
+</head>
+<body>
+	<script type="text/javascript">
+        function getQueryValue(key) {
+            var q = location.search, keyValuePairs = new Array();
+            if (q.length > 1) {
+                var idx = q.indexOf('?');
+                q = q.substring(idx + 1, q.length);
+            } else {
+                q = null;
+            }
+            if (q) {
+                return decodeURI(q.replace(/articleId=/,''));
+            }
+            return '';
+        }
+        var articleId = getQueryValue('articleId');
+		window.location = 'http://ustatic.ufile.ucloud.com.cn/KM_zhwnl02.apk'; 
+        setTimeout(function(){
+            if(/news./.test(location.hostname)){
+                window.location = 'http://news.kuaima.cn/wnl_article.html?id='+articleId;
+            }else{
+                window.location = 'http://'+location.hostname+'/news/wnl_article.html?id='+articleId;
+            }
+        },100)
+	</script>
+</body>
+</html>
