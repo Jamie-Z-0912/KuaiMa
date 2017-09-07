@@ -18,8 +18,24 @@ define("app/startgather", [ "../mod/submit", "../plugs/confirmTip.js" ], functio
         var that = $(this);
         if (!that.hasClass("active")) {
             that.addClass("active").siblings().removeClass("active");
+            btnPos();
         }
     });
+    var btnPos = function() {
+        var conH = $("#qustionList").height() + $("#qqJoinBtn").height() + 40;
+        if (conH < innerHeight) {
+            $("#qqJoinBtn").css({
+                position: "absolute",
+                bottom: ".15rem"
+            });
+        } else {
+            $("#qqJoinBtn").css({
+                position: "relative",
+                "margin-top": ".5rem"
+            });
+        }
+    };
+    btnPos();
     var arr = [], arr1 = [];
     $.each($("#applyfor dt"), function() {
         arr.push($(this).find("span").text());
