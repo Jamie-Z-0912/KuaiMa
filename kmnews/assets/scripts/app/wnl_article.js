@@ -137,9 +137,8 @@ define('app/wnl_article', function(require, exports, module) {
             //     new Mlink(options);
             // }
             // if(Fun.isIos()){
-                var ios_link = 'zhwnl02', and_link = 'zhwnl02';
                 var options = new Object();
-                options["mlink"] = 'https://ax9wdh.mlinks.cc/AaiE?mw_ios_dc='+ios_link+'&mw_android_dc='+and_link;
+                options["mlink"] = 'https://ax9wdh.mlinks.cc/A0WY';
                 options["button"] = document.querySelectorAll("a#unfold");
                 options["params"] = {"detailid": article.id, 'detailurl': article.url};
                 new Mlink(options);

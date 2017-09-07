@@ -118,9 +118,8 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
         $(".recommend-wrap").show();
         seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
             $(".unfold").show();
-            var ios_link = "zhwnl02", and_link = "zhwnl02";
             var options = new Object();
-            options["mlink"] = "https://ax9wdh.mlinks.cc/AaiE?mw_ios_dc=" + ios_link + "&mw_android_dc=" + and_link;
+            options["mlink"] = "https://ax9wdh.mlinks.cc/A0WY";
             options["button"] = document.querySelectorAll("a#unfold");
             options["params"] = {
                 detailid: article.id,
