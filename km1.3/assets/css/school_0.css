@@ -494,6 +494,9 @@ body {
 .content .box .icon_daily_fl {
   background-position: -188px -52px;
 }
+.content .box .icon_team {
+  background-position: -225px -52px;
+}
 .content .box h2 {
   line-height: 1;
   font-weight: 500;
