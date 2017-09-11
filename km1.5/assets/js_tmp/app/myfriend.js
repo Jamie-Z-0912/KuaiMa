@@ -1,5 +1,7 @@
-define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module) {
+define("app/myfriend", [ "../mod/pagelist2", "../plugs/confirmTip.js" ], function(require, exports, module) {
     var pagelist = require("../mod/pagelist2");
+    var confirmTip = require("../plugs/confirmTip.js");
+    const teamId = Tools.getQueryValue("teamId");
     function hideInfo(a) {
         var ss = "" + a;
         var len = ss.length;
@@ -22,6 +24,9 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
                 $("#navOrder").remove();
             } else {
                 $.each(data.data.list, function() {
+                    if (teamId != "" && teamId != "0") {
+                        this.hasTeam = true;
+                    }
                     this.uid = this.to_uid;
                     this.to_uid = hideInfo(this.to_uid);
                     var cur_time = new Date().getTime();
@@ -99,15 +104,43 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
                     txt = "您的徒弟不存在！";
                     $el.addClass("disabled");
                     break;
-
-                  case 1004:
-                    txt = "请在#ProjectName#中登录";
-                    $el.addClass("disabled");
-                    break;
                 }
                 Tools.alertDialog({
-                    text: txt
+                    text: txt,
+                    time: "0"
                 });
+            });
+        }
+    });
+    $("#conList").on("click", ".join_myteam", function() {
+        var $el = $(this);
+        if ($el.hasClass("disabled")) {
+            Tools.alertDialog({
+                text: "每个徒弟每天只能被邀请一次<br>晚22点-早8点不能打扰徒弟哦",
+                time: "0"
+            });
+        } else {
+            new confirmTip({
+                title: '<p style="width:10.1em;margin:0 auto;text-align:left;">您是否想邀请这位徒弟加入您的团队</p>'
+            }, function(a) {
+                if (a) {
+                    Ajax.custom({
+                        url: "api/v1/teams/" + teamId + "/invite/" + $el.data("uid")
+                    }, function(data) {
+                        if (data.status == 1e3) {
+                            Tools.alertDialog({
+                                title: "邀请已发出",
+                                text: "对方接受后将自动成为您的团员！",
+                                time: "0"
+                            });
+                        } else {
+                            Tools.alertDialog({
+                                text: data.desc,
+                                time: "0"
+                            });
+                        }
+                    });
+                }
             });
         }
     });
@@ -230,7 +263,7 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",
@@ -595,4 +628,43 @@ define("app/myfriend", [ "../mod/pagelist2" ], function(require, exports, module
     }, "function" == typeof define ? define("plugs/laypage", [], function() {
         return a;
     }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();
+}();define("plugs/confirmTip", [], function(require, exports, module) {
+    var confirmTip = function(option, callback) {
+        var opt = {
+            title: "",
+            text: "",
+            sureTxt: "确定",
+            cancelTxt: "取消"
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    confirmTip.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [], divId = that.id;
+        arr.push('<div class="pop-mask km-dialog"></div>');
+        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
+        arr.push('<div class="box">');
+        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
+        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
+        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
+        arr.push("</div></div>");
+        $("body").append(arr.join(""));
+        $("#" + divId).height($("#" + divId + " .box").height());
+        $("#" + divId + " .sureBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $("#" + divId + " .cancelBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    module.exports = confirmTip;
+});

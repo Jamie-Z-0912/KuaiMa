@@ -1,6 +1,15 @@
 define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
     var submit = require("../mod/submit");
-    const teamId = Tools.getQueryValue("teamId"), fatherId = Tools.uid();
+    const code = Tools.getQueryValue("code"), from = Tools.getQueryValue("from");
+    $("body").css("min-height", innerHeight);
+    if (code == "") {
+        Tools.alertDialog({
+            text: "该链接无效！",
+            time: "99999999"
+        });
+    } else {
+        $('input[name="web_share_code"]').val(code);
+    }
     seajs.use("./scripts/lib/jquery.base64", function() {
         $("#repeatSend,#yuyin").on("click", function() {
             var phone = $('input[name="phone"]').val();
@@ -46,6 +55,11 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
             }
         }
     });
+    if (from == "saoma") {
+        $('input[name="join_type"]').val("3");
+    } else {
+        $('input[name="join_type"]').val("6");
+    }
     $("#joinUsForm").submit(function(e) {
         e.preventDefault();
         var curEl = $(this);
@@ -76,7 +90,7 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
             return;
         }
         submit.fun({
-            url: "api/v1/teams/" + teamId + "/webJoin/" + fatherId,
+            url: "api/v1/teams/webJoin",
             data: $(this)
         }, function(data) {
             if (data.status == 2001) {
@@ -85,7 +99,16 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                 });
             } else {
                 if (data.status == 1e3) {
-                    alert("成功");
+                    var d = data.data;
+                    if (d.isNewUser) {
+                        $("#newUser").show().siblings().remove();
+                    } else {
+                        if (d.isJoinTeam) {
+                            $("#joinTeam").show().siblings().remove();
+                        } else {
+                            $("#hasTeam").show().siblings().remove();
+                        }
+                    }
                 }
             }
         });
@@ -241,7 +264,7 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",

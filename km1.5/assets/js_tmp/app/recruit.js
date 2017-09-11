@@ -5,7 +5,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
     require("../plugs/cookieStorage.js");
     $("body,#bg").height(innerHeight);
     const uid = Tools.uid(), teamId = Tools.getQueryValue("teamId");
-    var myurl = "http://t.kuiama.cn/browser/joinUs.html?uid=" + uid + "&teamId=" + teamId;
+    var myurl = "http://t.kuiama.cn/browser/joinUs.html";
     function get_channel() {
         var channel = "", userAgent = km.userAgent;
         if (userAgent.split("ssy=").length == 2) {
@@ -30,14 +30,15 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
             $("#userQrTab").html('<img src="' + cas_qr.toDataURL("image/png") + '"/>');
             ctx_qr.clearRect(0, 0, 530, 530);
         },
-        make_qr: function() {
+        make_qr: function(code) {
             var self = this;
+            myurl = myurl + "?code=" + code;
             if (/Android/.test(km.userAgent) && self.qr_base64 && self.qr_base64[0] == uid) {
                 $("#userQrCode").append('<img src="' + self.qr_base64[1] + '"/>');
                 var qrTag = $("#userQrCode img")[0];
                 self.makeQrImg(qrTag);
             } else {
-                var mylink = myurl + "&channel=" + this.channel;
+                var mylink = myurl + "&from=saoma";
                 seajs.use("./scripts/lib/jquery.qrcode.min", function() {
                     var qr = $("#userQrCode").qrcode({
                         logo: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjwAsAAB4AAdpxxYoAAAAASUVORK5CYII=",
@@ -62,12 +63,12 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
             });
         }
     };
-    QR.make_qr();
     Ajax.custom({
         url: "api/v1/teams/" + teamId
     }, function(data) {
         if (data.status == 1e3) {
             var d = data.data;
+            QR.make_qr(d.web_share_code);
             $("#teamCode").text(d.invite_code);
         } else {
             Tools.alertDialog({
@@ -140,7 +141,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",

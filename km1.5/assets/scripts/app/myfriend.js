@@ -1,5 +1,7 @@
 define('app/myfriend', function(require, exports, module) {
     var pagelist = require('../mod/pagelist2');
+    var confirmTip = require('../plugs/confirmTip.js');
+    const teamId = Tools.getQueryValue('teamId');
     function hideInfo(a){
         var ss = '' + a;
         var len = ss.length;
@@ -22,6 +24,9 @@ define('app/myfriend', function(require, exports, module) {
                 $('#navOrder').remove();
             }else{
                 $.each(data.data.list, function(){
+                    if(teamId!=''&&teamId!='0'){
+                        this.hasTeam = true;
+                    }
                     this.uid = this.to_uid;
                     this.to_uid = hideInfo(this.to_uid);
                     var cur_time = new Date().getTime();
@@ -99,13 +104,35 @@ define('app/myfriend', function(require, exports, module) {
                         txt = '您的徒弟不存在！';
                         $el.addClass('disabled');
                         break;
-                    case 1004:
-                        txt = '请在#ProjectName#中登录';
-                        $el.addClass('disabled');
-                        break;
                 }
-                Tools.alertDialog({ text: txt });
+                Tools.alertDialog({ text: txt, time: '0' });
             });
+        }
+    });
+
+    $('#conList').on('click', '.join_myteam', function(){
+        var $el = $(this);
+        if($el.hasClass('disabled')){
+            Tools.alertDialog({
+                text: "每个徒弟每天只能被邀请一次<br>晚22点-早8点不能打扰徒弟哦",
+                time:'0'
+            });
+        }else{
+            new confirmTip({
+                title: '<p style="width:10.1em;margin:0 auto;text-align:left;">您是否想邀请这位徒弟加入您的团队</p>'
+            },function(a){
+                if(a){
+                    Ajax.custom({
+                        url: 'api/v1/teams/'+teamId+'/invite/'+$el.data('uid')
+                    },function(data){
+                        if(data.status == 1000){
+                            Tools.alertDialog({title:'邀请已发出', text: '对方接受后将自动成为您的团员！',time:'0' });
+                        }else{
+                            Tools.alertDialog({ text: data.desc, time:'0' });
+                        }
+                    });
+                }
+            })
         }
     })
 });

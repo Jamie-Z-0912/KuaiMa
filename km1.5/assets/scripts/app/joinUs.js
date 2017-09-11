@@ -1,6 +1,16 @@
 define('app/joinUs', function(require, exports, module) {
     var submit = require('../mod/submit');
-    const teamId = Tools.getQueryValue('teamId'), fatherId = Tools.uid();
+    const code = Tools.getQueryValue('code'), from =  Tools.getQueryValue('from');
+    $('body').css('min-height',innerHeight);
+    /************/
+    if(code == ''){
+        Tools.alertDialog({
+            text:'该链接无效！',
+            time: '99999999'
+        })
+    }else{
+        $('input[name="web_share_code"]').val(code)
+    }
     /***********/
     seajs.use('./scripts/lib/jquery.base64', function(){
         $('#repeatSend,#yuyin').on('click', function(){
@@ -45,6 +55,11 @@ define('app/joinUs', function(require, exports, module) {
         }
     });
     /***********/
+    if(from=='saoma'){
+        $('input[name="join_type"]').val('3')
+    }else{
+        $('input[name="join_type"]').val('6')
+    }
     $('#joinUsForm').submit(function(e){
         e.preventDefault();
         var curEl = $(this);
@@ -75,7 +90,7 @@ define('app/joinUs', function(require, exports, module) {
             return;
         };
         submit.fun({
-            url: 'api/v1/teams/'+teamId+'/webJoin/'+fatherId,
+            url: 'api/v1/teams/webJoin',
             data: $(this)
         }, function(data){
             if(data.status == 2001){
@@ -84,15 +99,17 @@ define('app/joinUs', function(require, exports, module) {
                 })
             }else{
                 if(data.status==1000){
-                    alert('成功')
+                    var d = data.data;
+                    if(d.isNewUser){
+                        $('#newUser').show().siblings().remove();
+                    }else{
+                        if(d.isJoinTeam){
+                            $('#joinTeam').show().siblings().remove();
+                        }else{
+                            $('#hasTeam').show().siblings().remove();
+                        }
+                    }
                 }
-                // Tools.alertDialog({
-                //     title: (data.status == 1000 ? '注册成功': ''),
-                //     text: '注册完成，快去赚钱吧<br><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载#ProjectName#</a>',
-                //     time: '0'
-                // },function(){
-                //     window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser';
-                // });
             }
         })
     });

@@ -52,8 +52,9 @@
                                 </div>
                                 <div class="options">
                                     <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">鞭策徒弟</div>
-                                    <div class="state pay"> {{?value.remind_cost_coin==0}}免费{{??}}{{=value.remind_cost_coin}}金币{{?}} 
-                                    </div>
+                                    {{?value.hasTeam}}
+                                    <div class="join_myteam" data-uid="{{=value.uid}}">邀请入团</div>
+                                    {{?}}
                                 </div>
                             </div>
                             <div class="benefit">

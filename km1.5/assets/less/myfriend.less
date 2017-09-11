@@ -1,4 +1,6 @@
 @import "reset.less";
+@import "libs/confirmTip.less";
+
 @c_orange: #ff9100;
 body{padding-top: .36rem;background-color: #fafafa;}
 .nav-order{
@@ -81,16 +83,17 @@ body{padding-top: .36rem;background-color: #fafafa;}
                 .options{
                     position: absolute;
                     right: .1rem;
-                    top: .18rem;
-                    width: .9rem;
+                    top: .14rem;
+                    width: .92rem;
                     text-align: center;
-                    .urge{
-                        background-color: #fa3719;
+                    .urge{ background-color: #fa3719;}
+                    .join_myteam{ background-color: #d3c795; margin-top: .05rem;}
+                    .join_myteam, .urge{
                         color: #fff;
+                        width: .92rem;
+                        .lineH(.36rem);
                         font-size: @size_t4;
-                        width: .9rem;
-                        .lineH(.34rem);
-                        border-radius: 4px;
+                        border-radius: .06rem;
                         &.disabled{ background-color: #d1d1d1;}
                     }
                     .state{
@@ -107,6 +110,7 @@ body{padding-top: .36rem;background-color: #fafafa;}
                 margin-top: 4px;
                 .orange{color: @c_orange; margin-left: .12rem;}
             }
+            .join_myteam{}
         }
    }
    .empty .ui-btn{
