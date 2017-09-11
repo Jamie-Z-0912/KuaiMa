@@ -1,101 +1,202 @@
-define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStorage.js" ], function(require, exports, module) {
-    var Ajax = require("../mod/base");
-    window.jQuery = window.Zepto;
-    var km = require("../plugs/version.js");
-    require("../plugs/cookieStorage.js");
-    $("body,#bg").height(innerHeight);
-    const uid = Tools.uid(), teamId = Tools.getQueryValue("teamId");
-    var myurl = "http://t.kuiama.cn/browser/joinUs.html?uid=" + uid + "&teamId=" + teamId;
-    function get_channel() {
-        var channel = "", userAgent = km.userAgent;
-        if (userAgent.split("ssy=").length == 2) {
-            var _ssy = userAgent.split("ssy=")[1];
-            if (/iOS|Android/.test(_ssy.split(";")[0])) {
-                channel = _ssy.split(";")[3];
-            } else {
-                channel = _ssy.split(";")[2];
-            }
-        }
-        return channel;
-    }
-    var QR = {
-        channel: get_channel(),
-        qr_base64: Storage.get("qr"),
-        makeQrImg: function(qrTag) {
-            var cas_qr = $("#canvasQR")[0], ctx_qr = cas_qr.getContext("2d");
-            ctx_qr.fillStyle = "#fff";
-            ctx_qr.fillRect(0, 0, 530, 530);
-            ctx_qr.fill();
-            ctx_qr.drawImage(qrTag, 30, 30, 470, 470);
-            $("#userQrTab").html('<img src="' + cas_qr.toDataURL("image/png") + '"/>');
-            ctx_qr.clearRect(0, 0, 530, 530);
-        },
-        make_qr: function() {
-            var self = this;
-            if (/Android/.test(km.userAgent) && self.qr_base64 && self.qr_base64[0] == uid) {
-                $("#userQrCode").append('<img src="' + self.qr_base64[1] + '"/>');
-                var qrTag = $("#userQrCode img")[0];
-                self.makeQrImg(qrTag);
-            } else {
-                var mylink = myurl + "&channel=" + this.channel;
-                seajs.use("./scripts/lib/jquery.qrcode.min", function() {
-                    var qr = $("#userQrCode").qrcode({
-                        logo: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKAQMAAAC3/F3+AAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjwAsAAB4AAdpxxYoAAAAASUVORK5CYII=",
-                        width: 190,
-                        height: 190,
-                        correctLevel: 2,
-                        text: mylink
-                    });
+define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
+    var submit = require("../mod/submit");
+    const teamId = Tools.getQueryValue("teamId"), fatherId = Tools.uid();
+    seajs.use("./scripts/lib/jquery.base64", function() {
+        $("#repeatSend,#yuyin").on("click", function() {
+            var phone = $('input[name="phone"]').val();
+            var type = $(this).data("type");
+            if (phone.isEmpty()) {
+                Tools.alertDialog({
+                    text: "手机号不能为空"
                 });
-                var makeQrTime = setInterval(function() {
-                    if ($("#userQrCode img").length > 0) {
-                        clearInterval(makeQrTime);
-                        var qr_code = $("#userQrCode img")[0];
-                        var qr = [ uid, $("#userQrCode img").attr("src") ];
-                        Storage.set("qr", qr);
-                        self.makeQrImg(qr_code);
-                    }
-                }, 100);
+                return;
             }
-            $("#shareBtn3").on("click", function() {
-                window.location = 'kmb://share?param={"shareurl":"' + myurl + '","desc":"读新闻涨见识还可以赚零花，加入团队奖励翻！"}';
-            });
+            if (!phone.isMobile()) {
+                Tools.alertDialog({
+                    text: "手机号格式不正确"
+                });
+                return;
+            }
+            if (!$(this).hasClass("disabled")) {
+                $("#yuyin").addClass("disabled");
+                setTimeout(function() {
+                    $("#yuyin").removeClass("disabled");
+                }, 6e4);
+                submit.sendSms($("#repeatSend"), {
+                    phone: base64.encode(phone),
+                    useto: "register",
+                    type: type
+                });
+            }
+        });
+    });
+    var gvCode = Math.random().toFixed(4).substring(2);
+    $("#gvCodeInput, #gvCode").text(gvCode);
+    $("#gvCodeInput").bind("input propertychange", function(e) {
+        var that = $(this), gv = that.val();
+        if (gv.length > 3) {
+            if (gv == gvCode) {
+                that.attr("disabled", "disabled");
+                that.parent().next().show();
+                $("#yuyin").css("display", "block");
+                return;
+            } else {
+                that.val("");
+                return;
+            }
         }
-    };
-    QR.make_qr();
-    Ajax.custom({
-        url: "api/v1/teams/" + teamId
-    }, function(data) {
-        if (data.status == 1e3) {
-            var d = data.data;
-            $("#teamCode").text(d.invite_code);
-        } else {
+    });
+    $("#joinUsForm").submit(function(e) {
+        e.preventDefault();
+        var curEl = $(this);
+        var phone = $('input[name="phone"]').val();
+        var code = $('input[name="verify_code"]').val();
+        if (phone.isEmpty()) {
             Tools.alertDialog({
-                title: "提醒",
-                text: data.desc,
-                time: "0"
+                text: "手机号不能为空"
             });
+            return;
         }
-    });
-    $("#nav").on("click", "li", function() {
-        var id = $(this).data("id");
-        $(this).addClass("active").siblings().removeClass("active");
-        $("#" + id).show().siblings(".content").hide();
-        if (id == "gexing" && $("#qrImgsWrap div").length == 2) {
-            var in_w = $("#qrImgs").width();
-            $("#qrImgs, #qrImgsWrap").height(in_w * 736 / 528);
-            var myBanner = new Swiper("#qrImgs", {
-                pagination: ".pagination",
-                loop: true,
-                autoplay: 5e3,
-                paginationClickable: true,
-                onSlideChangeStart: function() {}
+        if (!phone.isMobile()) {
+            Tools.alertDialog({
+                text: "手机号格式不正确"
             });
+            return;
         }
+        if (code.isEmpty()) {
+            Tools.alertDialog({
+                text: "验证码不能为空"
+            });
+            return;
+        }
+        if (!code.isVerifyCode()) {
+            Tools.alertDialog({
+                text: "请正确输入收到的验证码"
+            });
+            return;
+        }
+        submit.fun({
+            url: "api/v1/teams/" + teamId + "/webJoin/" + fatherId,
+            data: $(this)
+        }, function(data) {
+            if (data.status == 2001) {
+                Tools.alertDialog({
+                    text: "验证码错误，请新获取"
+                });
+            } else {
+                if (data.status == 1e3) {
+                    alert("成功");
+                }
+            }
+        });
     });
-    $("#copyCode").on("click", function() {
-        window.location = "kmb://QQ=" + $("#teamCode").text();
-    });
+});define("mod/submit", [ "./base" ], function(require, exports, module) {
+    var Ajax = require("./base");
+    window.Ajax = Ajax;
+    String.prototype.isEmail = function() {
+        return new RegExp(/^([a-zA-Z0-9]+[_|\_|\.|-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/).test(this);
+    };
+    String.prototype.isMobile = function() {
+        return new RegExp(/^1[3|4|5|7|8]\d{9}$/).test(this);
+    };
+    String.prototype.isChinese = function() {
+        return /^[\u4E00-\uFA29]*$/.test(this) && !/^[\uE7C7-\uE7F3]*$/.test(this);
+    };
+    String.prototype.isEmpty = function() {
+        return /^\s*$/.test(this);
+    };
+    String.prototype.isVerifyCode = function() {
+        return new RegExp(/^\d*$/).test(this);
+    };
+    String.prototype.isNum = function() {
+        return /^[0-9]+$/.test(this);
+    };
+    exports.fun = function(options, callback) {
+        var formData, isForm = typeof options.data != "string" && !!options.data.length, btnSubmit;
+        if (isForm) {
+            formData = options.data.serializeArray();
+            btnSubmit = options.data.find('[type="submit"]');
+            btnSubmit.attr("disabled", true);
+        } else {
+            formData = options.data;
+        }
+        $.each(formData, function() {
+            this.value = this.value.replace(/\s/gi, "");
+        });
+        options.data = formData;
+        options.type = options.type || "GET";
+        options.logtype = "submit";
+        Ajax.baseAjax(options, function(response, textStatus, jqXHR) {
+            if (isForm) {
+                btnSubmit.removeAttr("disabled");
+            }
+            if (typeof callback == "function") {
+                callback(response);
+            }
+        }, function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.statusText);
+            if (isForm) {
+                btnSubmit.removeAttr("disabled");
+            }
+            if (typeof callbackError == "function") {
+                callbackError(jqXHR, textStatus, errorThrown);
+            }
+        });
+    };
+    exports.sendSms = function(btnSend, options) {
+        var opt = {
+            phone: "",
+            uid: "",
+            type: "SMS",
+            useto: ""
+        };
+        for (var i in opt) {
+            opt[i] = options[i] || opt[i];
+        }
+        var inte, duration = 60;
+        if (inte) {
+            clearInterval(inte);
+        }
+        btnSend.addClass("disabled").text("发送中···");
+        Ajax.custom({
+            url: "api/v1/verify_code/web",
+            data: opt
+        }, function(data) {
+            if (data.status == 1e3) {
+                inte = setInterval(function() {
+                    duration--;
+                    if (duration == 0) {
+                        clearInterval(inte);
+                        btnSend.removeClass("disabled").text("重发验证码");
+                        return;
+                    }
+                    btnSend.text("还剩" + duration + "秒");
+                }, 1e3);
+                return;
+            }
+            if (data.status == 2003) {
+                Tools.alertDialog({
+                    title: "获取失败",
+                    text: "获取验证码太频繁，请明日再试"
+                }, function() {
+                    btnSend.text("明日再获取");
+                });
+                return;
+            }
+            if (data.status == 1008) {
+                Tools.alertDialog({
+                    text: "您已经注册过啦"
+                });
+                return;
+            }
+            if (data.status == 2002) {
+                Tools.alertDialog({
+                    text: "用户不存在"
+                });
+                return;
+            }
+        });
+    };
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -444,143 +545,4 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         }
     };
     window.Tools = Tools;
-});define("plugs/version", [], function(require, exports, module) {
-    var util = {}, version;
-    var userAgent = navigator.userAgent;
-    util.isKM = /KuaiMa/.test(userAgent);
-    if (util.isKM) {
-        var _ssy = userAgent.split("ssy=")[1];
-        if (/iOS|Android/.test(_ssy.split(";")[0])) {
-            version = _ssy.split(";")[2];
-        } else {
-            version = _ssy.split(";")[1];
-        }
-        util.version = version.replace("V", "");
-    }
-    util.userAgent = userAgent;
-    util.equal = function(v) {
-        if (util.isKM) {
-            if (v == this.version) {
-                return true;
-            } else {
-                return false;
-            }
-        } else return false;
-    };
-    util.greater = function(v) {
-        if (util.isKM) {
-            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
-            for (var i = 0; i < cur.length; i++) {
-                if (cur[i] < v_arr[i]) {
-                    break;
-                } else {
-                    if (cur[i] > v_arr[i]) {
-                        flag = true;
-                    }
-                }
-            }
-            return flag;
-        } else return false;
-    };
-    util.less = function(v) {
-        if (util.isKM) {
-            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
-            for (var i = 0; i < cur.length; i++) {
-                if (cur[i] > v_arr[i]) {
-                    break;
-                } else {
-                    if (cur[i] < v_arr[i]) {
-                        flag = true;
-                    }
-                }
-            }
-            return flag;
-        } else return false;
-    };
-    util.gEq = function(v) {
-        if (this.equal(v) || this.greater(v)) return true; else return false;
-    };
-    util.lEq = function(v) {
-        if (this.equal(v) || this.less(v)) return true; else return false;
-    };
-    module.exports = util;
-});define("plugs/cookieStorage", [], function() {
-    var Cookie = {
-        get: function(sname) {
-            var sre = "(?:;)?" + sname + "=([^;]*);?";
-            var ore = new RegExp(sre);
-            if (ore.test(document.cookie)) {
-                try {
-                    return unescape(RegExp["$1"]);
-                } catch (e) {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-        },
-        set: function(c_name, value, expires) {
-            expires = expires || this.getExpDate(7, 0, 0);
-            if (typeof expires == "number") {
-                expires = this.getExpDate(expires, 0, 0);
-            }
-            document.cookie = c_name + "=" + escape(value) + (expires == null ? "" : ";expires=" + expires) + "; path=/";
-        },
-        remove: function(key) {
-            this.set(key, "", -1);
-        },
-        getExpDate: function(e, t, n) {
-            var r = new Date();
-            if (typeof e == "number" && typeof t == "number" && typeof t == "number") return r.setDate(r.getDate() + parseInt(e)), 
-            r.setHours(r.getHours() + parseInt(t)), r.setMinutes(r.getMinutes() + parseInt(n)), 
-            r.toGMTString();
-        }
-    };
-    window.Cookie = Cookie;
-    var Storage = {
-        AUTH: "KMAUTH",
-        LNAME: "MY-LNAME",
-        ACCOUNT: "MY-NAME",
-        HEADIMG: "MY-HEADIMG",
-        get: function(key, isSession) {
-            if (!this.isLocalStorage()) {
-                return;
-            }
-            var value = this.getStorage(isSession).getItem(key);
-            if (value) {
-                return JSON.parse(value);
-            } else {
-                return undefined;
-            }
-        },
-        set: function(key, value, isSession) {
-            if (!this.isLocalStorage()) {
-                return;
-            }
-            value = JSON.stringify(value);
-            this.getStorage(isSession).setItem(key, value);
-        },
-        remove: function(key, isSession) {
-            if (!this.isLocalStorage()) {
-                return;
-            }
-            this.getStorage(isSession).removeItem(key);
-        },
-        getStorage: function(isSession) {
-            return isSession ? sessionStorage : localStorage;
-        },
-        isLocalStorage: function() {
-            try {
-                if (!window.localStorage) {
-                    console.log("不支持本地存储");
-                    return false;
-                }
-                return true;
-            } catch (e) {
-                console.log("本地存储已关闭");
-                return false;
-            }
-        }
-    };
-    window.Storage = Storage;
 });

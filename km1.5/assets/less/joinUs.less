@@ -1,0 +1,110 @@
+@import "reset.less";
+body{
+    background-image: -webkit-linear-gradient(top, color-stop(#fe8654 56%), color-stop(#da4742 100%));
+    background-image: -o-linear-gradient(top, #fe8654 56%, #da4742 100%); 
+    background-image: linear-gradient(to bottom, #fe8654 56%, #da4742 100%);
+    background-repeat: repeat-y;
+    min-height: 6.68rem;
+}
+.joinus{
+	background-image: url(../image/joinUs_bg.png);
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 100%;
+}
+.head{
+	position: relative;
+	padding: .1rem .15rem;
+	height: 1.85rem;
+	text-align: center;
+	img{display: block; width: 100%;}
+	p{	
+		position: absolute;
+    	left: 0;
+		width: 100%;
+		color: #fff; 
+		font-size: .14rem;
+	}
+	.t_0{top: 1.32rem;}
+}
+.form{
+	width: 2.9rem;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -.28rem;
+	padding-bottom: .3rem;
+	.box{
+		padding: .13rem .28rem .28rem;
+		border-radius: .06rem;
+		background-color: #ffc790;
+	}
+	.item{
+		position: relative;
+		margin-top: .15rem;
+		overflow: hidden;
+		border-radius: .06rem;
+		input[type="text"]{
+			color: @c_title; 
+			font-size: @size_t3;
+			line-height: .28rem;
+			height: .48rem;
+			padding: .1rem;
+			background-color: #fff;
+			display: block;
+			width: 100%;
+			box-sizing: border-box;
+			border: 0 none;
+		}
+		input::-webkit-input-placeholder{ color: @c_title;}
+	}
+	#yuyin{
+		color: red;
+	    display: none;
+	    padding: .1rem;
+	}
+    #gvCode{
+    	display: inline-block;
+        height: 100%;
+        position: absolute;
+        top: .1rem;
+        right: .1rem;
+        .lineH(.28rem);
+        background-color: #f55c3e;
+        color: #fff;
+        text-align: center;
+        font-family: cursive;
+        font-size: 16px;
+        letter-spacing: 2px;
+        font-weight: bolder;
+        padding-left: .08rem;
+        padding-right: .08rem;    
+        border-radius: .04rem;
+    }
+    .get_code{
+    	display: block;
+        height: 100%;
+        position: absolute;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: @c_sub;
+        font-size: @size_t4;
+        line-height: .48rem;
+        padding: 0 .15rem;
+    }
+	.option{
+		padding-top: .22rem;
+		.ui-btn{
+			display: block;
+			width: 100%;
+    		font-size: @size_t1;
+    		color: @c_title;
+    		.lineH(.52rem);
+    		padding: 0;
+    		background-color: #ffdd3f;
+    		box-shadow: 0 0 .2rem rgba(210, 35, 38, 0.5)
+		}
+	}
+}
+
+.ps{color: #fff;font-size: @size_small;text-align: center;}
