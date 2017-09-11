@@ -12,7 +12,8 @@ define('app/message', function(require, exports, module) {
         }else{
             if(that.data('type') == '3'){
                 window.location = 'kmb://main';
-            }else{
+            }
+            if(that.data('type') == '1'){
                 var f_id = $(this).data('fatherid');
                 window.location = 'kmb://comment?fatherid='+f_id;
             }

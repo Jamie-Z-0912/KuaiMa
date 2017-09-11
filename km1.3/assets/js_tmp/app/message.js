@@ -15,7 +15,8 @@ define("app/message", [ "../mod/pagelist" ], function(require, exports, module) 
         } else {
             if (that.data("type") == "3") {
                 window.location = "kmb://main";
-            } else {
+            }
+            if (that.data("type") == "1") {
                 var f_id = $(this).data("fatherid");
                 window.location = "kmb://comment?fatherid=" + f_id;
             }
@@ -140,7 +141,7 @@ define("app/message", [ "../mod/pagelist" ], function(require, exports, module) 
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",

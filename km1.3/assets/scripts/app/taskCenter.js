@@ -257,7 +257,10 @@ define('app/taskCenter', function(require, exports, module) {
 	}
 	/* 每日任务 */
 	Ajax.custom({
-		url:'api/v1/task/daily'
+		url:'api/v1/task/daily',
+		data:{
+			ver_name: km.version
+		}
 	}, function(d){
 		var data = d.data;
 		if(data.show_share_km){

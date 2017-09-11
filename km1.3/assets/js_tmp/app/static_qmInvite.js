@@ -49,7 +49,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
         arr.push('<div id="closeRewardTable" class="rt_close"><i class="iconfont icon-close"></i></div>');
         arr.push('<div class="con">');
         arr.push("<h4>奖励对照表</h4>");
-        arr.push('<div class="th"><span>累计有效徒弟数</span><span>奖励现金（元）</span></div>');
+        arr.push('<div class="th"><span>累计赏金徒弟数</span><span>奖励现金（元）</span></div>');
         arr.push('<ul class="list">');
         for (var i = 0; i < d_arr.length; i++) {
             var d = d_arr[i].split(":");
@@ -182,13 +182,20 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
                     time: "999999999"
                 });
                 return;
-            } else {
+            }
+            if (data.status == 1007) {
                 Tools.alertDialog({
                     title: "提醒",
-                    text: data.desc,
-                    time: "0"
+                    text: "报名失败，请稍后重试",
+                    time: "999999999"
                 });
+                return;
             }
+            Tools.alertDialog({
+                title: "提醒",
+                text: data.desc,
+                time: "0"
+            });
         }
     });
     $("#toFriend").on("click", function() {
@@ -222,12 +229,19 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
                             time: "999999999"
                         });
                         return;
-                    } else {
-                        Tools.alertDialog({
-                            title: "报名失败",
-                            text: d.desc
-                        });
                     }
+                    if (data.status == 1007) {
+                        Tools.alertDialog({
+                            title: "提醒",
+                            text: "报名失败，请稍后重试",
+                            time: "999999999"
+                        });
+                        return;
+                    }
+                    Tools.alertDialog({
+                        title: "报名失败",
+                        text: d.desc
+                    });
                 }
             });
         }
@@ -280,7 +294,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",

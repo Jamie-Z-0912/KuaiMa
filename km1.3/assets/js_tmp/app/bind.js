@@ -216,7 +216,7 @@ define("app/bind", [ "../mod/submit", "../plugs/tipsAd.js" ], function(require, 
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",

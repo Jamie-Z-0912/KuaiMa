@@ -223,7 +223,10 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
         getJunior();
     }
     Ajax.custom({
-        url: "api/v1/task/daily"
+        url: "api/v1/task/daily",
+        data: {
+            ver_name: km.version
+        }
     }, function(d) {
         var data = d.data;
         if (data.show_share_km) {
@@ -590,7 +593,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
                 title: "提醒",
                 text: data.desc
             };
-        } else if (/1006|1007/.test(data.status)) {
+        } else if (/1006/.test(data.status)) {
             var n = 5;
             opt = {
                 title: "提醒",
