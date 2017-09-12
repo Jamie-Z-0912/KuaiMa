@@ -4,8 +4,26 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
     var km = require("../plugs/version.js");
     require("../plugs/cookieStorage.js");
     $("body,#bg").height(innerHeight);
-    const uid = Tools.uid(), teamId = Tools.getQueryValue("teamId");
-    var myurl = "http://t.kuiama.cn/browser/joinUs.html";
+    if (!km.isKM) {
+        Tools.alertDialog({
+            text: "请在快马小报中打开！<br>" + km.userAgent,
+            time: 9999999
+        });
+        return;
+    }
+    if (km.less("1.5.0")) {
+        Tools.alertDialog({
+            text: '<span style="font-size:16px;width:86%;display:inline-block;">更新至最新版，加入团队拿分红！</span><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" class="ui-btn minbtn">马上赚钱</a>',
+            time: "9999999999"
+        });
+        return;
+    }
+    var myurl;
+    if (/browser.kuaima.cn/.test(location.hostname)) {
+        myurl = "http://share.51xiaoli.cn/joinUs.html";
+    } else {
+        myurl = "http://t.kuaima.cn/browser/joinUs.html";
+    }
     function get_channel() {
         var channel = "", userAgent = km.userAgent;
         if (userAgent.split("ssy=").length == 2) {
@@ -33,7 +51,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         make_qr: function(code) {
             var self = this;
             myurl = myurl + "?code=" + code;
-            if (/Android/.test(km.userAgent) && self.qr_base64 && self.qr_base64[0] == uid) {
+            if (/Android/.test(km.userAgent) && self.qr_base64 && self.qr_base64[0] == code) {
                 $("#userQrCode").append('<img src="' + self.qr_base64[1] + '"/>');
                 var qrTag = $("#userQrCode img")[0];
                 self.makeQrImg(qrTag);
@@ -52,7 +70,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
                     if ($("#userQrCode img").length > 0) {
                         clearInterval(makeQrTime);
                         var qr_code = $("#userQrCode img")[0];
-                        var qr = [ uid, $("#userQrCode img").attr("src") ];
+                        var qr = [ code, $("#userQrCode img").attr("src") ];
                         Storage.set("qr", qr);
                         self.makeQrImg(qr_code);
                     }
@@ -64,13 +82,21 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         }
     };
     Ajax.custom({
-        url: "api/v1/teams/" + teamId
+        url: "api/v1/teams/myTeam"
     }, function(data) {
         if (data.status == 1e3) {
             var d = data.data;
-            QR.make_qr(d.web_share_code);
             $("#teamCode").text(d.invite_code);
+            QR.make_qr(d.web_share_code);
         } else {
+            if (data.status == 9916) {
+                Tools.alertDialog({
+                    title: "",
+                    text: '<span style="font-size:.16rem;">您暂时还没有团队，团队分红等你赚</span><br><a href="kmb://team_myself" class="ui-btn minbtn">快去组团</a>',
+                    time: "9999999999"
+                });
+                return;
+            }
             Tools.alertDialog({
                 title: "提醒",
                 text: data.desc,

@@ -552,10 +552,15 @@ body {
   background-color: #fff;
   text-align: center;
 }
-.content .ui-btn {
+.content .box .share {
   width: 2.56rem;
   height: 0.48rem;
   line-height: 0.48rem;
   margin-top: .35rem;
   background-color: #6e9394;
+}
+.content .minbtn {
+  background-color: #c7b162;
+  margin-top: .18rem;
+  font-size: 0.15rem;
 }

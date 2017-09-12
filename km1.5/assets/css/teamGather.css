@@ -419,3 +419,9 @@ i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
 }
+h1 {
+  font-weight: bold;
+  text-align: center;
+  font-size: .3rem;
+  margin-top: 20%;
+}

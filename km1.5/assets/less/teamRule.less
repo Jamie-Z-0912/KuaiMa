@@ -1,1 +1,44 @@
 @import "reset.less";
+.rule{
+	background-color: #d0e4b1;
+	background-image: url(../image/teamQA.png);
+	background-position: top center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.con{
+	margin: .22rem .16rem .3rem;
+	padding-left: .16rem;
+	padding-right: .16rem;
+	padding-bottom: .15rem;
+	border: .04rem solid #acb076;
+	background-color: #fcffe2;
+	.qa{
+		padding-bottom: .15rem; 
+		border-bottom: 1px solid #e4e9bc;
+		h3{font-weight: 600; margin-top: .2rem; margin-bottom: .1rem;}
+		p{ 
+			color: #9c9f80; 
+			font-size: @size;
+		}
+		.warn{color:#31350d; font-weight: 500;}
+	}
+	.option{
+		background-color: #fcffe2;
+		margin-top: -4px;
+		padding-top: .12rem;
+		padding-bottom: .2rem;
+		a{
+		    display: block;
+		    .lineH(.44rem);
+		    width: 2.4rem;
+		    margin: 0 auto;
+		    padding: 0;
+		    border-radius: .22rem;
+		    text-align: center;
+		    background-color: #e79d45;
+		    color: #fff;
+		    box-shadow: 0 0.06rem 0.06rem 0 rgba(51,55,13,.16);
+		}
+	}
+}
