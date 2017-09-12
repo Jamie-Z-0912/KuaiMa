@@ -59,7 +59,7 @@
         <script id="recommend-tmpl" type="text/x-dot-template">
             {{~it:value:index}}
                 <li>
-                    <a href="javascript:;" data-url="{{=value.url}}" data-type="{{=value.type}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <a href="javascript:;" data-url="{{=value.url}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
                     <div class="ui-list-thumb">
                         <img src="{{=value.images[0]}}" alt="">
                     </div>
@@ -74,6 +74,7 @@
 
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/wnl_article.js"></script>
+    <script src="data/tuijian.js?t=20170912"></script>
     <script>
         seajs.use("app/wnl_article");
     </script>

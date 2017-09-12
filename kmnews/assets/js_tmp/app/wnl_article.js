@@ -114,7 +114,16 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
             console.log(e);
         }
         doCon();
-        Ajax.render("#recommend", "#recommend-tmpl", data.recomArticles);
+        var tjLen = tuijianData.length, tjData = [], stack = [];
+        for (var i = 0; i < tjLen; i++) {
+            stack.push(i);
+        }
+        for (var i = 0; i < 4; i++) {
+            var num = stack.splice(parseInt(Math.random() * stack.length), 1)[0];
+            console.log(num);
+            tjData.push(tuijianData[num]);
+        }
+        Ajax.render("#recommend", "#recommend-tmpl", tjData);
         $(".recommend-wrap").show();
         seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
             $(".unfold").show();
