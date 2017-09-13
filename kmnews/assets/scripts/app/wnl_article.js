@@ -100,8 +100,8 @@ define('app/wnl_article', function(require, exports, module) {
             per = Tools.getQueryValue('mh')/100,
             showH;
         if(!per){
-            if(mainH > innerHeight+80){
-                showH = innerHeight+80+'px';
+            if(mainH > innerHeight+40){
+                showH = innerHeight+40+'px';
             }else{
                 if (mainH > 250) 
                     showH = mainH-50+'px';
