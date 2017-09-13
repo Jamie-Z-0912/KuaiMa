@@ -53,7 +53,7 @@
                                 <div class="options">
                                     <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">鞭策徒弟</div>
                                     {{?value.hasTeam}}
-                                    <div class="join_myteam" data-uid="{{=value.uid}}">邀请入团</div>
+                                    <div class="join_myteam{{?!value.can_invite_join_team}} disabled{{?}}" data-uid="{{=value.uid}}">邀请入团</div>
                                     {{?}}
                                 </div>
                             </div>

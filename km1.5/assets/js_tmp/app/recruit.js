@@ -77,7 +77,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
                 }, 100);
             }
             $("#shareBtn3").on("click", function() {
-                window.location = 'kmb://share?param={"shareurl":"' + myurl + '","desc":"读新闻涨见识还可以赚零花，加入团队奖励翻！"}';
+                window.location = 'kmb://share?param={"shareurl":"' + myurl + '","desc":"我在快马建立了小团，团队任务奖励翻倍，分红多多，还不赶紧上车一起来赚～"}';
             });
         }
     };

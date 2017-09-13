@@ -127,6 +127,7 @@ define("app/myfriend", [ "../mod/pagelist2", "../plugs/confirmTip.js" ], functio
                     Ajax.custom({
                         url: "api/v1/teams/" + teamId + "/invite/" + $el.data("uid")
                     }, function(data) {
+                        $el.addClass("disabled");
                         if (data.status == 1e3) {
                             Tools.alertDialog({
                                 title: "邀请已发出",

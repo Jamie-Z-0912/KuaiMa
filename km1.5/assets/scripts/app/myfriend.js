@@ -125,6 +125,7 @@ define('app/myfriend', function(require, exports, module) {
                     Ajax.custom({
                         url: 'api/v1/teams/'+teamId+'/invite/'+$el.data('uid')
                     },function(data){
+                        $el.addClass('disabled');
                         if(data.status == 1000){
                             Tools.alertDialog({title:'邀请已发出', text: '对方接受后将自动成为您的团员！',time:'0' });
                         }else{

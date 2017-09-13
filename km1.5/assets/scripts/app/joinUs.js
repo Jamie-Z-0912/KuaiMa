@@ -31,8 +31,12 @@ define('app/joinUs', function(require, exports, module) {
                 }, 60000);
                 submit.sendSms($('#repeatSend'),{
                     phone: base64.encode(phone),
-                    useto: 'register',
+                    useto: 'joinTeam',
                     type: type
+                }, function(data){
+                    if(data.status==9902){
+                        $('#hasTeam').show().siblings().remove();
+                    }
                 });
             }
         })

@@ -60,7 +60,7 @@ define(function(require, exports, module) {
             }
         });
     };
-    exports.sendSms = function(btnSend, options){
+    exports.sendSms = function(btnSend, options, callback){
         var opt = {
             phone: '',
             uid:'',
@@ -110,6 +110,7 @@ define(function(require, exports, module) {
                 });
                 return;
             }
+            $.isFunction(callback) && callback(data);
         });
     }
 });

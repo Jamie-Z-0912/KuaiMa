@@ -51,7 +51,7 @@ define("mod/submit", [ "./base" ], function(require, exports, module) {
             }
         });
     };
-    exports.sendSms = function(btnSend, options) {
+    exports.sendSms = function(btnSend, options, callback) {
         var opt = {
             phone: "",
             uid: "",
@@ -103,6 +103,7 @@ define("mod/submit", [ "./base" ], function(require, exports, module) {
                 });
                 return;
             }
+            $.isFunction(callback) && callback(data);
         });
     };
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {

@@ -33,8 +33,12 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                 }, 6e4);
                 submit.sendSms($("#repeatSend"), {
                     phone: base64.encode(phone),
-                    useto: "register",
+                    useto: "joinTeam",
                     type: type
+                }, function(data) {
+                    if (data.status == 9902) {
+                        $("#hasTeam").show().siblings().remove();
+                    }
                 });
             }
         });
@@ -166,7 +170,7 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
             }
         });
     };
-    exports.sendSms = function(btnSend, options) {
+    exports.sendSms = function(btnSend, options, callback) {
         var opt = {
             phone: "",
             uid: "",
@@ -218,6 +222,7 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                 });
                 return;
             }
+            $.isFunction(callback) && callback(data);
         });
     };
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
