@@ -82,5 +82,29 @@ const tuijianData = [
         "title":"姐姐你太紧了，我感觉有点疼……  ", 
         "url":"http://news.zhwnl.cn/article2.html?id=910898", 
         "images":["data/tjImg/0913/7.jpg"]
+    },
+    {
+        "id":"910901", 
+        "title":"少妇和少女，味道有什么不同？ ", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910901", 
+        "images":["data/tjImg/0914/1.jpg"]
+    },
+    {
+        "id":"910902", 
+        "title":"逛完商场，我带穿着暴露的女友去了按摩店… ", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910902", 
+        "images":["data/tjImg/0914/2.jpg"]
+    },
+    {
+        "id":"910904", 
+        "title":"另类保镖：美女总裁爱上我", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910904", 
+        "images":["data/tjImg/0914/3.jpg"]
+    },
+    {
+        "id":"910905", 
+        "title":"小姨子和我遭岳母撞见~~ ", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910905", 
+        "images":["data/tjImg/0914/4.jpg"]
     }
 ];
