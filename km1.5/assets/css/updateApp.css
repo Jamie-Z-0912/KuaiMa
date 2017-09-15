@@ -66,6 +66,10 @@ a:active {
   overflow: hidden;
   position: relative;
 }
+.max-w-750 .cur_v {
+  margin-top: 1rem;
+  line-height: 2.4;
+}
 body {
   background-color: #d6c6ad;
 }
