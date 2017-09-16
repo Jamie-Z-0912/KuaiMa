@@ -427,7 +427,7 @@ body {
   width: 100%;
 }
 .con {
-  margin: 0 .16rem .32rem;
+  margin: 0 .16rem;
   padding: 0 .15rem .1rem;
   background-color: #fff;
   border-radius: .06rem;
@@ -471,4 +471,20 @@ body {
 }
 .con .qa .line:after {
   right: -7%;
+}
+.option {
+  margin: .21rem auto .32rem;
+  width: 3.44rem;
+}
+.option a {
+  display: block;
+  height: 0.6rem;
+  line-height: 0.6rem;
+  text-align: center;
+  border-radius: .06rem;
+  letter-spacing: .5em;
+  background-color: #ffdb4c;
+  color: #332d15;
+  font-size: 0.18rem;
+  font-family: "PingFangSC Semibold";
 }

@@ -68,10 +68,22 @@ a:active {
 }
 .max-w-750 .cur_v {
   margin-top: 1rem;
+  text-align: center;
+  border: 8px solid #fff;
+  width: 2.8rem;
+  margin: 1rem auto 0;
+  padding: .2rem 0;
   line-height: 2.4;
 }
 body {
   background-color: #d6c6ad;
+}
+body {
+  background-image: -webkit-linear-gradient(top, color-stop(#e9d493 0), color-stop(#f2b240 100%));
+  background-image: -o-linear-gradient(top, #e9d493 0, #f2b240 100%);
+  background-image: linear-gradient(to bottom, #e9d493 0, #f2b240 100%);
+  background-repeat: repeat-y;
+  min-height: 6.68rem;
 }
 .imgbox {
   width: 2.32rem;
