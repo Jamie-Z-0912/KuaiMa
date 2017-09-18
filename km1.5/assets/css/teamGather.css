@@ -419,9 +419,42 @@ i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
 }
-h1 {
-  font-weight: bold;
+body {
+  background-image: -webkit-linear-gradient(top, color-stop(#e9d493 30%), color-stop(#f3b13e 100%));
+  background-image: -o-linear-gradient(top, #e9d493 30%, #f3b13e 100%);
+  background-image: linear-gradient(to bottom, #e9d493 30%, #f3b13e 100%);
+  background-repeat: repeat-y;
+  min-height: 6.68rem;
+}
+.qidai {
+  background-image: url(../image/qidai_bg.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100%;
   text-align: center;
-  font-size: .3rem;
-  margin-top: 20%;
+}
+h1 {
+  color: #5f5023;
+  margin-top: .78rem;
+  font-family: "PingFangSC Semibold";
+}
+.subtit {
+  color: #5f5023;
+  opacity: .7;
+  font-size: 0.2rem;
+  line-height: 2;
+  margin-top: .2rem;
+}
+.bottom {
+  margin-top: .6rem;
+}
+.bottom img {
+  display: block;
+  width: 100%;
+}
+@media (min-height: 570px) {
+  .bottom {
+    position: fixed;
+    bottom: 0;
+  }
 }

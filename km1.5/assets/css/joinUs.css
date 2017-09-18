@@ -436,6 +436,7 @@ body {
   position: relative;
   padding: .1rem .15rem;
   text-align: center;
+  min-height: 1.88rem;
 }
 .joinus .head img {
   display: block;
@@ -445,6 +446,18 @@ body {
   width: 100%;
   color: #fff;
   line-height: 1.4;
+}
+.joinus .head .txt {
+  font-size: 0.2rem;
+  width: 12.2em;
+  text-align: center;
+  font-family: "PingFangSC Semibold";
+  padding: .23rem;
+  margin: .46rem auto 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: .06rem;
+  color: #fff;
+  line-height: 1.5;
 }
 .joinus .head .t_0 {
   margin-top: -0.08rem;

@@ -110,9 +110,17 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                         if (d.isJoinTeam) {
                             $("#joinTeam").show().siblings().remove();
                         } else {
-                            $("#hasTeam").show().siblings().remove();
+                            if (/只能参加一个团队/.test(d.errorMsg)) {
+                                $("#hasTeam").show().siblings().remove();
+                            } else {
+                                $("#msg").text(d.errorMsg);
+                                $("#other").show().siblings().remove();
+                            }
                         }
                     }
+                } else {
+                    $("#msg").text(data.desc);
+                    $("#other").show().siblings().remove();
                 }
             }
         });
