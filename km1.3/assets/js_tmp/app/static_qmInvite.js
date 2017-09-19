@@ -121,7 +121,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
         $("#over").removeClass("hide");
         $("#activity").remove();
     }
-    function gameing(leftSeconds, validSonNum, jiangli_arr) {
+    function gameing(leftSeconds, validSonNum, jiangli_arr, tSonNum) {
         var t_24h = 24 * 60 * 60;
         if (leftSeconds > t_24h) {
             var left_h = parseInt(leftSeconds / 3600);
@@ -133,6 +133,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
         }
         var schData = schedule(validSonNum, jiangli_arr);
         console.log(schData);
+        schData.tTudi = tSonNum;
         Ajax.render("#main", "#main-tmpl", schData, undefined, true);
         $("#activity").removeClass("hide");
     }
@@ -161,7 +162,7 @@ define("app/static_qmInvite", [ "../mod/base", "../plugs/version" ], function(re
                 if (d.isEnd) {
                     gameOver(d.validSonNum, jiangli_arr);
                 } else {
-                    gameing(d.leftSeconds, d.validSonNum, jiangli_arr);
+                    gameing(d.leftSeconds, d.validSonNum, jiangli_arr, d.totalSonNum);
                 }
                 $("#yuRe").remove();
             } else {

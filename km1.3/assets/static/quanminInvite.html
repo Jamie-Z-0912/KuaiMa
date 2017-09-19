@@ -50,7 +50,12 @@
         </div>
         <div class="main" id="main"> </div>
         <script id="main-tmpl" type="text/x-dot-template">
-            <h4>当前赏金徒弟 {{=it.tudi}} 个</h4>
+            {{?it.tudi==0}}
+                <h4><span style="color:#f65342">3.6万</span>收徒赏金疯狂来袭</h4>
+            {{??}}
+                <h4 style="color:#f65342">赏金徒弟 {{=it.tudi}} 个</h4>
+                <h4 style="font-size:.14rem;">活动期间总收徒 {{=it.tTudi}} 个</h4>
+            {{?}}
             <div class="subtitle">再收{{=it.leftNum}}个，即可获得目标奖励</div>
             <div class="sch">
                 <div class="schedule_bar"><i style="width:{{=it.sch}}"></i></div>
