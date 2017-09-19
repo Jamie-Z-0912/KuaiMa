@@ -214,6 +214,36 @@ const tuijianData = [
         "title":"老师太诱惑，我忍不住了…", 
         "url":"http://news.zhwnl.cn/article2.html?id=910929", 
         "images":["data/tjImg/0918/13.jpg"]
+    },
+    {
+        "id":"910930", 
+        "title":"男女发生关系后，通常说的第一句话是什么···", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910930", 
+        "images":["data/tjImg/0919/1.jpg"]
+    },
+    {
+        "id":"910931", 
+        "title":"监控记录下18岁少女被强暴的全过程，最后的画面让人流泪…", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910931", 
+        "images":["data/tjImg/0919/2.jpg"]
+    },
+    {
+        "id":"910932", 
+        "title":"女上男下，究竟谁更舒服？", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910932", 
+        "images":["data/tjImg/0919/3.jpg"]
+    },
+    {
+        "id":"910933", 
+        "title":"姐夫的技术真好，我深深上瘾了", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910933", 
+        "images":["data/tjImg/0919/4.jpg"]
+    },
+    {
+        "id":"910934", 
+        "title":"醉后，我和表姐缠绵一夜！", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910934", 
+        "images":["data/tjImg/0919/5.jpg"]
     }
 
 ];
