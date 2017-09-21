@@ -244,6 +244,36 @@ const tuijianData = [
         "title":"醉后，我和表姐缠绵一夜！", 
         "url":"http://news.zhwnl.cn/article2.html?id=910934", 
         "images":["data/tjImg/0919/5.jpg"]
+    },
+    {
+        "id":"910936", 
+        "title":"突然来例假，把叔叔的床单弄脏了……", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910936", 
+        "images":["data/tjImg/0920/1.jpg"]
+    },
+    {
+        "id":"910937", 
+        "title":"姐夫，就这一次吧，我老公会发现的……", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910937", 
+        "images":["data/tjImg/0920/2.jpg"]
+    },
+    {
+        "id":"910938", 
+        "title":"长期没有性生活，到底会发生什么事？", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910938", 
+        "images":["data/tjImg/0920/3.jpg"]
+    },
+    {
+        "id":"910939", 
+        "title":"丈夫逼她净身出户，这个女人居然这样做！", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910939", 
+        "images":["data/tjImg/0920/4.jpg"]
+    },
+    {
+        "id":"910941", 
+        "title":"新婚夜他差点把我撕碎，到兴处还打我一巴掌，说了一句让我震惊的话..…", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910941", 
+        "images":["data/tjImg/0920/5.jpg"]
     }
 
 ];

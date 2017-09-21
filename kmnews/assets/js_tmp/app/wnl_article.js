@@ -118,7 +118,7 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
         for (var i = 0; i < tjLen; i++) {
             stack.push(i);
         }
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 7; i++) {
             var num = stack.splice(parseInt(Math.random() * stack.length), 1)[0];
             console.log(num);
             tjData.push(tuijianData[num]);
