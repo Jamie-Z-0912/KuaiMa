@@ -274,6 +274,36 @@ const tuijianData = [
         "title":"新婚夜他差点把我撕碎，到兴处还打我一巴掌，说了一句让我震惊的话..…", 
         "url":"http://news.zhwnl.cn/article2.html?id=910941", 
         "images":["data/tjImg/0920/5.jpg"]
+    },
+    {
+        "id":"910942", 
+        "title":"女子被强奸257次，只因太漂亮？连办案民警都……", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910942", 
+        "images":["data/tjImg/0921/1.jpg"]
+    },
+    {
+        "id":"910943", 
+        "title":"女人上错了床后，是什么感受？", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910943", 
+        "images":["data/tjImg/0921/2.jpg"]
+    },
+    {
+        "id":"910944", 
+        "title":"进了办公室两小时，出来时她的裙子上竟然有奇怪的斑迹……", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910944", 
+        "images":["data/tjImg/0921/3.jpg"]
+    },
+    {
+        "id":"910945", 
+        "title":"我一直都喊疼，妹夫根本不管不顾！", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910945", 
+        "images":["data/tjImg/0921/4.jpg"]
+    },
+    {
+        "id":"910946", 
+        "title":"电梯里响起急促的呼吸声，他心急如焚的把我往外拽", 
+        "url":"http://news.zhwnl.cn/article2.html?id=910946", 
+        "images":["data/tjImg/0921/5.jpg"]
     }
 
 ];
