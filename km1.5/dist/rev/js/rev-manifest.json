@@ -1,7 +1,10 @@
 {
+  "app/invite151.js": "app/invite151-2cebf1f152.js",
   "app/joinUs.js": "app/joinUs-7bbac7e9d3.js",
+  "app/myMoneyProgress.js": "app/myMoneyProgress-5da0eea1a7.js",
   "app/myfriend.js": "app/myfriend-b5687ece65.js",
   "app/recruit.js": "app/recruit-fe78eae713.js",
-  "app/static_movie1001.js": "app/static_movie1001-f01ca16630.js",
+  "app/static_movie1001.js": "app/static_movie1001-ddc3f86dac.js",
+  "app/static_shoutu1001.js": "app/static_shoutu1001-fd9dfac6ef.js",
   "app/updateApp.js": "app/updateApp-21254c133f.js"
 }
