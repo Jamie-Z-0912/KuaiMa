@@ -125,15 +125,6 @@ define('app/wnl_article', function(require, exports, module) {
             console.log(e);
         }
         doCon();
-        var tjLen = tuijianData.length, tjData = [], stack=[];
-        for (var i = 0; i < tjLen; i++) { stack.push(i)};
-        for (var i = 0; i < 7; i++) {
-            var num = stack.splice(parseInt(Math.random() * stack.length), 1)[0];
-            console.log(num)
-            tjData.push(tuijianData[num])
-        }
-        Ajax.render('#recommend', '#recommend-tmpl', tjData);
-        $('.recommend-wrap').show();
         seajs.use('https://static.mlinks.cc/scripts/dist/mlink.min.js', function(){
             $('.unfold').show();
             // if(Fun.isAndroid()){
@@ -163,6 +154,33 @@ define('app/wnl_article', function(require, exports, module) {
             }
         });
 	});
+    Ajax.custom({
+        url:'api/v1/aggregation/list',
+        data:{
+            actId:'5',
+            date:''
+        }
+    }, function(data){
+        console.log(data);
+        Ajax.render('#recommend', '#recommend-tmpl', data.data.aggregationListDetails);
+        $('.recommend-wrap').show();
+
+        seajs.use('https://static.mlinks.cc/scripts/dist/mlink.min.js', function(){
+            var linkLength = $('#recommend li').length;
+            for (var i = 0; i < linkLength; i++) {
+                var id = '#rec_' + i, 
+                    cur_id = $(id).data('id'),
+                    cur_url = 'http://news.zhwnl.cn/article2.html?id='+cur_id;
+                    
+                var options = new Object();
+                options["mlink"] = 'https://ax9wdh.mlinks.cc/AaiE';
+                options["button"] = document.querySelectorAll('a'+id);
+                options["params"] = {'detailid':cur_id, 'detailurl':cur_url};
+                // console.log(options)
+                new Mlink(options);
+            }
+        });
+    })
     $('#num').text(Math.ceil(Math.random()*93)+7);
     $('#photos li').each(function(){
         var n = Math.ceil(Math.random()*1000);

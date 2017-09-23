@@ -59,9 +59,9 @@
         <script id="recommend-tmpl" type="text/x-dot-template">
             {{~it:value:index}}
                 <li>
-                    <a href="javascript:;" data-url="{{=value.url}}" data-id="{{=value.id}}" id="rec_{{=index}}"></a>
+                    <a href="javascript:;" data-id="{{=value.content_id}}" id="rec_{{=index}}"></a>
                     <div class="ui-list-thumb">
-                        <img src="{{=value.images[0]}}" alt="">
+                        <img src="{{=value.images[0]}}" />
                     </div>
                     <div class="ui-list-info">
                         <h2>{{=value.title}}</h2>
