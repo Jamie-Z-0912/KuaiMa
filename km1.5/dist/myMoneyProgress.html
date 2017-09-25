@@ -4,7 +4,7 @@
         </div>
     {{??}}
         <div class="head">
-            {{?it.data.last_withdraw_order.status_desc}}
+            {{?it.data.last_withdraw_order && it.data.last_withdraw_order.status_desc}}
                 <h6>上一笔记录</h6>
                 <p>{{=it.data.last_withdraw_order.status_desc}}</p>
             {{??}}
