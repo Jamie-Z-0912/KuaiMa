@@ -654,7 +654,7 @@ i#lDom ~ iframe {
   height: 0.22rem;
   line-height: 0.22rem;
 }
-.main .main-list ul li .gold:after {
+.main .main-list ul li .rmb:after {
   display: inline;
   content: "元";
   margin-left: .04rem;
@@ -664,6 +664,7 @@ body {
   padding-bottom: .62rem;
 }
 .b-fixed {
+  max-width: 750px;
   display: none;
   position: fixed;
   bottom: 0;
