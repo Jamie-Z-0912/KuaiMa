@@ -492,7 +492,7 @@ i#lDom ~ iframe {
   line-height: 1;
   font-size: 0;
   padding-top: .2rem;
-  height: 2.1rem;
+  height: 2.24rem;
   background-image: -webkit-linear-gradient(top, color-stop(#ffcd00 0%), color-stop(#ffa200 100%));
   background-image: -o-linear-gradient(top, #ffcd00 0%, #ffa200 100%);
   background-image: linear-gradient(to bottom, #ffcd00 0%, #ffa200 100%);
@@ -504,7 +504,7 @@ i#lDom ~ iframe {
 }
 .hd .hd-top .rmb {
   font-size: .4rem;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 .hd .hd-top .totle {
   font-size: 0.15rem;
@@ -520,7 +520,7 @@ i#lDom ~ iframe {
 .hd .exchange {
   position: absolute;
   z-index: 2;
-  bottom: .24rem;
+  bottom: .3rem;
   width: 50%;
   padding-top: .39rem;
   text-align: center;
@@ -569,12 +569,13 @@ i#lDom ~ iframe {
   position: absolute;
   height: .54rem;
   left: 50%;
-  bottom: .24rem;
+  bottom: .28rem;
 }
 .main {
   background-color: #fff;
 }
 .main .nav {
+  position: relative;
   border-bottom: 1px solid #ebebeb;
   text-align: center;
   font-size: 0;
@@ -584,7 +585,7 @@ i#lDom ~ iframe {
   width: 50%;
   display: inline-block;
   color: #999;
-  font-size: .17rem;
+  font-size: .18rem;
   line-height: 1;
   padding: .15rem 0;
 }
@@ -605,14 +606,26 @@ i#lDom ~ iframe {
 .main .nav li.active:before {
   background-color: #ffc524;
 }
+.main .nav:before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -0.5px;
+  width: 1px;
+  height: .2rem;
+  background-color: #ebebeb;
+  top: .14rem;
+}
 .main .main-list {
   padding: 0 8px;
 }
 .main .main-list ul li {
   position: relative;
-  height: .4rem;
-  padding: .1rem 0;
+  height: .5rem;
+  padding: .1rem .05rem;
   line-height: 1;
+  border-bottom: 1px solid #ebebeb;
 }
 .main .main-list ul li .item {
   width: 100%;
@@ -626,37 +639,26 @@ i#lDom ~ iframe {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.main .main-list ul li .item .tag {
+.main .main-list ul li .item .time {
   font-size: 0.13rem;
-  margin-top: .07rem;
+  margin-top: .1rem;
   color: #b8b8b8;
-}
-.main .main-list ul li .gold,
-.main .main-list ul li .time {
-  position: absolute;
-  right: 0;
+  width: 1.5rem;
 }
 .main .main-list ul li .gold {
-  top: .12rem;
-  color: #ffbc00;
-  font-size: .18rem;
-  line-height: 1;
+  position: absolute;
+  right: .05rem;
+  top: .24rem;
+  color: #525252;
+  font-size: .2rem;
+  height: 0.22rem;
+  line-height: 0.22rem;
 }
-.main .main-list ul li .coin:after {
-  display: inline-block;
-  vertical-align: bottom;
-  margin-right: -0.04rem;
-  content: "";
-  height: .14rem;
-  width: .18rem;
-  background: url(../image/icon_myincome.png) no-repeat;
-  background-size: 100% auto;
-  background-position: 0 0;
-}
-.main .main-list ul li .time {
+.main .main-list ul li .gold:after {
+  display: inline;
+  content: "元";
+  margin-left: .04rem;
   font-size: .12rem;
-  color: #999;
-  bottom: .12rem;
 }
 body {
   padding-bottom: .62rem;
@@ -665,11 +667,27 @@ body {
   display: none;
   position: fixed;
   bottom: 0;
+  width: 100%;
+  font-size: 0;
+  background-color: #ffbb1c;
+}
+.b-fixed a {
+  display: inline-block;
+  width: 50%;
   text-align: center;
   height: 0.62rem;
   line-height: 0.62rem;
-  width: 100%;
   font-size: 0.2rem;
   color: #fff;
-  background-color: #ffbb1c;
+}
+.b-fixed:before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -0.5px;
+  width: 1px;
+  height: .32rem;
+  background-color: #fff;
+  top: .15rem;
 }

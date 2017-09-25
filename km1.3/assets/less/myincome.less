@@ -8,7 +8,7 @@
 	line-height: 1;
 	font-size: 0;
 	padding-top: .2rem;
-	height: 2.1rem;
+	height: 2.24rem;
     background-image: -webkit-linear-gradient(top, color-stop(#ffcd00 0%), color-stop(#ffa200 100%));
     background-image: -o-linear-gradient(top, #ffcd00 0%, #ffa200 100%); 
     background-image: linear-gradient(to bottom, #ffcd00 0%, #ffa200 100%);
@@ -18,7 +18,7 @@
     	font-size: @size_t4;
     	.rmb{
 			font-size: .4rem;
-			line-height: 1.6;
+			line-height: 1.8;
     	}
     	.totle{
     		font-size: @size;
@@ -33,7 +33,7 @@
 	.gold, .exchange{
 		position: absolute;
 		z-index: 2;
-		bottom: .24rem;
+		bottom: .3rem;
 		width: 50%;
 		padding-top: .39rem;
 		text-align: center;
@@ -78,12 +78,13 @@
 		position: absolute;
 		height: .54rem;
 		left: 50%;
-		bottom: .24rem;
+		bottom: .28rem;
 	}
 }
 .main{
 	background-color: #fff;
 	.nav{
+		position: relative;
 		.border-b();
 		text-align: center;
 		font-size: 0;
@@ -92,7 +93,7 @@
 			width: 50%;
 			display: inline-block;
 			color: #999;
-			font-size: .17rem;
+			font-size: .18rem;
 			line-height: 1;
 			padding: .15rem 0;
 			&:before{
@@ -111,47 +112,46 @@
 				&:before{background-color:#ffc524;}
 			}
 		}
+		&:before{
+			display: block;
+			content: "";
+			position: absolute;
+			left: 50%;
+			margin-left: -.5px;
+			width: 1px;
+			height: .2rem;
+			background-color: #ebebeb;
+			top: .14rem;
+		}
 	}
 	.main-list{
 		padding: 0 8px;
 		ul{
 			li{
 				position: relative;
-				height: .4rem;
-			    padding: .1rem 0;
+				height: .5rem;
+			    padding: .1rem .05rem;
 			    line-height: 1;
+				.border-b;
 				.item{
 					width: 100%;
 					h3{font-size: @size; margin-top: .05rem; max-width: 76%; height: 1.1em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-					.tag{font-size: @size_small; margin-top: .07rem; color: @c_sub;}
-				}
-				.gold, .time{
-					position: absolute;
-				    right: 0;
+					.time{font-size: @size_small; margin-top: .1rem; color: @c_sub; width: 1.5rem; }
 				}
 				.gold{
-					top: .12rem;
-				    color: #ffbc00;
-				    font-size: .18rem;
-				    line-height: 1;
+					position: absolute;
+				    right: .05rem;
+					top: .24rem;
+				    color: #525252;
+				    font-size: .2rem;
+				    .lineH(.22rem);
+				    &:after{
+				    	display: inline;
+				    	content: "元";
+				    	margin-left: .04rem;
+				    	font-size: .12rem;
+				    }
 				}
-				.coin:after{
-					display: inline-block;
-					vertical-align: bottom;
-					margin-right: -.04rem;
-					content: "";
-					height: .14rem;
-    				width: .18rem;
-					background: url(../image/icon_myincome.png) no-repeat;
-					background-size: 100% auto;
-					background-position: 0 0;
-			    }
-				.time{
-					font-size: .12rem;
-					color: #999;
-					bottom: .12rem;
-				}
-
 			}
 		}
 	}
@@ -161,10 +161,27 @@ body{padding-bottom: .62rem;}
 	display: none;
 	position: fixed;
 	bottom: 0;
-	text-align: center;
-	.lineH(.62rem);
 	width: 100%;
-	font-size: @size_t2;
-	color: #fff;
+	font-size: 0;
 	background-color: #ffbb1c;
+	a{
+		display: inline-block;
+		width: 50%;
+		text-align: center;
+		.lineH(.62rem);
+		font-size: @size_t2;
+		color: #fff;
+	}
+	&:before{
+		display: block;
+		content: "";
+		position: absolute;
+		left: 50%;
+		margin-left: -.5px;
+		width: 1px;
+		height: .32rem;
+		background-color: #fff;
+		top: .15rem;
+	}
+
 }

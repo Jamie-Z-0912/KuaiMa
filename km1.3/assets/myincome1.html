@@ -24,13 +24,12 @@
     </script>
 </head>
 <body>
-    <div class="max-w-750">
+    <section class="max-w-750">
         <div class="hd">
             <div class="hd-top">
                 <div calss="txt">钱包余额(元)</div>
                 <div class="rmb" id="YUE">0.00</div>
                 <div><div class="totle">累计收益<em id="TINCOME"></em>元</div></div>
-                
             </div>
             <div class="gold">
                 <div class="txt">昨日收益</div>
@@ -57,12 +56,12 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li class="ui-border-b">
+                            <li>
                                 <div class="item">
                                     <h3>{{=value.msg}}</h3>
+                                    <div class="time">{{=value.added_time}}</div>
                                 </div>
-                                <div class="gold coin">{{?value.opt=='add'}} + {{??}} - {{?}} {{=value.coin}}</div>
-                                <div class="time">{{=value.added_time}}</div>
+                                <div class="gold">{{?value.opt=='add'}} + {{??}} - {{?}} {{=value.coin}}</div>
                             </li>
                         {{~}}
                     {{?}}
@@ -78,34 +77,22 @@
                         </li>
                     {{??}}
                         {{~it.data:value:index}}
-                            <li data-id="{{=value.out_unique_id}}" class="ui-border-b">
+                            <li data-id="{{=value.out_unique_id}}">
                                 <div class="item">
-                                    <h3>
-                                        {{=value.subject}}
-                                    </h3>
-                                    <div class="tag">
-                                        {{?value.amount>0}}
-                                            {{?!/签到/.test(value.subject) && !/兑换/.test(value.subject)}}
-                                                {{?/好友/.test(value.subject)}}
-                                                    {{?/注册/.test(this.subject)}}
-                                                        收徒奖励
-                                                    {{??}}
-                                                        好友分成
-                                                    {{?}}
-                                                {{?}}
-                                            {{?}}
-                                        {{?}}
-                                    </div>
+                                    <h3> {{=value.subject}} </h3>
+                                    <div class="time">{{=value.added_time}}</div>
                                 </div>
-                                <div class="gold">{{=value.amount}}元</div>
-                                <div class="time">{{=value.added_time}}</div>
+                                <div class="gold">{{=value.amount}}</div>
                             </li>
                         {{~}}
                     {{?}}
                 </script>
             </div>
         </div>
-        <div id="duiba" class="b-fixed">提现兑换</div>
+        <div class="b-fixed">
+            <a href="javascript:void(0)" id="duiba">我要提现</a>
+            <a href="javascript:void(0)" id="progress">进度查询</a>
+        </div>
     </section>
     <script src="scripts/lib/sea.js" id="seajsnode"></script>
     <script src="scripts/app/myincome.js"></script>

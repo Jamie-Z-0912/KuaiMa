@@ -96,6 +96,13 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version", "../plugs/storag
     $("#duiba").on("click", function() {
         window.location = "kmb://openduiba";
     });
+    $("#progress").on("click", function() {
+        if (/browser.kuaima/.test(window.hostname)) {
+            window.location = "http://browser.kuaima.cn/myMoneyProgress.html?auth_token=" + Tools.auth_token();
+        } else {
+            window.location = "http://t.kuaima.cn/browser/myMoneyProgress.html?auth_token=" + Tools.auth_token();
+        }
+    });
 });define("mod/pagelist", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
     var Ajax = require("./base");
     var laypage = require("../plugs/laypage");
