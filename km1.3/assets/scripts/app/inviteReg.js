@@ -43,7 +43,22 @@ define('app/inviteReg', function(require, exports, module) {
             $('#hbT').animate({'transform': 'translateY(-600px)'},800,'swing');
             $('#hbB').animate({'transform': 'translateY(600px)'},800,'swing');
             /*二层页面加载*/
-            $('input[name="fu"]').val(Tools.uid()=='null'?0:Tools.uid());
+            var uid = Tools.uid()=='null'?0:Tools.uid();
+            if(uid.isNum()){
+                console.log(uid)
+                $('input[name="fu"]').val(uid);
+            }else{
+                var s_uid='';
+                for (var i = 0; i < uid.length; i++) {
+                    if(uid[i].isNum()){
+                        s_uid+=uid[i]
+                    }else{
+                        break;
+                    }
+                };
+                console.log(s_uid)
+                $('input[name="fu"]').val(s_uid);
+            }
             $('input[name="channel"]').val(Tools.getQueryValue('channel'));
             var code = Tools.getQueryValue('code');
             var code_ = location.href.split(code)[1];

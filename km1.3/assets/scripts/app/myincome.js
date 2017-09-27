@@ -100,7 +100,7 @@ define('app/myincome', function(require, exports, module) {
 		window.location = 'kmb://openduiba';
 	});
 	$('#progress').on('click',function(){
-		if(/browser.kuaima/.test(window.hostname)){
+		if(/browser.kuaima/.test(location.hostname)){
 			window.location = 'http://browser.kuaima.cn/myMoneyProgress.html?auth_token='+Tools.auth_token();
 		}else{
 			window.location = 'http://t.kuaima.cn/browser/myMoneyProgress.html?auth_token='+Tools.auth_token();
