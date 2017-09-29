@@ -138,11 +138,15 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
             }
         });
     });
+    var date = Tools.getQueryValue("date"), d_date = "";
+    if (date != "" && date.length == 8 && /^[0-9]+$/.test(date)) {
+        d_date = date;
+    }
     Ajax.custom({
         url: "api/v1/aggregation/list",
         data: {
             actId: "5",
-            date: ""
+            date: d_date
         }
     }, function(data) {
         console.log(data);
