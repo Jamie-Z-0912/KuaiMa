@@ -1,0 +1,119 @@
+@import "reset.less";
+body{background-color: #fafafa;}
+.history{
+	background-color: #4caee0;
+	color: #fff;
+	position: relative;
+	padding-left: .8rem;
+	height: .8rem;
+	.title{
+		position: absolute;
+		text-align: center;
+		top: .13rem;
+		left: .15rem;
+		width: .48rem;
+		.txt{font-size: .14rem;display: block;}
+		.type{
+			color: #fff;
+		}
+	}
+	.info{
+		font-size: .13rem;
+		padding-top: .14rem;
+		span{margin-right: .05rem;}
+	}
+}
+.head{
+	background-color: #4caee0;
+	color: #fff;
+	position: relative;
+	padding: .15rem;
+	h6{ color: #fff; opacity: .8;}
+	p{ font-size: .13rem;}
+}
+.con{
+	background-color: #fff;
+	margin-top: .1rem;
+	padding: .15rem;
+	h4{color: #000; line-height: 1.4;}
+	.progress{
+		margin-top: .1rem;
+		li{
+			position: relative;
+			padding-top: .12rem;
+			padding-bottom: .12rem;
+			padding-left: .3rem;
+			line-height: .14rem;
+			color: @c_text;
+			&:before{
+				position: absolute;
+				left: 0;
+				top: .13rem;
+				display: block;
+				content: "";
+				width: .12rem;
+				height: .12rem;
+				border-radius: 50%;
+				background-color: #ebebeb;
+			}
+			&:after{
+				position: absolute;
+				left: .06rem;
+				top: .2rem;
+				display: block;
+				content: "";
+				height: 100%;
+				width: 1px;
+				margin-left: -.5px;
+				background-color: #ebebeb;
+			}
+			&.cur{
+				color: #000;
+				&:before{background-color: #ffc524;}
+				&:after{display: none;}
+			}
+		}
+	}
+	.tips{
+		margin-top: .15rem;
+		padding: .15rem 0 .06rem;
+		.border-t;
+		color: @c_sub;
+		font-size: .13rem;
+		line-height: 1.4;
+	}
+}
+.btn{
+	display: block;
+	margin: .15rem auto;
+	background-color: #ffc524;
+	color: #524319;
+	font-size: @size_t3;
+	text-align: center;
+	width: 3.45rem;
+	.lineH(.5rem);
+	border-radius: .06rem;
+}
+@import "libs/sidebar.less";
+.sidebar-Yup.open{
+	-webkit-transform: translateY(35%);
+    transform: translateY(35%);
+}
+#openWX{
+	text-align: center;
+	h3{
+		padding-top: .1rem;
+	}
+	.subtit{
+		color: @c_sub;
+		font-size: .13rem;
+		margin-top: .1rem;
+	}
+	img{
+		display: block;
+		width: 100%;
+		margin-top: .2rem;
+		margin-bottom: .2rem;
+	}
+	.ui-btn{ display: block;}
+}
