@@ -1,21 +1,17 @@
-
-.admin-main{
-	margin: 10px 10px 0;min-width: 860px; 
-}
-.admin-main .layui-field-title .layui-field-box{
-	padding: 10px 30px;
-}
-.admin-main .layui-field-title .layui-field-box p{
-	padding: 5px 0;
-}
+.fl{float: left;}
+.fr{float: right;}
+.lineH_38{ line-height: 38px;}
+.admin-main{ margin: 10px 10px 0;min-width: 860px;  }
+.admin-main .layui-field-title .layui-field-box{ padding: 10px 30px; }
+.admin-main .layui-field-title .layui-field-box p{ padding: 5px 0; }
 
 .ad_position_show{ width: 200px;}
-.layui-layout-admin .layui-table tr:hover{background-color: #eeeeee;}
 .layui-table th, .layui-table td{ word-break: break-all;}
 .layui-table .td-img img{display: block; width: 100%; margin-bottom: 2px;}
 .layui-table .option *{display: block;line-height: 1.2;padding: 4px 0;}
 .layui-table .option .hide{ display: none;}
 .layui-table .option span{ color: #FF5722; font-size: 14px;}
+.layui-table td img{ width: 100%;}
 .layui-table td .gray{color:gray;}
 .layui-table td .green{color:#00c500;}
 .layui-table td .red{color:red;}
@@ -41,3 +37,16 @@
 .layui-form input:disabled{background-color: #eee;}
 .layui-form label.w40{ width: 40px;}
 .layui-form label.w40~div{margin-left: 70px;}
+
+.form_page {padding-bottom: 20px;}
+.form_page .layui-form .layui-form-label{ width: 16%;padding-right: 10px;}
+.form_page .layui-form .layui-input-inline{ width: 70%;}
+.form_page .layui-form .two_label .layui-input-inline{ width: 20%;}
+.form_page .layui-form .options{ text-align: center;}
+@media screen and (max-width: 450px){
+	.form_page .layui-form .layui-form-label{ display: block; text-align: left; float: none;}
+	.form_page .layui-form .layui-input-inline{ display: block; margin:  0;}
+
+	/*.form_page .layui-form .two_label .layui-input-inline{ width: 20%;}*/
+	.form_page .layui-form .options{ text-align: left; padding-left: 60px;}
+}

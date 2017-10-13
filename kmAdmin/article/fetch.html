@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+    <div class="admin-main">
+    	<div class="form_page">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label">分类</label>
+				    <div class="layui-input-inline">
+						<select name="categoryId" lay-verify="">
+							<option value="0">所有</option>
+							<option value="1">推荐</option>
+							<option value="29">历史</option>
+						</select>  
+					</div>
+			    </div>
+			  	<div class="layui-form-item">
+				    <label class="layui-form-label">文章地址</label>
+				    <div class="layui-input-inline">
+				      	<input type="text" name="originUrl" class="layui-input" >
+				    </div>
+			  	</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">封面图片地址</label>
+				    <div class="layui-input-inline">
+						<input type="text" name="cover" class="layui-input">
+				    </div>
+			    </div>
+			    <div class="options">
+			    	<button class="layui-btn" lay-submit lay-filter="fetchOne">抓取单篇文章</button>
+			    </div>
+			</form>
+    	</div>
+		<hr class="layui-bg-blue">
+		<div class="form_page">
+			<form class="layui-form" action="">
+				<div class="layui-form-item two_label">
+					<label class="layui-form-label">省份</label>
+				    <div class="layui-input-inline">
+						<select name="province" lay-filter="province">
+							<option value="陕西">陕西</option>
+							<option value="江苏">江苏</option>
+							<option value="广东">广东</option>
+							<option value="北京">北京</option>
+						</select>  
+					</div>
+					<label class="layui-form-label">城市：</label>
+				    <div class="layui-input-inline">
+						<select name="city" lay-filter="city">
+						    <option value="西安">西安</option>
+						    <option value="铜川">铜川</option>
+						    <option value="宝鸡">宝鸡</option>
+						    <option value="咸阳">咸阳</option>
+						    <option value="渭南">渭南</option>
+						    <option value="延安">延安</option>
+						    <option value="汉中">汉中</option>
+						    <option value="兴平">兴平</option>
+						    <option value="华阴">华阴</option>
+						    <option value="榆林">榆林</option>
+						</select>  
+					</div>
+			    </div>
+			  	<div class="layui-form-item">
+				    <label class="layui-form-label">公众号文章列表地址</label>
+				    <div class="layui-input-inline">
+				      	<input type="text" name="originUrl" class="layui-input" >
+				    </div>
+			  	</div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">公众号列表页源码</label>
+				    <div class="layui-input-inline">
+						<textarea name="content" class="layui-textarea"></textarea>
+				    </div>
+			    </div>
+				<div class="layui-form-item">
+				    <label class="layui-form-label">注意</label>
+				    <div class="layui-input-inline">
+				    	<ul>
+				    		<li>1、选择城市；</li>
+				    		<li>2、访问: http://weixin.sogou.com/；</li>
+				    		<li>3、搜索要抓取的公众号；</li>
+				    		<li>4、点击进入公众号详情,从地址栏复制文章列表url,粘贴url；</li>
+				    		<li>5、开始抓取 url方式无法抓取时,请直接粘贴列表页源码；</li>
+				    	</ul>
+				    </div>
+			    </div>
+				<div class="options">
+					<button class="layui-btn" lay-submit lay-filter="fetchList">批量抓取</button>
+				</div>
+			</form>
+		</div>
+	</div>
+<script src="../plugins/layui/layui.min.js"></script>
+<script>
+    layui.config({
+        base: '../js/page/',
+        version: new Date().getTime(),
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
+	.use('articleFetch');
+</script>
+
+</body>
+</html>

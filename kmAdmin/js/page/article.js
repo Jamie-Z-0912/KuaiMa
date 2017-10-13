@@ -1,7 +1,8 @@
 layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
 	var $ = layui.jquery, 
 		layer = layui.layer, 
-        laypage = layui.laypage;
+        laypage = layui.laypage,
+        form = layui.form();
     
     /*分页*/
     laypage({
@@ -15,18 +16,20 @@ layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
                 that.pages = total;
         }
     });
-    
     /* 增加和操作处的点击 s */
     var operation = {
     	shelves: function() {
     		console.log($(this).data('id')+'上架下架')
     	},
-    	toTop: function() {
-    		console.log('置顶')
+    	rmb: function() {
+    		console.log('加现金任务')
     	},
-    	del: function(){
-    		console.log('删除')
-    	}
+        coin: function(){
+            console.log('加金币任务')
+        },
+        push: function(){
+            console.log('推送')
+        }
     }
 	$('.js-operation').on('click', function(){
 	    var type = $(this).data('type');
@@ -34,5 +37,11 @@ layui.define(['global', 'form', 'laypage', 'laydate'], function(exports){
 	});
 	/* 增加和操作处的点击 e */
 		
-	exports('category', {}); //注意，这里是模块输出的核心，模块名必须和use时的模块名一致
+    //监听提交
+    form.on('submit(check)', function(data){
+        console.log('check：'+data)
+        return false;
+    });
+    
+	exports('article', {}); //注意，这里是模块输出的核心，模块名必须和use时的模块名一致
 });    
