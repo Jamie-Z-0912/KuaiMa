@@ -31,19 +31,27 @@ define("app/shoutu1001", [ "../mod/base", "../plugs/version.js", "../plugs/confi
                 if (data.data.has_team) {
                     clearInterval(tuan);
                     $("#tips").text("提示：加入团队后，记得不要偷懒哦，否则会被队友嫌弃的。");
-                    $("#team .zudui").text("去团队赚收益").off().on("click", function() {
-                        if (km.less("1.5.0")) {
-                            updateApp();
-                        } else {
-                            if (/Android/.test(km.userAgent)) {
-                                window.location = "kmb://mine";
-                            } else {
-                                window.location = "kmb://back";
-                            }
-                        }
-                    });
+                    $("#team .zudui").text("去团队赚收益");
                     $("#team").show();
                     $("#building").hide();
+                    if (km.less("1.5.2")) {
+                        $("#team .zudui").off().on("click", function() {
+                            if (km.less("1.5.0")) {
+                                updateApp();
+                            } else {
+                                if (/Android/.test(km.userAgent)) {
+                                    window.location = "kmb://mine";
+                                } else {
+                                    window.location = "kmb://back";
+                                }
+                            }
+                        });
+                    } else {
+                        $("#team .zudui").off().on("click", function() {
+                            window.location = "kmb://team_myself?teamid=" + data.data.team_id;
+                        });
+                        window.location = "kmb://team_myself?teamid=" + data.data.team_id;
+                    }
                 }
             });
         }, 2e3);

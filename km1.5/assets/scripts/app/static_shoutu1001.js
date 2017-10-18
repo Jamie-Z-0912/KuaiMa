@@ -31,9 +31,12 @@ define('app/shoutu1001', function(require, exports, module) {
             }, function(data){
                 if(data.data.has_team){
                     clearInterval(tuan);
-                    $('#tips').text('提示：加入团队后，记得不要偷懒哦，否则会被队友嫌弃的。')
+                    $('#tips').text('提示：加入团队后，记得不要偷懒哦，否则会被队友嫌弃的。');
                     $('#team .zudui').text('去团队赚收益')
-                        .off().on('click', function(){
+                    $('#team').show();
+                    $('#building').hide();
+                    if(km.less('1.5.2')){
+                        $('#team .zudui').off().on('click', function(){
                             if(km.less('1.5.0')){
                                 updateApp();
                             }else{
@@ -44,8 +47,13 @@ define('app/shoutu1001', function(require, exports, module) {
                                 }
                             }
                         });
-                    $('#team').show();
-                    $('#building').hide();
+                    }else{
+                        $('#team .zudui').off().on('click', function(){
+                            window.location = 'kmb://team_myself?teamid='+data.data.team_id;
+                        });
+                        window.location = 'kmb://team_myself?teamid='+data.data.team_id;
+                    }
+
                 }
             })
         }, 2000);
