@@ -45,7 +45,7 @@
 .form_page .layui-form .options{ text-align: center;}
 @media screen and (max-width: 450px){
 	.form_page .layui-form .layui-form-label{ display: block; text-align: left; float: none;}
-	.form_page .layui-form .layui-input-inline{ display: block; margin:  0;}
+    .form_page .layui-form .layui-input-inline{ display: block; margin:  0;}
 
 	/*.form_page .layui-form .two_label .layui-input-inline{ width: 20%;}*/
 	.form_page .layui-form .options{ text-align: left; padding-left: 60px;}

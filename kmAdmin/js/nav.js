@@ -56,13 +56,13 @@ var navs = [
 			"href": "../category/list.html"
 		}, {
 			"title": "文章管理",
-			"href": "../article/list.html?categoryId=0"
+			"href": "../article/list.html"
 		}, {
 			"title": "文章抓取",
 			"href": "../article/fetch.html"
 		}, {
 			"title": "文章排行榜",
-			"href": "../article/toplist.html?categoryId=0"
+			"href": "../article/toplist.html"
 		}]
 	},
 	{
@@ -71,37 +71,37 @@ var navs = [
 		"spread": true,
 		"children": [{
 			"title": "采集用户",
-			"href": "main.html"
+			"href": "../initialUsers/list.html"
 		}, {
 			"title": "采集用户申请",
-			"href": "main.html"
+			"href": "../initialUsers/apply.html"
 		}, {
 			"title": "标签列表",
-			"href": "main.html"
+			"href": "../tag/list.html"
 		}, {
 			"title": "采集列表",
-			"href": "main.html"
+			"href": "../post/list.html"
 		}, {
 			"title": "昨日采集推荐",
-			"href": "main.html"
+			"href": "../post/topListYesterday.html"
 		}, {
 			"title": "用户采集",
-			"href": "main.html"
+			"href": "../post/userlist.html"
 		}, {
 			"title": "采集排行榜",
-			"href": "main.html"
+			"href": "../post/toplist.html"
 		}, {
 			"title": "有效阅读记录",
-			"href": "main.html"
+			"href": "../post/readlist.html"
 		}, {
 			"title": "文章抓取",
-			"href": "main.html"
+			"href": "../post/fetch.html"
 		}, {
 			"title": "举报管理",
-			"href": "main.html"
+			"href": "../report/processList.html"
 		}, {
 			"title": "举报记录",
-			"href": "main.html"
+			"href": "../report/list.html"
 		}]
 	},
 	{

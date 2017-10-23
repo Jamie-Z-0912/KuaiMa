@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+    <div class="admin-main">
+		<form class="layui-form" id="queryForm" action="">
+  			<div class="layui-form-item">
+				<div class="layui-inline">
+				    <label class="layui-form-label">手机号</label>
+				    <div class="layui-input-inline">
+				    	<input type="text" name="phone" class="layui-input">
+					</div>
+				</div>
+			  	<div class="layui-inline">
+				    <label class="layui-form-label">申请状态</label>
+				    <div class="layui-input-inline">
+				    		<select name="status">
+                            <option value="-1" selected="">所有</option>
+                            <option value="0">待审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">忽略</option>
+                        </select>
+					</div>
+			  	</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">开始时间</label>
+	                <div class="layui-input-inline">
+	                    <input class="layui-input" name="startTime" id="q_startTime" placeholder="开始时间"/>
+	                </div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">结束时间</label>
+	                <div class="layui-input-inline">
+	                    <input class="layui-input" name="endTime" id="q_endTime" placeholder="结束时间"/>
+	                </div>
+	            </div>
+			</div>
+			<button class="layui-btn" lay-submit lay-filter="check"><i class="layui-icon">&#xe615;</i> 查询</button>
+			<a class="layui-btn js-operation" data-type="loseAll" href="javascript:;">全部忽略</a>
+			<a class="layui-btn js-operation" data-type="passAll" href="javascript:;">全部通过</a>
+
+		</form>
+		<table class="layui-table" lay-even="" lay-skin="row">
+		  	<colgroup>
+			    <col width="13%">
+			    <col width="11%">
+			    <col width="9%">
+			    <col width="13%">
+			    <col width="9%">
+			    <col width="16%">
+			    <col width="16%">
+			    <col>
+		  	</colgroup>
+		  	<thead>
+			    <tr>
+					<th><input type="checkbox" lay-filter="checkAll"> uid</th>
+					<th>手机号</th>
+					<th>问题1</th>
+					<th>问题2</th>
+					<th>问题3</th>
+					<th>申请时间</th>
+					<th>审核时间</th>
+					<th>操作</th>
+			    </tr> 
+		  	</thead>
+		  	<tbody>
+			    <tr>
+					<td><input type="checkbox" lay-filter="chkItem">25289</td>
+					<td>18065263020</td>
+					<td>1小时以内</td>
+					<td>新闻资讯类软件</td>
+					<td>10次以内</td>
+					<td>2017-06-20 12:00:00</td>
+					<td>2017-06-20 12:00:00</td>
+					<td>
+						<a class="js-operation" data-type="lose" data-id="23" href="javascript:;">忽略</a>
+						<a class="js-operation" data-type="pass" data-id="23" href="javascript:;">通过</a>
+						<span class="red">待审核</span>
+					</td>
+			    </tr>
+			    <tr>
+					<td><input type="checkbox" lay-filter="chkItem">100045436116</td>
+					<td>18065263020</td>
+					<td>1小时以内</td>
+					<td>新闻资讯类软件</td>
+					<td>10次以内</td>
+					<td>2017-06-20 12:00:00</td>
+					<td>2017-06-20 12:00:00</td>
+					<td><span class="green">已通过</span> </td>
+			    </tr>
+		  	</tbody>
+		</table>
+		<div id="page"></div>
+	</div>
+
+	<div id="formPane" style="display: none;padding: 10px;">
+		<form class="layui-form layui-form-pane" >
+		  	<div class="layui-form-item">
+			    <label class="layui-form-label">手机号</label>
+			    <div class="layui-input-block">
+			      	<input type="text" name="version" autocomplete="off" placeholder="如：110" class="layui-input" >
+			    </div>
+		  	</div>
+			<div class="layui-form-item" id="addBtn">
+		    	<div class="layui-btn" lay-submit lay-filter="add">新增</div>
+		  	</div>
+		  	<button type="reset" id="reset" class="layui-hide">重置</button>
+		</form>
+	</div> 
+
+<script src="../plugins/layui/layui.min.js"></script>
+<script>
+    layui.config({
+        base: '../js/page/',
+        version: new Date().getTime(),
+        debug: false 
+    })
+    .extend({'global': 'public/global'})
+	.use('initialUserApply');
+</script>
+
+</body>
+</html>

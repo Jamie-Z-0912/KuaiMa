@@ -34,6 +34,7 @@ ol.has_order li{list-style-type: decimal}
 .layui-layout-admin .layui-side .layui-side-scroll{ width: 200px;}
 .layui-layout-admin .layui-side .layui-side-scroll .layui-nav{width: 180px;}
 .layui-layout-admin .layui-side .layui-nav-item>a{background-color: #2b2e37; border-top: 1px solid #23262e;}
+.layui-layout-admin .layui-side .layui-this>a{ background-color: #009688; color: #fff;}
 .layui-layout-admin .layui-side .layui-nav-item .layui-icon{font-size: 18px; margin-right: 5px; margin-left: -5px;}
 /* 自定义css */
 .admin-header-item-mobile{
