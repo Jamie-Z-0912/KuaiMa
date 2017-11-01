@@ -119,6 +119,12 @@ define('app/hotSearch', function(require, exports, module) {
                             text: '服务器异常，请退出稍后再试'
                         });
                         break;
+                    default:
+                        Tools.alertDialog({
+                            title: '领取失败',
+                            text: d.desc
+                        });
+                        break;
                 }
             })
         }else{
