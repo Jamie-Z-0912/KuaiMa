@@ -484,165 +484,131 @@ i#lDom ~ iframe {
 .pop-screen .box .btnbox a.sureBtn {
   color: #ff9100;
 }
-.main {
-  padding: .16rem;
-  background-color: #1c1314;
-}
-.main .intro {
+.intro {
+  padding: .4rem .3rem 0;
+  background-image: -webkit-linear-gradient(top, color-stop(#541be2 0%), color-stop(#b05bff 100%));
+  background-image: -o-linear-gradient(top, #541be2 0%, #b05bff 100%);
+  background-image: linear-gradient(to bottom, #541be2 0%, #b05bff 100%);
+  background-repeat: repeat-y;
   position: relative;
-  background-color: #fff;
-  border-radius: 6px;
-  padding: .15rem;
+  overflow: hidden;
 }
-.main .intro i {
-  position: absolute;
+.intro:before {
   display: block;
-  height: .16rem;
-  width: 2px;
-  background-color: #ffda24;
-  top: 0;
-  margin-top: -0.16rem;
-}
-.main .intro i:before,
-.main .intro i:after {
-  display: block;
-  position: absolute;
   content: "";
-  border-radius: 50%;
+  position: absolute;
+  top: .4rem;
+  left: .3rem;
+  right: .3rem;
+  height: 100%;
+  border: 1px solid #fff;
+  border-top-left-radius: .07rem;
+  border-top-right-radius: .07rem;
+  opacity: .5;
+  z-index: 1;
 }
-.main .intro i:before {
-  background-color: #ffc524;
-  width: 4px;
-  height: 4px;
-  top: .22rem;
-  z-index: 3;
-}
-.main .intro i:after {
-  background-color: #1c1314;
-  width: 8px;
-  height: 8px;
-  top: .24rem;
+.intro .con {
+  position: relative;
   z-index: 2;
+  padding-left: .3rem;
+  padding-bottom: .06rem;
 }
-.main .intro i.l {
-  left: .12rem;
-  margin-left: -1px;
-}
-.main .intro i.l:before,
-.main .intro i.l:after {
-  left: .02rem;
-}
-.main .intro i.l:before {
-  margin-left: -2px;
-}
-.main .intro i.l:after {
-  margin-left: -4px;
-}
-.main .intro i.r {
-  right: .12rem;
-  margin-left: 1px;
-}
-.main .intro i.r:before,
-.main .intro i.r:after {
-  right: 0;
-}
-.main .intro i.r:before {
-  margin-right: -2px;
-}
-.main .intro i.r:after {
-  margin-right: -4px;
-}
-.main .intro h2 {
-  position: relative;
+.intro .con h3 {
+  color: #fff;
+  height: 2px;
+  width: 8em;
+  background-color: #6b2bea;
+  margin-bottom: .2rem;
+  margin-top: -1px;
+  line-height: 2px;
   text-align: center;
-  padding-bottom: .15rem;
+  margin-left: -1em;
 }
-.main .intro h2:before,
-.main .intro h2:after {
-  position: absolute;
-  content: "";
-}
-.main .intro h2 span {
-  position: relative;
-}
-.main .intro h2 span:before,
-.main .intro h2 span:after {
-  position: absolute;
-  content: "";
-}
-.main .intro p {
-  color: #858585;
+.intro .con p {
+  color: #fff;
   font-size: 0.15rem;
-  line-height: 1.5;
-  width: 21.2em;
-  margin: 0 auto;
+  line-height: .22rem;
 }
-.main .intro p .red {
-  color: #fa3719;
+.intro .con p.ps {
+  font-size: .12rem;
+  line-height: 1;
+  padding: .1rem 0;
+}
+.intro .con p.ps span {
+  color: #fd0;
+}
+.main {
+  padding: 0 .15rem;
 }
 .main .schedule {
   margin-top: .15rem;
 }
 .main .schedule .box {
   position: relative;
-  background-color: #ffe224;
-  border-radius: 6px;
+  background-color: #f5f5f5;
+  border-radius: .05rem;
   padding: .15rem;
   margin-bottom: .1rem;
 }
-.main .schedule .box .sub {
-  font-size: 0.13rem;
-  color: #aa8b11;
+.main .schedule .box .jiang {
+  position: absolute;
+  top: .15rem;
+  right: .15rem;
+  color: #000;
+  font-size: 0.18rem;
   line-height: 1;
-  margin-top: .1rem;
 }
 .main .schedule .box .sch {
-  margin-top: .14rem;
+  margin-top: .06rem;
   line-height: 1;
 }
-.main .schedule .box .sch .schedule_bar,
-.main .schedule .box .sch .txt {
-  display: inline-block;
-  vertical-align: bottom;
-}
 .main .schedule .box .sch .schedule_bar {
-  background-color: #f3c200;
-  width: 1.5rem;
-  height: 9px;
   position: relative;
+  background-color: #e6e6e6;
+  width: 53%;
+  height: .16rem;
+  border-radius: 2px;
   overflow: hidden;
-  border-radius: 4px;
 }
 .main .schedule .box .sch .schedule_bar i {
   position: absolute;
   height: 100%;
-  background-image: -webkit-linear-gradient(left, color-stop(#9a00ea 0%), color-stop(#ff5400 100%));
-  background-image: -o-linear-gradient(left, #9a00ea 0%, #ff5400 100%);
-  background-image: linear-gradient(to right, #9a00ea 0%, #ff5400 100%);
-  background-repeat: repeat-x;
+  background-color: #ff8c1a;
 }
 .main .schedule .box .sch .txt {
-  font-size: .12rem;
-  color: #fa3719;
-  margin-left: .14rem;
+  color: #b2b2b2;
+  font-size: 0.13rem;
+  padding: .1rem 0;
+  width: 1rem;
 }
 .main .schedule .box .btn {
   position: absolute;
   bottom: .15rem;
   right: .15rem;
-  width: .82rem;
-  height: 0.33rem;
-  line-height: 0.33rem;
-  background-color: #f1cb10;
-  color: #fff;
+  width: .91rem;
+  height: 0.36rem;
+  line-height: 0.36rem;
+  background-color: #ffd633;
+  color: #000;
   font-size: 0.15rem;
   text-align: center;
-  border-radius: .16rem;
-  box-shadow: 0 0.04rem #dcb701;
+  border-radius: 2px;
 }
 .main .schedule .box .btn.ok {
-  background-color: #ff9100;
-  box-shadow: 0 0.04rem #e67605;
+  color: #fff;
+  background-color: #ffa31a;
+}
+.main .schedule .box .btn.over {
+  background-color: #e0e0e0;
+}
+.main .schedule .box.hasbg {
+  background-image: -webkit-linear-gradient(left, color-stop(#fcec83 25%), color-stop(#ffd633 100%));
+  background-image: -o-linear-gradient(left, #fcec83 25%, #ffd633 100%);
+  background-image: linear-gradient(to right, #fcec83 25%, #ffd633 100%);
+  background-repeat: repeat-x;
+}
+.main .schedule .box.hasbg .sch .txt {
+  color: #806a12;
 }
 .hot_word {
   padding: 0 .15rem;
@@ -683,15 +649,16 @@ i#lDom ~ iframe {
 }
 .hot_word .box .keyword {
   display: inline-block;
-  margin-left: .1rem;
+  margin-left: .08rem;
   margin-bottom: .1rem;
   border: 1px solid #ebebeb;
-  border-radius: 2px;
-  height: 0.28rem;
-  line-height: 0.28rem;
-  padding: 0 .06rem;
-  color: #1f1f1f;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  border-radius: .16rem;
+  padding: 0 .1rem;
+  color: #4c4c4c;
   font-size: 0.13rem;
+  background-color: #fbfbfb;
 }
 .search_tip {
   background-color: rgba(0, 0, 0, 0.85);
@@ -704,7 +671,7 @@ i#lDom ~ iframe {
   right: 0;
   top: 0;
   color: #fff;
-  font-size: .18rem;
+  font-size: 0.18rem;
 }
 .hot-tips {
   position: relative;

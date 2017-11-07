@@ -98,14 +98,16 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCa
                     Tools.alertDialog({
                         text: "奖励领取成功"
                     });
-                    that.removeClass("ok").text("已经领取");
+                    that.removeClass("ok").text("已经领取").addClass("over");
+                    that.parent().removeClass("hasbg");
                     break;
 
                   case 9400:
                     Tools.alertDialog({
                         text: "搜索任务奖励已领取"
                     });
-                    that.removeClass("ok").text("已经领取");
+                    that.removeClass("ok").text("已经领取").addClass("over");
+                    that.parent().removeClass("hasbg");
                     break;
 
                   case 9401:
