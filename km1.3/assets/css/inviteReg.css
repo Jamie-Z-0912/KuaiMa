@@ -640,6 +640,13 @@ body.move {
   color: #1f1f1f;
   font-size: 0.18rem;
 }
+/***/
+#userQrCode img {
+  display: block;
+  border: 10px solid #fff;
+  border-radius: 5px;
+  margin: 0 auto 10px;
+}
 /**********/
 #hongbao {
   position: fixed;
