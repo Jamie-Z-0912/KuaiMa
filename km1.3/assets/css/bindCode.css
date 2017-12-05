@@ -435,7 +435,7 @@ body {
 }
 h2 {
   position: relative;
-  padding: .2rem 0;
+  padding: .16rem 0;
   text-align: center;
 }
 h2:after {
@@ -456,38 +456,18 @@ h2:after {
   height: 0.76rem;
   line-height: 0.76rem;
 }
-.code .skin {
-  position: absolute;
-  z-index: 1;
-  font-size: 0;
-  text-align: center;
-}
-.code .skin i {
-  margin: 0 .03rem;
-  font-size: 0.18rem;
-  display: inline-block;
-  vertical-align: middle;
-  background-color: #f7f7f7;
-  border: 1px solid #e0e0e0;
-  border-radius: .04rem;
-  width: .48rem;
-  height: 0.76rem;
-  line-height: 0.76rem;
-}
-.code .skin i.light {
-  border-color: #ffd633;
-  box-shadow: 0 0 16px rgba(255, 214, 51, 0.1) inset;
-}
 .code input[type="text"] {
   display: block;
-  position: absolute;
-  border: 0 none;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
   z-index: 2;
-  width: 100%;
-  opacity: .0;
-  height: 0.76rem;
-  line-height: 0.76rem;
   background-color: #fff;
+  width: 2.98rem;
+  padding: .1rem .15rem;
+  height: 0.26rem;
+  line-height: 0.26rem;
+  font-size: 0.18rem;
+  border-radius: .06rem;
 }
 .ui-btn {
   margin: .22rem auto;

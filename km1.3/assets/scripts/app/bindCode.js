@@ -10,23 +10,24 @@ define('app/bindCode', function(require, exports, module) {
     }
     $('#code').bind('input propertychange', function(e) {
         var self = $(this), val = self.val(), len = val.length, s_len = $('#skin i').length;
-        if(len>s_len){
-            self.val(val.substr(0,6));
-        }else{
-            if(len==s_len) $('#bind').removeClass('disabled');
-            if(len==s_len-1) $('#bind').addClass('disabled');
-            if(len==0){
-                $('#skin i').text('').removeClass('light');
-            }else{
-                var cur_num = $('#code').val().substr(len-1,1);
-                var cur = $('#skin i').eq(len-1);
-                if(cur.hasClass('light')){
-                    $('#skin i').eq(len).text('').removeClass('light');
-                }else{
-                    cur.text(cur_num).addClass('light');
-                }
-            }
-        }
+        // if(len>s_len){
+        //     self.val(val.substr(0,6));
+        // }else{
+        //     if(len==s_len) $('#bind').removeClass('disabled');
+        //     if(len==s_len-1) $('#bind').addClass('disabled');
+        //     if(len==0){
+        //         $('#skin i').text('').removeClass('light');
+        //     }else{
+        //         var cur_num = $('#code').val().substr(len-1,1);
+        //         var cur = $('#skin i').eq(len-1);
+        //         if(cur.hasClass('light')){
+        //             $('#skin i').eq(len).text('').removeClass('light');
+        //         }else{
+        //             cur.text(cur_num).addClass('light');
+        //         }
+        //     }
+        // }
+        if(len>5) $('#bind').removeClass('disabled');
     });
 
     $('#bind').on('click', function(){
