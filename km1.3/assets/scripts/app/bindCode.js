@@ -32,7 +32,7 @@ define('app/bindCode', function(require, exports, module) {
 
     $('#bind').on('click', function(){
         if(!$(this).hasClass('disabled')){
-            var code = $('#code').val().substr(0,6), txt = $('#coin').text();
+            var code = $('#code').val(), txt = $('#coin').text();
             console.log(code)
             Ajax.custom({
                 url:'api/v1/inviteRelation/bind/'+code
