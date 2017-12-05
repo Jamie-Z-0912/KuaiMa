@@ -2,6 +2,7 @@
   "app/51activity.js": "app/51activity-94301edb5e.js",
   "app/about.js": "app/about-2c5004f3a3.js",
   "app/bind.js": "app/bind-7e04bf2626.js",
+  "app/bindCode.js": "app/bindCode-ea3a137437.js",
   "app/hotSearch.js": "app/hotSearch-13c4aa3814.js",
   "app/invite.js": "app/invite-7abaa33cd9.js",
   "app/inviteReg.js": "app/inviteReg-aac279ccaf.js",
@@ -26,5 +27,5 @@
   "app/static_adList.js": "app/static_adList-79c1eaee6d.js",
   "app/static_goodArticle.js": "app/static_goodArticle-378b63c895.js",
   "app/static_qmInvite.js": "app/static_qmInvite-14413c5533.js",
-  "app/taskCenter.js": "app/taskCenter-ad12796efc.js"
+  "app/taskCenter.js": "app/taskCenter-0afd582e9c.js"
 }

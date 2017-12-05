@@ -2,6 +2,7 @@
   "51activity.css": "51activity-3a861af3d4.css",
   "about.css": "about-9b4102b5a8.css",
   "bind.css": "bind-9799ac4cf2.css",
+  "bindCode.css": "bindCode-7ab8b816f8.css",
   "hotSearch.css": "hotSearch-325d9ed6c1.css",
   "invite.css": "invite-0ddaccf722.css",
   "inviteReg.css": "inviteReg-b3e01583d3.css",
@@ -28,5 +29,5 @@
   "static_gather144.css": "static_gather144-d8b81bd507.css",
   "static_goodArticle.css": "static_goodArticle-46f3dbd9f8.css",
   "static_qmInvite.css": "static_qmInvite-0831ee8711.css",
-  "taskCenter.css": "taskCenter-1dce61d16c.css"
+  "taskCenter.css": "taskCenter-e5b69708ce.css"
 }
