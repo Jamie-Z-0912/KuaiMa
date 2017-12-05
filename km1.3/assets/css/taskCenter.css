@@ -871,13 +871,13 @@ body {
 }
 .main-list .box .item h3 {
   position: relative;
-  width: 4.1em;
+  width: 5.1em;
   line-height: .16rem;
   padding-top: .1rem;
   padding-bottom: .1rem;
   display: inline-block;
   vertical-align: middle;
-  margin-right: .28rem;
+  margin-right: .25rem;
 }
 .main-list .box .item h3:after {
   content: "";
@@ -887,7 +887,7 @@ body {
   background-color: #1f1f1f;
   transform: rotate(10deg);
   top: .1rem;
-  right: -0.14rem;
+  right: -0.12rem;
 }
 .main-list .box .item.em5 h3 {
   width: 5.1em;

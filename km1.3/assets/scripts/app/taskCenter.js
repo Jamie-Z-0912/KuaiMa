@@ -300,6 +300,12 @@ define('app/taskCenter', function(require, exports, module) {
 				}
 			})
 		}
+		if(!data.has_bind_invite_code){
+			$('#bindCode').show();
+			$('#bindCode').on('click', function(){
+				window.location = 'bindCode.html?auth_token='+Tools.auth_token();
+			})
+		}
 		$('#hotSearch h6').text(data.search_task_status);
 		$('#readMesA, #gatherA').show();
 		if(Tools.getQueryValue('notice')!='open' ){
