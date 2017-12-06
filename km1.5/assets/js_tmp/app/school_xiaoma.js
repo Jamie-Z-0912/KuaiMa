@@ -1,196 +1,94 @@
-define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
-    var submit = require("../mod/submit");
-    const code = Tools.getQueryValue("code"), from = Tools.getQueryValue("from");
-    $("body").css("min-height", innerHeight);
-    if (code == "") {
-        Tools.alertDialog({
-            text: "该链接无效！",
-            time: "99999999"
-        });
-    } else {
-        $('input[name="web_share_code"]').val(code);
-    }
-    var gvCode = Math.random().toFixed(4).substring(2);
-    $("#gvCodeInput, #gvCode").text(gvCode);
-    $("#gvCodeInput").bind("input propertychange", function(e) {
-        var that = $(this), gv = that.val();
-        if (gv.length > 3) {
-            if (gv == gvCode) {
-                that.attr("disabled", "disabled");
-                $("#subForm").removeClass("disabled");
-                return;
-            } else {
-                that.val("");
-                return;
-            }
+define("app/school_xiaoma", [ "../mod/base", "../plugs/secondPage.js", "../plugs/version.js", "../plugs/confirmTip.js" ], function(require, exports, module) {
+    var Ajax = require("../mod/base");
+    var SecondPage = require("../plugs/secondPage.js");
+    var km = require("../plugs/version.js");
+    var confirmTip = require("../plugs/confirmTip.js");
+    var swiper = new Swiper(".swiper-container", {
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true
         }
     });
-    if (from == "saoma") {
-        $('input[name="join_type"]').val("3");
-    } else {
-        $('input[name="join_type"]').val("6");
-    }
-    $("#subForm").on("click", function() {
-        if (!$(this).hasClass("disabled")) {
-            $("#joinUsForm").submit();
-        }
-    });
-    $("#joinUsForm").submit(function(e) {
-        e.preventDefault();
-        var curEl = $(this);
-        var phone = $('input[name="phone"]').val();
-        if (phone.isEmpty()) {
-            Tools.alertDialog({
-                text: "手机号不能为空"
-            });
-            return;
-        }
-        if (!phone.isMobile()) {
-            Tools.alertDialog({
-                text: "手机号格式不正确"
-            });
-            return;
-        }
-        submit.fun({
-            url: "api/v1/teams/webJoin",
-            data: $(this)
-        }, function(data) {
-            if (data.status == 2001) {
-                Tools.alertDialog({
-                    text: "验证码错误，请新获取"
-                });
-            } else {
-                if (data.status == 1e3) {
-                    var d = data.data;
-                    if (d.isNewUser) {
-                        $("#newUser").show().siblings().remove();
-                    } else {
-                        if (d.isJoinTeam) {
-                            $("#joinTeam").show().siblings().remove();
-                        } else {
-                            if (/只能参加一个团队/.test(d.errorMsg)) {
-                                $("#hasTeam").show().siblings().remove();
-                            } else {
-                                $("#msg").text(d.errorMsg);
-                                $("#other").show().siblings().remove();
-                            }
-                        }
-                    }
-                } else {
-                    $("#msg").text(data.desc);
-                    $("#other").show().siblings().remove();
-                }
-            }
-        });
-    });
-});define("mod/submit", [ "./base" ], function(require, exports, module) {
-    var Ajax = require("./base");
-    window.Ajax = Ajax;
-    String.prototype.isEmail = function() {
-        return new RegExp(/^([a-zA-Z0-9]+[_|\_|\.|-]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/).test(this);
-    };
-    String.prototype.isMobile = function() {
-        return new RegExp(/^1[3|4|5|7|8]\d{9}$/).test(this);
-    };
-    String.prototype.isChinese = function() {
-        return /^[\u4E00-\uFA29]*$/.test(this) && !/^[\uE7C7-\uE7F3]*$/.test(this);
-    };
-    String.prototype.isEmpty = function() {
-        return /^\s*$/.test(this);
-    };
-    String.prototype.isVerifyCode = function() {
-        return new RegExp(/^\d*$/).test(this);
-    };
-    String.prototype.isNum = function() {
-        return /^[0-9]+$/.test(this);
-    };
-    exports.fun = function(options, callback) {
-        var formData, isForm = typeof options.data != "string" && !!options.data.length, btnSubmit;
-        if (isForm) {
-            formData = options.data.serializeArray();
-            btnSubmit = options.data.find('[type="submit"]');
-            btnSubmit.attr("disabled", true);
+    var openWXPage = new SecondPage("#openWX");
+    $("#business").on("click", function() {
+        var qq = "快马小报";
+        if (/Android/.test(navigator.userAgent) && km.less("1.2.3")) {
+            $("#openWX h2").html('长按 <a style="color:#fa0">快马小报</a> 复制');
         } else {
-            formData = options.data;
+            window.location = "kmb://QQ=" + encodeURIComponent(qq);
         }
-        $.each(formData, function() {
-            this.value = this.value.replace(/\s/gi, "");
-        });
-        options.data = formData;
-        options.type = options.type || "GET";
-        options.logtype = "submit";
-        Ajax.baseAjax(options, function(response, textStatus, jqXHR) {
-            if (isForm) {
-                btnSubmit.removeAttr("disabled");
-            }
-            if (typeof callback == "function") {
-                callback(response);
-            }
-        }, function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.statusText);
-            if (isForm) {
-                btnSubmit.removeAttr("disabled");
-            }
-            if (typeof callbackError == "function") {
-                callbackError(jqXHR, textStatus, errorThrown);
+        openWXPage.openSidebar();
+        return false;
+    });
+    $("#sidebar-bg").on("touchstart", function() {
+        openWXPage.closeSidebar();
+        return false;
+    });
+    function updateApp(type) {
+        var txt = "升级到最新版本，更多任务要你收益涨涨涨！";
+        new confirmTip({
+            text: '<p style="color:#333;padding-left:.15rem;padding-right:.15rem;">' + txt + "</p>",
+            sureTxt: "马上更新",
+            cancelTxt: "我知道了"
+        }, function(a) {
+            if (a) {
+                window.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
             }
         });
-    };
-    exports.sendSms = function(btnSend, options, callback) {
-        var opt = {
-            phone: "",
-            uid: "",
-            type: "SMS",
-            useto: ""
-        };
-        for (var i in opt) {
-            opt[i] = options[i] || opt[i];
+    }
+    var hash = location.hash;
+    if (hash != "") {
+        console.log($(hash).index());
+        $(".swiper-pagination span").eq($(hash).index()).click();
+    }
+    $("#tixian").on("click", function() {
+        window.location = "kmb://openduiba";
+    });
+    $("#jinbi").on("click", function() {
+        if (km.less("1.5.5")) {
+            updateApp();
+        } else {
+            window.location = "kmb://myincome";
         }
-        var inte, duration = 60;
-        if (inte) {
-            clearInterval(inte);
+    });
+    $("#hongbao").on("click", function() {
+        window.location = "kmb://mine";
+    });
+    $("#tuandui").on("click", function() {
+        if (km.less("1.5.0")) {
+            updateApp();
+        } else {
+            window.location = "kmb://team_myself";
         }
-        btnSend.addClass("disabled").text("发送中···");
-        Ajax.custom({
-            url: "api/v1/verify_code/web",
-            data: opt
-        }, function(data) {
-            if (data.status == 1e3) {
-                inte = setInterval(function() {
-                    duration--;
-                    if (duration == 0) {
-                        clearInterval(inte);
-                        btnSend.removeClass("disabled").text("重发验证码");
-                        return;
-                    }
-                    btnSend.text("还剩" + duration + "秒");
-                }, 1e3);
-                return;
-            }
-            if (data.status == 2003) {
-                Tools.alertDialog({
-                    title: "获取失败",
-                    text: "获取验证码太频繁，请明日再试"
-                }, function() {
-                    btnSend.text("明日再获取");
-                });
-                return;
-            }
-            if (data.status == 1008) {
-                Tools.alertDialog({
-                    text: "您已经注册过啦"
-                });
-                return;
-            }
-            if (data.status == 2002) {
-                Tools.alertDialog({
-                    text: "用户不存在"
-                });
-                return;
-            }
-            $.isFunction(callback) && callback(data);
+    });
+    $("#tuisong").on("click", function() {
+        Tools.alertDialog({
+            text: "等待快马小报的推送吧~每天都有很多次的哦~",
+            time: "0"
         });
-    };
+    });
+    $("#qiandao").on("click", function() {
+        if (km.less("1.5.5")) {
+            updateApp();
+        } else {
+            window.location = "kmb://taskcenter";
+        }
+    });
+    $("#zhuanfa").on("click", function() {
+        window.location = "kmb://mine";
+    });
+    $("#sousuo").on("click", function() {
+        if (km.less("1.3.2")) {
+            updateApp();
+        } else {
+            window.location = "kmb://hotsearch";
+        }
+    });
+    $("#yuedu").on("click", function() {
+        var w = [ "3468884", "3480962", "3471953", "3478140", "3465790", "3484966", "3469260", "3484989", "3483847", "3472143" ];
+        var cur = parseInt(w.length * Math.random());
+        window.location = "kmb://recommend?url=http://news.zhwnl.cn/article2.html?id=" + w[cur] + "&id=" + w[cur];
+    });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -539,4 +437,161 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
         }
     };
     window.Tools = Tools;
+});define("plugs/secondPage", [], function(require, exports, module) {
+    var tempPage = 0;
+    var SecondPage = function(pageName) {
+        var that = this;
+        that.targetPage = $(pageName);
+        $(pageName + " .ui-icon-return").click(function(e) {
+            e.preventDefault();
+            that.closeSidebar();
+        });
+    };
+    SecondPage.prototype = {
+        targetPage: undefined,
+        openPage: function(fn) {
+            var container = $(window), w = container.width(), h = container.height(), that = this;
+            this.targetPage.addClass("open").css({
+                width: w,
+                height: h
+            }).show();
+            tempPage++;
+            if (!$("body").hasClass("move")) {
+                $("body").addClass("move");
+            }
+            $("#sidebar-bg").show();
+            fn && fn();
+        },
+        openSidebar: function(fn) {
+            var container = $(window), w = container.width(), h = container.height(), that = this;
+            this.targetPage.show().css({
+                width: w,
+                height: h
+            });
+            setTimeout(function() {
+                that.targetPage.addClass("open");
+            }, 100);
+            $("#sidebar-bg").show();
+            tempPage++;
+            if (!$("body").hasClass("move")) {
+                $("body").addClass("move");
+            }
+            fn && fn();
+        },
+        closeSidebar: function(fn) {
+            var that = this;
+            that.targetPage.removeClass("open");
+            tempPage--;
+            setTimeout(function() {
+                that.targetPage.hide();
+                hasOpend = false;
+                if (tempPage <= 0) {
+                    $("body").removeClass("move");
+                }
+                fn && fn();
+            }, 220);
+            $("#sidebar-bg").hide();
+            window.location.hash = "";
+        }
+    };
+    module.exports = SecondPage;
+});define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.userAgent = userAgent;
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});define("plugs/confirmTip", [], function(require, exports, module) {
+    var confirmTip = function(option, callback) {
+        var opt = {
+            title: "",
+            text: "",
+            sureTxt: "确定",
+            cancelTxt: "取消"
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    confirmTip.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [], divId = that.id;
+        arr.push('<div class="pop-mask km-dialog"></div>');
+        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
+        arr.push('<div class="box">');
+        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
+        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
+        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
+        arr.push("</div></div>");
+        $("body").append(arr.join(""));
+        $("#" + divId).height($("#" + divId + " .box").height());
+        $("#" + divId + " .sureBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $("#" + divId + " .cancelBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    module.exports = confirmTip;
 });

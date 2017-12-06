@@ -1,5 +1,5 @@
 define('app/invite151', function(require, exports, module) {
-    var Ajax = require('../mod/base');
+    var pagelist = require('../mod/pagelist2');
     window.jQuery = window.Zepto;
     var confirmTip = require('../plugs/confirmTip.js');
     var km =  require('../plugs/version.js');
@@ -11,14 +11,15 @@ define('app/invite151', function(require, exports, module) {
             time: '0'
         })
     })
-    if(!km.isKM){
-        Tools.alertDialog({
-            text:'请在快马小报中打开！<br>'+km.userAgent,
-            time: 9999999
-        })
-        return;
-    }
-    
+    // if(!km.isKM){
+    //     Tools.alertDialog({
+    //         text:'请在快马小报中打开！<br>'+km.userAgent,
+    //         time: 9999999
+    //     })
+    //     return;
+    // }
+    /*************/
+    var teamId;
     const myurl = 'http://share.51xiaoli.cn/inviteReg.html';
     var QR = {
         qr_base64: Storage.get('qr'),
@@ -74,19 +75,8 @@ define('app/invite151', function(require, exports, module) {
             var mylink0 = myurl + '?uid=' + uid;
             var share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
 
-            $('#shareMore, #type2').on('click', function(){ window.location = share_kmb; });
+            $('#type3, #type2').on('click', function(){ window.location = share_kmb; });
             $('#saoma').on('click', '.btn', function(){ window.location = share_kmb; });
-            $('#type3').on('click', function(){
-                if(km.less('1.5.0')){
-                    window.location = share_kmb; 
-                }else{
-                    if(/Android/.test(km.userAgent)){
-                        window.location = 'kmb://sharetask?coin=0&shareurl='+mylink0;
-                    }else{
-                        window.location = share_kmb; 
-                    }
-                }
-            });
         }
     }
     if(km.less('1.3.2')){
@@ -96,27 +86,176 @@ define('app/invite151', function(require, exports, module) {
     Ajax.custom({
         url:'api/v1/userinfo/base'
     }, function(d){
+        teamId = d.data.team_id;
+        $('#inviteQr').text(d.data.invite_code);
         if(!km.less('1.3.2')){
             QR.make_qr(d.data.uid); 
         }
     });
-    $('#type1').on('click', function(){ $('#saoma').show(); });
-    $('#type4').on('click', function(){
-        if(km.less('1.4.0')){
-            //系统更新提示
-            new confirmTip({
-                text: '<p style="color:#333;">需1.4.0版本以上才可炫耀收入</p>',
-                sureTxt: '马上更新',
-                cancelTxt: '我知道了'
-            },function(a){
-                if(a){
-                    window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser'
-                }
-            });
-        }else{
-            window.location = 'kmb://shareinviteimg?qrurl=' + myurl;
+    $('#nav').on('click', 'li', function(){
+        var _self = $(this), id = _self.data('id');
+        if(!_self.hasClass('active')){
+            _self.addClass('active').siblings().removeClass('active');
+            $('#'+id).removeClass('hide').siblings('div').addClass('hide');
         }
     });
+    $('#type1').on('click', function(){ $('#saoma').show(); });
+    $('#type4').on('click', function(){
+        alert('短信邀请')
+    });
+    $('#showIncome').on('click', function(){
+        window.location = 'showIncome.html?auth_token='+Tools.auth_token();
+    });
+    $('#callTudi').on('click', function(){
+        $('#nav li[data-id="friends"]').click();
+    })
     $('#saoma').on('click', '.close', function(){ $('#saoma').hide(); });
-    
+    /*************************/
+    function hideInfo(a){
+        var ss = '' + a;
+        var len = ss.length;
+        var start_i = len/2-2, end_i = len/2+2;
+        var str1 = ss.substring(0,start_i);
+        var str2 = ss.substr(end_i, len - end_i);
+        return str1+'****'+str2;
+    }
+    function loadData(orderBy, order){
+        pagelist.fun({
+            url: 'api/v1/inviteRelation/friends',
+            data:{ 
+                orderBy: orderBy,  
+                order: order, 
+                page: 1,
+                page_size: 10
+            }
+        },function(data){
+            if(data.status == 1020){
+                $('#navOrder').remove();
+            }else{
+                $.each(data.data.list, function(){
+                    if(teamId!=''&&teamId!='0'){
+                        this.hasTeam = true;
+                    }
+                    this.uid = this.to_uid;
+                    this.show_uid = hideInfo(this.to_uid);
+                    var cur_time = new Date().getTime();
+                    var delta_T = cur_time - this.recent_active_time;
+                    if( delta_T > 0){
+                        var days = parseInt(delta_T/1000/60/60/24);
+                        if(days > 3){
+                            this.recent_active_time = Ajax.formatDate(this.recent_active_time, 'yyyy-MM-dd');
+                        }else if(days == 0){
+                            var hours = parseInt(delta_T/1000/60/60);
+                            if(hours == 0){
+                                this.recent_active_time = '当前';
+                            }else{
+                                this.recent_active_time = hours + '小时前';
+                            }
+                        }else{
+                            this.recent_active_time = days + '天前';
+                        }
+                    }else{
+                        this.recent_active_time = Ajax.formatDate(this.recent_active_time, 'yyyy-MM-dd');
+                    }
+                });
+            }
+        });
+    }
+    //added_time 注册时间;recent_active_time 最近活跃时间; bring_profit_to_from 给师傅带来的收益;desc降序 asc升序
+    var default_orderBy = 'recent_active_time', default_order = 'desc';
+    loadData(default_orderBy, default_order);
+
+    $('#conList').on('click', '.urge', function(){
+        var $el = $(this);
+        if($el.hasClass('disabled')){
+            Tools.alertDialog({
+                text: "每个徒弟每天只能被提醒一次<br>晚22点-早8点不能打扰徒弟哦"
+            });
+        }else{
+            Ajax.custom({
+                url: 'api/v1/inviteRelation/remind',
+                data:{
+                    son_uid: $el.data('uid')
+                }
+            },function(data){
+                var txt;
+                switch(data.status){
+                    case 1000:
+                        txt = '您的徒弟已收到您的提醒！';
+                        $el.addClass('disabled');
+                        break;
+                    case 9012:
+                        txt = '每个徒弟,每天只能被提醒一次哦';
+                        $el.addClass('disabled');
+                        break;
+                    case 9013:
+                        txt = '晚22点-早8点不能提醒徒弟哦';
+                        $el.addClass('disabled');
+                        break;
+                    case 2002:
+                        txt = '您的徒弟不存在！';
+                        $el.addClass('disabled');
+                        break;
+                }
+                Tools.alertDialog({ text: txt, time: '0' });
+            });
+        }
+    });
+
+    $('#conList').on('click', '.join_myteam', function(){
+        var $el = $(this);
+        if($el.hasClass('disabled')){
+            Tools.alertDialog({
+                text: "每个徒弟每天只能被邀请一次<br>晚22点-早8点不能打扰徒弟哦",
+                time:'0'
+            });
+        }else{
+            new confirmTip({
+                title: '<p style="width:10.1em;margin:0 auto;text-align:left;">您是否想邀请这位徒弟加入您的团队</p>'
+            },function(a){
+                if(a){
+                    Ajax.custom({
+                        url: 'api/v1/teams/'+teamId+'/invite/'+$el.data('uid')
+                    },function(data){
+                        $el.addClass('disabled');
+                        if(data.status == 1000){
+                            Tools.alertDialog({title:'邀请已发出', text: '对方接受后将自动成为您的团员！',time:'0' });
+                        }else{
+                            Tools.alertDialog({ text: data.desc, time:'0' });
+                        }
+                    });
+                }
+            })
+        }
+    });
+
+    $('#conList').on('click', '.more_coin', function(){
+        var self = $(this);
+        if(self.hasClass('open')){
+            self.removeClass('open');
+        }else{
+            Ajax.custom({
+                url: 'api/v1/inviteRelation/friends/active',
+                data: {
+                    son_uid: self.data('id')
+                }
+            }, function(d){
+                console.log(d);
+                if(d.status==1000){
+                    var act_d = parseInt(d.data.had_active_day);
+                    self.find('.txt span').text('（剩余：'+d.data.left_active_day+'天）')
+                    if(act_d>0){
+                        if(act_d>7){
+                            self.find('.coin li').addClass('active');
+                        }else{
+                            for (var i = 0; i < act_d.length; i++){
+                                self.find('.coin li').eq(i).addClass('active');
+                            };
+                        }
+                    }
+                    self.addClass('open');
+                }
+            });
+        }
+    })
 });

@@ -1,0 +1,78 @@
+@import "reset.less";
+@import "libs/sidebar.less";
+@import "libs/confirmTip.less";
+.pop-screen .box .btnbox{
+    position: relative;
+    &:before{
+        position: absolute;
+        height: .38rem;
+        width: 1px;
+        display: block;
+        vertical-align: middle;
+        background-color: #ebebeb;
+        content: "";
+        left: 50%;
+        top: .07rem;
+    }
+}
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    .swiper-slide { text-align: center; background: #fff; }
+    .swiper-pagination .swiper-pagination-bullet-active{ background-color: #ffd014;}
+}
+.xiama {
+    padding: .3rem;
+    .swiper-slide {
+        h3{
+            position: relative;
+            padding-bottom: .17rem;
+            margin-bottom: .2rem;
+            &:after{
+                content: "";
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                height: .03rem;
+                width: 3.8em;
+                margin-left: -1.9em;
+                background-color: #e6e6e6;
+            }
+        }
+    
+        .box{
+            padding-bottom: .44rem;
+            img{ display: block; width: 100%;}
+        } 
+    }
+    .ui-btn{
+        margin-top: .1rem;
+        width: 3.28rem;
+        .lineH(.56rem);
+        color: @c_title;
+        background-color: #ffd633;
+    }
+}
+.sidebar-Yup.open{
+    -webkit-transform: translateY(30%);
+    transform: translateY(30%);
+}
+#openWX{
+    text-align: center;
+    h3{
+        padding-top: .1rem;
+    }
+    .subtit{
+        color: @c_sub;
+        font-size: .13rem;
+        margin-top: .1rem;
+    }
+    img{
+        display: block;
+        width: 100%;
+        margin-top: .2rem;
+        margin-bottom: .2rem;
+    }
+    .ui-btn{ display: block; width: 2rem;}
+}

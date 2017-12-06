@@ -1,14 +1,163 @@
-define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
+define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plugs/secondPage.js" ], function(require, exports, module) {
+    var isPC = function() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    };
     var submit = require("../mod/submit");
-    const code = Tools.getQueryValue("code"), from = Tools.getQueryValue("from");
-    $("body").css("min-height", innerHeight);
-    if (code == "") {
-        Tools.alertDialog({
-            text: "该链接无效！",
-            time: "99999999"
+    require("../plugs/cookieStorage.js");
+    var SecondPage = require("../plugs/secondPage.js");
+    if (isPC()) {
+        window.jQuery = window.Zepto;
+        function make_qr() {
+            var mylink = window.location.href;
+            seajs.use("./scripts/lib/jquery.qrcode.min", function() {
+                var qr = $("#userQrCode").qrcode({
+                    logo: "data:image/png;base64,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",
+                    width: 190,
+                    height: 190,
+                    correctLevel: 2,
+                    text: mylink
+                });
+            });
+        }
+        $("#hongbao").html('<div style="color:#fff;text-align:center;" id="pcView"><div id="userQrCode"></div><p>手机扫一扫，查看页面</p></div>');
+        make_qr();
+        $("#pcView").css("margin-top", innerHeight / 2 - 200);
+        return;
+    }
+    var myChannel = Tools.getQueryValue("channel") || "";
+    $(".hongbao").css({
+        "margin-top": (innerHeight - $("#hbT").height()) / 2 + "px",
+        opacity: 1
+    });
+    (function() {
+        $.extend($.fn, {
+            fadeOut: function(speed, easing, complete) {
+                if (typeof speed === "undefined") speed = 400;
+                if (typeof easing === "undefined" || typeof easing !== "string") easing = "swing";
+                $(this).css({
+                    opacity: 1
+                }).animate({
+                    opacity: 0
+                }, speed, easing, function() {
+                    $(this).css("display", "none");
+                    if (typeof easing === "function") {
+                        easing();
+                    } else if (typeof complete === "function") {
+                        complete();
+                    }
+                });
+                return this;
+            }
         });
-    } else {
-        $('input[name="web_share_code"]').val(code);
+    })();
+    $("#hbk").on("click", function() {
+        $(this).addClass("rotate");
+        setTimeout(function() {
+            $("#hbk").parent().remove();
+            $("#hbT").animate({
+                transform: "translateY(-600px)"
+            }, 800, "swing");
+            $("#hbB").animate({
+                transform: "translateY(600px)"
+            }, 800, "swing");
+            var uid = Tools.uid() == "null" ? "0" : Tools.uid();
+            if (uid.isNum()) {
+                console.log(uid);
+                $('input[name="fu"]').val(uid);
+            } else {
+                var s_uid = "";
+                for (var i = 0; i < uid.length; i++) {
+                    if (uid[i].isNum()) {
+                        s_uid += uid[i];
+                    } else {
+                        break;
+                    }
+                }
+                console.log(s_uid);
+                $('input[name="fu"]').val(s_uid);
+            }
+            $('input[name="channel"]').val(myChannel);
+            var code = Tools.getQueryValue("code");
+            var code_ = location.href.split(code)[1];
+            if (code_.length > 0) {
+                code_ = code_.split("&")[0];
+                code += code_;
+            }
+            $('input[name="code"]').val(code);
+            Ajax.custom({
+                url: "api/v1/withdrawList/now"
+            }, function(d) {
+                var len = d.data.length;
+                Ajax.render("#marquee", "#marquee-tmpl", d.data);
+                var w = $("#marquee li").width();
+                $("#marquee").width(w * len);
+                var marFun = function() {
+                    $("#marquee li:first-child").width(0);
+                    setTimeout(function() {
+                        $("#marquee li:first-child").remove();
+                    }, 3e3);
+                };
+                marFun();
+                var timer = setInterval(function() {
+                    var li = $("#marquee li:first-child").clone();
+                    $("#marquee").append(li);
+                    marFun();
+                }, 3010);
+            });
+            $("#hongbao").fadeOut(800, "", function() {
+                $("#hongbao").remove();
+            });
+        }, 500);
+    });
+    var nowList = {
+        text: function(type, num) {
+            if (type == 0) return "充值了" + num + "元到手机";
+            if (type == 1) return "提现了" + num + "元到银行卡";
+            if (type == 2) return "提现了" + num + "元到支付宝";
+        },
+        append: function(d) {
+            if (d == null) {
+                $("#marquee li").first().before("<li></li>");
+            } else {
+                $("#marquee li").first().before("<li>" + "用户 " + d.uid + this.text(d.type, d.amount) + "<span>" + d.time + "</span>" + "</li>");
+            }
+        }
+    };
+    function downloadAlert(channel, opt) {
+        if (channel == "tuia01") {
+            seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
+                Tools.alertDialog({
+                    title: opt.title || "",
+                    text: opt.text + '<br><br><a href="javascript:void(0)" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马小报</a>',
+                    time: "0"
+                });
+                var options = new Object();
+                options["mlink"] = "https://ax9wdh.mlinks.cc/AdiD";
+                options["button"] = document.querySelectorAll("a#openAppBtn");
+                options["params"] = {
+                    phonenum: ""
+                };
+                new Mlink(options);
+            });
+        } else {
+            var downUrl = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
+            Tools.alertDialog({
+                title: opt.title || "",
+                text: opt.text + '<br><br><a href="' + downUrl + '" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马小报</a>',
+                time: "0"
+            }, function() {
+                window.location = downUrl;
+            });
+        }
     }
     var gvCode = Math.random().toFixed(4).substring(2);
     $("#gvCodeInput, #gvCode").text(gvCode);
@@ -25,17 +174,12 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
             }
         }
     });
-    if (from == "saoma") {
-        $('input[name="join_type"]').val("3");
-    } else {
-        $('input[name="join_type"]').val("6");
-    }
     $("#subForm").on("click", function() {
         if (!$(this).hasClass("disabled")) {
-            $("#joinUsForm").submit();
+            $("#inviteForm").submit();
         }
     });
-    $("#joinUsForm").submit(function(e) {
+    $("#inviteForm").submit(function(e) {
         e.preventDefault();
         var curEl = $(this);
         var phone = $('input[name="phone"]').val();
@@ -52,7 +196,7 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
             return;
         }
         submit.fun({
-            url: "api/v1/teams/webJoin",
+            url: "api/v1/register/invite",
             data: $(this)
         }, function(data) {
             if (data.status == 2001) {
@@ -60,27 +204,18 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
                     text: "验证码错误，请新获取"
                 });
             } else {
-                if (data.status == 1e3) {
-                    var d = data.data;
-                    if (d.isNewUser) {
-                        $("#newUser").show().siblings().remove();
-                    } else {
-                        if (d.isJoinTeam) {
-                            $("#joinTeam").show().siblings().remove();
-                        } else {
-                            if (/只能参加一个团队/.test(d.errorMsg)) {
-                                $("#hasTeam").show().siblings().remove();
-                            } else {
-                                $("#msg").text(d.errorMsg);
-                                $("#other").show().siblings().remove();
-                            }
-                        }
-                    }
-                } else {
-                    $("#msg").text(data.desc);
-                    $("#other").show().siblings().remove();
-                }
+                downloadAlert(myChannel, {
+                    title: data.status == 1e3 ? "注册成功" : "",
+                    text: "注册完成，快去赚钱吧"
+                });
             }
+        });
+    });
+    var pageProtocol = new SecondPage("#page_protocol");
+    $("#protocolCon").on("click", function() {
+        pageProtocol.openSidebar();
+        $("#agreeBtn").off().on("click", function() {
+            pageProtocol.closeSidebar();
         });
     });
 });define("mod/submit", [ "./base" ], function(require, exports, module) {
@@ -539,4 +674,141 @@ define("app/joinUs", [ "../mod/submit" ], function(require, exports, module) {
         }
     };
     window.Tools = Tools;
+});define("plugs/cookieStorage", [], function() {
+    var Cookie = {
+        get: function(sname) {
+            var sre = "(?:;)?" + sname + "=([^;]*);?";
+            var ore = new RegExp(sre);
+            if (ore.test(document.cookie)) {
+                try {
+                    return unescape(RegExp["$1"]);
+                } catch (e) {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        },
+        set: function(c_name, value, expires) {
+            expires = expires || this.getExpDate(7, 0, 0);
+            if (typeof expires == "number") {
+                expires = this.getExpDate(expires, 0, 0);
+            }
+            document.cookie = c_name + "=" + escape(value) + (expires == null ? "" : ";expires=" + expires) + "; path=/";
+        },
+        remove: function(key) {
+            this.set(key, "", -1);
+        },
+        getExpDate: function(e, t, n) {
+            var r = new Date();
+            if (typeof e == "number" && typeof t == "number" && typeof t == "number") return r.setDate(r.getDate() + parseInt(e)), 
+            r.setHours(r.getHours() + parseInt(t)), r.setMinutes(r.getMinutes() + parseInt(n)), 
+            r.toGMTString();
+        }
+    };
+    window.Cookie = Cookie;
+    var Storage = {
+        AUTH: "KMAUTH",
+        LNAME: "MY-LNAME",
+        ACCOUNT: "MY-NAME",
+        HEADIMG: "MY-HEADIMG",
+        get: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var value = this.getStorage(isSession).getItem(key);
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return undefined;
+            }
+        },
+        set: function(key, value, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            value = JSON.stringify(value);
+            this.getStorage(isSession).setItem(key, value);
+        },
+        remove: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            this.getStorage(isSession).removeItem(key);
+        },
+        getStorage: function(isSession) {
+            return isSession ? sessionStorage : localStorage;
+        },
+        isLocalStorage: function() {
+            try {
+                if (!window.localStorage) {
+                    console.log("不支持本地存储");
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.log("本地存储已关闭");
+                return false;
+            }
+        }
+    };
+    window.Storage = Storage;
+});define("plugs/secondPage", [], function(require, exports, module) {
+    var tempPage = 0;
+    var SecondPage = function(pageName) {
+        var that = this;
+        that.targetPage = $(pageName);
+        $(pageName + " .ui-icon-return").click(function(e) {
+            e.preventDefault();
+            that.closeSidebar();
+        });
+    };
+    SecondPage.prototype = {
+        targetPage: undefined,
+        openPage: function(fn) {
+            var container = $(window), w = container.width(), h = container.height(), that = this;
+            this.targetPage.addClass("open").css({
+                width: w,
+                height: h
+            }).show();
+            tempPage++;
+            if (!$("body").hasClass("move")) {
+                $("body").addClass("move");
+            }
+            $("#sidebar-bg").show();
+            fn && fn();
+        },
+        openSidebar: function(fn) {
+            var container = $(window), w = container.width(), h = container.height(), that = this;
+            this.targetPage.show().css({
+                width: w,
+                height: h
+            });
+            setTimeout(function() {
+                that.targetPage.addClass("open");
+            }, 100);
+            $("#sidebar-bg").show();
+            tempPage++;
+            if (!$("body").hasClass("move")) {
+                $("body").addClass("move");
+            }
+            fn && fn();
+        },
+        closeSidebar: function(fn) {
+            var that = this;
+            that.targetPage.removeClass("open");
+            tempPage--;
+            setTimeout(function() {
+                that.targetPage.hide();
+                hasOpend = false;
+                if (tempPage <= 0) {
+                    $("body").removeClass("move");
+                }
+                fn && fn();
+            }, 220);
+            $("#sidebar-bg").hide();
+            window.location.hash = "";
+        }
+    };
+    module.exports = SecondPage;
 });
