@@ -5,6 +5,7 @@ define('app/school_xiaoma', function(require, exports, module) {
     var confirmTip = require('../plugs/confirmTip.js');
     
     var swiper = new Swiper('.swiper-container', {
+        hashNavigation: { watchState: true },
         pagination: { el: '.swiper-pagination', clickable: true}
     });
 
@@ -36,56 +37,51 @@ define('app/school_xiaoma', function(require, exports, module) {
             }
         });
     }
-    var hash = location.hash;
-    if(hash!=''){ 
-        console.log($(hash).index());
-        $('.swiper-pagination span').eq($(hash).index()).click();
-    }
 
-    $('#tixian').on('click', function(){
+    $('.p_tixian').on('click', function(){
         window.location = 'kmb://openduiba';
     })
-    $('#jinbi').on('click', function(){
+    $('.p_jinbi').on('click', function(){
         if(km.less('1.5.5')){
             updateApp();
         }else{
             window.location = 'kmb://myincome';
         }
     })
-    $('#hongbao').on('click', function(){
+    $('.p_hongbao').on('click', function(){
         window.location = 'kmb://mine';
     })
-    $('#tuandui').on('click', function(){
+    $('.p_tuandui').on('click', function(){
         if(km.less('1.5.0')){
             updateApp();
         }else{
             window.location = 'kmb://team_myself';
         }
     })
-    $('#tuisong').on('click', function(){
+    $('.p_tuisong').on('click', function(){
         Tools.alertDialog({
             text: '等待快马小报的推送吧~每天都有很多次的哦~',
             time: '0'
         })
     })
-    $('#qiandao').on('click', function(){
+    $('.p_qiandao').on('click', function(){
         if(km.less('1.5.5')){
             updateApp();
         }else{
             window.location = 'kmb://taskcenter';
         }
     })
-    $('#zhuanfa').on('click', function(){
+    $('.p_zhuanfa').on('click', function(){
         window.location = 'kmb://mine';
     })
-    $('#sousuo').on('click', function(){
+    $('.p_sousuo').on('click', function(){
         if(km.less('1.3.2')){
             updateApp();
         }else{
             window.location = 'kmb://hotsearch';
         }
     })
-    $('#yuedu').on('click', function(){
+    $('.p_yuedu').on('click', function(){
         var w = ['3468884','3480962','3471953','3478140','3465790','3484966','3469260','3484989','3483847','3472143'];
         var cur = parseInt(w.length*Math.random());
         window.location = 'kmb://recommend?url=http://news.zhwnl.cn/article2.html?id='+w[cur]+'&id='+w[cur];  

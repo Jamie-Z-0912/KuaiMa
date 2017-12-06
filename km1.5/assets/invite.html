@@ -63,7 +63,7 @@
             <div class="invite_qr"><div>您的邀请码<span id="inviteQr">--</span></div></div>
             <div class="option">
                 <a href="javascript:void(0)" id="showIncome">晒收入</a>
-                <a href="javascript:void(0)" id="callTudi">唤醒徒弟</a>
+                <a href="javascript:void(0)" id="callTudi">鞭策徒弟</a>
             </div>
             <div class="good">
                 <dl>
@@ -103,7 +103,7 @@
                                     <div class="regtime">注册时间<span>{{=value.added_time}}</span></div>
                                 </div>
                                 <div class="options">
-                                    <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">唤醒徒弟</div>
+                                    <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">鞭策徒弟</div>
                                     {{?value.hasTeam}}
                                     <div class="join_myteam{{?!value.can_invite_join_team}} disabled{{?}}" data-uid="{{=value.uid}}">邀请入团</div>
                                     {{?}}
@@ -111,7 +111,7 @@
                             </div>
                             {{?value.new_active}}
                             <div class="more_coin" data-id="{{=value.to_uid}}">
-                                <div class="top">分批奖励300金币，徒弟活跃拿更多奖励 <i class="iconfont ui-arrowlink"></i></div>
+                                <div class="top">徒弟活跃可以贡献更多金币~<span>点我查看明细</span> <i class="iconfont ui-arrowlink"></i></div>
                                 <div class="con">
                                     <ul class="coin">
                                         <li class="c100">
@@ -141,6 +141,10 @@
                                     </ul>
                                     <div class="txt">徒弟完成1次有效搜索或阅读5篇文章算1天活跃，有效期为注册时间起30天之内。<span></span> </div>
                                 </div>
+                            </div> 
+                            {{??}}
+                            <div class="more_coin">
+                                <div class="top">徒弟注册超过30天啦，快去鞭策徒弟吧</div>
                             </div> 
                             {{?}}
                         </div>

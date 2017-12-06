@@ -231,31 +231,38 @@ define('app/invite151', function(require, exports, module) {
 
     $('#conList').on('click', '.more_coin', function(){
         var self = $(this);
-        if(self.hasClass('open')){
-            self.removeClass('open');
-        }else{
-            Ajax.custom({
-                url: 'api/v1/inviteRelation/friends/active',
-                data: {
-                    son_uid: self.data('id')
-                }
-            }, function(d){
-                console.log(d);
-                if(d.status==1000){
-                    var act_d = parseInt(d.data.had_active_day);
-                    self.find('.txt span').text('（剩余：'+d.data.left_active_day+'天）')
-                    if(act_d>0){
-                        if(act_d>7){
-                            self.find('.coin li').addClass('active');
-                        }else{
-                            for (var i = 0; i < act_d.length; i++){
-                                self.find('.coin li').eq(i).addClass('active');
-                            };
-                        }
-                    }
+        if(self.find('.con').length>0){
+            if(self.hasClass('open')){
+                self.removeClass('open');
+            }else{
+                if(self.hasClass('isloaded')){
                     self.addClass('open');
+                }else{
+                    Ajax.custom({
+                        url: 'api/v1/inviteRelation/friends/active',
+                        data: {
+                            son_uid: self.data('id')
+                        }
+                    }, function(d){
+                        self.addClass('isloaded');
+                        if(d.status==1000){
+                            var act_d = parseInt(d.data.had_active_day);
+                            self.find('.txt span').text('（剩余：'+d.data.left_active_day+'天）')
+                            if(act_d>0){
+                                if(act_d>7){
+                                    self.find('.coin li').addClass('active');
+                                }else{
+                                    for (var i = 0; i < act_d; i++){
+                                        self.find('.coin li').eq(i).addClass('active');
+                                    };
+                                }
+                            }
+                            self.addClass('open');
+                        }
+                    });
                 }
-            });
+
+            }
         }
     })
 });
