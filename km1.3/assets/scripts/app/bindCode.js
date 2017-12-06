@@ -42,11 +42,10 @@ define('app/bindCode', function(require, exports, module) {
                         title:'绑定成功',
                         text:'恭喜您获得<b style="color:#ffa31a">'+txt+'</b style="color:#ffa31a">奖励<br><div>（奖励将自动存入账户）</div>'
                     },function(){
-                        window.location = 'kmb//back';
+                        window.location = 'kmb://back';
                     })
                 }else{
                     Tools.alertDialog({
-                        title:'绑定出错',
                         text: data.desc
                     })
                 }
