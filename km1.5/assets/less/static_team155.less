@@ -1,0 +1,54 @@
+@import "reset.less";
+body{background-color: #7271b8;}
+.imgbox img{display: block; width: 100%;}
+.con{
+	margin: 0 .16rem;
+	padding: 0 .15rem .1rem;
+	background-color: #fff;
+	border-radius: .06rem;
+	.qa{
+		padding-bottom: .1rem; 
+		h3{ padding-top: .15rem; margin-bottom: .04rem; line-height: 1.4;}
+		p{ color: #525252; font-size: @size; }
+		.warn{color:#e75138;}
+		.line{
+			height: 1px;
+			width: 86%;
+			position: relative;
+			margin: .2rem auto 0;
+			background-color: #d3d3eb;
+			&:before, &:after{
+				position: absolute;
+				content: "";
+				display: block;
+				width: .08rem;
+				height: .08rem;
+				background-color: #d3d3eb;
+				top: 0;    
+				margin-top: -.04rem;
+    			transform: rotate(45deg);
+			}
+			&:before{
+				left: -7%;
+			}
+			&:after{
+				right: -7%;
+			}
+		}
+	}
+}
+.option{
+	margin: .21rem auto .32rem;
+	width: 3.44rem;
+	a{
+		display: block;
+		.lineH(.6rem);
+		text-align: center;
+		border-radius: .06rem;
+		letter-spacing: .5em;
+		background-color: #ffdb4c;
+		color: #332d15;
+		font-size: @size_t3;
+		font-family: "PingFangSC Semibold";
+	}
+}

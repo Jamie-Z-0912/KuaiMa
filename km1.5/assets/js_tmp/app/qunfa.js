@@ -1,31 +1,11 @@
-define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plugs/version.js", "../plugs/cookieStorage.js" ], function(require, exports, module) {
-    var pagelist = require("../mod/pagelist2");
+define("app/qunfa", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStorage.js" ], function(require, exports, module) {
+    var Ajax = require("../mod/base");
     window.jQuery = window.Zepto;
-    var confirmTip = require("../plugs/confirmTip.js");
     var km = require("../plugs/version.js");
     require("../plugs/cookieStorage.js");
-    var km_error = location.href;
-    $("#kmError").on("click", function() {
-        Tools.alertDialog({
-            text: '<span style="display:block;width:99%;word-wrap: break-word;">' + location.href + "</span>",
-            time: "0"
-        });
-    });
-    function updateApp(type) {
-        var txt = "升级到最新版本，更多任务要你收益涨涨涨！";
-        new confirmTip({
-            text: '<p style="color:#333;padding-left:.15rem;padding-right:.15rem;">' + txt + "</p>",
-            sureTxt: "马上更新",
-            cancelTxt: "我知道了"
-        }, function(a) {
-            if (a) {
-                window.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
-            }
-        });
-    }
-    var teamId;
     const myurl = "http://share.51xiaoli.cn/inviteReg.html";
     var QR = {
+        qrTag: "",
         qr_base64: Storage.get("qr"),
         channel: function() {
             var channel = "", userAgent = km.userAgent;
@@ -39,21 +19,27 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
             }
             return channel;
         },
-        makeQrImg: function(qrTag) {
-            var cas_qr = $("#canvasQR")[0], ctx_qr = cas_qr.getContext("2d");
-            ctx_qr.fillStyle = "#fff";
-            ctx_qr.fillRect(0, 0, 530, 530);
-            ctx_qr.fill();
-            ctx_qr.drawImage(qrTag, 30, 30, 470, 470);
-            $("#userQr").html('<img src="' + cas_qr.toDataURL("image/png") + '"/>');
-            ctx_qr.clearRect(0, 0, 530, 530);
+        drawimg: function(el, x, y) {
+            var cas_gx = $("#canvasGX")[0], ctx_gx = cas_gx.getContext("2d");
+            var bg = el[0];
+            ctx_gx.fillStyle = "#fff";
+            ctx_gx.drawImage(bg, 0, 0, 560, 800);
+            ctx_gx.beginPath();
+            ctx_gx.fillRect(x, y, 178, 178);
+            ctx_gx.fill();
+            ctx_gx.drawImage(QR.qrTag, x + 9, y + 9, 160, 160);
+            el.attr("src", cas_gx.toDataURL("image/png"));
+            ctx_gx.clearRect(0, 0, 560, 800);
+        },
+        makeQrImg: function() {
+            QR.drawimg($(".qr_bg1"), 340, 30, 270, 592);
         },
         make_qr: function(uid) {
             var self = this;
             if (/Android/.test(km.userAgent) && self.qr_base64 && self.qr_base64[0] == uid) {
                 $("#userQrCode").append('<img src="' + self.qr_base64[1] + '"/>');
-                var qrTag = $("#userQrCode img")[0];
-                self.makeQrImg(qrTag);
+                QR.qrTag = $("#userQrCode img")[0];
+                self.makeQrImg();
             } else {
                 var mylink = myurl + "?uid=" + uid + "&channel=" + this.channel();
                 seajs.use("./scripts/lib/jquery.qrcode.min", function() {
@@ -68,316 +54,18 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
                 var makeQrTime = setInterval(function() {
                     if ($("#userQrCode img").length > 0) {
                         clearInterval(makeQrTime);
-                        var qr_code = $("#userQrCode img")[0];
                         var qr = [ uid, $("#userQrCode img").attr("src") ];
                         Storage.set("qr", qr);
-                        self.makeQrImg(qr_code);
+                        QR.qrTag = $("#userQrCode img")[0];
+                        self.makeQrImg();
                     }
                 }, 100);
             }
-            var mylink0 = myurl + "?uid=" + uid;
-            var share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
-            $("#type2, #type3, #type4").on("click", function() {
-                window.location = share_kmb;
-            });
-            $("#saoma").on("click", ".btn", function() {
-                window.location = share_kmb;
-            });
         }
     };
-    if (km.less("1.3.2")) {
-        var uid = Tools.uid();
-        QR.make_qr(uid);
-        $("#type5").on("click", function() {
-            window.location = "qunfa.html?uid=" + uid;
-        });
-    }
     Ajax.custom({
         url: "api/v1/userinfo/base"
-    }, function(d) {
-        teamId = d.data.team_id;
-        $("#inviteQr").text(d.data.invite_code);
-        if (!km.less("1.3.2")) {
-            QR.make_qr(d.data.uid);
-        }
-    });
-    $("#nav").on("click", "li", function() {
-        var _self = $(this), id = _self.data("id");
-        if (!_self.hasClass("active")) {
-            _self.addClass("active").siblings().removeClass("active");
-            $("#" + id).removeClass("hide").siblings("div").addClass("hide");
-        }
-    });
-    $("#type1").on("click", function() {
-        $("#saoma").show();
-    });
-    $("#type5").on("click", function() {
-        if (km.less("1.3.2")) {
-            updateApp();
-        } else {
-            window.location = "qunfa.html?auth_token=" + Tools.auth_token();
-        }
-    });
-    $("#showIncome").on("click", function() {
-        window.location = "showIncome.html?auth_token=" + Tools.auth_token();
-    });
-    $("#callTudi").on("click", function() {
-        $('#nav li[data-id="friends"]').click();
-    });
-    $("#saoma").on("click", ".close", function() {
-        $("#saoma").hide();
-    });
-    Ajax.custom({
-        url: "api/v1/ads",
-        data: {
-            location: "my_invite_icon"
-        }
-    }, function(data) {
-        if (data.status == 1e3) {
-            var d = data.data;
-            if (d.length > 0) {
-                var cur = parseInt(d.length * Math.random());
-                $("#banner").append('<a href="' + d[cur].origin_url + '"><img src="' + d[cur].images[0] + '" /></a>');
-            }
-        }
-    });
-    function hideInfo(a) {
-        var ss = "" + a;
-        var len = ss.length;
-        var start_i = len / 2 - 2, end_i = len / 2 + 2;
-        var str1 = ss.substring(0, start_i);
-        var str2 = ss.substr(end_i, len - end_i);
-        return str1 + "****" + str2;
-    }
-    function loadData(orderBy, order) {
-        pagelist.fun({
-            url: "api/v1/inviteRelation/friends",
-            data: {
-                orderBy: orderBy,
-                order: order,
-                page: 1,
-                page_size: 10
-            }
-        }, function(data) {
-            if (data.status == 1020) {
-                $("#navOrder").remove();
-            } else {
-                $.each(data.data.list, function() {
-                    if (teamId != "" && teamId != "0") {
-                        this.hasTeam = true;
-                    }
-                    this.uid = this.to_uid;
-                    this.show_uid = hideInfo(this.to_uid);
-                    var cur_time = new Date().getTime();
-                    var delta_T = cur_time - this.recent_active_time;
-                    if (delta_T > 0) {
-                        var days = parseInt(delta_T / 1e3 / 60 / 60 / 24);
-                        if (days > 3) {
-                            this.recent_active_time = Ajax.formatDate(this.recent_active_time, "yyyy-MM-dd");
-                        } else if (days == 0) {
-                            var hours = parseInt(delta_T / 1e3 / 60 / 60);
-                            if (hours == 0) {
-                                this.recent_active_time = "当前";
-                            } else {
-                                this.recent_active_time = hours + "小时前";
-                            }
-                        } else {
-                            this.recent_active_time = days + "天前";
-                        }
-                    } else {
-                        this.recent_active_time = Ajax.formatDate(this.recent_active_time, "yyyy-MM-dd");
-                    }
-                });
-            }
-        });
-    }
-    var default_orderBy = "recent_active_time", default_order = "desc";
-    loadData(default_orderBy, default_order);
-    $("#conList").on("click", ".urge", function() {
-        var $el = $(this);
-        if ($el.hasClass("disabled")) {
-            Tools.alertDialog({
-                text: "每个徒弟每天只能被提醒一次<br>晚22点-早8点不能打扰徒弟哦"
-            });
-        } else {
-            Ajax.custom({
-                url: "api/v1/inviteRelation/remind",
-                data: {
-                    son_uid: $el.data("uid")
-                }
-            }, function(data) {
-                var txt;
-                switch (data.status) {
-                  case 1e3:
-                    txt = "您的徒弟已收到您的提醒！";
-                    $el.addClass("disabled");
-                    break;
-
-                  case 9012:
-                    txt = "每个徒弟,每天只能被提醒一次哦";
-                    $el.addClass("disabled");
-                    break;
-
-                  case 9013:
-                    txt = "晚22点-早8点不能提醒徒弟哦";
-                    $el.addClass("disabled");
-                    break;
-
-                  case 2002:
-                    txt = "您的徒弟不存在！";
-                    $el.addClass("disabled");
-                    break;
-                }
-                Tools.alertDialog({
-                    text: txt,
-                    time: "0"
-                });
-            });
-        }
-    });
-    $("#conList").on("click", ".join_myteam", function() {
-        var $el = $(this);
-        if ($el.hasClass("disabled")) {
-            Tools.alertDialog({
-                text: "每个徒弟每天只能被邀请一次<br>晚22点-早8点不能打扰徒弟哦",
-                time: "0"
-            });
-        } else {
-            new confirmTip({
-                title: '<p style="width:10.1em;margin:0 auto;text-align:left;">您是否想邀请这位徒弟加入您的团队</p>'
-            }, function(a) {
-                if (a) {
-                    Ajax.custom({
-                        url: "api/v1/teams/" + teamId + "/invite/" + $el.data("uid")
-                    }, function(data) {
-                        $el.addClass("disabled");
-                        if (data.status == 1e3) {
-                            Tools.alertDialog({
-                                title: "邀请已发出",
-                                text: "对方接受后将自动成为您的团员！",
-                                time: "0"
-                            });
-                        } else {
-                            Tools.alertDialog({
-                                text: data.desc,
-                                time: "0"
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-    $("#conList").on("click", ".more_coin", function() {
-        var self = $(this);
-        if (self.find(".con").length > 0) {
-            if (self.hasClass("open")) {
-                self.removeClass("open");
-            } else {
-                if (self.hasClass("isloaded")) {
-                    self.addClass("open");
-                } else {
-                    Ajax.custom({
-                        url: "api/v1/inviteRelation/friends/active",
-                        data: {
-                            son_uid: self.data("id")
-                        }
-                    }, function(d) {
-                        self.addClass("isloaded");
-                        if (d.status == 1e3) {
-                            var act_d = parseInt(d.data.had_active_day);
-                            self.find(".txt span").text("（剩余：" + d.data.left_active_day + "天）");
-                            if (act_d > 0) {
-                                if (act_d > 7) {
-                                    self.find(".coin li").addClass("active");
-                                } else {
-                                    for (var i = 0; i < act_d; i++) {
-                                        self.find(".coin li").eq(i).addClass("active");
-                                    }
-                                }
-                            }
-                            self.addClass("open");
-                        }
-                    });
-                }
-            }
-        }
-    });
-});define("mod/pagelist2", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
-    var Ajax = require("./base");
-    var laypage = require("../plugs/laypage");
-    window.Ajax = Ajax;
-    exports.defaultListTmpl = "#conList-tmpl";
-    exports.defaultListEle = "#conList";
-    exports.pagingDom = "#listPage";
-    exports.fun = function(options, beforeCallback, afterCallback) {
-        var isFirst = options.data.page == 1, opt = {
-            renderFor: this.defaultListTmpl,
-            renderEle: this.defaultListEle,
-            pagingDom: this.pagingDom,
-            showLoading: true,
-            hasNext: true,
-            logtype: "paging"
-        };
-        for (var i in opt) {
-            options[i] = options[i] || opt[i];
-        }
-        laypage({
-            cont: $(options.pagingDom),
-            pages: 100,
-            groups: 0,
-            curr: 1,
-            prev: false,
-            next: "点击查看更多",
-            skin: "flow",
-            jump: function(obj) {
-                var that = this;
-                options.data.page = obj.curr;
-                Ajax.baseAjax(options, function(data) {
-                    if (data.status == 1020) {
-                        data.data = null;
-                        Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
-                        $(options.pagingDom).remove();
-                    } else {
-                        that.pages = data.data.total_page;
-                        if (obj.curr == data.data.total_page) {
-                            options.hasNext = false;
-                            $(options.pagingDom).find(".laypage_main").html("<span>没有更多数据</span>");
-                        }
-                        $.each(data.data.list, function() {
-                            this.added_time = Ajax.formatDate(this.added_time);
-                        });
-                        if (beforeCallback) {
-                            $.isFunction(beforeCallback) && beforeCallback(data);
-                        }
-                        if (data.data.page != 1) {
-                            Ajax.render(options.renderEle, options.renderFor, data.data, undefined, false);
-                        } else {
-                            Ajax.render(options.renderEle, options.renderFor, data.data, undefined, true);
-                        }
-                        if (afterCallback) {
-                            $.isFunction(afterCallback) && afterCallback();
-                        }
-                        $(options.pagingDom).removeClass("hide");
-                    }
-                }, function(jqXHR, textStatus, errorThrown) {
-                    if (typeof callbackError == "function") {
-                        callbackError(jqXHR, textStatus, errorThrown);
-                    }
-                });
-            }
-        });
-        window.onscroll = function() {
-            if (options.hasNext) {
-                var scrollTop = document.body.scrollTop;
-                var scrollHeight = document.body.scrollHeight;
-                var windowHeight = window.screen.height * window.devicePixelRatio;
-                if (scrollTop + windowHeight + 100 > scrollHeight) {
-                    $("#laypage_0 a").click();
-                }
-            }
-        };
-    };
+    }, function(d) {});
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -726,106 +414,6 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
         }
     };
     window.Tools = Tools;
-});!function() {
-    "use strict";
-    function a(d) {
-        var e = "laypagecss";
-        a.dir = "dir" in a ? a.dir : f.getpath + "../css/skin/laypage.css", new f(d), a.dir && !b[c](e) && f.use(a.dir, e);
-    }
-    a.v = "1.3";
-    var b = document, c = "getElementById", d = "getElementsByTagName", e = 0, f = function(a) {
-        var b = this, c = b.config = a || {};
-        c.item = e++, b.render(!0);
-    };
-    f.on = function(a, b, c) {
-        return a.attachEvent ? a.attachEvent("on" + b, function() {
-            c.call(a, window.even);
-        }) : a.addEventListener(b, c, !1), f;
-    }, f.getpath = function() {
-        var a = document.scripts, b = a[a.length - 1].src;
-        return b.substring(0, b.lastIndexOf("/") + 1);
-    }(), f.use = function(c, e) {}, f.prototype.type = function() {
-        var a = this.config;
-        return "object" == typeof a.cont ? void 0 === a.cont.length ? 2 : 3 : void 0;
-    }, f.prototype.view = function() {
-        var b = this, c = b.config, d = [], e = {};
-        if (c.pages = 0 | c.pages, c.curr = 0 | c.curr || 1, c.groups = "groups" in c ? 0 | c.groups : 5, 
-        c.first = "first" in c ? c.first : "&#x9996;&#x9875;", c.last = "last" in c ? c.last : "&#x5C3E;&#x9875;", 
-        c.prev = "prev" in c ? c.prev : "&#x4E0A;&#x4E00;&#x9875;", c.next = "next" in c ? c.next : "&#x4E0B;&#x4E00;&#x9875;", 
-        c.pages <= 1) return "";
-        for (c.groups > c.pages && (c.groups = c.pages), e.index = Math.ceil((c.curr + (c.groups > 1 && c.groups !== c.pages ? 1 : 0)) / (0 === c.groups ? 1 : c.groups)), 
-        c.curr > 1 && c.prev && d.push('<a href="javascript:;" class="laypage_prev" data-page="' + (c.curr - 1) + '">' + c.prev + "</a>"), 
-        e.index > 1 && c.first && 0 !== c.groups && d.push('<a href="javascript:;" class="laypage_first" data-page="1"  title="&#x9996;&#x9875;">' + c.first + "</a><span>&#x2026;</span>"), 
-        e.poor = Math.floor((c.groups - 1) / 2), e.start = e.index > 1 ? c.curr - e.poor : 1, 
-        e.end = e.index > 1 ? function() {
-            var a = c.curr + (c.groups - e.poor - 1);
-            return a > c.pages ? c.pages : a;
-        }() : c.groups, e.end - e.start < c.groups - 1 && (e.start = e.end - c.groups + 1); e.start <= e.end; e.start++) e.start === c.curr ? d.push('<span class="laypage_curr" ' + (/^#/.test(c.skin) ? 'style="background-color:' + c.skin + '"' : "") + ">" + e.start + "</span>") : d.push('<a href="javascript:;" data-page="' + e.start + '">' + e.start + "</a>");
-        return c.pages > c.groups && e.end < c.pages && c.last && 0 !== c.groups && d.push('<span>&#x2026;</span><a href="javascript:;" class="laypage_last" title="&#x5C3E;&#x9875;"  data-page="' + c.pages + '">' + c.last + "</a>"), 
-        e.flow = !c.prev && 0 === c.groups, (c.curr !== c.pages && c.next || e.flow) && d.push(function() {
-            return e.flow && c.curr === c.pages ? '<span class="page_nomore" title="&#x5DF2;&#x6CA1;&#x6709;&#x66F4;&#x591A;">' + c.next + "</span>" : '<a href="javascript:;" class="laypage_next" data-page="' + (c.curr + 1) + '">' + c.next + "</a>";
-        }()), '<div name="laypage' + a.v + '" class="laypage_main laypageskin_' + (c.skin ? function(a) {
-            return /^#/.test(a) ? "molv" : a;
-        }(c.skin) : "default") + '" id="laypage_' + b.config.item + '">' + d.join("") + function() {
-            return c.skip ? '<span class="laypage_total"><label>&#x5230;&#x7B2C;</label><input type="number" min="1" onkeyup="this.value=this.value.replace(/\\D/, \'\');" class="laypage_skip"><label>&#x9875;</label><button type="button" class="laypage_btn">&#x786e;&#x5b9a;</button></span>' : "";
-        }() + "</div>";
-    }, f.prototype.jump = function(a) {
-        if (a) {
-            for (var b = this, c = b.config, e = a.children, g = a[d]("button")[0], h = a[d]("input")[0], i = 0, j = e.length; j > i; i++) "a" === e[i].nodeName.toLowerCase() && f.on(e[i], "click", function() {
-                var a = 0 | this.getAttribute("data-page");
-                c.curr = a, b.render();
-            });
-            g && f.on(g, "click", function() {
-                var a = 0 | h.value.replace(/\s|\D/g, "");
-                a && a <= c.pages && (c.curr = a, b.render());
-            });
-        }
-    }, f.prototype.render = function(a) {
-        var d = this, e = d.config, f = d.type(), g = d.view();
-        2 === f ? e.cont.innerHTML = g : 3 === f ? e.cont.html(g) : b[c](e.cont).innerHTML = g, 
-        e.jump && e.jump(e, a), d.jump(b[c]("laypage_" + e.item)), e.hash && !a && (location.hash = "!" + e.hash + "=" + e.curr);
-    }, "function" == typeof define ? define("plugs/laypage", [], function() {
-        return a;
-    }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
-}();define("plugs/confirmTip", [], function(require, exports, module) {
-    var confirmTip = function(option, callback) {
-        var opt = {
-            title: "",
-            text: "",
-            sureTxt: "确定",
-            cancelTxt: "取消"
-        };
-        this.option = {};
-        for (var i in opt) {
-            this.option[i] = option[i] || opt[i];
-        }
-        this.id = "pop_" + new Date().getTime();
-        this.init(callback);
-    };
-    confirmTip.prototype.init = function(callback) {
-        var that = this, opt = that.option;
-        var arr = [], divId = that.id;
-        arr.push('<div class="pop-mask km-dialog"></div>');
-        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
-        arr.push('<div class="box">');
-        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
-        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
-        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
-        arr.push("</div></div>");
-        $("body").append(arr.join(""));
-        $("#" + divId).height($("#" + divId + " .box").height());
-        $("#" + divId + " .sureBtn").click(function() {
-            $("#" + divId).prev().remove();
-            $("#" + divId).remove();
-            $.isFunction(callback) && callback(true);
-        });
-        $("#" + divId + " .cancelBtn").click(function() {
-            $("#" + divId).prev().remove();
-            $("#" + divId).remove();
-            $.isFunction(callback) && callback(false);
-        });
-    };
-    module.exports = confirmTip;
 });define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;

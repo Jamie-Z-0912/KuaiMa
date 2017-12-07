@@ -19,6 +19,18 @@ define('app/invite151', function(require, exports, module) {
     //     return;
     // }
     /*************/
+    function updateApp(type){
+        var txt = '升级到最新版本，更多任务要你收益涨涨涨！';
+        new confirmTip({
+            text: '<p style="color:#333;padding-left:.15rem;padding-right:.15rem;">'+txt+'</p>',
+            sureTxt: '马上更新',
+            cancelTxt: '我知道了'
+        },function(a){
+            if(a){
+                window.location = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser'
+            }
+        });
+    }
     var teamId;
     const myurl = 'http://share.51xiaoli.cn/inviteReg.html';
     var QR = {
@@ -75,13 +87,16 @@ define('app/invite151', function(require, exports, module) {
             var mylink0 = myurl + '?uid=' + uid;
             var share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
 
-            $('#type3, #type2').on('click', function(){ window.location = share_kmb; });
+            $('#type2, #type3, #type4').on('click', function(){ window.location = share_kmb; });
             $('#saoma').on('click', '.btn', function(){ window.location = share_kmb; });
         }
     }
     if(km.less('1.3.2')){
         var uid = Tools.uid();
         QR.make_qr(uid);
+        $('#type5').on('click', function(){
+            window.location = 'qunfa.html?uid='+uid;
+        });
     }
     Ajax.custom({
         url:'api/v1/userinfo/base'
@@ -89,7 +104,7 @@ define('app/invite151', function(require, exports, module) {
         teamId = d.data.team_id;
         $('#inviteQr').text(d.data.invite_code);
         if(!km.less('1.3.2')){
-            QR.make_qr(d.data.uid); 
+            QR.make_qr(d.data.uid);
         }
     });
     $('#nav').on('click', 'li', function(){
@@ -100,9 +115,14 @@ define('app/invite151', function(require, exports, module) {
         }
     });
     $('#type1').on('click', function(){ $('#saoma').show(); });
-    $('#type4').on('click', function(){
-        alert('短信邀请')
+    $('#type5').on('click', function(){
+        if(km.less('1.3.2')){
+            updateApp();
+        }else{
+            window.location = 'qunfa.html?auth_token='+Tools.auth_token();
+        }
     });
+
     $('#showIncome').on('click', function(){
         window.location = 'showIncome.html?auth_token='+Tools.auth_token();
     });
@@ -110,6 +130,18 @@ define('app/invite151', function(require, exports, module) {
         $('#nav li[data-id="friends"]').click();
     })
     $('#saoma').on('click', '.close', function(){ $('#saoma').hide(); });
+    Ajax.custom({
+        url: 'api/v1/ads',
+        data:{ location: 'my_invite_icon' }
+    }, function(data){
+        if(data.status==1000){
+            var d = data.data;
+            if(d.length>0){
+                var cur = parseInt(d.length*Math.random());
+                $('#banner').append('<a href="'+d[cur].origin_url+'"><img src="'+d[cur].images[0]+'" /></a>')
+            }
+        }
+    })
     /*************************/
     function hideInfo(a){
         var ss = '' + a;
