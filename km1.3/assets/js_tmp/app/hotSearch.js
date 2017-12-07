@@ -140,6 +140,7 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCa
     var doT = require("../plugs/doT.min");
     var config = {
         key: "26817749",
+        magic_key: "24817749",
         km_api: server + "km_task/"
     };
     require("./tools");
@@ -226,9 +227,13 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCa
             }
         },
         baseAjax: function(options, callback) {
+            var us = navigator.userAgent, key = config.key;
+            if (/magic/.test(us)) {
+                key = config.magic_key;
+            }
             var appkey = {
                 name: "app_key",
-                value: config.key
+                value: key
             };
             if (options.showLoading) {
                 if ($(".ui-loading-block").length == 0) $("body").append('<div class="ui-loading-block km-dialog show"><div class="ui-loading-cnt"><i class="ui-loading-bright"></i><p>加载中……</p></div></div>'); else $(".ui-loading-block").addClass("show");
@@ -240,7 +245,7 @@ define("app/hotSearch", [ "../mod/base", "../plugs/version", "../plugs/storageCa
             if ($.isFunction(options.data.push)) {
                 options.data.push(appkey);
             } else {
-                options.data.app_key = config.key;
+                options.data.app_key = key;
             }
             if ($.isFunction(options.data.push)) {
                 options.data.push({
