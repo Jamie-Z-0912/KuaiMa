@@ -132,7 +132,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             }
         }
     };
-    function downloadAlert(channel, opt, time) {
+    function downloadAlert(channel, opt) {
         if (channel == "tuia01") {
             seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
                 Tools.alertDialog({
@@ -149,14 +149,21 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
                 new Mlink(options);
             });
         } else {
-            var downUrl = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
+            var downUrl = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser", closeN = 3;
             Tools.alertDialog({
                 title: opt.title || "",
-                text: opt.text + '<br><br><a href="' + downUrl + '" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马小报</a>',
-                time: time ? time : "0"
+                text: opt.text + '<br><br><a href="' + downUrl + '" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马小报(<span id="closeN">' + closeN + "</span>s)</a>",
+                time: "0"
             }, function() {
                 window.location = downUrl;
             });
+            var t = setInterval(function() {
+                $("#closeN").text(--closeN);
+                if (closeN == 0) {
+                    clearInterval(t);
+                    window.location = downUrl;
+                }
+            }, 1e3);
         }
     }
     var gvCode = Math.random().toFixed(4).substring(2);
@@ -206,7 +213,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             } else if (data.status == 1008) {
                 downloadAlert(myChannel, {
                     text: "您已经注册过啦快去赚钱吧"
-                }, 1600);
+                });
             } else {
                 downloadAlert(myChannel, {
                     title: data.status == 1e3 ? "注册成功" : "",
