@@ -24,6 +24,7 @@ define('app/myfriend', function(require, exports, module) {
                 $.each(data.data.list, function(){
                     this.uid = this.to_uid;
                     this.to_uid = hideInfo(this.to_uid);
+                    this.register_time = Ajax.formatDate(this.register_time, 'yyyy-MM-dd hh:mm');
                     var cur_time = new Date().getTime();
                     var delta_T = cur_time - this.recent_active_time;
                     if( delta_T > 0){
