@@ -25,14 +25,13 @@ define("app/qunfa", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStor
             ctx_gx.fillStyle = "#fff";
             ctx_gx.drawImage(bg, 0, 0, 560, 800);
             ctx_gx.beginPath();
-            ctx_gx.fillRect(x, y, 178, 178);
             ctx_gx.fill();
-            ctx_gx.drawImage(QR.qrTag, x + 9, y + 9, 160, 160);
+            ctx_gx.drawImage(QR.qrTag, x + 9, y + 9, 220, 220);
             el.attr("src", cas_gx.toDataURL("image/png"));
             ctx_gx.clearRect(0, 0, 560, 800);
         },
         makeQrImg: function() {
-            QR.drawimg($(".qr_bg1"), 340, 30, 270, 592);
+            QR.drawimg($(".qr_bg1"), 158, 458);
         },
         make_qr: function(uid) {
             var self = this;
@@ -65,10 +64,46 @@ define("app/qunfa", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStor
     };
     Ajax.custom({
         url: "api/v1/userinfo/base"
-    }, function(d) {});
+    }, function(d) {
+        QR.make_qr(d.data.uid);
+    });
     $("#step1").on("click", function() {
         $("#wrap1").hide();
-        $("#wrap2").fadeIn();
+        $("#wrap2").show();
+    });
+    $("#wrap2").on("click", ".copy", function() {
+        var self = $(this), txt = self.prev().text();
+        window.location = "kmb://QQ=" + encodeURIComponent(txt);
+        $("#wrap2 .copy").removeClass("copied").text("复制");
+        self.addClass("copied").text("已复制");
+        $("#step2").hasClass("disabled") && $("#step2").removeClass("disabled");
+    });
+    $("#step2").on("click", function() {
+        if (!$(this).hasClass("disabled")) {
+            $("#wrap2").hide();
+            $("#wrap3").show();
+        }
+    });
+    function play() {
+        var i = 0;
+        $("#teachCon ul li").eq(i).show();
+        var t = setInterval(function() {
+            i++;
+            $("#teachCon ul li").eq(i).show().siblings().hide();
+            if (i == $("#teachCon ul li").length) {
+                $("#teacher").removeClass("disabled");
+                clearInterval(t);
+            }
+        }, 1e3);
+    }
+    $("#teacher").on("click", function() {
+        var self = $(this);
+        $("#wrap3_con").hide();
+        $("#teachCon").show();
+        if (!self.hasClass("disabled")) {
+            play();
+        }
+        self.text("重新播放").addClass("disabled").addClass("white");
     });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;

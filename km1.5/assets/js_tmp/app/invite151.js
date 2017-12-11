@@ -11,6 +11,16 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
             time: "0"
         });
     });
+    $("#nav").on("click", "li", function() {
+        var _self = $(this), id = _self.data("id");
+        if (!_self.hasClass("active")) {
+            _self.addClass("active").siblings().removeClass("active");
+            $("#" + id).removeClass("hide").siblings("div").addClass("hide");
+        }
+    });
+    if (Tools.getQueryValue("tab") == "friend") {
+        $('#nav li[data-id="friends"]').click();
+    }
     function updateApp(type) {
         var txt = "升级到最新版本，更多任务要你收益涨涨涨！";
         new confirmTip({
@@ -101,13 +111,6 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
             QR.make_qr(d.data.uid);
         }
     });
-    $("#nav").on("click", "li", function() {
-        var _self = $(this), id = _self.data("id");
-        if (!_self.hasClass("active")) {
-            _self.addClass("active").siblings().removeClass("active");
-            $("#" + id).removeClass("hide").siblings("div").addClass("hide");
-        }
-    });
     $("#type1").on("click", function() {
         $("#saoma").show();
     });
@@ -119,7 +122,11 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
         }
     });
     $("#showIncome").on("click", function() {
-        window.location = "showIncome.html?auth_token=" + Tools.auth_token();
+        if (km.less("1.3.2")) {
+            updateApp();
+        } else {
+            window.location = "showIncome.html?auth_token=" + Tools.auth_token();
+        }
     });
     $("#callTudi").on("click", function() {
         $('#nav li[data-id="friends"]').click();
@@ -168,6 +175,7 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
                     }
                     this.uid = this.to_uid;
                     this.show_uid = hideInfo(this.to_uid);
+                    this.register_time = Ajax.formatDate(this.register_time, "yyyy-MM-dd hh:mm");
                     var cur_time = new Date().getTime();
                     var delta_T = cur_time - this.recent_active_time;
                     if (delta_T > 0) {

@@ -458,17 +458,19 @@ body {
   margin: 0 .1rem;
   font-size: 0.2rem;
 }
-.qunfa .wrap .bottom a.disabled {
-  background-color: #dbdbdb;
-  color: #808080;
-}
 .qunfa .wrap .bottom a.white {
   background-color: #fff;
   color: #808080;
   border-radius: .04rem;
   border-color: #d9d9d9;
 }
+.qunfa .wrap .bottom a.disabled {
+  background-color: #dbdbdb;
+  border-color: #dbdbdb;
+  color: #808080;
+}
 .qunfa .wrap2 {
+  display: none;
   padding-bottom: .84rem;
 }
 .qunfa .wrap2 .tit {
@@ -506,4 +508,18 @@ body {
 .qunfa .wrap2 ul li .copy.copied {
   background-color: #dbdbdb;
   color: #808080;
+}
+.qunfa .wrap3 {
+  display: none;
+}
+.qunfa .wrap3 .teach li {
+  text-align: center;
+  display: none;
+}
+.qunfa .wrap3 .teach li h4 {
+  display: inline-block;
+  max-width: 2.4rem;
+  padding: .2rem 0;
+  line-height: 1.4;
+  text-align: left;
 }

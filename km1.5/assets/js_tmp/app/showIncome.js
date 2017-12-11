@@ -43,7 +43,6 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
         },
         makeQrImg: function() {
             QR.drawimg($(".qr_bg1"), 340, 30, 270, 592);
-            QR.drawimg($(".qr_bg2"), 192, 370, 260, 320);
             QR.drawimg($(".qr_bg3"), 340, 30, 34, 222);
             QR.drawimg($(".qr_bg4"), 350, 40, 42, 284);
         },
@@ -83,15 +82,15 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
     Ajax.custom({
         url: "api/v1/userinfo/base"
     }, function(d) {
+        QR.allIncome = d.data.all_income;
         if (!km.less("1.3.2")) {
             QR.make_qr(d.data.uid);
         }
-        QR.allIncome = d.data.all_income;
     });
     var qrImgTop = new Swiper(".qrImg-top", {
         spaceBetween: 10,
         loop: true,
-        loopedSlides: 4,
+        loopedSlides: 3,
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev"
@@ -102,11 +101,25 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
         slidesPerView: 3,
         touchRatio: .2,
         loop: true,
-        loopedSlides: 4,
+        loopedSlides: 3,
         slideToClickedSlide: true
     });
     qrImgTop.controller.control = qrImgThumbs;
     qrImgThumbs.controller.control = qrImgTop;
+    $("#share").on("click", function() {
+        console.log(qrImgTop.activeIndex);
+        console.log(qrImgTop.loopedSlides);
+        if (km.less("1.5.5")) {
+            Tools.alertDialog({
+                text: "长按图片保存到手机<br>分享给朋友吧~",
+                time: "0"
+            });
+        } else {
+            var n = 1;
+            if (qrImgTop.activeIndex != qrImgTop.loopedSlides) n = qrImgTop.activeIndex + 1;
+            window.location = "kmb://incomeshow?id=" + n + "&qrurl=" + myurl;
+        }
+    });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;

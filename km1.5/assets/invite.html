@@ -48,7 +48,7 @@
                 </li>
                 <li id="type4">
                     <i class="imgIcon duanxin"></i>
-                    <div class="txt">短信邀请</div>
+                    <div class="txt">发朋友圈</div>
                 </li>
                 <li id="type5">
                     <i class="imgIcon qunfa"></i>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="info">
                                     <div class="logintime">上次活跃<span>{{=value.recent_active_time}}</span></div>
-                                    <div class="regtime">注册时间<span>{{=value.added_time}}</span></div>
+                                    <div class="regtime">注册时间<span>{{=value.register_time}}</span></div>
                                 </div>
                                 <div class="options">
                                     <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">鞭策徒弟</div>
@@ -141,10 +141,6 @@
                                     <div class="txt">徒弟完成1次有效搜索或阅读5篇文章算1天活跃，有效期为注册时间起30天之内。<span></span> </div>
                                 </div>
                             </div> 
-                            {{??}}
-                            <div class="more_coin">
-                                <div class="top">徒弟注册超过30天啦，快去鞭策徒弟吧</div>
-                            </div> 
                             {{?}}
                         </div>
                     {{~}}
@@ -152,8 +148,6 @@
             </script>
         </div>
     </section>
-
-
 
     <div class="saoma" id="saoma">
         <div class="con">

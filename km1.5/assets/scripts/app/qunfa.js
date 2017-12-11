@@ -1,11 +1,9 @@
 define('app/qunfa', function(require, exports, module) {
     var Ajax = require('../mod/base');
     window.jQuery = window.Zepto;
-
     var km =  require('../plugs/version.js');
     require('../plugs/cookieStorage.js');
 
-    
     const myurl = 'http://share.51xiaoli.cn/inviteReg.html';
     var QR = {
         qrTag:'',
@@ -28,15 +26,14 @@ define('app/qunfa', function(require, exports, module) {
             ctx_gx.fillStyle = '#fff';
             ctx_gx.drawImage(bg,0,0,560,800);
             ctx_gx.beginPath();
-            ctx_gx.fillRect(x, y, 178, 178);
             ctx_gx.fill();
-            ctx_gx.drawImage(QR.qrTag,x+9,y+9,160,160);
-
+            ctx_gx.drawImage(QR.qrTag,x+9,y+9,220,220);
             el.attr('src',cas_gx.toDataURL("image/png"));
+
             ctx_gx.clearRect(0,0,560,800);
         },
         makeQrImg: function(){
-            QR.drawimg($(".qr_bg1"),340,30,270,592);
+            QR.drawimg($(".qr_bg1"),158,458);
         },
         make_qr: function(uid){
             var self = this;
@@ -67,16 +64,75 @@ define('app/qunfa', function(require, exports, module) {
             }
         }
     }
+    // function base64Img2Blob(code){
+    //     var parts = code.split(';base64,');
+    //     var contentType = parts[0].split(':')[1];
+    //     var raw = window.atob(parts[1]);
+    //     var rawLength = raw.length;
+
+    //     var uInt8Array = new Uint8Array(rawLength);
+
+    //     for (var i = 0; i < rawLength; ++i) {
+    //       uInt8Array[i] = raw.charCodeAt(i);
+    //     }
+    //     return new Blob([uInt8Array], {type: contentType});
+    // }
+    // function downloadFile(fileName, content){
+    //     var aLink = document.createElement('a');
+    //     var blob = base64Img2Blob(content); //new Blob([content]);
+    //     var evt = document.createEvent("HTMLEvents");
+    //     evt.initEvent("click", false, false);//initEvent 不加后两个参数在FF下会报错
+    //     aLink.download = fileName;
+    //     aLink.href = URL.createObjectURL(blob);
+    //     aLink.dispatchEvent(evt);
+    // }          
+    // $('#save').on('click', function(){
+    //     downloadFile('kmxb.png', $('#qr').attr('src'));
+    // })
 
     Ajax.custom({
         url:'api/v1/userinfo/base'
     }, function(d){
-        // QR.make_qr(d.data.uid); 
+        QR.make_qr(d.data.uid); 
     });
 
     $('#step1').on('click', function(){
         $('#wrap1').hide();
-        $('#wrap2').fadeIn();
+        $('#wrap2').show();
+    });
+    $('#wrap2').on('click','.copy', function(){
+        var self =  $(this), txt = self.prev().text();
+        window.location = 'kmb://QQ='+encodeURIComponent(txt);
+        $('#wrap2 .copy').removeClass('copied').text('复制');
+        self.addClass('copied').text('已复制');
+        $('#step2').hasClass('disabled')&&$('#step2').removeClass('disabled');
     })
+    $('#step2').on('click', function(){
+        if(!$(this).hasClass('disabled')){  
+            $('#wrap2').hide();
+            $('#wrap3').show();
+        }
+    });
+    function play(){
+        var i = 0;
+        $('#teachCon ul li').eq(i).show();
+        var t = setInterval(function(){
+            i++;
+            $('#teachCon ul li').eq(i).show().siblings().hide();
+            if(i==$('#teachCon ul li').length){
+                $('#teacher').removeClass('disabled');
+                clearInterval(t);
+            }
+        },1000)
+    }
+    $('#teacher').on('click', function(){
+        var self = $(this);
+        $('#wrap3_con').hide();
+        $('#teachCon').show();
+        if(!self.hasClass('disabled')){
+            play();
+        }
+        self.text('重新播放').addClass('disabled').addClass('white');
+    });
 
 });
