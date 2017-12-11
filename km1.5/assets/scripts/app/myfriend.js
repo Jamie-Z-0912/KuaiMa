@@ -1,7 +1,5 @@
 define('app/myfriend', function(require, exports, module) {
     var pagelist = require('../mod/pagelist2');
-    var confirmTip = require('../plugs/confirmTip.js');
-    const teamId = Tools.getQueryValue('teamId');
     function hideInfo(a){
         var ss = '' + a;
         var len = ss.length;
@@ -24,11 +22,9 @@ define('app/myfriend', function(require, exports, module) {
                 $('#navOrder').remove();
             }else{
                 $.each(data.data.list, function(){
-                    if(teamId!=''&&teamId!='0'){
-                        this.hasTeam = true;
-                    }
                     this.uid = this.to_uid;
-                    this.to_uid = hideInfo(this.to_uid);
+                    this.show_uid = hideInfo(this.to_uid);
+                    this.register_time = Ajax.formatDate(this.register_time, 'yyyy-MM-dd hh:mm');
                     var cur_time = new Date().getTime();
                     var delta_T = cur_time - this.recent_active_time;
                     if( delta_T > 0){
@@ -104,36 +100,50 @@ define('app/myfriend', function(require, exports, module) {
                         txt = '您的徒弟不存在！';
                         $el.addClass('disabled');
                         break;
+                    case 1004:
+                        txt = '请在快马小报中登录';
+                        $el.addClass('disabled');
+                        break;
                 }
-                Tools.alertDialog({ text: txt, time: '0' });
+                Tools.alertDialog({ text: txt });
             });
         }
     });
-
-    $('#conList').on('click', '.join_myteam', function(){
-        var $el = $(this);
-        if($el.hasClass('disabled')){
-            Tools.alertDialog({
-                text: "每个徒弟每天只能被邀请一次<br>晚22点-早8点不能打扰徒弟哦",
-                time:'0'
-            });
-        }else{
-            new confirmTip({
-                title: '<p style="width:10.1em;margin:0 auto;text-align:left;">您是否想邀请这位徒弟加入您的团队</p>'
-            },function(a){
-                if(a){
+    
+    $('#conList').on('click', '.more_coin', function(){
+        var self = $(this);
+        if(self.find('.con').length>0){
+            if(self.hasClass('open')){
+                self.removeClass('open');
+            }else{
+                if(self.hasClass('isloaded')){
+                    self.addClass('open');
+                }else{
                     Ajax.custom({
-                        url: 'api/v1/teams/'+teamId+'/invite/'+$el.data('uid')
-                    },function(data){
-                        $el.addClass('disabled');
-                        if(data.status == 1000){
-                            Tools.alertDialog({title:'邀请已发出', text: '对方接受后将自动成为您的团员！',time:'0' });
-                        }else{
-                            Tools.alertDialog({ text: data.desc, time:'0' });
+                        url: 'api/v1/inviteRelation/friends/active',
+                        data: {
+                            son_uid: self.data('id')
+                        }
+                    }, function(d){
+                        self.addClass('isloaded');
+                        if(d.status==1000){
+                            var act_d = parseInt(d.data.had_active_day);
+                            self.find('.txt span').text('（剩余：'+d.data.left_active_day+'天）')
+                            if(act_d>0){
+                                if(act_d>7){
+                                    self.find('.coin li').addClass('active');
+                                }else{
+                                    for (var i = 0; i < act_d; i++){
+                                        self.find('.coin li').eq(i).addClass('active');
+                                    };
+                                }
+                            }
+                            self.addClass('open');
                         }
                     });
                 }
-            })
+
+            }
         }
     })
 });

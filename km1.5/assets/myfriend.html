@@ -30,25 +30,33 @@
             <li data-type="bring_profit_to_from">贡献金币</li>
             <li data-type="added_time">注册时间</li>
         </ul>
-        <div class="content">
-            <div id="conList" class="friends"></div>
+        <div class="friends">
+            <div id="conList"></div>
             <div id="listPage" class="hide"></div>
             <script id="conList-tmpl" type="text/x-dot-template">
-            {{? it.status == 1020 }}
-                <div class="empty">
-                    <img src="image/empty_3.png"><p>您还没有徒弟哦</p>
-                    <a href="kmb://invite" class="ui-btn">去收徒</a>
-                </div>
-            {{??}}
-                {{~it.list:value:index}}
-                    <div class="man">
-                        <div class="photo">{{?value.avatar!=''}}<img src="{{=value.avatar}}" alt="">{{?}}</div>
-                        <div class="user">
-                            <div class="user-top">
+                {{? it.status == 1020 }}
+                    <div class="empty">
+                        <img src="image/empty_3.png"><p>您还没有徒弟哦</p>
+                        <a href="javascript:$('#nav li:first-child').click();" class="ui-btn">去收徒</a>
+                    </div>
+                {{??}}
+                    {{~it.list:value:index}}
+                        <div class="man">
+                            <div class="photo">{{?value.avatar!=''}}<img src="{{=value.avatar}}" alt="">{{?}}</div>
+                            <div class="user">
+                                <div class="user-top">
+                                    <div class="nickname">{{?value.nick==''}}{{=value.show_uid}}{{??}}{{=value.nick}}{{?}}</div>
+                                    <div class="benefit">
+                                        {{?value.bring_profit_to_from == 15000}}
+                                        上贡完成 已出师
+                                        {{??}}
+                                        贡献<span class="orange">{{=value.bring_profit_to_from}}金币</span>
+                                        {{?}}
+                                    </div>
+                                </div>
                                 <div class="info">
-                                    <div class="nickname">{{?value.nick==''}}{{=value.to_uid}}{{??}}{{=value.nick}}{{?}}</div>
                                     <div class="logintime">上次活跃<span>{{=value.recent_active_time}}</span></div>
-                                    <div class="regtime">注册时间<span>{{=value.added_time}}</span></div>
+                                    <div class="regtime">注册时间<span>{{=value.register_time}}</span></div>
                                 </div>
                                 <div class="options">
                                     <div class="urge{{?!value.can_remind}} disabled{{?}}" data-uid="{{=value.uid}}">鞭策徒弟</div>
@@ -57,17 +65,43 @@
                                     {{?}}
                                 </div>
                             </div>
-                            <div class="benefit">
-                                {{?value.bring_profit_to_from == 15000}}
-                                上贡完成 已出师
-                                {{??}}
-                                贡献<span class="orange">{{=value.bring_profit_to_from}} 金币</span>
-                                {{?}}
-                            </div>
+                            {{?value.new_active}}
+                            <div class="more_coin" data-id="{{=value.to_uid}}">
+                                <div class="top">徒弟活跃可以贡献更多金币~<span>点我查看明细</span> <i class="iconfont ui-arrowlink"></i></div>
+                                <div class="con">
+                                    <ul class="coin">
+                                        <li class="c100">
+                                            <div class="img"><span class="num">100</span></div>
+                                            <span class="day">第二天</span>
+                                        </li>
+                                        <li class="c200">
+                                            <div class="img"><span class="num">200</span></div>
+                                            <span class="day">第三天</span>
+                                        </li>
+                                        <li class="c200">
+                                            <div class="img"><span class="num">200</span></div>
+                                            <span class="day">第四天</span>
+                                        </li>
+                                        <li class="c300">
+                                            <div class="img"><span class="num">300</span></div>
+                                            <span class="day">第五天</span>
+                                        </li>
+                                        <li class="c300">
+                                            <div class="img"><span class="num">300</span></div>
+                                            <span class="day">第六天</span>
+                                        </li>
+                                        <li class="c400">
+                                            <div class="img"><span class="num">400</span></div>
+                                            <span class="day">第七天</span>
+                                        </li>
+                                    </ul>
+                                    <div class="txt">徒弟完成1次有效搜索或阅读5篇文章算1天活跃，有效期为注册时间起30天之内。<span></span> </div>
+                                </div>
+                            </div> 
+                            {{?}}
                         </div>
-                    </div>
-                {{~}}
-            {{?}}
+                    {{~}}
+                {{?}}
             </script>
         </div>
     </section>

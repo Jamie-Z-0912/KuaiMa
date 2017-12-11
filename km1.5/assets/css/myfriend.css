@@ -569,64 +569,162 @@ body {
 .friends .man .user {
   margin-left: 3.6em;
 }
-.friends .man .user .user-top .info {
+.friends .man .user .user-top .benefit {
   padding-right: .82rem;
 }
-.friends .man .user .user-top .info .nickname {
+.friends .man .user .user-top .benefit span {
+  color: #ffa31a;
+  margin-left: .1rem;
+}
+.friends .man .user .info {
+  width: 82%;
+  margin-left: -3.4em;
+  margin-top: 4px;
+}
+.friends .man .user .info .nickname {
   font-size: 0.15rem;
 }
-.friends .man .user .user-top .info .logintime,
-.friends .man .user .user-top .info .regtime {
+.friends .man .user .info .logintime,
+.friends .man .user .info .regtime {
   color: #b2b2b2;
   font-size: .11rem;
   line-height: 1.4;
 }
-.friends .man .user .user-top .info .logintime span,
-.friends .man .user .user-top .info .regtime span {
+.friends .man .user .info .logintime span,
+.friends .man .user .info .regtime span {
   margin-left: .1rem;
 }
-.friends .man .user .user-top .options {
+.friends .man .user .options {
   position: absolute;
   right: .1rem;
   top: .14rem;
   width: .92rem;
   text-align: center;
 }
-.friends .man .user .user-top .options .urge {
-  background-color: #fa3719;
+.friends .man .user .options .urge {
+  background-color: #ffd633;
+  color: #000;
 }
-.friends .man .user .user-top .options .join_myteam {
-  background-color: #d3c795;
-  margin-top: .05rem;
-}
-.friends .man .user .user-top .options .join_myteam,
-.friends .man .user .user-top .options .urge {
+.friends .man .user .options .join_myteam {
+  background-color: #5a4d19;
   color: #fff;
+  margin-top: .06rem;
+}
+.friends .man .user .options .join_myteam,
+.friends .man .user .options .urge {
   width: .92rem;
   height: 0.36rem;
   line-height: 0.36rem;
   font-size: 0.16rem;
   border-radius: .06rem;
 }
-.friends .man .user .user-top .options .join_myteam.disabled,
-.friends .man .user .user-top .options .urge.disabled {
+.friends .man .user .options .join_myteam.disabled,
+.friends .man .user .options .urge.disabled {
   background-color: #d1d1d1;
 }
-.friends .man .user .user-top .options .state {
+.friends .man .user .options .state {
   font-size: .13rem;
   line-height: 1;
   margin-top: .16rem;
   color: #525252;
 }
-.friends .man .user .user-top .options .state.pay {
-  color: #ff9100;
+.friends .man .user .options .state.pay {
+  color: #000;
 }
-.friends .man .user .benefit {
-  margin-top: 4px;
+.friends .man .more_coin {
+  margin-top: .1rem;
+  border-top: 1px solid #ebebeb;
+  padding-top: .1rem;
 }
-.friends .man .user .benefit .orange {
-  color: #ff9100;
-  margin-left: .12rem;
+.friends .man .more_coin .top i.iconfont:before {
+  transform: rotate(90deg);
+}
+.friends .man .more_coin .con {
+  margin-top: .08rem;
+  display: none;
+}
+.friends .man .more_coin .con .coin {
+  display: block;
+  font-size: 0;
+}
+.friends .man .more_coin .con .coin li {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  width: 16.666%;
+}
+.friends .man .more_coin .con .coin li .img {
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  width: .44rem;
+  height: .44rem;
+  position: relative;
+  background-image: url(../image/friend_coin.png);
+  background-size: 400%;
+}
+.friends .man .more_coin .con .coin li .img .num {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: .09rem;
+  display: block;
+  width: .34rem;
+  bottom: .08rem;
+  left: 50%;
+  margin-left: -0.17rem;
+  z-index: 2;
+  height: 0.14rem;
+  line-height: 0.14rem;
+  border-radius: .07rem;
+}
+.friends .man .more_coin .con .coin li .day {
+  margin: 0 auto;
+  color: #b2b2b2;
+  font-size: .1rem;
+}
+.friends .man .more_coin .con .coin li.c100 .img {
+  background-position: 0 -0.44rem;
+}
+.friends .man .more_coin .con .coin li.c200 .img {
+  background-position: -0.44rem -0.44rem;
+}
+.friends .man .more_coin .con .coin li.c300 .img {
+  background-position: -0.88rem -0.44rem;
+}
+.friends .man .more_coin .con .coin li.c400 .img {
+  background-position: -1.32rem -0.44rem;
+}
+.friends .man .more_coin .con .coin li.c100.active .img {
+  background-position: 0 0;
+  background-color: #ffd633;
+}
+.friends .man .more_coin .con .coin li.c200.active .img {
+  background-position: -0.44rem 0;
+  background-color: #ffd633;
+}
+.friends .man .more_coin .con .coin li.c300.active .img {
+  background-position: -0.88rem 0;
+  background-color: #ffd633;
+}
+.friends .man .more_coin .con .coin li.c400.active .img {
+  background-position: -1.32rem 0;
+  background-color: #ffd633;
+}
+.friends .man .more_coin .con .txt {
+  padding-top: .06rem;
+  font-size: .12rem;
+  line-height: .18rem;
+  color: #b8b8b8;
+}
+.friends .man .more_coin.open .top span {
+  display: none;
+}
+.friends .man .more_coin.open i.iconfont:before {
+  transform: rotate(270deg);
+}
+.friends .man .more_coin.open .con {
+  display: block;
 }
 .friends .empty .ui-btn {
   margin-top: .6rem;
