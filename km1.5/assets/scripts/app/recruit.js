@@ -79,7 +79,11 @@ define('app/recruit', function(require, exports, module) {
                 },100);
             }
             $('#shareBtn3').on('click', function(){
-                window.location = 'kmb://share?param={"shareurl":"'+myurl+'","desc":"我在快马建立了小团，团队任务奖励翻倍，分红多多，还不赶紧上车一起来赚～"}';
+                if(km.less('1.5.5')){
+                    window.location = 'kmb://share?param={"shareurl":"'+myurl+'","desc":"我在快马建立了小团，团队任务奖励翻倍，分红多多!"}';
+                }else{
+                    window.location = 'kmb://share?param={"shareurl":"'+myurl+'","title":"快马新玩法，奖励+分红，双重金币乐翻天","desc":"团队合作钱多多","icon":"http://static.etouch.cn/imgs/upload/1512982629.8319.png"}';
+                }
             });
         }
     }

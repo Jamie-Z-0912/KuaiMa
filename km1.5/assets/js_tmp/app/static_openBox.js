@@ -8,6 +8,9 @@ define("app/openBox", [ "../mod/base", "../plugs/tipsAd" ], function(require, ex
         if (data.status == 1e3) {
             var d = data.data;
             var share_kmb = 'kmb://share?param={"shareurl":"' + d.share_url + '","desc":"' + d.share_description + '"}';
+            if (!km.less("1.5.5")) {
+                share_kmb = 'kmb://share?param={"shareurl":"' + d.share_url + '","title":"' + d.share_description + '","desc:"戳开有惊喜","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
+            }
             $("#share").on("click", "li", function() {
                 window.location = share_kmb;
             });

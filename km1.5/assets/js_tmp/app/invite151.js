@@ -86,7 +86,10 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
                 }, 100);
             }
             var mylink0 = myurl + "?uid=" + uid;
-            var share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"用它看资讯现在很流行，读新闻涨见识还可以赚零花，很多人都在玩。"}';
+            var share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"送了一个红包给你，快来看看里面有多精彩？戳开有好礼。"}';
+            if (!km.less("1.5.5")) {
+                share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"戳开有惊喜","title":"收到来自快马的一份礼物","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
+            }
             $("#type2, #type3, #type4").on("click", function() {
                 window.location = share_kmb;
             });

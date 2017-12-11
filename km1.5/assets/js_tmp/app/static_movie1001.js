@@ -88,7 +88,11 @@ define("app/movie1001", [ "../mod/base", "../plugs/version.js", "../plugs/confir
         });
         $("#fenxiang").on("click", function() {
             var link = location.href;
-            window.location = 'kmb://share?param={"shareurl":"' + link + '","desc":"8天放假，大片放送，旅途宅家，快马相伴~"}';
+            if (km.less("1.5.5")) {
+                window.location = 'kmb://share?param={"shareurl":"' + link + '","desc":"8天放假，大片放送，旅途宅家，快马相伴~"}';
+            } else {
+                window.location = 'kmb://share?param={"shareurl":"' + link + '","title":"免费大片看不停","desc":"8天放假，大片放送，旅途宅家，快马相伴~"}';
+            }
         });
     } else {
         $("#fenxiang").remove();
