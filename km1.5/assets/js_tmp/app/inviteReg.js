@@ -132,7 +132,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             }
         }
     };
-    function downloadAlert(channel, opt) {
+    function downloadAlert(channel, opt, time) {
         if (channel == "tuia01") {
             seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
                 Tools.alertDialog({
@@ -153,7 +153,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             Tools.alertDialog({
                 title: opt.title || "",
                 text: opt.text + '<br><br><a href="' + downUrl + '" id="openAppBtn" style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;">下载快马小报</a>',
-                time: "0"
+                time: time ? time : "0"
             }, function() {
                 window.location = downUrl;
             });
@@ -203,6 +203,10 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
                 Tools.alertDialog({
                     text: "验证码错误，请新获取"
                 });
+            } else if (data.status == 1008) {
+                downloadAlert(myChannel, {
+                    text: "您已经注册过啦快去赚钱吧"
+                }, 1600);
             } else {
                 downloadAlert(myChannel, {
                     title: data.status == 1e3 ? "注册成功" : "",
@@ -366,7 +370,7 @@ define("app/inviteReg", [ "../mod/submit", "../plugs/cookieStorage.js", "../plug
             });
             return;
         }
-        if (/1001|1002|1003|1004|1008|1009|1015/.test(data.status)) {
+        if (/1001|1002|1003|1004|1009|1015/.test(data.status)) {
             opt = {
                 title: "提醒",
                 text: data.desc

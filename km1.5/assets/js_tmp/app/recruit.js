@@ -163,7 +163,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
             });
             return;
         }
-        if (/1001|1002|1003|1004|1008|1009|1015/.test(data.status)) {
+        if (/1001|1002|1003|1004|1009|1015/.test(data.status)) {
             opt = {
                 title: "提醒",
                 text: data.desc
