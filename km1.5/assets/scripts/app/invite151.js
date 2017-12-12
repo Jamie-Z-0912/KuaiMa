@@ -119,6 +119,9 @@ define('app/invite151', function(require, exports, module) {
         if(!km.less('1.3.2')){
             QR.make_qr(d.data.uid);
         }
+        $('.invite_qr').on('click', function(){
+            window.location = 'inviteCode.html?code='+d.data.invite_code;
+        })
     });
     $('#type1').on('click', function(){ $('#saoma').show(); });
     $('#type5').on('click', function(){

@@ -22,6 +22,32 @@
 			font-size: @size;
 		}
 		.warn{color:#31350d; font-weight: 500;}
+		.table{
+			padding-bottom: .15rem;
+			width: 3.05rem;
+			margin: 0 auto;
+			h4{ color: #5a6024; font-weight: 500;padding: .15rem 0 .1rem;}
+			table{
+				width: 100%;
+				table-layout:fixed;
+				text-align: center;
+				border: 1px solid #bcce9f;
+				font-size: .13rem;
+				color: #3b3e23;
+				line-height: .26rem;
+				th{background-color: #bcce9f;}
+				tr{
+					background-color: #eff3ce;
+					td{
+						border-top: 1px solid #bcce9f;
+						border-right: 1px solid #bcce9f;
+						&:last-child{border-right: 0 none;}
+						&.red{color: #ec6137;}
+					}
+					&:nth-child(odd){background-color: #fcffe2;}
+				}
+			}
+		}
 	}
 	.option{
 		background-color: #fcffe2;
