@@ -96,9 +96,9 @@ define('app/invite151', function(require, exports, module) {
                 },100);
             }
             var mylink0 = myurl + '?uid=' + uid;
-            var share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"送了一个红包给你，快来看看里面有多精彩？戳开有好礼。"}';
+            var share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"快马送了一个红包给你，快来看看里面有多精彩？戳开有好礼。"}';
             if (!km.less('1.5.5')) {
-                share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"戳开有惊喜","title":"收到来自快马的一份礼物","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
+                share_kmb = 'kmb://share?param={"shareurl":"'+mylink0+'","desc":"和我一起赚零花","title":"快马送了一个红包给你，快来看看里面有多精彩？ ","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
             };
             $('#type2, #type3, #type4').on('click', function(){ window.location = share_kmb; });
             $('#saoma').on('click', '.btn', function(){ window.location = share_kmb; });

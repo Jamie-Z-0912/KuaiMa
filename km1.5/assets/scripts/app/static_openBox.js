@@ -1,17 +1,23 @@
 define('app/openBox', function(require, exports, module) {
 	var Ajax = require('../mod/base');
     var tipsAd = require('../plugs/tipsAd');
+    var km =  require('../plugs/version.js');
 
     Ajax.custom({
         url:'v1/inviteAct/shareUrl'
     },function(data){
-        console.log(data);
         if(data.status==1000){  
             var d = data.data;
-            var share_kmb = 'kmb://share?param={"shareurl":"'+d.share_url+'","desc":"'+d.share_description+'"}';
+            var param = {"shareurl": d.share_url,"desc": d.share_description }
             if(!km.less('1.5.5')){
-                share_kmb = 'kmb://share?param={"shareurl":"'+d.share_url+'","title":"'+d.share_description+'","desc:"戳开有惊喜","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
+                param = {
+                    "shareurl": d.share_url ,
+                    "title": d.share_description,
+                    "desc":"戳开有惊喜",
+                    "icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"
+                };
             }
+            var share_kmb = 'kmb://share?param='+JSON.stringify(param);
             $('#share').on('click', 'li', function(){
                 window.location = share_kmb;
             })
