@@ -62,6 +62,13 @@ define("app/qunfa", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStor
             }
         }
     };
+    if (km.less("1.5.5")) {
+        $("#save").remove();
+    } else {
+        $("#save").on("click", function() {
+            window.location = "kmb://qunfa?url=" + myurl;
+        });
+    }
     Ajax.custom({
         url: "api/v1/userinfo/base"
     }, function(d) {

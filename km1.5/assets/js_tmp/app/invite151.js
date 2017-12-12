@@ -86,9 +86,9 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
                 }, 100);
             }
             var mylink0 = myurl + "?uid=" + uid;
-            var share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"快马送了一个红包给你，快来看看里面有多精彩？戳开有好礼。"}';
+            var share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"' + (QR.nick ? QR.nick : "快马") + '送了一个红包给你"}';
             if (!km.less("1.5.5")) {
-                share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"和我一起赚零花","title":"快马送了一个红包给你，快来看看里面有多精彩？ ","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
+                share_kmb = 'kmb://share?param={"shareurl":"' + mylink0 + '","desc":"和我一起赚零花","title":"' + (QR.nick ? QR.nick : "快马") + '送了一个红包给你","icon":"http://static.etouch.cn/imgs/upload/1512982615.3361.png"}';
             }
             $("#type2, #type3, #type4").on("click", function() {
                 window.location = share_kmb;
@@ -110,6 +110,7 @@ define("app/invite151", [ "../mod/pagelist2", "../plugs/confirmTip.js", "../plug
     }, function(d) {
         teamId = d.data.team_id;
         $("#inviteQr").text(d.data.invite_code);
+        QR.nick = d.data.nick;
         if (!km.less("1.3.2")) {
             QR.make_qr(d.data.uid);
         }

@@ -1,7 +1,32 @@
-define("app/inviteCode", [ "../mod/base" ], function(require, exports, module) {
+define("app/inviteCode", [ "../mod/base", "../plugs/version.js", "../plugs/confirmTip.js" ], function(require, exports, module) {
     var Ajax = require("../mod/base");
+    var km = require("../plugs/version.js");
+    var confirmTip = require("../plugs/confirmTip.js");
     var code = Tools.getQueryValue("code");
     $("#code").text(code);
+    function copy() {
+        window.location = "kmb://QQ=" + encodeURIComponent("我的邀请码：" + code);
+        var txt = "复制成功，快去告诉朋友们吧~";
+        new confirmTip({
+            text: '<p style="color:#333;padding-left:.15rem;padding-right:.15rem;">' + txt + "</p>",
+            sureTxt: "打开微信",
+            cancelTxt: "我知道了"
+        }, function(a) {
+            if (a) {
+                window.location = "weixin://";
+            }
+        });
+    }
+    $(".copy").on("click", function() {
+        copy();
+    });
+    $("#share").on("click", function() {
+        if (km.less("1.5.5")) {
+            copy();
+        } else {
+            window.location = "kmb://invitecode?code=" + code;
+        }
+    });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -355,4 +380,103 @@ define("app/inviteCode", [ "../mod/base" ], function(require, exports, module) {
         }
     };
     window.Tools = Tools;
+});define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.userAgent = userAgent;
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});define("plugs/confirmTip", [], function(require, exports, module) {
+    var confirmTip = function(option, callback) {
+        var opt = {
+            title: "",
+            text: "",
+            sureTxt: "确定",
+            cancelTxt: "取消"
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    confirmTip.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [], divId = that.id;
+        arr.push('<div class="pop-mask km-dialog"></div>');
+        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
+        arr.push('<div class="box">');
+        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
+        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
+        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
+        arr.push("</div></div>");
+        $("body").append(arr.join(""));
+        $("#" + divId).height($("#" + divId + " .box").height());
+        $("#" + divId + " .sureBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $("#" + divId + " .cancelBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    module.exports = confirmTip;
 });

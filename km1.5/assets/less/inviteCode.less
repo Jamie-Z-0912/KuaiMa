@@ -1,6 +1,7 @@
 @import "reset.less";
-body{background-color: #f5f5f5;}
-.box{
+@import "libs/confirmTip.less";
+body{background-color: #f5f5f5; padding-bottom: .5rem;}
+.con{
 	background-color: #fff;
 	border-radius: .1rem;
 	padding: .2rem .6rem;
@@ -44,5 +45,22 @@ body{background-color: #f5f5f5;}
 			box-shadow:  0 .06rem .24rem 0 #ebebeb;
 			margin-bottom: .1rem;
 		}	
+	}
+}
+.bottom{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	max-width: 750px;
+	background-color: #fff;
+	padding: .1rem 0;
+	.btn{
+		text-align: center;
+		background-color: #f8b423;
+		color: #fff;
+		width: 2.4rem;
+		.lineH(.36rem);
+		margin: 0 auto;
+		border-radius: .18rem;
 	}
 }

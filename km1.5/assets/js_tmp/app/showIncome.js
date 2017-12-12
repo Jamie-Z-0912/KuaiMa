@@ -107,8 +107,7 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
     qrImgTop.controller.control = qrImgThumbs;
     qrImgThumbs.controller.control = qrImgTop;
     $("#share").on("click", function() {
-        console.log(qrImgTop.activeIndex);
-        console.log(qrImgTop.loopedSlides);
+        var ai = qrImgTop.activeIndex, ls = qrImgTop.loopedSlides;
         if (km.less("1.5.5")) {
             Tools.alertDialog({
                 text: "长按图片保存到手机<br>分享给朋友吧~",
@@ -116,7 +115,8 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
             });
         } else {
             var n = 1;
-            if (qrImgTop.activeIndex != qrImgTop.loopedSlides) n = qrImgTop.activeIndex + 1;
+            if (ai > ls) ai = ai - ls;
+            if (ai != ls) n = ai + 1;
             window.location = "kmb://incomeshow?id=" + n + "&qrurl=" + myurl;
         }
     });
