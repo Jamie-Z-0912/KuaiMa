@@ -1,16 +1,10 @@
-define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStorage.js" ], function(require, exports, module) {
+define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStorage.js", "../plugs/confirmTip.js" ], function(require, exports, module) {
     var Ajax = require("../mod/base");
     window.jQuery = window.Zepto;
     var km = require("../plugs/version.js");
     require("../plugs/cookieStorage.js");
+    var confirmTip = require("../plugs/confirmTip.js");
     $("body,#bg").height(innerHeight);
-    if (!km.isKM) {
-        Tools.alertDialog({
-            text: "请在快马小报中打开！<br>" + km.userAgent,
-            time: 9999999
-        });
-        return;
-    }
     if (km.less("1.5.0")) {
         Tools.alertDialog({
             text: '<span style="font-size:16px;width:86%;display:inline-block;">更新至最新版，加入团队拿分红！</span><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" class="ui-btn minbtn">马上赚钱</a>',
@@ -125,7 +119,19 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         }
     });
     $("#copyCode").on("click", function() {
-        window.location = "kmb://QQ=" + $("#teamCode").text();
+        var txt = "组团赚零钱，奖励成倍拿！现在需要你！快来加入我的团队吧！点击下载：http://s.ssy.im/UdQBpp，团队邀请码：" + $("#teamCode").text();
+        window.location = "kmb://QQ=" + encodeURIComponent(txt);
+        new confirmTip({
+            text: '<p style="color:#333;">赶快去呼朋唤友吧！</p>',
+            sureTxt: "QQ拉人",
+            cancelTxt: "微信拉人"
+        }, function(a) {
+            if (a) {
+                window.location = "mqqwpa://im/chat?chat_type=wpa&version=1";
+            } else {
+                window.location = "weixin://";
+            }
+        });
     });
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
@@ -619,4 +625,43 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         }
     };
     window.Storage = Storage;
+});define("plugs/confirmTip", [], function(require, exports, module) {
+    var confirmTip = function(option, callback) {
+        var opt = {
+            title: "",
+            text: "",
+            sureTxt: "确定",
+            cancelTxt: "取消"
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    confirmTip.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [], divId = that.id;
+        arr.push('<div class="pop-mask km-dialog"></div>');
+        arr.push('<div class="pop-screen km-dialog" id="' + divId + '">');
+        arr.push('<div class="box">');
+        opt.title != "" && arr.push("<h2>" + opt.title + "</h2>");
+        opt.text != "" && arr.push('<div class="text">' + opt.text + "</div>");
+        arr.push('<div class="btnbox">' + '<a class="cancelBtn">' + opt.cancelTxt + "</a>" + '<a class="sureBtn">' + opt.sureTxt + "</a>" + "</div>");
+        arr.push("</div></div>");
+        $("body").append(arr.join(""));
+        $("#" + divId).height($("#" + divId + " .box").height());
+        $("#" + divId + " .sureBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $("#" + divId + " .cancelBtn").click(function() {
+            $("#" + divId).prev().remove();
+            $("#" + divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    module.exports = confirmTip;
 });

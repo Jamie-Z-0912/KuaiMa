@@ -3,14 +3,16 @@ define('app/recruit', function(require, exports, module) {
     window.jQuery = window.Zepto;
     var km =  require('../plugs/version.js');
     require('../plugs/cookieStorage.js');
+    var confirmTip = require('../plugs/confirmTip.js');
+
     $('body,#bg').height(innerHeight);
-    if(!km.isKM){
-        Tools.alertDialog({
-            text:'请在快马小报中打开！<br>'+km.userAgent,
-            time: 9999999
-        })
-        return;
-    }
+    // if(!km.isKM){
+    //     Tools.alertDialog({
+    //         text:'请在快马小报中打开！<br>'+km.userAgent,
+    //         time: 9999999
+    //     })
+    //     return;
+    // }
     if(km.less('1.5.0')){
         Tools.alertDialog({
             text: '<span style="font-size:16px;width:86%;display:inline-block;">更新至最新版，加入团队拿分红！</span><br><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser" class="ui-btn minbtn">马上赚钱</a>',
@@ -131,7 +133,19 @@ define('app/recruit', function(require, exports, module) {
     });
 
     $('#copyCode').on('click', function(){
-        window.location = 'kmb://QQ='+$('#teamCode').text();
+        var txt = '组团赚零钱，奖励成倍拿！现在需要你！快来加入我的团队吧！点击下载：http://s.ssy.im/UdQBpp，团队邀请码：'+$('#teamCode').text();
+        window.location = 'kmb://QQ='+encodeURIComponent(txt);
+        new confirmTip({
+            text: '<p style="color:#333;">赶快去呼朋唤友吧！</p>',
+            sureTxt: 'QQ拉人',
+            cancelTxt: '微信拉人'
+        },function(a){
+            if(a){
+                window.location = 'mqqwpa://im/chat?chat_type=wpa&version=1';
+            }else{
+                window.location = 'weixin://';
+            }
+        });
     })
 
 });
