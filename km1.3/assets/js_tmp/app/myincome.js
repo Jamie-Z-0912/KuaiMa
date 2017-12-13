@@ -94,7 +94,15 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version", "../plugs/storag
         });
     });
     $("#duiba").on("click", function() {
-        window.location = "kmb://openduiba";
+        var cur_h = new Date().getHours();
+        if (cur_h < 6) {
+            Tools.alertDialog({
+                text: "为了保证您昨日金币正常结算<br>请上午6点后再来提现",
+                time: "0"
+            });
+        } else {
+            window.location = "kmb://openduiba";
+        }
     });
     $("#progress").on("click", function() {
         if (/browser.kuaima/.test(location.hostname)) {
