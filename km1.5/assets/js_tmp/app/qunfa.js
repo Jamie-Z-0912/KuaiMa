@@ -73,17 +73,17 @@ define("app/qunfa", [ "../mod/base", "../plugs/version.js", "../plugs/cookieStor
         url: "api/v1/userinfo/base"
     }, function(d) {
         QR.make_qr(d.data.uid);
+        $("#wrap2").on("click", ".copy", function() {
+            var self = $(this), txt = self.prev().text() + "请点击：http://s.ssy.im/UdQBpp，邀请码：" + d.data.invite_code;
+            window.location = "kmb://QQ=" + encodeURIComponent(txt);
+            $("#wrap2 .copy").removeClass("copied").text("复制");
+            self.addClass("copied").text("已复制");
+            $("#step2").hasClass("disabled") && $("#step2").removeClass("disabled");
+        });
     });
     $("#step1").on("click", function() {
         $("#wrap1").hide();
         $("#wrap2").show();
-    });
-    $("#wrap2").on("click", ".copy", function() {
-        var self = $(this), txt = self.prev().text();
-        window.location = "kmb://QQ=" + encodeURIComponent(txt);
-        $("#wrap2 .copy").removeClass("copied").text("复制");
-        self.addClass("copied").text("已复制");
-        $("#step2").hasClass("disabled") && $("#step2").removeClass("disabled");
     });
     $("#step2").on("click", function() {
         if (!$(this).hasClass("disabled")) {
