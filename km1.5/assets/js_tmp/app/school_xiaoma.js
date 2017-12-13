@@ -39,8 +39,18 @@ define("app/school_xiaoma", [ "../mod/base", "../plugs/secondPage.js", "../plugs
             }
         });
     }
+    $(".p_alipay").on("click", function() {
+        window.location = "kmb://bindalipay";
+    });
     $(".p_tixian").on("click", function() {
         window.location = "kmb://openduiba";
+    });
+    $(".p_caiji").on("click", function() {
+        if (km.less("1.4.0")) {
+            updateApp();
+        } else {
+            window.location = "kmb://worthreadingtab";
+        }
     });
     $(".p_jinbi").on("click", function() {
         if (km.less("1.5.5")) {

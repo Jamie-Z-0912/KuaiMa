@@ -559,10 +559,11 @@ body.move {
   background-color: #ffd014;
 }
 .xiama {
-  padding: .3rem;
+  padding: 0 .3rem .3rem;
 }
 .xiama .swiper-slide h3 {
   position: relative;
+  padding-top: .3rem;
   padding-bottom: .17rem;
   margin-bottom: .2rem;
 }
