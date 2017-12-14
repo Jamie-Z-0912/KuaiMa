@@ -44,6 +44,7 @@ define('app/myincome', function(require, exports, module) {
 	if(p == 'cash'){
 		$('#nav li[data-id="rmbListWrap"]').click();
 	}
+	var  canQuery = true, cutTime = 5;
 	//金币汇总
 	Ajax.custom({
 		url: 'api/v1/coin/info'
@@ -53,6 +54,7 @@ define('app/myincome', function(require, exports, module) {
 		$('#TINCOME').text(d.totalIncome);
 		$('#YEXCHANGE').text(d.yesterdayExchangeRate);
 		$('#YRMB').text(d.yesterdayIncome);
+		if(d.serverHour<cutTime) canQuery = false;
 	})
 	//金币明细
 	pagelist.fun({
@@ -97,14 +99,13 @@ define('app/myincome', function(require, exports, module) {
 		})
 	});
 	$('#duiba').on('click', function(){
-		var cur_h = new Date().getHours();
-		if(cur_h<6){
+		if(canQuery){
+			window.location = 'kmb://openduiba';
+		}else{
 			Tools.alertDialog({
-				text: '为了保证您昨日金币正常结算<br>请上午6点后再来提现',
+				text: '为了保证您昨日金币正常结算<br>请上午'+cutTime+'点后再来提现',
 				time: '0'
 			})
-		}else{
-			window.location = 'kmb://openduiba';
 		}
 	});
 	$('#progress').on('click',function(){

@@ -42,6 +42,7 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version", "../plugs/storag
     if (p == "cash") {
         $('#nav li[data-id="rmbListWrap"]').click();
     }
+    var canQuery = true, cutTime = 5;
     Ajax.custom({
         url: "api/v1/coin/info"
     }, function(data) {
@@ -50,6 +51,7 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version", "../plugs/storag
         $("#TINCOME").text(d.totalIncome);
         $("#YEXCHANGE").text(d.yesterdayExchangeRate);
         $("#YRMB").text(d.yesterdayIncome);
+        if (d.serverHour < cutTime) canQuery = false;
     });
     pagelist.fun({
         url: "api/v1/coin/list",
@@ -94,14 +96,13 @@ define("app/myincome", [ "../mod/pagelist", "../plugs/version", "../plugs/storag
         });
     });
     $("#duiba").on("click", function() {
-        var cur_h = new Date().getHours();
-        if (cur_h < 6) {
+        if (canQuery) {
+            window.location = "kmb://openduiba";
+        } else {
             Tools.alertDialog({
-                text: "为了保证您昨日金币正常结算<br>请上午6点后再来提现",
+                text: "为了保证您昨日金币正常结算<br>请上午" + cutTime + "点后再来提现",
                 time: "0"
             });
-        } else {
-            window.location = "kmb://openduiba";
         }
     });
     $("#progress").on("click", function() {
