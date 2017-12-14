@@ -7,6 +7,7 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
     const myurl = "http://share.51xiaoli.cn/inviteReg.html";
     var QR = {
         qrTag: "",
+        invitecode: Tools.getQueryValue("code"),
         allIncome: Tools.getQueryValue("allIncome"),
         qr_base64: Storage.get("qr"),
         channel: function() {
@@ -24,28 +25,25 @@ define("app/showIncome", [ "../mod/base", "../plugs/confirmTip.js", "../plugs/ve
         drawimg: function(el, x, y, m_x, m_y) {
             var cas_gx = $("#canvasGX")[0], ctx_gx = cas_gx.getContext("2d");
             var bg = el[0];
+            ctx_gx.drawImage(bg, 0, 0, 520, 664);
+            ctx_gx.drawImage(QR.qrTag, x + 9, y + 9, 130, 130);
+            ctx_gx.font = "40px PingFangSC-Semibold blod";
             ctx_gx.fillStyle = "#fff";
-            ctx_gx.drawImage(bg, 0, 0, 560, 640);
-            ctx_gx.beginPath();
-            ctx_gx.fillRect(x, y, 178, 178);
-            ctx_gx.fill();
-            ctx_gx.drawImage(QR.qrTag, x + 9, y + 9, 160, 160);
-            ctx_gx.font = "20px PingFangSC-Semibold";
-            ctx_gx.lineWidth = 12;
-            ctx_gx.strokeStyle = "#fff";
-            ctx_gx.strokeText("长按识别二维码", x + 18, y + 192);
-            ctx_gx.fillStyle = "#000";
-            ctx_gx.fillText("长按识别二维码", x + 18, y + 192);
-            ctx_gx.font = "42px PingFangSC-Semibold blod";
-            ctx_gx.fillStyle = "#ffe11d";
+            ctx_gx.textAlign = "center";
+            ctx_gx.textBaseline = "middle";
             ctx_gx.fillText(QR.allIncome + " 元", m_x, m_y);
+            ctx_gx.font = "32px PingFangSC-Semibold blod";
+            ctx_gx.fillStyle = "#f65e44";
+            ctx_gx.textAlign = "center";
+            ctx_gx.textBaseline = "middle";
+            ctx_gx.fillText("邀请码: " + QR.invitecode, 270, 642);
             el.attr("src", cas_gx.toDataURL("image/png"));
-            ctx_gx.clearRect(0, 0, 560, 640);
+            ctx_gx.clearRect(0, 0, 520, 664);
         },
         makeQrImg: function() {
-            QR.drawimg($(".qr_bg1"), 340, 30, 270, 592);
-            QR.drawimg($(".qr_bg3"), 340, 30, 34, 222);
-            QR.drawimg($(".qr_bg4"), 350, 40, 42, 284);
+            QR.drawimg($(".qr_bg1"), 184, 378, 260, 248);
+            QR.drawimg($(".qr_bg2"), 184, 378, 260, 248);
+            QR.drawimg($(".qr_bg3"), 184, 378, 260, 248);
         },
         make_qr: function(uid) {
             var self = this;

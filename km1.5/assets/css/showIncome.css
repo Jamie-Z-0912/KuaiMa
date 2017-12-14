@@ -491,7 +491,7 @@ i#lDom ~ iframe {
 .show_income .swiper-button-black {
   opacity: .4;
   top: 3.2rem;
-  margin-top: .5rem;
+  margin-top: .62rem;
   width: .16rem;
   background-size: 100%;
   left: 50%;
@@ -504,7 +504,6 @@ i#lDom ~ iframe {
 }
 .show_income .swiper-container {
   width: 100%;
-  height: 300px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -513,8 +512,8 @@ i#lDom ~ iframe {
   background-position: center;
 }
 .show_income .qrImg-top {
-  width: 2.8rem;
-  height: 3.2rem;
+  width: 2.6rem;
+  height: 3.32rem;
 }
 .show_income .qrImg-top img {
   display: block;
@@ -522,7 +521,7 @@ i#lDom ~ iframe {
 }
 .show_income .qrImg-thumbs {
   width: 2.7rem;
-  height: .92rem;
+  height: 1rem;
   box-sizing: border-box;
   margin-top: .1rem;
 }
