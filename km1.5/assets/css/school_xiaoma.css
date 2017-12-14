@@ -606,6 +606,7 @@ body.move {
   display: inline-block !important;
 }
 .xiama .double .link {
+  margin-left: .1rem;
   height: 0.54rem;
   line-height: 0.54rem;
   color: #1f1f1f;
