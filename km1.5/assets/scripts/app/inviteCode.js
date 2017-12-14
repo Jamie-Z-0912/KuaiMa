@@ -5,21 +5,20 @@ define('app/inviteCode', function(require, exports, module) {
     var code = Tools.getQueryValue('code');
     $('#code').text(code);
 
+    var txt = '只要阅读就有钱来~还有更多有趣玩法教你赚足零花钱！点击下载：http://s.ssy.im/UdQBpp，我的邀请码：'+code;
     function copy(){
-    	window.location = 'kmb://QQ='+encodeURIComponent('我的邀请码：'+code);
-        setTimeout(function(){
-            window.location = 'kmb://invitecode?code='+code;
-        },100);
-        // var txt = '复制成功，快去告诉朋友们吧~';
-        // new confirmTip({
-        //     text: '<p style="color:#333;padding-left:.15rem;padding-right:.15rem;">'+txt+'</p>',
-        //     sureTxt: '打开微信',
-        //     cancelTxt: '我知道了'
-        // },function(a){
-        //     if(a){
-        //         window.location = 'weixin://'
-        //     }
-        // });
+    	window.location = 'kmb://QQ='+encodeURIComponent(txt);
+        new confirmTip({
+            text: '<p style="color:#333;">赶快去呼朋唤友吧！</p>',
+            sureTxt: 'QQ拉人',
+            cancelTxt: '微信拉人'
+        },function(a){
+            if(a){
+                window.location = 'mqqwpa://im/chat?chat_type=wpa&version=1';
+            }else{
+                window.location = 'weixin://';
+            }
+        });
     }
     $('.copy').on('click', function(){
     	copy();
@@ -28,7 +27,10 @@ define('app/inviteCode', function(require, exports, module) {
     	if(km.less('1.5.5')){
     		copy();
     	}else{
-    		window.location = 'kmb://invitecode?code='+code;
+            window.location = 'kmb://QQ='+encodeURIComponent(txt);
+            setTimeout(function(){
+                window.location = 'kmb://invitecode?code='+code;
+            },110)
     	}
     })
 

@@ -419,157 +419,182 @@ i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
 }
-.pop-mask {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #000;
-  opacity: .7;
-  z-index: 9;
-}
-.pop-screen {
-  width: 300px;
-  height: 160px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 12;
-  margin: auto;
-  background-color: #fff;
-  border-radius: 6px;
-}
-.pop-screen .box {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  padding-top: 20px;
-}
-.pop-screen .box h2 {
-  line-height: 1.3;
-}
-.pop-screen .box .text {
-  font-size: .15rem;
-  color: #b8b8b8;
-  padding: 10px 0;
-  line-height: 1.5;
-}
-.pop-screen .box .tl {
-  text-align: left;
-}
-.pop-screen .box .btnbox {
-  border-top: 1px solid #ebebeb;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  width: 300px;
-  margin-top: .2rem;
-}
-.pop-screen .box .btnbox a {
-  display: block;
-  -webkit-box-flex: 1 ;
-  -moz-box-flex: 1;
-  box-flex: 1;
-  width: 1%;
-  line-height: .52rem;
-  height: .52rem;
-  font-family: .18rem;
-}
-.pop-screen .box .btnbox a.cancelBtn {
-  color: #b8b8b8;
-}
-.pop-screen .box .btnbox a.sureBtn {
-  color: #ff9100;
-}
 body {
-  background-color: #f5f5f5;
-  padding-bottom: .62rem;
+  background-color: #8659cf;
 }
-.con {
-  background-color: #fff;
-  border-radius: .1rem;
-  padding: .2rem .58rem;
-  margin: .15rem;
+.shoutu3000 {
+  background-image: url(../static/img/shoutu3000_bg.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  padding-bottom: .56rem;
 }
-.con .t-c {
-  text-align: center;
+.top {
+  padding: .46rem 0 0;
+  position: relative;
 }
-.con .copy {
-  background-image: -webkit-linear-gradient(top, color-stop(#ffd633 30%), color-stop(#f39a17 100%));
-  background-image: -o-linear-gradient(top, #ffd633 30%, #f39a17 100%);
-  background-image: linear-gradient(to bottom, #ffd633 30%, #f39a17 100%);
-  background-repeat: repeat-y;
-  color: #000;
-  width: 2.2rem;
-  margin: 0 auto;
-  text-align: center;
-  height: .6rem;
-  border-radius: .3rem;
-  box-shadow: 0 .08rem .1rem #eee;
-}
-.con .copy .tips {
-  padding-top: .06rem;
-  opacity: .8;
-  font-size: .13rem;
-  line-height: 1.2;
-}
-.con .copy .code {
-  font-size: .2rem;
-  font-weight: 600;
-}
-.con h1 {
-  font-size: .24rem;
-  font-weight: 600;
-  color: #000;
-  text-align: center;
-}
-.con p {
-  padding: .16rem 0;
-}
-.con.how {
-  padding: .2rem .3rem;
-}
-.con.how .img {
+.top .img {
   display: block;
-  width: 100%;
-  box-shadow: 0 .06rem .24rem 0 #ebebeb;
-  margin-bottom: .1rem;
+  position: relative;
+  width: 3.19rem;
+  margin: 0 auto;
+  z-index: 3;
 }
-.bottom {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  max-width: 750px;
+.top .con {
+  position: relative;
+  z-index: 2;
+  margin-top: -0.92rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 2.45rem;
+  padding: .29rem;
+  border-radius: .06rem;
   background-color: #fff;
+  text-align: center;
+  color: #302615;
+}
+.top .con h1 {
+  font-weight: 600;
+}
+.top .con p {
+  line-height: .24rem;
   padding: .1rem 0;
 }
-.bottom .btn {
-  text-align: center;
-  background-color: #f8b423;
-  color: #fff;
-  width: 2.4rem;
-  height: 0.46rem;
-  line-height: 0.46rem;
+.top .con .coin_tag {
+  position: relative;
+  width: 1.2rem;
+  height: 0.28rem;
+  line-height: 0.28rem;
   margin: 0 auto;
-  border-radius: .23rem;
-}
-.pop-screen .box .text {
-  padding: 0;
-}
-.pop-screen .box .btnbox {
-  display: block;
-}
-.pop-screen .box .btnbox a {
-  display: block;
-  width: 100%;
-  padding: 0;
-  color: #ff9100 !important;
+  border-radius: .14rem;
+  background-color: #e6e6e6;
+  color: #aa966f;
+  font-size: .16rem;
   font-weight: 600;
-  border-bottom: 1px solid #ebebeb;
 }
-.pop-screen .box .btnbox a:last-child {
-  border-bottom: 0 none;
+.top .con .coin_tag:before,
+.top .con .coin_tag:after {
+  position: absolute;
+  content: "";
+  width: .55rem;
+  height: 1px;
+  background-color: #e6e6e6;
+  top: 50%;
+}
+.top .con .coin_tag:before {
+  left: 0;
+  margin-left: -0.54rem;
+}
+.top .con .coin_tag:after {
+  right: 0;
+  margin-right: -0.54rem;
+}
+.top .con .coin {
+  margin-top: .14rem;
+  font-size: 0;
+  line-height: .44rem;
+}
+.top .con .coin span {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.top .con .coin .num {
+  font-size: .44rem;
+  color: #ff7207;
+}
+.top .con .coin .txt {
+  font-size: .18rem;
+  line-height: .28rem;
+  margin-left: .04rem;
+}
+.top .con p.t_l {
+  text-align: left;
+}
+.top .con:before {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  border: 1px solid #e7e3d1;
+  border-radius: .06rem;
+  top: .12rem;
+  bottom: .12rem;
+  left: .12rem;
+  right: .12rem;
+  margin: auto;
+}
+.mijue {
+  width: 3.04rem;
+  margin: 0 auto;
+  color: #fff;
+  line-height: .22rem;
+}
+.mijue h2 {
+  color: #fff;
+  font-weight: 500;
+  margin-top: .28rem;
+  padding-bottom: .06rem;
+}
+.option {
+  padding: .28rem 0 .15rem;
+  text-align: center;
+}
+.option a {
+  display: inline-block;
+  background-color: #fec100;
+  color: #302615;
+  font-weight: 500;
+  font-size: .18rem;
+  width: 2.8rem;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  border-radius: .24rem;
+  letter-spacing: .2em;
+}
+.bg i {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  border-radius: 50%;
+}
+.bg .qiu_1 {
+  background-color: #ffde45;
+  width: .33rem;
+  height: .33rem;
+  top: 4rem;
+  left: .1rem;
+}
+.bg .qiu_2 {
+  background-color: #fbba17;
+  width: .7rem;
+  height: .7rem;
+  top: 5.18rem;
+  left: -0.46rem;
+}
+.bg .qiu_3 {
+  background-color: #61b0f6;
+  width: .28rem;
+  height: .28rem;
+  bottom: .17rem;
+  left: .5rem;
+}
+.bg .qiu_4 {
+  background-color: #61b0f6;
+  width: .76rem;
+  height: .76rem;
+  bottom: -0.46rem;
+  left: .95rem;
+}
+.bg .qiu_5 {
+  background-color: #9179db;
+  width: .24rem;
+  height: .24rem;
+  bottom: .49rem;
+  right: .21rem;
+}
+.bg .qiu_6 {
+  background-color: #a066d2;
+  width: .89rem;
+  height: .89rem;
+  bottom: .66rem;
+  right: -0.54rem;
 }

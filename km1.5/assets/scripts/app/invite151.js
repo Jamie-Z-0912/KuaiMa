@@ -11,19 +11,24 @@ define('app/invite151', function(require, exports, module) {
             time: '0'
         })
     })
-    // if(!km.isKM){
-    //     Tools.alertDialog({
-    //         text:'请在快马小报中打开！<br>'+km.userAgent,
-    //         time: 9999999
-    //     })
-    //     return;
-    // }
+    if(!km.isKM){
+        Tools.alertDialog({
+            text:'请在快马小报中打开！<br>'+km.userAgent,
+            time: 9999999
+        })
+        return;
+    }
     /*************/
     $('#nav').on('click', 'li', function(){
         var _self = $(this), id = _self.data('id');
         if(!_self.hasClass('active')){
             _self.addClass('active').siblings().removeClass('active');
-            $('#'+id).removeClass('hide').siblings('div').addClass('hide');
+            $('#'+id).removeClass('hide');
+            if(id=='invite'){
+                $('#friends').addClass('hide');
+            }else{
+                $('#invite').addClass('hide');
+            }
         }
     });
     if(Tools.getQueryValue('tab')=='friend'){
@@ -119,7 +124,15 @@ define('app/invite151', function(require, exports, module) {
         QR.nick = d.data.nick;
         if(!km.less('1.3.2')){
             QR.make_qr(d.data.uid);
+            $('#showIncome').on('click', function(){
+                if(km.less('1.3.2')){
+                    updateApp();
+                }else{
+                    window.location = 'showIncome.html?allIncome='+d.data.all_income+'&code='+d.data.invite_code+'&uid='+d.data.uid;
+                }
+            });
         }
+
         $('.invite_qr').on('click', function(){
             window.location = 'inviteCode.html?code='+d.data.invite_code;
         })
@@ -133,13 +146,6 @@ define('app/invite151', function(require, exports, module) {
         }
     });
 
-    $('#showIncome').on('click', function(){
-        if(km.less('1.3.2')){
-            updateApp();
-        }else{
-            window.location = 'showIncome.html?auth_token='+Tools.auth_token();
-        }
-    });
     $('#callTudi').on('click', function(){
         $('#nav li[data-id="friends"]').click();
     })

@@ -5,10 +5,10 @@ define('app/showIncome', function(require, exports, module) {
     var km =  require('../plugs/version.js');
     require('../plugs/cookieStorage.js');
 
-    
     const myurl = 'http://share.51xiaoli.cn/inviteReg.html';
     var QR = {
         qrTag:'',
+        allIncome: Tools.getQueryValue('allIncome'),
         qr_base64: Storage.get('qr'),
         channel: function(){
             var channel='', userAgent = km.userAgent;
@@ -81,19 +81,15 @@ define('app/showIncome', function(require, exports, module) {
             }
         }
     }
-    if(km.less('1.3.2')){
-        var uid = Tools.uid();
-        QR.make_qr(uid);
+    if(!km.isKM){
+        Tools.alertDialog({
+            text:'请在快马小报中打开！<br>'+km.userAgent,
+            time: 9999999
+        })
+        return;
     }
-    Ajax.custom({
-        url:'api/v1/userinfo/base'
-    }, function(d){
-        QR.allIncome = d.data.all_income;
-        if(!km.less('1.3.2')){
-            QR.make_qr(d.data.uid); 
-        }
-    });
-
+    
+    QR.make_qr(Tools.uid());
     var qrImgTop = new Swiper('.qrImg-top', {
         spaceBetween: 10,
         loop:true,
@@ -126,9 +122,7 @@ define('app/showIncome', function(require, exports, module) {
             var n = 1;
             if(ai > ls) ai = ai-ls;
             if(ai != ls) n = ai + 1;
-            window.location = 'kmb://incomeshow?id='+n+'&qrurl='+myurl;
+            window.location = 'kmb://incomeshow?id='+n+'&code='+ Tools.getQueryValue('code') +'&qrurl='+myurl;
         }
-    })
-
-
+    });
 });
