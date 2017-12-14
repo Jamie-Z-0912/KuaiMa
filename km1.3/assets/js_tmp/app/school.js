@@ -28,7 +28,7 @@ define("app/school", [ "../mod/base", "../plugs/secondPage.js", "../plugs/versio
     });
     var openWXPage = new SecondPage("#openWX");
     $("#business").on("click", function() {
-        var qq = $(this).text();
+        var qq = "快马小报";
         if (/Android/.test(navigator.userAgent) && km.less("1.2.3")) {
             $("#openWX h2").html('长按 <a style="color:#fa0">快马小报</a> 复制');
         } else {
