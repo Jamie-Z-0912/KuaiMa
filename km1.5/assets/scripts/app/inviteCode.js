@@ -5,7 +5,7 @@ define('app/inviteCode', function(require, exports, module) {
     var code = Tools.getQueryValue('code');
     $('#code').text(code);
 
-    var txt = '只要阅读就有钱来~还有更多有趣玩法教你赚足零花钱！点击下载：http://s.ssy.im/UdQBpp，我的邀请码：'+code;
+    var txt = '只要阅读就有钱来~还有更多有趣玩法教你赚足零花钱！点击下载：t.cn/RTX0S2W，我的邀请码：'+code;
     function copy(){
     	window.location = 'kmb://QQ='+encodeURIComponent(txt);
         new confirmTip({

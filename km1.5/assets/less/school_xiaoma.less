@@ -47,12 +47,26 @@
             img{ display: block; width: 100%;}
         } 
     }
-    .ui-btn{
+    .option{
         margin-top: .1rem;
-        width: 3.28rem;
-        .lineH(.56rem);
-        color: @c_title;
-        background-color: #ffd633;
+        .ui-btn{
+            width: 3.28rem;
+            .lineH(.54rem);
+            color: @c_title;
+            background-color: #ffd633;
+        }
+        .link{
+            display: none;
+        }
+    }
+    .double{
+        text-align: center;
+        .ui-btn{ width: 1.4rem;display: inline-block !important;}
+        .link{
+            .lineH(.54rem);
+            color: @c_title;
+            background-color: #ffd633;
+        }
     }
 }
 .sidebar-Yup.open{

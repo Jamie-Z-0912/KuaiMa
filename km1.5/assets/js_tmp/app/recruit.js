@@ -119,7 +119,7 @@ define("app/recruit", [ "../mod/base", "../plugs/version.js", "../plugs/cookieSt
         }
     });
     $("#copyCode").on("click", function() {
-        var txt = "组团赚零钱，奖励成倍拿！现在需要你！快来加入我的团队吧！点击下载：http://s.ssy.im/UdQBpp，团队邀请码：" + $("#teamCode").text();
+        var txt = "组团赚零钱，奖励成倍拿！现在需要你！快来加入我的团队吧！点击下载：t.cn/RTX0S2W，团队邀请码：" + $("#teamCode").text();
         window.location = "kmb://QQ=" + encodeURIComponent(txt);
         new confirmTip({
             text: '<p style="color:#333;">赶快去呼朋唤友吧！</p>',

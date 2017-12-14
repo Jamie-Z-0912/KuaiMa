@@ -585,11 +585,29 @@ body.move {
   display: block;
   width: 100%;
 }
-.xiama .ui-btn {
+.xiama .option {
   margin-top: .1rem;
+}
+.xiama .option .ui-btn {
   width: 3.28rem;
-  height: 0.56rem;
-  line-height: 0.56rem;
+  height: 0.54rem;
+  line-height: 0.54rem;
+  color: #1f1f1f;
+  background-color: #ffd633;
+}
+.xiama .option .link {
+  display: none;
+}
+.xiama .double {
+  text-align: center;
+}
+.xiama .double .ui-btn {
+  width: 1.4rem;
+  display: inline-block !important;
+}
+.xiama .double .link {
+  height: 0.54rem;
+  line-height: 0.54rem;
   color: #1f1f1f;
   background-color: #ffd633;
 }
