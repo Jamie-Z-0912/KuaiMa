@@ -78,7 +78,7 @@ define('app/qunfa', function(require, exports, module) {
     }, function(d){
         QR.make_qr(d.data.uid);
         $('#wrap2').on('click','.copy', function(){
-            var self =  $(this), txt = self.prev().text()+'请点击：t.cn/RTX0S2W，邀请码：'+d.data.invite_code;
+            var self =  $(this), txt = self.prev().text()+'请点击：kd76.cn/UdQBpp，邀请码：'+d.data.invite_code;
             window.location = 'kmb://QQ='+encodeURIComponent(txt);
             $('#wrap2 .copy').removeClass('copied').text('复制');
             self.addClass('copied').text('已复制');

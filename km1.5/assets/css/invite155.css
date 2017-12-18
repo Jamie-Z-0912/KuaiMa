@@ -614,24 +614,29 @@ i#lDom ~ iframe {
   margin-left: .06rem;
 }
 .wrap .invite .option {
+  position: relative;
   border-top: 1px solid #ebebeb;
-  margin: .2rem auto 0;
+  margin: .2rem .15rem 0;
   padding: .16rem 0;
-  font-size: 0;
-  text-align: center;
 }
 .wrap .invite .option a {
-  display: inline-block;
+  text-align: center;
+  display: block;
   background-color: #ffa31a;
   font-size: 0.18rem;
   color: #fff;
   height: 0.48rem;
   line-height: 0.48rem;
-  width: 1.64rem;
+  width: 48%;
   border-radius: .06rem;
 }
 .wrap .invite .option a:first-child {
   margin-right: .16rem;
+}
+.wrap .invite .option a:last-child {
+  position: absolute;
+  top: .16rem;
+  right: 0;
 }
 .wrap .invite .good {
   background-color: #ffe478;

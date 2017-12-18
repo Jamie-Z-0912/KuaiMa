@@ -109,20 +109,25 @@
             }
         }
         .option{
+            position: relative;
             .border-t;
-            margin: .2rem auto 0;
+            margin: .2rem .15rem 0;
             padding: .16rem 0;
-            font-size: 0;
-            text-align: center;
             a{
-                display: inline-block;
+                text-align: center;
+                display:block;
                 background-color: #ffa31a;
                 font-size: @size_t3;
                 color: #fff;
                 .lineH(.48rem);
-                width: 1.64rem;
+                width: 48%;
                 border-radius: .06rem;
                 &:first-child{ margin-right: .16rem;}
+            }
+            a:last-child{
+                position: absolute;
+                top: .16rem;
+                right: 0;
             }
         }
         .good{

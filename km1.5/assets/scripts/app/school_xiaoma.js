@@ -96,12 +96,12 @@ define('app/school_xiaoma', function(require, exports, module) {
         var cur = parseInt(w.length*Math.random());
         window.location = 'kmb://recommend?url=http://news.zhwnl.cn/article2.html?id='+w[cur]+'&id='+w[cur];  
     });
-    if(!km.less('1.5.5')){
-        $('#business').text('联系客服')
-        $('#video').parent().addClass('double');
-        $('#video').on('click', function(){
+    $('#video').on('click', function(){
+        if(km.less('1.5.5')){
+            window.location = 'animation/screen/index.html';
+        }else{
             window.location = 'kmb://animguider';
-        })
-    }
+        }
+    })
 
 });
