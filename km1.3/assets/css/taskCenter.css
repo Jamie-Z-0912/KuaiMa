@@ -831,6 +831,48 @@ body {
   background: url('../image/new.png') no-repeat;
   background-size: 100%;
 }
+@-webkit-keyframes scaleD {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6, 0.6);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-moz-keyframes scaleD {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6, 0.6);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes scaleD {
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6, 0.6);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
 .main-list {
   padding: 0 .1rem;
 }
@@ -891,6 +933,25 @@ body {
 }
 .main-list .box .item.em5 h3 {
   width: 5.1em;
+}
+.main-list .box .item h3.hot:before {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  content: "热";
+  display: block;
+  vertical-align: middle;
+  height: 15px;
+  line-height: 15px;
+  border-radius: 2px;
+  width: 15px;
+  font-size: 8px;
+  background-color: #fa3719;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: scaleD .8s ease infinite;
+  -moz-animation: scaleD .8s ease infinite;
+  animation: scaleD .8s ease infinite;
 }
 .main-list .box .item .get_gold {
   display: inline-block;
