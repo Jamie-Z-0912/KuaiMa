@@ -74,13 +74,20 @@ body{background-color: #fafafa;}
 			}
 		}
 	}
-	.tips{
-		margin-top: .15rem;
-		padding: .15rem 0 .06rem;
-		.border-t;
-		color: @c_sub;
-		font-size: .13rem;
-		line-height: 1.4;
+}
+.tips{
+	background-color: #fff;
+	padding: 0 .15rem .2rem;
+	color: @c_sub;
+	font-size: .13rem;
+	line-height: 1.4;
+	&:before{
+		content: "";
+		display: block;
+		height: 1px;
+		width: 100%;
+		background-color: @c_border;
+		margin-bottom: .15rem;
 	}
 }
 .btn{

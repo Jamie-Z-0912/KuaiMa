@@ -25,4 +25,16 @@ define('app/myMoneyProgress', function(require, exports, module) {
         return false;
     });
 
+    Ajax.custom({
+        url: 'api/v1/ads',
+        data: {
+            'location': 'withdraw_progress_announcement'
+        }
+    }, function(d){
+        if(d.status == 1000){
+            var txt = $('.tips').text();
+            $('.tips').html('<div style="color:red;">'+d.data[0].title+'</div>'+txt);
+        }
+    })
+
 });

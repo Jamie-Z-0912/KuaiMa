@@ -1,37 +1,108 @@
-define("app/myMoneyProgress", [ "../mod/base", "../plugs/version.js", "../plugs/secondPage.js" ], function(require, exports, module) {
-    var Ajax = require("../mod/base");
+define("app/static_zhuanFa", [ "../mod/pagelist", "../plugs/version.js" ], function(require, exports, module) {
+    var pagelist = require("../mod/pagelist");
     var km = require("../plugs/version.js");
-    var SecondPage = require("../plugs/secondPage.js");
-    Ajax.custom({
-        url: "api/v1/withdraw/progress"
-    }, function(data) {
-        Ajax.render("#content", "#content-tmpl", data, undefined, true);
-    });
-    var openWXPage = new SecondPage("#openWX");
-    $("#business").on("click", function() {
-        if (/Android/.test(navigator.userAgent) && km.less("1.2.3")) {
-            $("#openWX h2").html('长按 <a style="color:#fa0">快马小报</a> 复制');
-        } else {
-            window.location = "kmb://QQ=" + encodeURIComponent("快马小报");
-        }
-        openWXPage.openSidebar();
-        return false;
-    });
-    $("#sidebar-bg").on("touchstart", function() {
-        openWXPage.closeSidebar();
-        return false;
-    });
-    Ajax.custom({
-        url: "api/v1/ads",
+    var v = km.version || "1.5.5";
+    $(".zhuafa").css("min-height", innerHeight);
+    pagelist.fun({
+        url: "api/v1/tasks/socialShare",
         data: {
-            location: "withdraw_progress_announcement"
+            ver_name: v,
+            page: 1,
+            page_size: 20
         }
     }, function(d) {
-        if (d.status == 1e3) {
-            var txt = $(".tips").text();
-            $(".tips").html('<div style="color:red;">' + d.data[0].title + "</div>" + txt);
+        var data = d.data;
+        for (var i = 0; i < data.length; i++) {
+            var pre = (data[i].left_count / data[i].total_count).toFixed(4);
+            data[i].left_sch = (pre * 100).toFixed(2) + "%";
+            data[i].sch = ((1 - pre) * 100).toFixed(2) + "%";
         }
     });
+    $("#conList").on("click", "li", function() {
+        var id = $(this).data("id");
+        window.location = 'kmb://taskdetail?param={"taskid":' + id + "}";
+    });
+    $("#moreTask").on("click", function() {
+        window.location = "kmb://mine";
+        setTimeout(function() {
+            window.location = "kmb://makemoney";
+        }, 300);
+    });
+});define("mod/pagelist", [ "./base", "../plugs/laypage" ], function(require, exports, module) {
+    var Ajax = require("./base");
+    var laypage = require("../plugs/laypage");
+    window.Ajax = Ajax;
+    exports.defaultListTmpl = "#conList-tmpl";
+    exports.defaultListEle = "#conList";
+    exports.pagingDom = "#listPage";
+    exports.fun = function(options, beforeCallback, afterCallback) {
+        var isFirst = options.data.page == 1, opt = {
+            renderFor: this.defaultListTmpl,
+            renderEle: this.defaultListEle,
+            pagingDom: this.pagingDom,
+            showLoading: true,
+            hasNext: true,
+            logtype: "paging"
+        };
+        for (var i in opt) {
+            options[i] = options[i] || opt[i];
+        }
+        laypage({
+            cont: $(options.pagingDom),
+            pages: 100,
+            groups: 0,
+            curr: 1,
+            prev: false,
+            next: "点击查看更多",
+            skin: "flow",
+            jump: function(obj) {
+                var that = this;
+                options.data.page = obj.curr;
+                Ajax.baseAjax(options, function(data) {
+                    if (data.status == 1020) {
+                        data.data = null;
+                        Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
+                        $(options.pagingDom).remove();
+                    } else {
+                        that.pages = data.total;
+                        if (obj.curr == data.total) {
+                            options.hasNext = false;
+                            $(options.pagingDom).find(".laypage_main").html("<span>没有更多数据</span>");
+                        }
+                        $.each(data.data, function() {
+                            this.added_time = Ajax.formatDate(this.added_time);
+                        });
+                        if (beforeCallback) {
+                            $.isFunction(beforeCallback) && beforeCallback(data);
+                        }
+                        if (data.page != 1) {
+                            Ajax.render(options.renderEle, options.renderFor, data, undefined, false);
+                        } else {
+                            Ajax.render(options.renderEle, options.renderFor, data, undefined, true);
+                        }
+                        if (afterCallback) {
+                            $.isFunction(afterCallback) && afterCallback();
+                        }
+                        $(options.pagingDom).removeClass("hide");
+                    }
+                }, function(jqXHR, textStatus, errorThrown) {
+                    if (typeof callbackError == "function") {
+                        callbackError(jqXHR, textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+        window.onscroll = function() {
+            if (options.hasNext) {
+                var scrollTop = document.body.scrollTop;
+                var scrollHeight = document.body.scrollHeight;
+                var windowHeight = window.screen.height * window.devicePixelRatio;
+                if (scrollTop + windowHeight + 100 > scrollHeight) {
+                    $("#laypage_0 a").click();
+                }
+            }
+        };
+    };
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -385,7 +456,68 @@ define("app/myMoneyProgress", [ "../mod/base", "../plugs/version.js", "../plugs/
         }
     };
     window.Tools = Tools;
-});define("plugs/version", [], function(require, exports, module) {
+});!function() {
+    "use strict";
+    function a(d) {
+        var e = "laypagecss";
+        a.dir = "dir" in a ? a.dir : f.getpath + "../css/skin/laypage.css", new f(d), a.dir && !b[c](e) && f.use(a.dir, e);
+    }
+    a.v = "1.3";
+    var b = document, c = "getElementById", d = "getElementsByTagName", e = 0, f = function(a) {
+        var b = this, c = b.config = a || {};
+        c.item = e++, b.render(!0);
+    };
+    f.on = function(a, b, c) {
+        return a.attachEvent ? a.attachEvent("on" + b, function() {
+            c.call(a, window.even);
+        }) : a.addEventListener(b, c, !1), f;
+    }, f.getpath = function() {
+        var a = document.scripts, b = a[a.length - 1].src;
+        return b.substring(0, b.lastIndexOf("/") + 1);
+    }(), f.use = function(c, e) {}, f.prototype.type = function() {
+        var a = this.config;
+        return "object" == typeof a.cont ? void 0 === a.cont.length ? 2 : 3 : void 0;
+    }, f.prototype.view = function() {
+        var b = this, c = b.config, d = [], e = {};
+        if (c.pages = 0 | c.pages, c.curr = 0 | c.curr || 1, c.groups = "groups" in c ? 0 | c.groups : 5, 
+        c.first = "first" in c ? c.first : "&#x9996;&#x9875;", c.last = "last" in c ? c.last : "&#x5C3E;&#x9875;", 
+        c.prev = "prev" in c ? c.prev : "&#x4E0A;&#x4E00;&#x9875;", c.next = "next" in c ? c.next : "&#x4E0B;&#x4E00;&#x9875;", 
+        c.pages <= 1) return "";
+        for (c.groups > c.pages && (c.groups = c.pages), e.index = Math.ceil((c.curr + (c.groups > 1 && c.groups !== c.pages ? 1 : 0)) / (0 === c.groups ? 1 : c.groups)), 
+        c.curr > 1 && c.prev && d.push('<a href="javascript:;" class="laypage_prev" data-page="' + (c.curr - 1) + '">' + c.prev + "</a>"), 
+        e.index > 1 && c.first && 0 !== c.groups && d.push('<a href="javascript:;" class="laypage_first" data-page="1"  title="&#x9996;&#x9875;">' + c.first + "</a><span>&#x2026;</span>"), 
+        e.poor = Math.floor((c.groups - 1) / 2), e.start = e.index > 1 ? c.curr - e.poor : 1, 
+        e.end = e.index > 1 ? function() {
+            var a = c.curr + (c.groups - e.poor - 1);
+            return a > c.pages ? c.pages : a;
+        }() : c.groups, e.end - e.start < c.groups - 1 && (e.start = e.end - c.groups + 1); e.start <= e.end; e.start++) e.start === c.curr ? d.push('<span class="laypage_curr" ' + (/^#/.test(c.skin) ? 'style="background-color:' + c.skin + '"' : "") + ">" + e.start + "</span>") : d.push('<a href="javascript:;" data-page="' + e.start + '">' + e.start + "</a>");
+        return c.pages > c.groups && e.end < c.pages && c.last && 0 !== c.groups && d.push('<span>&#x2026;</span><a href="javascript:;" class="laypage_last" title="&#x5C3E;&#x9875;"  data-page="' + c.pages + '">' + c.last + "</a>"), 
+        e.flow = !c.prev && 0 === c.groups, (c.curr !== c.pages && c.next || e.flow) && d.push(function() {
+            return e.flow && c.curr === c.pages ? '<span class="page_nomore" title="&#x5DF2;&#x6CA1;&#x6709;&#x66F4;&#x591A;">' + c.next + "</span>" : '<a href="javascript:;" class="laypage_next" data-page="' + (c.curr + 1) + '">' + c.next + "</a>";
+        }()), '<div name="laypage' + a.v + '" class="laypage_main laypageskin_' + (c.skin ? function(a) {
+            return /^#/.test(a) ? "molv" : a;
+        }(c.skin) : "default") + '" id="laypage_' + b.config.item + '">' + d.join("") + function() {
+            return c.skip ? '<span class="laypage_total"><label>&#x5230;&#x7B2C;</label><input type="number" min="1" onkeyup="this.value=this.value.replace(/\\D/, \'\');" class="laypage_skip"><label>&#x9875;</label><button type="button" class="laypage_btn">&#x786e;&#x5b9a;</button></span>' : "";
+        }() + "</div>";
+    }, f.prototype.jump = function(a) {
+        if (a) {
+            for (var b = this, c = b.config, e = a.children, g = a[d]("button")[0], h = a[d]("input")[0], i = 0, j = e.length; j > i; i++) "a" === e[i].nodeName.toLowerCase() && f.on(e[i], "click", function() {
+                var a = 0 | this.getAttribute("data-page");
+                c.curr = a, b.render();
+            });
+            g && f.on(g, "click", function() {
+                var a = 0 | h.value.replace(/\s|\D/g, "");
+                a && a <= c.pages && (c.curr = a, b.render());
+            });
+        }
+    }, f.prototype.render = function(a) {
+        var d = this, e = d.config, f = d.type(), g = d.view();
+        2 === f ? e.cont.innerHTML = g : 3 === f ? e.cont.html(g) : b[c](e.cont).innerHTML = g, 
+        e.jump && e.jump(e, a), d.jump(b[c]("laypage_" + e.item)), e.hash && !a && (location.hash = "!" + e.hash + "=" + e.curr);
+    }, "function" == typeof define ? define("plugs/laypage", [], function() {
+        return a;
+    }) : "undefined" != typeof exports ? module.exports = a : window.laypage = a;
+}();define("plugs/version", [], function(require, exports, module) {
     var util = {}, version;
     var userAgent = navigator.userAgent;
     util.isKM = /KuaiMa/.test(userAgent);
@@ -445,62 +577,4 @@ define("app/myMoneyProgress", [ "../mod/base", "../plugs/version.js", "../plugs/
         if (this.equal(v) || this.less(v)) return true; else return false;
     };
     module.exports = util;
-});define("plugs/secondPage", [], function(require, exports, module) {
-    var tempPage = 0;
-    var SecondPage = function(pageName) {
-        var that = this;
-        that.targetPage = $(pageName);
-        $(pageName + " .ui-icon-return").click(function(e) {
-            e.preventDefault();
-            that.closeSidebar();
-        });
-    };
-    SecondPage.prototype = {
-        targetPage: undefined,
-        openPage: function(fn) {
-            var container = $(window), w = container.width(), h = container.height(), that = this;
-            this.targetPage.addClass("open").css({
-                width: w,
-                height: h
-            }).show();
-            tempPage++;
-            if (!$("body").hasClass("move")) {
-                $("body").addClass("move");
-            }
-            $("#sidebar-bg").show();
-            fn && fn();
-        },
-        openSidebar: function(fn) {
-            var container = $(window), w = container.width(), h = container.height(), that = this;
-            this.targetPage.show().css({
-                width: w,
-                height: h
-            });
-            setTimeout(function() {
-                that.targetPage.addClass("open");
-            }, 100);
-            $("#sidebar-bg").show();
-            tempPage++;
-            if (!$("body").hasClass("move")) {
-                $("body").addClass("move");
-            }
-            fn && fn();
-        },
-        closeSidebar: function(fn) {
-            var that = this;
-            that.targetPage.removeClass("open");
-            tempPage--;
-            setTimeout(function() {
-                that.targetPage.hide();
-                hasOpend = false;
-                if (tempPage <= 0) {
-                    $("body").removeClass("move");
-                }
-                fn && fn();
-            }, 220);
-            $("#sidebar-bg").hide();
-            window.location.hash = "";
-        }
-    };
-    module.exports = SecondPage;
 });
