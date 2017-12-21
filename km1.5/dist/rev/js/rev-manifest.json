@@ -3,7 +3,7 @@
   "app/inviteCode.js": "app/inviteCode-fd5102aede.js",
   "app/inviteReg.js": "app/inviteReg-6c87da9737.js",
   "app/joinUs.js": "app/joinUs-46b87c315f.js",
-  "app/myMoneyProgress.js": "app/myMoneyProgress-bd54932eea.js",
+  "app/myMoneyProgress.js": "app/myMoneyProgress-7ae2d7c800.js",
   "app/myfriend.js": "app/myfriend-55cfbb60b3.js",
   "app/qunfa.js": "app/qunfa-cd7bd0948f.js",
   "app/recruit.js": "app/recruit-d08a8eb3ad.js",
@@ -13,5 +13,6 @@
   "app/static_openBox.js": "app/static_openBox-89374f08d9.js",
   "app/static_publicBox.js": "app/static_publicBox-e2c835448b.js",
   "app/static_shoutu1001.js": "app/static_shoutu1001-16c2fcf27b.js",
+  "app/taskCenter.js": "app/taskCenter-0ea257a455.js",
   "app/updateApp.js": "app/updateApp-21254c133f.js"
 }
