@@ -15,6 +15,14 @@ define('app/static_zhuanFa', function(require, exports, module) {
             var pre = (data[i].left_count/data[i].total_count).toFixed(4);
             data[i].left_sch = (pre*100).toFixed(2)+'%';
             data[i].sch = ((1-pre)*100).toFixed(2)+'%';
+            if(data[i].pay_method==1){
+                //4:微信, 5:QQ, 6:QQ空间, 7:新浪微博 8:朋友圈
+                if(/空间/.test(data[i].task_type_desc)) data[i].pay_method=6;
+                if(/微信/.test(data[i].task_type_desc)) data[i].pay_method=4;
+                if(/QQ任务/.test(data[i].task_type_desc)) data[i].pay_method=5;
+                if(/微博/.test(data[i].task_type_desc)) data[i].pay_method=7;
+                if(/朋友圈/.test(data[i].task_type_desc)) data[i].pay_method=8;
+            }
         };
     });
     $('#conList').on('click', 'li', function(){
