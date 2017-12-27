@@ -1,0 +1,103 @@
+@import "reset.less";
+@import "libs/popups.less";
+.imgbox img{ display: block; width: 100%;}
+.video_img{
+	width: 3.12rem;
+	margin: .2rem auto;
+	img{ display: block; width: 100%;}
+}
+.form-wrap{
+	width: 3.12rem;
+	margin: 0 auto;
+	h2{
+		position: relative;
+		text-align: center;
+		margin: .2rem auto 0;
+		&:before, &:after{
+			position: absolute;
+			top: 50%;
+			width: 3em;
+			height: 1px;
+			left: 50%;
+			content: "";
+			background-color: @c_border;
+		}
+		&:before{
+			margin-left: -5.5em;
+		}
+		&:after{
+			margin-left: 2.5em;
+		}
+	}
+	.tips{ font-size: .12rem; color: #808080; padding: .06rem 0; text-align: center;}
+	.item{
+		position: relative;
+		margin-top: .1rem;
+		overflow: hidden;
+		input[type="text"]{
+			color: @c_title; 
+			font-size: @size_t2;
+			line-height: .3rem;
+    		height: .5rem;
+			padding: .14rem;
+			background-color: #f0f0f0;
+			border-radius: 6px;
+			display: block;
+			width: 100%;
+			box-sizing: border-box;
+			border: 0 none;
+		}
+		input::-webkit-input-placeholder{ color: @c_title;}
+	}
+	#yuyin{
+		color: red;
+	    display: none;
+	    padding: .1rem;
+	}
+    #gvCode{
+    	display: inline-block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-left: .8em;
+    	padding-right: .2em;
+        background: rgb(252, 197, 0);
+        color: #fff;
+        text-align: center;
+        font-family: cursive;
+        font-size: 18px;
+        letter-spacing: 9px;
+        font-weight: bolder;
+        line-height: .5rem;
+        .border-right-radius(6px);
+    }
+    .get_code{
+    	display: block;
+        height: 100%;
+        position: absolute;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #f79f00;
+        font-size: @size_t4;
+        line-height: .5rem;
+        padding: 0 .15rem;
+    }
+	.option{
+		padding-top: .1rem;
+		text-align: center;
+		.ui-btn{
+			display: block;
+			width: 100%;
+    		font-size: @size_t2;
+    		font-weight: 600;
+    		.lineH(.5rem);
+    		background-color: #ffd633;
+    		border-radius: .06rem;
+    		&.disabled{
+    			background-color: #bbb; color: #eee;
+    		}
+		}
+	}
+}
