@@ -187,6 +187,7 @@ define("app/sign", [ "../mod/base", "../plugs/popups.js" ], function(require, ex
             }
         },
         baseAjax: function(options, callback) {
+            check_weChat_accredit();
             var us = navigator.userAgent, key = config.key, auth_token = check_weChat_accredit();
             var appkey = {
                 name: "app_key",
