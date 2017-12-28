@@ -367,6 +367,7 @@ i#lDom ~ iframe {
   text-align: center;
 }
 .pop-content .title {
+  text-align: center;
   font-size: .22rem;
   font-weight: 600;
   line-height: 1.6;

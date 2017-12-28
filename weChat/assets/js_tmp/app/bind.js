@@ -104,6 +104,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
         }, function(data) {
             if (data.status == 1e3) {
                 we_chat.setAuth(data.data.auth_token);
+                if (Storage.get("kmBindReward")) Storage.remove("kmBindReward");
                 new popups({
                     title: '<img src="../image/bind_suc.png"/>',
                     img: "../image/ok.png",

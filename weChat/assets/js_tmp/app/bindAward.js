@@ -1,5 +1,58 @@
-define("app/bindAward", [ "../mod/base" ], function(require, exports, module) {
-    var Ajax = require("../mod/base");
+define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(require, exports, module) {
+    var Ajax = require("../mod/base"), popups = require("../plugs/popups.js");
+    function getStatus() {
+        Ajax.custom({
+            url: "api/v1/business/wx_mp/bind_reward/status"
+        }, function(data) {
+            if (data.status == 1e3) {
+                var d = data.data;
+                if (d.received) {
+                    $("#status,#bind").remove();
+                    $("#km_wechat").show();
+                    $("#msg").html("<p>您的微信号与" + d.phone + "绑定成功</p><p>已收入" + d.coin + "金币到快马小报账户了</p>");
+                } else {
+                    $("#msg").html("<p>您的微信号与" + d.phone + "绑定成功</p><p>送您" + d.coin + "金币奖励！</p>");
+                    $("#bind").html('<a class="get200" href="javascript:void(0)">立即领取</a>');
+                }
+            } else {
+                Tools.alertDialog({
+                    text: data.desc
+                });
+            }
+        });
+    }
+    if (Tools.auth_token() == "") {
+        if (Storage.get("kmBindReward")) {
+            if (Storage.get("kmBindReward")) Storage.remove("kmBindReward");
+            getStatus();
+        } else {
+            Storage.set("kmBindReward", 1);
+        }
+    } else {
+        if (Storage.get("kmBindReward")) Storage.remove("kmBindReward");
+        getStatus();
+    }
+    $("#bind").on("click", ".get200", function() {
+        Ajax.custom({
+            url: "api/v1/business/wx_mp/bind_reward/receive"
+        }, function(data) {
+            if (data.status == 1e3) {
+                new popups({
+                    title: "成功领取200金币",
+                    img: "../image/ok.png",
+                    sureTxt: "去快马小报查看"
+                }, function(a) {
+                    if (a) {
+                        window.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser";
+                    }
+                });
+            } else {
+                Tools.alertDialog({
+                    text: data.desc
+                });
+            }
+        });
+    });
 });define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;
     jQuery = Zepto = $;
@@ -356,4 +409,60 @@ define("app/bindAward", [ "../mod/base" ], function(require, exports, module) {
         }
     };
     window.Storage = Storage;
+});define("plugs/popups", [], function(require, exports, module) {
+    var popups = function(option, callback) {
+        var opt = {
+            isClose: "",
+            className: "",
+            title: "",
+            topTxt: "",
+            img: "",
+            botTxt: "",
+            sureTxt: "",
+            cancelTxt: ""
+        };
+        this.option = {};
+        for (var i in opt) {
+            this.option[i] = option[i] || opt[i];
+        }
+        this.id = "pop_" + new Date().getTime();
+        this.init(callback);
+    };
+    popups.prototype.init = function(callback) {
+        var that = this, opt = that.option;
+        var arr = [];
+        arr.push('<div class="pop-screen km-dialog" id="' + that.id + '">');
+        arr.push('<div class="pop-content ' + opt.className + '">');
+        if (opt.isClose == "yes") {
+            arr.push('<div class="pop-close">x</div>');
+        }
+        opt.title != "" && arr.push('<div class="title">' + opt.title + "</div>");
+        opt.topTxt != "" && arr.push('<div class="top_txt">' + opt.topTxt + "</div>");
+        opt.img != "" && arr.push('<div class="pop-imgbox"><img src="' + opt.img + '" /></div>');
+        opt.botTxt != "" && arr.push('<div class="bot_txt">' + opt.botTxt + "</div>");
+        arr.push('<div class="pop-btn">');
+        opt.sureTxt != "" && arr.push('<a class="yes">' + opt.sureTxt + "</a>");
+        opt.cancelTxt != "" && arr.push('<a class="no">' + opt.cancelTxt + "</a>");
+        arr.push("</div></div></div>");
+        $("body").append(arr.join(""));
+        var divId = "#" + that.id;
+        var $con = $(divId + " .pop-content");
+        $con.css("margin-top", parseInt((innerHeight - $con.height()) / 3));
+        $(divId + " .pop-close").on("click", function() {
+            that.close();
+        });
+        $(divId + " .yes").click(function() {
+            $(divId).remove();
+            $.isFunction(callback) && callback(true);
+        });
+        $(divId + " .no").click(function() {
+            $(divId).remove();
+            $.isFunction(callback) && callback(false);
+        });
+    };
+    popups.prototype.close = function() {
+        var $el = $("#" + this.id);
+        $el.remove();
+    };
+    module.exports = popups;
 });
