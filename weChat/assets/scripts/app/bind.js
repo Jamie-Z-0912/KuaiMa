@@ -3,14 +3,25 @@ define('app/bind', function(require, exports, module) {
         popups = require('../plugs/popups.js');
     require('../plugs/cookie.js');
 
+    var we_chat = {
+        user: Storage.getCache(Storage.AUTH),
+        setAuth: function(auth){
+            var expire = 60*60*24*3;
+            Storage.setCache(Storage.AUTH, auth, expire);
+        },
+        removeAuth: function(){
+            Storage.remove(Storage.AUTH);
+        }
+    }
+
     if(Tools.getQueryValue('code')==''){
     	var auth = Ajax.checkAccredit();
-
         new popups({
             topTxt:'您已经绑定过账号了！一个微信号只能绑定一次哦！',
             img:'../image/no.png'
         })
     }else{
+        if(we_chat.user) we_chat.removeAuth();
     	$('input[name="code"]').val(Tools.getQueryValue('code'));
     }
 
@@ -60,14 +71,6 @@ define('app/bind', function(require, exports, module) {
             }
         })
     });
-
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth){
-            var expire = 60*60*24*3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        }
-    }
 
     $('#subForm').on('click', function(){
         if(!$(this).hasClass('disabled')){

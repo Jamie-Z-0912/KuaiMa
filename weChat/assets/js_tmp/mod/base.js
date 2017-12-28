@@ -95,7 +95,7 @@ define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, e
                 }
                 $("#closeTimer").text(n);
             }, 1e3);
-        } else if (/1004|1013/.test(data.status)) {
+        } else if (/1004|1013|10005/.test(data.status)) {
             weChatAuth();
             return false;
         } else {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="format-detection" content="telephone=no">
+    <title></title>
+    <meta content='/favicon.ico' itemprop='image' property='og:image' />
+</head>
+<body>
+	<script>
+		function getQueryValue(key) {
+            var q = location.search, keyValuePairs = new Array();
+            if (q.length > 1) {
+                var idx = q.indexOf('?');
+                q = q.substring(idx + 1, q.length);
+            } else {
+                q = null;
+            }
+            if (q) {
+                for (var i = 0; i < q.split("&").length; i++) {
+                    keyValuePairs[i] = q.split("&")[i];
+                }
+            }
+            for (var j = 0; j < keyValuePairs.length; j++) {
+                if (keyValuePairs[j].split("=")[0] == key) {
+                    // 这里需要解码，url传递中文时location.href获取的是编码后的值
+                    // 但FireFox下的url编码有问题
+                    return decodeURI(keyValuePairs[j].split("=")[1]);
+                }
+            }
+            return '';
+        }
+        // var server = 'http://localhost:8001/assets/html/',
+        var server = 'html/',
+            page=getQueryValue('state'),
+            auth=getQueryValue('auth_token'),
+            code=getQueryValue('code');
+
+        if(auth==""||page=="bind"){
+            window.location = server+'bind.html?auth_token='+auth+'&code='+code;
+        }else{
+            window.location = server+page+'.html?auth_token='+auth;
+        }
+
+	</script>
+</body>
+</html>

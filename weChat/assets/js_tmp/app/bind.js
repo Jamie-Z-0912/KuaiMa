@@ -1,6 +1,16 @@
 define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js" ], function(require, exports, module) {
     var submit = require("../mod/submit"), popups = require("../plugs/popups.js");
     require("../plugs/cookie.js");
+    var we_chat = {
+        user: Storage.getCache(Storage.AUTH),
+        setAuth: function(auth) {
+            var expire = 60 * 60 * 24 * 3;
+            Storage.setCache(Storage.AUTH, auth, expire);
+        },
+        removeAuth: function() {
+            Storage.remove(Storage.AUTH);
+        }
+    };
     if (Tools.getQueryValue("code") == "") {
         var auth = Ajax.checkAccredit();
         new popups({
@@ -8,6 +18,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
             img: "../image/no.png"
         });
     } else {
+        if (we_chat.user) we_chat.removeAuth();
         $('input[name="code"]').val(Tools.getQueryValue("code"));
     }
     var gvCode = Math.random().toFixed(4).substring(2);
@@ -57,13 +68,6 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
             }
         });
     });
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth) {
-            var expire = 60 * 60 * 24 * 3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        }
-    };
     $("#subForm").on("click", function() {
         if (!$(this).hasClass("disabled")) {
             $("#bindUser").submit();
@@ -313,7 +317,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
                 }
                 $("#closeTimer").text(n);
             }, 1e3);
-        } else if (/1004|1013/.test(data.status)) {
+        } else if (/1004|1013|10005/.test(data.status)) {
             weChatAuth();
             return false;
         } else {
