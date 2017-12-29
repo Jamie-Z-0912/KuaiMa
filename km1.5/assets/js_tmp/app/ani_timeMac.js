@@ -18,6 +18,7 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
         var ctx = canvas.getContext("2d");
         var startPoint = 2 * Math.PI;
         for (var i = 0; i < data.length; i++) {
+            console.log(data[i].pre);
             ctx.fillStyle = data[i].color;
             ctx.strokeStyle = data[i].color;
             ctx.beginPath();
@@ -109,12 +110,8 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
             animate();
             return;
         }
-        console.log(Storage.getCache(Storage.AUTH));
-        console.log(Storage.getCache("timeDate"));
         if (Storage.getCache(Storage.AUTH) && Storage.getCache("timeDate")) {
             var cache = Storage.getCache(Storage.AUTH), myauth = uid, cacheDate = Storage.getCache("timeDate");
-            console.log(cache);
-            console.log(myauth);
             if (isKM) myauth = Tools.auth_token();
             if (myauth != cache) {
                 Storage.remove(Storage.AUTH);
@@ -122,7 +119,6 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
                 loadDate();
             } else {
                 var arr = cacheDate.split("|");
-                console.log(arr);
                 animate(arr[0], arr[1], arr[2], arr[3]);
             }
         } else {
@@ -157,8 +153,12 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
                             break;
                         }
                     }
-                    var fa_txt = d.father_nick == "" ? "" : "，在" + d.father_nick + "好友的邀请下";
-                    txt1 = redDate + fa_txt + '，我加入了快马小报。现累计赚取了<span class="rmb">' + d.total_income + "</span>元，相当于" + userInfo.obj + "的价值哦！";
+                    var fa_txt = d.father_nick == "" ? "" : '，在好友<font size="2">(' + d.father_nick + ")</font>的邀请下";
+                    if (d.total_income == 0) {
+                        txt1 = redDate + fa_txt + "，我加入了快马小报。刚注册登入，就获得了新人福利包的大量金币！";
+                    } else {
+                        txt1 = redDate + fa_txt + '，我加入了快马小报。现累计赚取了<span class="rmb">' + d.total_income + "</span>元，相当于" + userInfo.obj + "的价值哦！";
+                    }
                     if (d.first_withdraw_time == 0) {
                         txt2 = "原来在家就能躺着赚钱啦！看着收益涨涨涨，我真的很开心~~";
                     } else {
@@ -168,6 +168,10 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
                     var inv_coin = d.invite_coin, share_coin = d.share_task_coin, search_coin = d.search_task_coin, read_coin = d.read_article_coin;
                     check_coin = d.checkin_coin;
                     var total = inv_coin + share_coin + search_coin + read_coin + check_coin, _d = [];
+                    if (total == 0) {
+                        total = 100;
+                        inv_coin = share_coin = search_coin = read_coin = check_coin = 20;
+                    }
                     _d.push(parseInt(inv_coin / total * 100));
                     _d.push(parseInt(share_coin / total * 100));
                     _d.push(parseInt(search_coin / total * 100));
