@@ -19,10 +19,10 @@
                                 <span class="ui-txt-warning">转发异常</span>
                             {{??}}
                                 {{?value.commission==0}}
-                                <span class="ui-txt-tips">无收益</span>
+                                <span class="txt-gray">无收益</span>
                                 {{??}}
-                                <span class="sum">{{=value.commission}}</span>
-                                <span class="ui-txt-tips">{{?/CASH/.test(value.type)}}元{{??}}金{{?}}</span>
+                                <span class="sum" style="color:#333">{{=value.commission}}</span>
+                                <span class="txt-gray">{{?/CASH/.test(value.type)}}元{{??}}金{{?}}</span>
                                 {{?}}
                             {{?}}
                         </div>
