@@ -56,9 +56,6 @@ define("mod/base2", [ "zepto", "./tools" ], function(require, exports, module) {
                 }
                 $("#closeTimer").text(n);
             }, 1e3);
-        } else if (/1004|1013/.test(data.status)) {
-            weChatAuth();
-            return false;
         } else {
             opt = null;
             return true;

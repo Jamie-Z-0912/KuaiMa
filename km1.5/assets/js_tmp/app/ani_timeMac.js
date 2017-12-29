@@ -1,8 +1,10 @@
-define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module) {
+define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/storageCache.js" ], function(require, exports, module) {
     var Ajax = require("../mod/base2");
+    var km = require("../plugs/version.js");
+    require("../plugs/storageCache.js");
     $("#loading").height(innerHeight);
     $("#loading .load_img").css("margin-top", innerHeight / 2 - 200);
-    var us = navigator.userAgent.toLocaleLowerCase();
+    var uid = Tools.uid() == "null" ? 0 : Tools.uid(), isKM = km.isKM;
     var animData = {
         wrapper: document.getElementById("bodymovin"),
         animType: "canvas",
@@ -11,51 +13,122 @@ define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module)
         autoplay: true,
         path: "data.json"
     };
-    function drawCircle(data, color) {
+    function drawCircle(data) {
         var canvas = document.getElementById("bingtu");
         var ctx = canvas.getContext("2d");
-        var startPoint = 1.5 * Math.PI;
+        var startPoint = 2 * Math.PI;
         for (var i = 0; i < data.length; i++) {
-            ctx.fillStyle = color[i];
-            ctx.strokeStyle = color[i];
+            ctx.fillStyle = data[i].color;
+            ctx.strokeStyle = data[i].color;
             ctx.beginPath();
-            ctx.moveTo(90, 80);
-            ctx.arc(90, 80, 80, startPoint, startPoint - Math.PI * 2 * (data[i] / 100), true);
+            ctx.moveTo(88, 80);
+            ctx.arc(88, 90, 86, startPoint, startPoint - Math.PI * 2 * (data[i].pre / 100), true);
             ctx.fill();
             ctx.stroke();
-            startPoint -= Math.PI * 2 * (data[i] / 100);
+            startPoint -= Math.PI * 2 * (data[i].pre / 100);
+            ctx.fillRect(190, i * 30 + 20, 16, 16);
+            ctx.font = "20px serif";
+            ctx.fillStyle = "#fff";
+            ctx.fillText(data[i].txt, 216, i * 30 + 35);
         }
         return '<img src="' + canvas.toDataURL("image/png") + '"/>';
+    }
+    function downloadFun() {
+        if (isKM) {
+            $("#myDate").append('<div class="intro"><p>活动日期：2018.01.01~2018.01.07</p><p>活动期内，每日分享即可获得一个宝箱。记得天天来噢！</p></div>');
+            $("#download").on("click", function() {
+                Ajax.custom({
+                    url: "api/v1/sgj/share"
+                }, function() {
+                    var mylink = "http://share.51xiaoli.cn/animation/timeMac/index.html?uid=" + uid;
+                    if (/t.kuaima/.test(location.href)) {
+                        mylink = "http://t.kuaima.cn/browser/animation/timeMac/index.html?uid=" + uid;
+                    }
+                    var share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~"}';
+                    if (!km.less("1.5.5")) {
+                        share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"最会赚钱的人！","title":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~","icon":"http://static.etouch.cn/imgs/upload/1514538626.4173.jpg"}';
+                    }
+                    window.location = share_kmb;
+                });
+            });
+        } else {
+            seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
+                var options = new Object();
+                options["mlink"] = "https://ax9wdh.mlinks.cc/AdxL";
+                options["button"] = document.querySelectorAll("a#download");
+                options["params"] = {};
+                new Mlink(options);
+            });
+        }
     }
     function animate(txt1, txt2, txt3, bingtu) {
         $("#loading").remove();
         var anim = bodymovin.loadAnimation(animData);
-        setTimeout(function() {
-            if (txt1 && txt1 != "") {
-                $("#content1").html('<div class="txt">' + txt1 + "</div>").addClass("animate1");
+        if (txt1 && txt1 != "") {
+            $("#content1").html('<div class="txt">' + txt1 + "</div>").addClass("animate1");
+            setTimeout(function() {
+                $("#content2").html('<div class="txt">' + txt2 + "</div>").addClass("animate2");
+                $("#content3").html('<div class="txt">' + txt3 + '</div><div id="imgbox">' + bingtu + '</div><div class="txt txt_">悄悄支个招：<span class="big">' + (/收徒/.test(txt3) ? "搜索任务" : "邀请收徒") + "</span>赚很多呢！</div>").addClass("animate3");
                 setTimeout(function() {
-                    $("#content1").addClass("animate1_out");
-                    $("#content2").html('<div class="txt">' + txt2 + "</div>").addClass("animate2");
-                }, 4600);
+                    $("#myDate").append('<a class="reload" href="javascript:location.reload();"></a><a class="download" id="download" href="javascript:void(0)">' + (isKM ? "立即分享，赚宝箱" : "生成我的时光机") + "</a>");
+                    downloadFun();
+                }, 16e3);
+            }, 5e3);
+        } else {
+            $("#myDate").css({
+                "background-image": "url(images/nodate/bg.png)",
+                "background-color": "#241f1f"
+            }).addClass("opa_in");
+            $("#nodate1").addClass("nodate");
+            var nodate1 = [];
+            nodate1.push('<div class="logo"><img src="images/timelogo.png" /></div>');
+            nodate1.push('<div class="text"><img src="images/nodate/text.png" /></div>');
+            nodate1.push('<div class="zhutu" id="zhutu">');
+            nodate1.push('<div class="box box_2"><img src="images/nodate/no2_t.png" class="tit" /><img src="images/nodate/no2_txt.png" class="txt" /></div>');
+            nodate1.push('<div class="box box_1"><img src="images/nodate/no1_t.png" class="tit" /><img src="images/nodate/no1_txt.png" class="txt" /></div>');
+            nodate1.push('<div class="box box_3"><img src="images/nodate/no3_t.png" class="tit" /><img src="images/nodate/no3_txt.png" class="txt" /></div>');
+            nodate1.push("</div>");
+            $("#nodate1").html(nodate1.join(""));
+            setTimeout(function() {
+                $("#zhutu .box").eq(1).height("206px").find(".tit,.txt").addClass("opa_in_1");
+                $("#zhutu .box").eq(0).height("146px").find(".tit,.txt").addClass("opa_in_2");
+                $("#zhutu .box").eq(2).height("112px").find(".tit,.txt").addClass("opa_in_3");
+                $("#nodate1").addClass("opa_out");
+                $("#nodate2").css("background", "#ffbb10").html('<img src="images/nodate/nodate2_1.png" /><img src="images/nodate/nodate2_2.png" style="margin-top:20px;" />').show().addClass("opa_in2");
                 setTimeout(function() {
-                    $("#content2").addClass("animate2_out");
-                    $("#content3").html('<div class="txt">' + txt3 + '</div><div id="imgbox">' + bingtu + '</div><div class="txt txt_">悄悄支个招哦：<span class="big">转发任务</span>是最赚钱的！</div>').addClass("animate3");
-                }, 9e3);
-                setTimeout(function() {
-                    $("#content3").addClass("animate3_out");
-                    $("#myDate").append('<a class="reload" href="javascript:location.reload();"></a><a class="download" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser"></a>');
-                }, 11e3);
-            } else {}
-        }, 5e3);
+                    $("#nodate1").remove();
+                    $("#myDate").css("background", "#ffbb10");
+                    $("#myDate").append('<a class="reload" href="javascript:location.reload();"></a><a class="download_no" id="download" href="javascript:void(0)">' + (isKM ? "立即分享，赚宝箱" : "生成我的时光机") + "</a>");
+                    downloadFun();
+                }, 5200);
+            }, 4600);
+        }
     }
     (function(arr) {
-        loadDate();
-        function loadDate() {
-            var uid = Tools.getQueryValue("uid");
-            if (uid == "") {
-                animate();
-                return;
+        if (!isKM && uid == 0) {
+            animate();
+            return;
+        }
+        console.log(Storage.getCache(Storage.AUTH));
+        console.log(Storage.getCache("timeDate"));
+        if (Storage.getCache(Storage.AUTH) && Storage.getCache("timeDate")) {
+            var cache = Storage.getCache(Storage.AUTH), myauth = uid, cacheDate = Storage.getCache("timeDate");
+            console.log(cache);
+            console.log(myauth);
+            if (isKM) myauth = Tools.auth_token();
+            if (myauth != cache) {
+                Storage.remove(Storage.AUTH);
+                Storage.remove("timeDate");
+                loadDate();
+            } else {
+                var arr = cacheDate.split("|");
+                console.log(arr);
+                animate(arr[0], arr[1], arr[2], arr[3]);
             }
+        } else {
+            loadDate();
+        }
+        function loadDate() {
             Ajax.custom({
                 url: "api/v1/sgj/data",
                 data: {
@@ -84,7 +157,8 @@ define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module)
                             break;
                         }
                     }
-                    txt1 = redDate + "，在" + d.father_nick + '好友的邀请下，我加入了快马小报。现累计赚取了<span class="rmb">' + d.total_income + "</span>元，相当于" + userInfo.obj + "的价值哦！";
+                    var fa_txt = d.father_nick == "" ? "" : "，在" + d.father_nick + "好友的邀请下";
+                    txt1 = redDate + fa_txt + '，我加入了快马小报。现累计赚取了<span class="rmb">' + d.total_income + "</span>元，相当于" + userInfo.obj + "的价值哦！";
                     if (d.first_withdraw_time == 0) {
                         txt2 = "原来在家就能躺着赚钱啦！看着收益涨涨涨，我真的很开心~~";
                     } else {
@@ -93,35 +167,50 @@ define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module)
                     }
                     var inv_coin = d.invite_coin, share_coin = d.share_task_coin, search_coin = d.search_task_coin, read_coin = d.read_article_coin;
                     check_coin = d.checkin_coin;
-                    var mostCoin = inv_coin, mostTxt = "邀请收徒";
-                    if (mostCoin < share_coin) {
-                        mostCoin = share_coin;
-                        mostTxt = "转发任务";
-                    }
-                    if (mostCoin < search_coin) {
-                        mostCoin = search_coin;
-                        mostTxt = "搜索任务";
-                    }
-                    if (mostCoin < read_coin) {
-                        mostCoin = read_coin;
-                        mostTxt = "阅读文章";
-                    }
-                    if (mostCoin < check_coin) {
-                        mostCoin = check_coin;
-                        mostTxt = "每日签到";
-                    }
-                    txt3 = '<span class="rmb">' + mostTxt + "</span>是我赚取最多收入的，当前击败了" + userInfo.pre + "的快马用户";
                     var total = inv_coin + share_coin + search_coin + read_coin + check_coin, _d = [];
                     _d.push(parseInt(inv_coin / total * 100));
                     _d.push(parseInt(share_coin / total * 100));
                     _d.push(parseInt(search_coin / total * 100));
                     _d.push(parseInt(read_coin / total * 100));
                     _d.push(parseInt(check_coin / total * 100));
-                    console.log(_d);
                     var may_d = 100 - _d[0] - _d[1] - _d[2] - _d[3] - _d[4];
-                    if (may_d > 0) _d[1] += may_d;
-                    var color = [ "#83be4f", "#6e44e5", "#ffa628", "#ffdd3c", "#3e193b" ];
-                    animate(txt1, txt2, txt3, drawCircle(_d, color));
+                    if (may_d > 0) _d[2] += may_d;
+                    var bingtuDate = [ {
+                        pre: _d[0],
+                        color: "#83be4f",
+                        txt: "邀请收徒"
+                    }, {
+                        pre: _d[1],
+                        color: "#6e44e5",
+                        txt: "转发任务"
+                    }, {
+                        pre: _d[2],
+                        color: "#ffa628",
+                        txt: "搜索任务"
+                    }, {
+                        pre: _d[3],
+                        color: "#ffdd3c",
+                        txt: "阅读文章"
+                    }, {
+                        pre: _d[4],
+                        color: "#06b8ec",
+                        txt: "每日签到"
+                    } ];
+                    var max = _d[0], maxTxt = "邀请收徒";
+                    for (var i = 1; i < _d.length; i++) {
+                        if (_d[i] > max) {
+                            max = this[i];
+                            maxTxt = bingtuDate[i].txt;
+                        }
+                    }
+                    txt3 = '<span class="rmb">' + maxTxt + "</span>是我收入中赚取最多的，当前击败了" + userInfo.pre + "的快马用户";
+                    if (isKM) {
+                        Storage.setCache(Storage.AUTH, Tools.auth_token(), 10 * 60);
+                    } else {
+                        Storage.setCache(Storage.AUTH, uid, 10 * 60);
+                    }
+                    Storage.setCache("timeDate", txt1 + "|" + txt2 + "|" + txt3 + "|" + drawCircle(bingtuDate), 10 * 60);
+                    animate(txt1, txt2, txt3, drawCircle(bingtuDate));
                 } else {
                     animate();
                     return;
@@ -231,9 +320,6 @@ define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module)
                 }
                 $("#closeTimer").text(n);
             }, 1e3);
-        } else if (/1004|1013/.test(data.status)) {
-            weChatAuth();
-            return false;
         } else {
             opt = null;
             return true;
@@ -390,4 +476,167 @@ define("app/ani_timeMac", [ "../mod/base2" ], function(require, exports, module)
         }
     };
     window.Tools = Tools;
+});define("plugs/version", [], function(require, exports, module) {
+    var util = {}, version;
+    var userAgent = navigator.userAgent;
+    util.isKM = /KuaiMa/.test(userAgent);
+    if (util.isKM) {
+        var _ssy = userAgent.split("ssy=")[1];
+        if (/iOS|Android/.test(_ssy.split(";")[0])) {
+            version = _ssy.split(";")[2];
+        } else {
+            version = _ssy.split(";")[1];
+        }
+        util.version = version.replace("V", "");
+    }
+    util.userAgent = userAgent;
+    util.equal = function(v) {
+        if (util.isKM) {
+            if (v == this.version) {
+                return true;
+            } else {
+                return false;
+            }
+        } else return false;
+    };
+    util.greater = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] < v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] > v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.less = function(v) {
+        if (util.isKM) {
+            var cur = this.version.split("."), v_arr = v.split("."), flag = false;
+            for (var i = 0; i < cur.length; i++) {
+                if (cur[i] > v_arr[i]) {
+                    break;
+                } else {
+                    if (cur[i] < v_arr[i]) {
+                        flag = true;
+                    }
+                }
+            }
+            return flag;
+        } else return false;
+    };
+    util.gEq = function(v) {
+        if (this.equal(v) || this.greater(v)) return true; else return false;
+    };
+    util.lEq = function(v) {
+        if (this.equal(v) || this.less(v)) return true; else return false;
+    };
+    module.exports = util;
+});define("plugs/storageCache", [], function() {
+    var _maxExpireDate = new Date("Fri, 31 Dec 9999 23:59:59 UTC");
+    var _defaultExpire = _maxExpireDate.getTime();
+    var handleJSON = {
+        serialize: function(item) {
+            return JSON.stringify(item);
+        },
+        deserialize: function(data) {
+            return data && JSON.parse(data);
+        }
+    };
+    function CacheItem(value, exp) {
+        var now = new Date().getTime();
+        this.c = now;
+        exp = exp || _defaultExpire;
+        this.e = now + exp * 1e3;
+        this.v = value;
+    }
+    function _isCacheItem(item) {
+        if (typeof item !== "object") {
+            return false;
+        }
+        if (item) {
+            if ("c" in item && "e" in item && "v" in item) {
+                return true;
+            }
+        }
+        return false;
+    }
+    function _checkCacheItemIfEffective(cacheItem) {
+        var timeNow = new Date().getTime();
+        return timeNow < cacheItem.e;
+    }
+    var Storage = {
+        AUTH: "KMAUTH",
+        NAME: "MY-NAME",
+        get: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var value = this.getStorage(isSession).getItem(key);
+            if (value) {
+                return JSON.parse(value);
+            } else {
+                return undefined;
+            }
+        },
+        set: function(key, value, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            value = JSON.stringify(value);
+            this.getStorage(isSession).setItem(key, value);
+        },
+        remove: function(key, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            this.getStorage(isSession).removeItem(key);
+        },
+        setCache: function(key, value, expire, isSession) {
+            if (!this.isLocalStorage()) {
+                return;
+            }
+            var cacheItem = new CacheItem(value, expire);
+            this.getStorage(isSession).setItem(key, handleJSON.serialize(cacheItem));
+        },
+        getCache: function(key, isSession) {
+            var cacheItem = null;
+            try {
+                var value = this.getStorage(isSession).getItem(key);
+                cacheItem = handleJSON.deserialize(value);
+            } catch (e) {
+                return null;
+            }
+            if (_isCacheItem(cacheItem)) {
+                if (_checkCacheItemIfEffective(cacheItem)) {
+                    var value = cacheItem.v;
+                    return value;
+                } else {
+                    this.remove(key);
+                    return null;
+                }
+            }
+            return null;
+        },
+        getStorage: function(isSession) {
+            return isSession ? sessionStorage : localStorage;
+        },
+        isLocalStorage: function() {
+            try {
+                if (!window.localStorage) {
+                    console.log("不支持本地存储");
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.log("本地存储已关闭");
+                return false;
+            }
+        }
+    };
+    window.Storage = Storage;
 });

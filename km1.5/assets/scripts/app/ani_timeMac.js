@@ -1,8 +1,11 @@
 define('app/ani_timeMac', function(require, exports, module) {
     var Ajax = require('../mod/base2');
+    var km =  require('../plugs/version.js');
+    require('../plugs/storageCache.js');
     $('#loading').height(innerHeight);
     $('#loading .load_img').css('margin-top',innerHeight/2-200);
-    var us = navigator.userAgent.toLocaleLowerCase();
+
+    var uid = Tools.uid()=='null'?0:Tools.uid(), isKM = km.isKM;
     var animData = {
         wrapper: document.getElementById('bodymovin'),
         animType: 'canvas',
@@ -11,52 +14,122 @@ define('app/ani_timeMac', function(require, exports, module) {
         autoplay: true,
         path: 'data.json'
     };
-    function drawCircle(data,color){
+    function drawCircle(data){
         var canvas = document.getElementById("bingtu");
         var ctx = canvas.getContext("2d");
-        var startPoint= 1.5 * Math.PI;
+        var startPoint = 2 * Math.PI;
+
         for(var i=0;i<data.length;i++){
-                ctx.fillStyle = color[i];
-                ctx.strokeStyle = color[i];
-                ctx.beginPath();
-                ctx.moveTo(90,80);
-                ctx.arc(90,80,80,startPoint,startPoint-Math.PI*2*(data[i]/100),true);
-                ctx.fill();
-                ctx.stroke();
-                startPoint -= Math.PI*2*(data[i]/100);
+            ctx.fillStyle = data[i].color;
+            ctx.strokeStyle = data[i].color;
+            ctx.beginPath();
+            ctx.moveTo(88,80);
+            ctx.arc(88,90,86,startPoint,startPoint-Math.PI*2*(data[i].pre/100),true);
+            ctx.fill();
+            ctx.stroke();
+            startPoint -= Math.PI*2*(data[i].pre/100);
+            ctx.fillRect(190, i*30+20, 16, 16);
+            ctx.font = "20px serif"; 
+            ctx.fillStyle = '#fff';
+            ctx.fillText(data[i].txt, 216, i*30+35)
         }
         return '<img src="'+canvas.toDataURL("image/png")+'"/>';
+    }
+    function downloadFun(){
+        if(isKM){
+            $('#myDate').append('<div class="intro"><p>活动日期：2018.01.01~2018.01.07</p><p>活动期内，每日分享即可获得一个宝箱。记得天天来噢！</p></div>');
+            $('#download').on('click', function(){
+                Ajax.custom({
+                    url:'api/v1/sgj/share'
+                },function(){
+                    var mylink = 'http://share.51xiaoli.cn/animation/timeMac/index.html?uid='+uid;
+                    if(/t.kuaima/.test(location.href)){
+                        mylink = 'http://t.kuaima.cn/browser/animation/timeMac/index.html?uid='+uid;
+                    }
+                    var share_kmb = 'kmb://share?param={"shareurl":"'+mylink+'","desc":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~"}';
+                    if (!km.less('1.5.5')) {
+                        share_kmb = 'kmb://share?param={"shareurl":"'+mylink+'","desc":"最会赚钱的人！","title":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~","icon":"http://static.etouch.cn/imgs/upload/1514538626.4173.jpg"}';
+                    };
+                    window.location = share_kmb;
+                })
+            });
+        }else{
+            seajs.use('https://static.mlinks.cc/scripts/dist/mlink.min.js', function(){
+                var options = new Object();
+                options["mlink"] = 'https://ax9wdh.mlinks.cc/AdxL';
+                options["button"] = document.querySelectorAll("a#download");
+                options["params"] = {};
+                new Mlink(options);
+            });
+        }
     }
     function animate(txt1,txt2,txt3,bingtu){
         $('#loading').remove();
         var anim = bodymovin.loadAnimation(animData);
-        // console.log(anim);
-        setTimeout(function(){
-            if(txt1&&txt1!=''){
-                $('#content1').html('<div class="txt">'+txt1+'</div>').addClass('animate1');
+        if(txt1&&txt1!=''){
+            $('#content1').html('<div class="txt">'+txt1+'</div>').addClass('animate1');
+            setTimeout(function(){
+                $('#content2').html('<div class="txt">'+txt2+'</div>').addClass('animate2');
+                $('#content3').html('<div class="txt">'+txt3+'</div><div id="imgbox">'+bingtu+'</div><div class="txt txt_">悄悄支个招：<span class="big">'+(/收徒/.test(txt3)?'搜索任务':'邀请收徒')+'</span>赚很多呢！</div>').addClass('animate3');
                 setTimeout(function(){
-                    $('#content1').addClass('animate1_out');
-                    $('#content2').html('<div class="txt">'+txt2+'</div>').addClass('animate2');
-                },4600);
+                    $('#myDate').append('<a class="reload" href="javascript:location.reload();"></a><a class="download" id="download" href="javascript:void(0)">'+(isKM?'立即分享，赚宝箱':'生成我的时光机')+'</a>');
+                    downloadFun();
+                },16000);
+            },5000);
+        }else{
+            $('#myDate').css({
+                'background-image':'url(images/nodate/bg.png)',
+                'background-color' : '#241f1f'
+            }).addClass('opa_in');
+            $('#nodate1').addClass('nodate');
+            var nodate1 = [];
+            nodate1.push('<div class="logo"><img src="images/timelogo.png" /></div>');
+            nodate1.push('<div class="text"><img src="images/nodate/text.png" /></div>');
+            nodate1.push('<div class="zhutu" id="zhutu">');
+            nodate1.push('<div class="box box_2"><img src="images/nodate/no2_t.png" class="tit" /><img src="images/nodate/no2_txt.png" class="txt" /></div>');
+            nodate1.push('<div class="box box_1"><img src="images/nodate/no1_t.png" class="tit" /><img src="images/nodate/no1_txt.png" class="txt" /></div>');
+            nodate1.push('<div class="box box_3"><img src="images/nodate/no3_t.png" class="tit" /><img src="images/nodate/no3_txt.png" class="txt" /></div>');
+            nodate1.push('</div>');
+            $('#nodate1').html(nodate1.join(''));
+            setTimeout(function(){
+                $('#zhutu .box').eq(1).height('206px').find('.tit,.txt').addClass('opa_in_1');
+                $('#zhutu .box').eq(0).height('146px').find('.tit,.txt').addClass('opa_in_2');
+                $('#zhutu .box').eq(2).height('112px').find('.tit,.txt').addClass('opa_in_3');
+                $('#nodate1').addClass('opa_out');
+                $('#nodate2').css('background','#ffbb10').html('<img src="images/nodate/nodate2_1.png" /><img src="images/nodate/nodate2_2.png" style="margin-top:20px;" />').show().addClass('opa_in2');
                 setTimeout(function(){
-                    $('#content2').addClass('animate2_out');
-                    $('#content3').html('<div class="txt">'+txt3+'</div><div id="imgbox">'+bingtu+'</div><div class="txt txt_">悄悄支个招哦：<span class="big">转发任务</span>是最赚钱的！</div>').addClass('animate3');
-                },9000);
-                setTimeout(function(){
-                    $('#content3').addClass('animate3_out');
-                    $('#myDate').append('<a class="reload" href="javascript:location.reload();"></a><a class="download" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser"></a>');
-                },11000);
-            }else{
-
-            }
-        },5000);
+                    $('#nodate1').remove();
+                    $('#myDate').css('background','#ffbb10')
+                    $('#myDate').append('<a class="reload" href="javascript:location.reload();"></a><a class="download_no" id="download" href="javascript:void(0)">'+(isKM?'立即分享，赚宝箱':'生成我的时光机')+'</a>');
+                    downloadFun();
+                },5200);
+            },4600);
+        }
     }
 
     (function(arr){
-        loadDate();
+        if(!isKM&&uid == 0){ animate(); return; }
+        console.log(Storage.getCache(Storage.AUTH))
+        console.log(Storage.getCache('timeDate'))
+        if(Storage.getCache(Storage.AUTH)&&Storage.getCache('timeDate')){
+            var cache = Storage.getCache(Storage.AUTH), myauth=uid,
+                cacheDate = Storage.getCache('timeDate');
+            console.log(cache);
+            console.log(myauth);
+            if(isKM) myauth = Tools.auth_token();
+            if(myauth!=cache){
+                Storage.remove(Storage.AUTH);
+                Storage.remove('timeDate');
+                loadDate();
+            }else{
+                var arr = cacheDate.split('|');
+                console.log(arr)
+                animate(arr[0],arr[1],arr[2],arr[3]);
+            }
+        }else{
+            loadDate();
+        }
         function loadDate(){
-            var uid = Tools.getQueryValue('uid');
-            if(uid ==''){ animate(); return; }
             Ajax.custom({
                 url:"api/v1/sgj/data",
                 data:{ uid: uid }
@@ -78,8 +151,8 @@ define('app/ani_timeMac', function(require, exports, module) {
                             break
                         }
                     };
-
-                    txt1 = redDate+'，在'+d.father_nick+'好友的邀请下，我加入了快马小报。现累计赚取了<span class="rmb">'+d.total_income+'</span>元，相当于'+userInfo.obj+'的价值哦！';
+                    var fa_txt = d.father_nick==''?'':'，在'+d.father_nick+'好友的邀请下';
+                    txt1 = redDate+fa_txt+'，我加入了快马小报。现累计赚取了<span class="rmb">'+d.total_income+'</span>元，相当于'+userInfo.obj+'的价值哦！';
 
                     if(d.first_withdraw_time==0){
                         txt2 = '原来在家就能躺着赚钱啦！看着收益涨涨涨，我真的很开心~~'
@@ -92,32 +165,36 @@ define('app/ani_timeMac', function(require, exports, module) {
                         search_coin = d.search_task_coin,
                         read_coin = d.read_article_coin
                         check_coin = d.checkin_coin;
-                    var mostCoin = inv_coin, mostTxt = '邀请收徒';
-                    if(mostCoin < share_coin){
-                        mostCoin = share_coin; mostTxt = '转发任务';
-                    } 
-                    if(mostCoin < search_coin){
-                        mostCoin = search_coin; mostTxt = '搜索任务';
-                    }
-                    if(mostCoin < read_coin){
-                        mostCoin = read_coin; mostTxt = '阅读文章';
-                    } 
-                    if(mostCoin < check_coin){
-                        mostCoin = check_coin; mostTxt = '每日签到';
-                    }
-                    txt3 = '<span class="rmb">'+mostTxt+'</span>是我赚取最多收入的，当前击败了'+userInfo.pre+'的快马用户';
-
                     var total = inv_coin+share_coin+search_coin+read_coin+check_coin, _d = [];
                     _d.push(parseInt(inv_coin/total*100));
                     _d.push(parseInt(share_coin/total*100));
                     _d.push(parseInt(search_coin/total*100));
                     _d.push(parseInt(read_coin/total*100));
                     _d.push(parseInt(check_coin/total*100));
-                    console.log(_d)
                     var may_d = 100-_d[0]-_d[1]-_d[2]-_d[3]-_d[4];
-                    if(may_d>0) _d[1] += may_d; 
-                    var color = ["#83be4f","#6e44e5","#ffa628","#ffdd3c","#3e193b"];
-                    animate(txt1,txt2,txt3,drawCircle(_d, color))
+                    if(may_d>0) _d[2] += may_d; 
+                    var bingtuDate = [
+                        {"pre": _d[0],"color":"#83be4f","txt":"邀请收徒"},
+                        {"pre": _d[1],"color":"#6e44e5","txt":"转发任务"},
+                        {"pre": _d[2],"color":"#ffa628","txt":"搜索任务"},
+                        {"pre": _d[3],"color":"#ffdd3c","txt":"阅读文章"},
+                        {"pre": _d[4],"color":"#06b8ec","txt":"每日签到"}
+                    ]
+                    var max = _d[0], maxTxt = '邀请收徒';
+                    for (var i = 1; i < _d.length; i++){ 
+                        if (_d[i] > max) { 
+                            max = this[i];
+                            maxTxt = bingtuDate[i].txt;
+                        }
+                    } 
+                    txt3 = '<span class="rmb">'+maxTxt+'</span>是我收入中赚取最多的，当前击败了'+userInfo.pre+'的快马用户';
+                    if(isKM){
+                        Storage.setCache(Storage.AUTH, Tools.auth_token(), 10*60);
+                    }else{
+                        Storage.setCache(Storage.AUTH, uid, 10*60);
+                    }
+                    Storage.setCache('timeDate',txt1+'|'+txt2+'|'+txt3+'|'+drawCircle(bingtuDate),10*60);
+                    animate(txt1,txt2,txt3,drawCircle(bingtuDate))
                 }else{
                     animate(); return;
                 }
