@@ -18,7 +18,6 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
         var ctx = canvas.getContext("2d");
         var startPoint = 2 * Math.PI;
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i].pre);
             ctx.fillStyle = data[i].color;
             ctx.strokeStyle = data[i].color;
             ctx.beginPath();
@@ -41,10 +40,7 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
                 Ajax.custom({
                     url: "api/v1/sgj/share"
                 }, function() {
-                    var mylink = "http://share.51xiaoli.cn/animation/timeMac/index.html?uid=" + uid;
-                    if (/t.kuaima/.test(location.href)) {
-                        mylink = "http://t.kuaima.cn/browser/animation/timeMac/index.html?uid=" + uid;
-                    }
+                    var mylink = location.origin + location.pathname + "?uid=" + uid;
                     var share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~"}';
                     if (!km.less("1.5.5")) {
                         share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"最会赚钱的人！","title":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~","icon":"http://static.etouch.cn/imgs/upload/1514538626.4173.jpg"}';
