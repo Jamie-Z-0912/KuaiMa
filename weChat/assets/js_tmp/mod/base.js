@@ -34,7 +34,7 @@ define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, e
             url: config.km_api + "api/v1/wx/mp/oauth2/build_authorize_url",
             data: {
                 app_key: config.key,
-                auth_token: Tools.auth_token(),
+                auth_token: "",
                 state: sArr[sArr.length - 1]
             },
             type: "GET",
@@ -47,25 +47,6 @@ define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, e
                 window.location = data.data.url;
             }
         });
-    }
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth) {
-            var expire = 60 * 60 * 24 * 3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        }
-    };
-    function check_weChat_accredit() {
-        if (we_chat.user) {
-            return we_chat.user;
-        } else {
-            if (Tools.auth_token()) {
-                we_chat.setAuth(Tools.auth_token());
-                return Tools.auth_token();
-            } else {
-                weChatAuth();
-            }
-        }
     }
     function preCheck(data) {
         var opt, fun = function() {};
@@ -108,7 +89,6 @@ define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, e
         }
     }
     module.exports = {
-        checkAccredit: check_weChat_accredit,
         formatDate: function(content, type) {
             var pattern = type || "yyyy-MM-dd hh:mm";
             if (isNaN(content) || content == null) {
@@ -128,8 +108,7 @@ define("mod/base", [ "zepto", "./tools", "./storageCache" ], function(require, e
             }
         },
         baseAjax: function(options, callback) {
-            check_weChat_accredit();
-            var us = navigator.userAgent, key = config.key, auth_token = check_weChat_accredit();
+            var us = navigator.userAgent, key = config.key, auth_token = Storage.getCache(Storage.AUTH) || Tools.getQueryValue("auth_token");
             var appkey = {
                 name: "app_key",
                 value: key

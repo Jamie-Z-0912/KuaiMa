@@ -11,9 +11,11 @@ define('app/bindAward', function(require, exports, module) {
 				$('#status,#bind').remove();
 				$('#km_wechat').show();
 				$('#msg').html('<p>您的微信号与'+d.phone+'绑定成功</p><p>已收入'+d.coin+'金币到快马小报账户了</p>')
+				$('#msg').parent().show();
 			}else{
 				$('#msg').html('<p>您的微信号与'+d.phone+'绑定成功</p><p>送您'+d.coin+'金币奖励！</p>')
 				$('#bind').html('<a class="get200" href="javascript:void(0)">立即领取</a>');
+				$('#msg').parent().show();
 			}
 		}else{
             Tools.alertDialog({

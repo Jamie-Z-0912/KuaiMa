@@ -9,9 +9,11 @@ define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(requir
                 $("#status,#bind").remove();
                 $("#km_wechat").show();
                 $("#msg").html("<p>您的微信号与" + d.phone + "绑定成功</p><p>已收入" + d.coin + "金币到快马小报账户了</p>");
+                $("#msg").parent().show();
             } else {
                 $("#msg").html("<p>您的微信号与" + d.phone + "绑定成功</p><p>送您" + d.coin + "金币奖励！</p>");
                 $("#bind").html('<a class="get200" href="javascript:void(0)">立即领取</a>');
+                $("#msg").parent().show();
             }
         } else {
             Tools.alertDialog({
@@ -76,7 +78,7 @@ define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(requir
             url: config.km_api + "api/v1/wx/mp/oauth2/build_authorize_url",
             data: {
                 app_key: config.key,
-                auth_token: Tools.auth_token(),
+                auth_token: "",
                 state: sArr[sArr.length - 1]
             },
             type: "GET",
@@ -89,25 +91,6 @@ define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(requir
                 window.location = data.data.url;
             }
         });
-    }
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth) {
-            var expire = 60 * 60 * 24 * 3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        }
-    };
-    function check_weChat_accredit() {
-        if (we_chat.user) {
-            return we_chat.user;
-        } else {
-            if (Tools.auth_token()) {
-                we_chat.setAuth(Tools.auth_token());
-                return Tools.auth_token();
-            } else {
-                weChatAuth();
-            }
-        }
     }
     function preCheck(data) {
         var opt, fun = function() {};
@@ -150,7 +133,6 @@ define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(requir
         }
     }
     module.exports = {
-        checkAccredit: check_weChat_accredit,
         formatDate: function(content, type) {
             var pattern = type || "yyyy-MM-dd hh:mm";
             if (isNaN(content) || content == null) {
@@ -170,8 +152,7 @@ define("app/bindAward", [ "../mod/base", "../plugs/popups.js" ], function(requir
             }
         },
         baseAjax: function(options, callback) {
-            check_weChat_accredit();
-            var us = navigator.userAgent, key = config.key, auth_token = check_weChat_accredit();
+            var us = navigator.userAgent, key = config.key, auth_token = Storage.getCache(Storage.AUTH) || Tools.getQueryValue("auth_token");
             var appkey = {
                 name: "app_key",
                 value: key

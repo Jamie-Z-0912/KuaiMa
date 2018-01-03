@@ -1,24 +1,16 @@
 define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js" ], function(require, exports, module) {
     var submit = require("../mod/submit"), popups = require("../plugs/popups.js");
     require("../plugs/cookie.js");
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth) {
-            var expire = 60 * 60 * 24 * 3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        },
-        removeAuth: function() {
-            Storage.remove(Storage.AUTH);
-        }
-    };
+    var auth1 = Storage.getCache(Storage.AUTH), auth2 = Tools.getQueryValue("auth_token");
     if (Tools.getQueryValue("code") == "") {
-        var auth = Ajax.checkAccredit();
-        new popups({
-            topTxt: "您已经绑定过账号了！一个微信号只能绑定一次哦！",
-            img: "../image/no.png"
-        });
+        if (auth1 || auth2 != "") {
+            new popups({
+                topTxt: "您已经绑定过账号了！一个微信号只能绑定一次哦！",
+                img: "../image/no.png"
+            });
+        }
     } else {
-        if (we_chat.user) we_chat.removeAuth();
+        if (auth1) Storage.remove(Storage.AUTH);
         $('input[name="code"]').val(Tools.getQueryValue("code"));
     }
     var gvCode = Math.random().toFixed(4).substring(2);
@@ -107,8 +99,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
             data: $(this)
         }, function(data) {
             if (data.status == 1e3) {
-                we_chat.setAuth(data.data.auth_token);
-                if (Storage.get("kmBindReward")) Storage.remove("kmBindReward");
+                Storage.setCache(Storage.AUTH, data.data.auth_token, 60 * 60 * 24 * 3);
                 new popups({
                     title: '<img src="../image/bind_suc.png"/>',
                     img: "../image/ok.png",
@@ -117,6 +108,10 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
                 setTimeout(function() {
                     window.location = "bindAward.html";
                 }, 3e3);
+            } else {
+                Tools.alertDialog({
+                    text: data.desc
+                });
             }
         });
     });
@@ -256,7 +251,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
             url: config.km_api + "api/v1/wx/mp/oauth2/build_authorize_url",
             data: {
                 app_key: config.key,
-                auth_token: Tools.auth_token(),
+                auth_token: "",
                 state: sArr[sArr.length - 1]
             },
             type: "GET",
@@ -269,25 +264,6 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
                 window.location = data.data.url;
             }
         });
-    }
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth) {
-            var expire = 60 * 60 * 24 * 3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        }
-    };
-    function check_weChat_accredit() {
-        if (we_chat.user) {
-            return we_chat.user;
-        } else {
-            if (Tools.auth_token()) {
-                we_chat.setAuth(Tools.auth_token());
-                return Tools.auth_token();
-            } else {
-                weChatAuth();
-            }
-        }
     }
     function preCheck(data) {
         var opt, fun = function() {};
@@ -330,7 +306,6 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
         }
     }
     module.exports = {
-        checkAccredit: check_weChat_accredit,
         formatDate: function(content, type) {
             var pattern = type || "yyyy-MM-dd hh:mm";
             if (isNaN(content) || content == null) {
@@ -350,8 +325,7 @@ define("app/bind", [ "../mod/submit", "../plugs/popups.js", "../plugs/cookie.js"
             }
         },
         baseAjax: function(options, callback) {
-            check_weChat_accredit();
-            var us = navigator.userAgent, key = config.key, auth_token = check_weChat_accredit();
+            var us = navigator.userAgent, key = config.key, auth_token = Storage.getCache(Storage.AUTH) || Tools.getQueryValue("auth_token");
             var appkey = {
                 name: "app_key",
                 value: key

@@ -3,25 +3,18 @@ define('app/bind', function(require, exports, module) {
         popups = require('../plugs/popups.js');
     require('../plugs/cookie.js');
 
-    var we_chat = {
-        user: Storage.getCache(Storage.AUTH),
-        setAuth: function(auth){
-            var expire = 60*60*24*3;
-            Storage.setCache(Storage.AUTH, auth, expire);
-        },
-        removeAuth: function(){
-            Storage.remove(Storage.AUTH);
-        }
-    }
+    var auth1 = Storage.getCache(Storage.AUTH),
+        auth2 = Tools.getQueryValue('auth_token');
 
     if(Tools.getQueryValue('code')==''){
-    	var auth = Ajax.checkAccredit();
-        new popups({
-            topTxt:'您已经绑定过账号了！一个微信号只能绑定一次哦！',
-            img:'../image/no.png'
-        })
+        if(auth1||auth2!=''){
+            new popups({
+                topTxt:'您已经绑定过账号了！一个微信号只能绑定一次哦！',
+                img:'../image/no.png'
+            })
+        }
     }else{
-        if(we_chat.user) we_chat.removeAuth();
+        if(auth1) Storage.remove(Storage.AUTH);
     	$('input[name="code"]').val(Tools.getQueryValue('code'));
     }
 
@@ -111,8 +104,7 @@ define('app/bind', function(require, exports, module) {
     		data: $(this)
     	}, function(data){
             if(data.status == 1000){
-                we_chat.setAuth(data.data.auth_token);
-                if(Storage.get('kmBindReward')) Storage.remove('kmBindReward');
+                Storage.setCache(Storage.AUTH,data.data.auth_token,60*60*24*3);
                 new popups({
                     title:'<img src="../image/bind_suc.png"/>',
                     img:'../image/ok.png',
@@ -121,6 +113,10 @@ define('app/bind', function(require, exports, module) {
                 setTimeout(function(){
                     window.location = 'bindAward.html'
                 },3000)
+            }else{
+                Tools.alertDialog({
+                    text: data.desc
+                })
             }
     	})
     });
