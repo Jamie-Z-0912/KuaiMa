@@ -1,0 +1,114 @@
+@import "reset.less";
+@import "libs/sidebar.less";
+.sidebar-Yup.open{
+	-webkit-transform: translateY(30%);
+    transform: translateY(30%);
+}
+#openWX{
+	text-align: center;
+	h3{
+		padding-top: .1rem;
+	}
+	.subtit{
+		color: @c_sub;
+		font-size: .13rem;
+		margin-top: .1rem;
+	}
+	img{
+		display: block;
+		width: 100%;
+		margin-top: .2rem;
+		margin-bottom: .2rem;
+	}
+	.ui-btn{ display: block;}
+}
+
+body{background-color: #17171a;}
+.weixin{
+	background-image: url(../static/img/weixin/bg.png);
+	background-repeat: no-repeat;
+	background-position: top center;
+	background-size: 100%;
+	.head{
+		padding-top: .15rem;
+		color: #fff;
+		text-align: center;
+		.txt1{
+			font-size: .16rem;
+		}
+		.txt2{
+			font-weight: 600;
+			font-size: .2rem;
+			.red{color: #f93b15;}
+		}
+		.btn{
+			position: relative;
+			margin: .15rem auto .4rem;
+			color: #fff;
+			font-size: .15rem;
+			width: 1.08rem;
+			.lineH(.28rem);
+			border-radius: .14rem;
+			background-color: #f5421f;
+			&:before,&:after{
+				content: "";
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				margin-left: -.04rem;
+				border-style: solid;
+				border-width: .08rem;
+				border-color: #f5421f transparent transparent transparent;
+			}
+			&:before{margin-bottom: -.24rem;}
+			&:after{margin-bottom: -.34rem; }
+		}
+	}
+	.imgbox{
+		img{display: block; margin: .13rem auto; }
+		.img1{width: 1.67rem;}
+		.img2{width: 2.08rem;}
+		.img3{width: 1.95rem;}
+	}
+	.step{
+		padding-bottom: .04rem;
+		padding-top: .06rem;
+		font-size: 0;
+		text-align: center;
+		.num{
+			display: inline-block;
+			vertical-align: middle;
+			.lineH(.2rem);
+			width: .2rem;
+			border-radius: 50%;
+			color: #000;
+			font-size: .1rem;
+			font-weight: 600;
+			background-color: #edd163;
+		}
+		.txt{
+			display: inline-block;
+			vertical-align: middle;
+			.lineH(.2rem);
+			color: #fff;
+			font-size: .16rem;
+			font-weight: 600;
+			margin-left: .1rem;
+		}
+	}
+	.option{
+		padding-top: .1rem;
+		padding-bottom: .3rem;
+		text-align: center;
+		.btn{
+			display: inline-block;
+			width: 2.54rem;
+			.lineH(.52rem);
+			font-size: .22rem;
+			font-weight: 600;
+			color: #000;
+			background-color: #ffd633;
+			border-radius: .26rem;
+		}
+	}
+}
