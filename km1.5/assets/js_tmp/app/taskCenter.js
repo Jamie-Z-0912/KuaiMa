@@ -5,7 +5,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
     var Timer = require("../plugs/timer.js");
     var tipsAd = require("../plugs/tipsAd.js");
     var SecondPage = require("../plugs/secondPage.js");
-    var km_v = km.version || "1.5.5";
+    var km_v = km.version || "1.5.7";
     if (Tools.auth_token() == "null") {
         var opt = {
             title: "提醒",
@@ -233,7 +233,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
         if (data.show_share_km) {
             $("#shareKM").show();
             if (data.has_shared_km) {
-                $("#welfare h6").text("已完成").addClass("over");
+                $("#welfare h6").addClass("over");
             }
             $("#shareKM").on("click", function() {
                 var _self = $(this);
@@ -247,7 +247,7 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
         if (data.show_daily_fuli) {
             $("#welfare").show();
             if (data.has_join_fuli_act) {
-                $("#welfare h6").text("已完成").addClass("over");
+                $("#welfare h6").addClass("over");
             }
             $("#welfare").on("click", function() {
                 var _self = $(this);
@@ -259,13 +259,22 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
                             text: "获得" + _self.data("num") + "金币"
                         });
                         setTimeout(function() {
-                            $("#welfare h6").text("已完成").addClass("over");
+                            $("#welfare h6").addClass("over");
                             window.location = data.daily_fuli_task.origin_url;
                         }, 1e3);
                     });
                 }
             });
         }
+        if (typeof data.has_bind_wx != "undefined" && !data.has_bind_wx) {
+            $("#bindWechat").show();
+            $("#bindWechat").on("click", function() {
+                window.location = "kmb://bindwx";
+            });
+        }
+        $("#weChatSign").on("click", function() {
+            window.location = "static/weixin.html";
+        });
         if (!data.has_bind_invite_code) {
             $("#bindCode").show();
             $("#bindCode").on("click", function() {
@@ -282,7 +291,6 @@ define("app/taskCenter", [ "../mod/pagelist", "../plugs/storageCache.js", "../pl
                 }
             });
         } else {
-            $("#readMesA h6").html('待推送<i class="iconfont ui-arrowlink"></i>');
             $("#readMesA").addClass("tips");
             $("#readMesA").on("click", function() {
                 Tools.alertDialog({
