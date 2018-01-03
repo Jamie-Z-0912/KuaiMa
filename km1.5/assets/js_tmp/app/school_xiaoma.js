@@ -98,7 +98,7 @@ define("app/school_xiaoma", [ "../mod/base", "../plugs/secondPage.js", "../plugs
         window.location = "kmb://recommend?url=http://news.zhwnl.cn/article2.html?id=" + w[cur] + "&id=" + w[cur];
     });
     $("#video").on("click", function() {
-        if (km.less("1.5.5")) {
+        if (km.isKM && km.less("1.5.5")) {
             window.location = "animation/screen/index.html";
         } else {
             window.location = "kmb://animguider";
