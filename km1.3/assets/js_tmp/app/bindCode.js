@@ -14,7 +14,7 @@ define("app/bindCode", [ "../mod/base", "../plugs/version" ], function(require, 
     }
     $("#code").bind("input propertychange", function(e) {
         var self = $(this), val = self.val(), len = val.length, s_len = $("#skin i").length;
-        if (len > 5) $("#bind").removeClass("disabled");
+        if (len > 2) $("#bind").removeClass("disabled");
     });
     $("#bind").on("click", function() {
         if (!$(this).hasClass("disabled")) {

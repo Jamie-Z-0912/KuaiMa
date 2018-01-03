@@ -27,7 +27,7 @@ define('app/bindCode', function(require, exports, module) {
         //         }
         //     }
         // }
-        if(len>5) $('#bind').removeClass('disabled');
+        if(len>2) $('#bind').removeClass('disabled');
     });
 
     $('#bind').on('click', function(){
