@@ -40,7 +40,7 @@ define("app/ani_timeMac", [ "../mod/base2", "../plugs/version.js", "../plugs/sto
                 Ajax.custom({
                     url: "api/v1/sgj/share"
                 }, function() {
-                    var mylink = location.origin + location.pathname + "?uid=" + uid;
+                    var mylink = "http://kd76.cn/cQghUQ?uid=" + uid;
                     var share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~"}';
                     if (!km.less("1.5.5")) {
                         share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"最会赚钱的人！","title":"2017我在快马赚得满满一桶金，快来点击获取你的赚钱秘籍~","icon":"http://static.etouch.cn/imgs/upload/1514538626.4173.jpg"}';
