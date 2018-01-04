@@ -1,0 +1,1 @@
+define("app/school_xiaoma",["zepto"],function(require,exports,module){var $=require("zepto");new Swiper(".swiper-container",{hashNavigation:{watchState:!0},pagination:{el:".swiper-pagination",clickable:!0}});$("#video").on("click",function(){window.location="animation/screen/index.html"})});
