@@ -34,7 +34,7 @@
             if(code!=''&&auth_token==''){
                 window.location = link+'bind.html?auth_token='+auth_token+'&code='+code;
             }else{
-                Storage.setCache(Storage.AUTH,data.data.auth_token,60*60*24*3);
+                Storage.setCache(Storage.AUTH,auth_token,60*60*24*3);
                 window.location = link+page+'.html?auth_token='+auth_token+'&code='+code;
             }
         }
