@@ -42,11 +42,19 @@ define("app/sign", [ "../mod/base", "../plugs/popups.js" ], function(require, ex
                     self.addClass("hasget").text("今日已签");
                     var d = data.data;
                     new popups({
+                        isClose: "yes",
                         className: "sign_pop",
                         topTxt: '<div class="box_n"><span>' + d.box_num + "个</span></div>",
                         title: '<img src="../image/sign/sign_a_t.png"/>',
                         img: "../image/sign/sign_box.png",
-                        botTxt: "你已连续签到" + d.sign_num + "天，明日签到可获得" + d.next_box_num + "个宝箱哦~"
+                        botTxt: "你已连续签到" + d.sign_num + "天，明日签到可获得" + d.next_box_num + '个宝箱哦~<br><div class="pop-btn"><a class="yes" id="download">去快马小报看看</a></div>'
+                    });
+                    seajs.use("https://static.mlinks.cc/scripts/dist/mlink.min.js", function() {
+                        var options = new Object();
+                        options["mlink"] = "https://ax9wdh.mlinks.cc/AdxL";
+                        options["button"] = document.querySelectorAll("a#download");
+                        options["params"] = {};
+                        new Mlink(options);
                     });
                     $("#days li.cur").addClass("has_get").removeClass("cur");
                 } else {
