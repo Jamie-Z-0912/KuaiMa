@@ -92,6 +92,7 @@ define("mod/render", [ "./base", "../plugs/doT.min" ], function(require, exports
                 $("#closeTimer").text(n);
             }, 1e3);
         } else if (/1004|1013|10005/.test(data.status)) {
+            if (Storage.get(Storage.AUTH)) Storage.remove(Storage.AUTH);
             weChatAuth();
             return false;
         } else {
