@@ -18,23 +18,23 @@ define('app/bind', function(require, exports, module) {
     	$('input[name="code"]').val(Tools.getQueryValue('code'));
     }
 
-    var gvCode = (Math.random().toFixed(4)).substring(2);
-    $('#gvCodeInput, #gvCode').text(gvCode);
-    $('#gvCodeInput').bind('input propertychange', function(e) {
-        var that = $(this), gv = that.val();
-        if(gv.length > 3){
-            if(gv==gvCode){
-                that.attr('disabled','disabled');
-                $('#subForm').removeClass('disabled');
-                that.parent().next().show();
-                $('#yuyin').css('display','block');
-                return;
-            }else{
-                that.val('');
-                return
-            }
-        }
-    });
+    // var gvCode = (Math.random().toFixed(4)).substring(2);
+    // $('#gvCodeInput, #gvCode').text(gvCode);
+    // $('#gvCodeInput').bind('input propertychange', function(e) {
+    //     var that = $(this), gv = that.val();
+    //     if(gv.length > 3){
+    //         if(gv==gvCode){
+    //             that.attr('disabled','disabled');
+    //             $('#subForm').removeClass('disabled');
+    //             that.parent().next().show();
+    //             $('#yuyin').css('display','block');
+    //             return;
+    //         }else{
+    //             that.val('');
+    //             return
+    //         }
+    //     }
+    // });
     /*** 发送短信验证码 ***/ 
     seajs.use('../scripts/lib/jquery.base64', function(){
         $('#repeatSend,#yuyin').on('click', function(){

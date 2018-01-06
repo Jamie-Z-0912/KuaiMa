@@ -14,28 +14,33 @@
             page = getQueryValue('state'),
             code = getQueryValue('code'),
             weChat_user = Storage.getCache(Storage.AUTH);
-        if(!weChat_user && code==''){
-            $.ajax({
-                url: config.km_api + 'api/v1/wx/mp/oauth2/build_authorize_url',
-                data: {
-                    app_key: config.key,
-                    auth_token: '',
-                    state: getQueryValue('state')
-                },
-                type: 'GET',
-                dataType: "jsonp",
-                xhrFields: { withCredentials: true },
-                jsonpCallback:"jsonp"+Math.ceil(Math.random()*1000),
-                success: function(data){
-                    window.location = data.data.url;
+
+        if(weChat_user){//本地存储token
+            window.location = link+page+'.html?auth_token='+weChat_user;
+        }else{//本地没存储token
+            if(code!=''){//地址栏有code和auth
+                if(auth_token==''){
+                    window.location = link+'bind.html?auth_token='+auth_token+'&code='+code;
+                }else{
+                    Storage.setCache(Storage.AUTH,auth_token,60*60*24*3);
+                    window.location = link+page+'.html?auth_token='+auth_token+'&code='+code;
                 }
-            });
-        }else{
-            if(code!=''&&auth_token==''){
-                window.location = link+'bind.html?auth_token='+auth_token+'&code='+code;
-            }else{
-                Storage.setCache(Storage.AUTH,auth_token,60*60*24*3);
-                window.location = link+page+'.html?auth_token='+auth_token+'&code='+code;
+            }else{ //地址栏上没有code
+                $.ajax({
+                    url: config.km_api + 'api/v1/wx/mp/oauth2/build_authorize_url',
+                    data: {
+                        app_key: config.key,
+                        auth_token: '',
+                        state: getQueryValue('state')
+                    },
+                    type: 'GET',
+                    dataType: "jsonp",
+                    xhrFields: { withCredentials: true },
+                    jsonpCallback:"jsonp"+Math.ceil(Math.random()*1000),
+                    success: function(data){
+                        window.location = data.data.url;
+                    }
+                });
             }
         }
     });
