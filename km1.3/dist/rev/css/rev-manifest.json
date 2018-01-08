@@ -4,7 +4,6 @@
   "bind.css": "bind-9799ac4cf2.css",
   "bindCode.css": "bindCode-078b6bfd25.css",
   "hotSearch.css": "hotSearch-325d9ed6c1.css",
-  "invite.css": "invite-0ddaccf722.css",
   "list.css": "list-c36f781d04.css",
   "message.css": "message-7e3041d5e4.css",
   "messageSys.css": "messageSys-49991dbe00.css",
@@ -19,7 +18,6 @@
   "mytask.css": "mytask-6a69c1c110.css",
   "newsWelfare.css": "newsWelfare-3756afa262.css",
   "recallUser.css": "recallUser-65ae7f5313.css",
-  "school_0.css": "school_0-245d67ad84.css",
   "school_1.css": "school_1-9c473de428.css",
   "school_new.css": "school_new-96bf937ce9.css",
   "school_withdraw.css": "school_withdraw-a2d1be8c09.css",
@@ -27,6 +25,5 @@
   "static_adlist.css": "static_adlist-da7933bb67.css",
   "static_gather144.css": "static_gather144-d8b81bd507.css",
   "static_goodArticle.css": "static_goodArticle-46f3dbd9f8.css",
-  "static_qmInvite.css": "static_qmInvite-0831ee8711.css",
-  "taskCenter.css": "taskCenter-2ecd466a50.css"
+  "static_qmInvite.css": "static_qmInvite-0831ee8711.css"
 }

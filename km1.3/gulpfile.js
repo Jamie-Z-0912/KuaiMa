@@ -120,7 +120,7 @@ gulp.task('clean', function(){
 });
 
 gulp.task('default', ['clean'], function(){
-	gulp.start('allLess', 'scripts_uglify', 'image', 'html');
+	gulp.start('image', 'html');
 });
 
 gulp.task('watch', function(){
