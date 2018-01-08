@@ -107,7 +107,7 @@ gulp.task('html', ['allLess', 'scripts_uglify'], function () {
 
 //清空图片、样式、js
 gulp.task('clean', function(){
-	gulp.src([
+	return gulp.src([
 		'./dist/css/!(font)', 
 		'./dist/scripts/!(lib)', 
 		'./dist/*.html', 
