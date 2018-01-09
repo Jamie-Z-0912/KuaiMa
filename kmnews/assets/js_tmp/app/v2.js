@@ -109,9 +109,7 @@ define("app/video", [ "../mod/base", "../plugs/version", "../plugs/cookieStorage
             });
         });
     }
-    if (km.less("1.2.0")) {
-        v1_article();
-    } else {
+    if (km.gEq("1.2.0")) {
         $(".recommend-wrap").remove();
         Ajax.custom({
             url: "api/v2/article/details/" + a_id
@@ -149,6 +147,8 @@ define("app/video", [ "../mod/base", "../plugs/version", "../plugs/cookieStorage
                 }, 1e4);
             }
         });
+    } else {
+        v1_article();
     }
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;

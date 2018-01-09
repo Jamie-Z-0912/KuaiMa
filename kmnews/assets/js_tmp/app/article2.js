@@ -82,7 +82,10 @@ define("app/article", [ "../mod/base", "../plugs/version", "../plugs/cookieStora
             }
         });
         if ($("#conIframe").length == 1) {
-            $("#conIframe").height(innerHeight).width(innerWidth);
+            $("#conIframe").height(innerHeight).width($("#MainCon").width()).css({
+                "margin-left": "auto",
+                "margin-right": "auto"
+            });
         }
         if (km.gEq("1.2.2")) {
             var iframe = document.createElement("iframe");
@@ -96,7 +99,7 @@ define("app/article", [ "../mod/base", "../plugs/version", "../plugs/cookieStora
             $("body").append(iframe);
             $(iframe).remove();
         }
-        if (km.less("1.3.1")) {
+        if (!km.gEq("1.3.1")) {
             var mainH = $("#MainCon").height();
             if (mainH > innerHeight + 80) {
                 $("#article").height(innerHeight + 80 + "px");
@@ -105,8 +108,12 @@ define("app/article", [ "../mod/base", "../plugs/version", "../plugs/cookieStora
             }
             $(".unfold").show();
             $("#unfold").on("click", function() {
-                $("#article").css("height", mainH + 10);
-                $(this).parents(".unfold").remove();
+                if ($("#conIframe").length == 1) {
+                    window.location = $("#conIframe").attr("src");
+                } else {
+                    $("#article").css("height", mainH + 10);
+                    $(this).parents(".unfold").remove();
+                }
                 if (km.gEq("1.2.0")) {
                     var iframe = document.createElement("iframe");
                     if (km.isNews) {
@@ -188,9 +195,7 @@ define("app/article", [ "../mod/base", "../plugs/version", "../plugs/cookieStora
             });
         });
     }
-    if (km.less("1.2.0")) {
-        v1_article();
-    } else {
+    if (km.gEq("1.2.0")) {
         $(".recommend-wrap").remove();
         Ajax.custom({
             url: "api/v2/article/details/" + a_id
@@ -205,6 +210,8 @@ define("app/article", [ "../mod/base", "../plugs/version", "../plugs/cookieStora
             }
             doCon();
         });
+    } else {
+        v1_article();
     }
 });define("mod/base", [ "zepto", "../plugs/doT.min", "./tools" ], function(require, exports, module) {
     var $ = require("zepto"), Zepto, jQuery;

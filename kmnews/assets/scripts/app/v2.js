@@ -111,9 +111,7 @@ define('app/video', function(require, exports, module) {
     	});
     }
     /************/
-    if(km.less('1.2.0')){
-        v1_article();
-    }else{
+    if(km.gEq('1.2.0')){
         /** KM V 1.2.0 **/
         $('.recommend-wrap').remove();
         Ajax.custom({
@@ -151,5 +149,7 @@ define('app/video', function(require, exports, module) {
                 }, 10000)
             }
         });
+    }else{
+        v1_article();
     }
 });

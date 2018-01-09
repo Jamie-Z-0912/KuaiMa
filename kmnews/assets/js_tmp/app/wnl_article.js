@@ -104,7 +104,7 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
         $("#article").height(showH);
     }
     Ajax.custom({
-        url: "api/v1/article/" + a_id
+        url: "api/v2/article/details/" + a_id
     }, function(d) {
         var data = d.data, article = data.article;
         document.title = article.title;
@@ -124,18 +124,6 @@ define("app/wnl_article", [ "../mod/base", "../plugs/cookieStorage" ], function(
                 detailurl: article.url
             };
             new Mlink(options);
-            var linkLength = $("#recommend li").length;
-            for (var i = 0; i < linkLength; i++) {
-                var id = "#rec_" + i;
-                var options = new Object();
-                options["mlink"] = "https://ax9wdh.mlinks.cc/AaiE";
-                options["button"] = document.querySelectorAll("a" + id);
-                options["params"] = {
-                    detailid: $(id).data("id"),
-                    detailurl: $(id).data("url")
-                };
-                new Mlink(options);
-            }
         });
     });
     var date = Tools.getQueryValue("date"), d_date = "";
