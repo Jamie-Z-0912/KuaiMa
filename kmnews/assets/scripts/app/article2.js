@@ -2,43 +2,21 @@ define('app/article', function(require, exports, module) {
     var Ajax = require('../mod/base');
 	var km = require('../plugs/version');
     require('../plugs/cookieStorage');
-    if(km.less('1.2.2')){
-        if(!Storage.get('HASWARNING_')){
-            Storage.set('HASWARNING_',1);
-            Tools.alertDialog({
-                title: '升级通知',
-                text: '请升级至新版本1.3.0，活动多多奖励多多，提现立即到账！现有版本近期将停止提现功能！<br><br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
-                time: '0'
-            });
-        }
+
+    if(km.less('1.4.0')){
+        Tools.alertDialog({
+            title: '升级通知',
+            text: '请升级至新版本，活动多多奖励多多，提现立即到账！收入翻倍就是这么容易！<br><br><a style="background-color:#fa0;color:#fff;display:inline-block;padding: 5px 10px;" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.kuaima.browser">马上更新</a>',
+            time: '0'
+        });
+        $('#close').remove();
     }
     var a_id = Tools.getQueryValue('id') || '';
     if(a_id=='' || !/^[0-9]+$/.test(a_id)){
-        window.location = 'http://news.kuaima.cn/404.html';
+        window.location = '404.html';
         return;
     }
     /**********/
-    if(km.gEq('1.1.0') && km.less('1.2.2'))
-        if(Tools.getQueryValue('login')=='1'||Tools.getQueryValue('login')=='0')
-            if(!Storage.get('HASREAD')){
-                Storage.set('HASREAD',1);
-                $('body').css({'overflow':'hidden','height': window.screen.height}).append('<div class="km-dialog leader-wrap" id="leaderPage">'+
-                    '<div class="con" id="leaderCon">'+
-                        '<img id="leaderBg" src="image/leader.png"/>'+
-                        '<div class="txt">认真阅读至文章底部<br>才能获得金币奖励哦</div>'+
-                        '<div class="btn">知道了</div>'+
-                    '</div>'+
-                '</div>');
-                $('#leaderCon').css({
-                    'margin-top': (window.screen.height - $('#leaderCon').height())/4,
-                    'margin-left': (innerWidth - $('#leaderCon').width())/2
-                })
-                $('#leaderPage')[0].addEventListener('touchmove',function(e){e.preventDefault();return false;},false);
-                $('#leaderCon').on('click',function(){
-                    $('#leaderPage').remove();
-                    $('body').removeAttr('style');
-                });
-            }
     var Fun = {
         isEmpty: function(str){
             return /^\s*$/.test(str)
@@ -98,6 +76,28 @@ define('app/article', function(require, exports, module) {
             $('body').append(iframe);
             $(iframe).remove();
         }
+
+        $('.unfold').show();
+        $('#unfold').on('click', function(){
+            if($('#conIframe').length==1){
+                window.location = $('#conIframe').attr('src');
+            }else{
+                $('#article').css('height',  mainH+10);
+                $(this).parents('.unfold').remove();
+            }
+            if(km.gEq('1.2.0')){
+                var iframe = document.createElement('iframe');
+                if(km.isNews){
+                    iframe.src = 'kmxb://article?height='+$(document).height();
+                }
+                if(km.isBrowser){
+                    iframe.src = 'kmb://article?height='+$(document).height();
+                }
+                iframe.style.display = 'none';
+                $('body').append(iframe);
+                $(iframe).remove();
+            }
+        });
         if(!km.gEq('1.3.1')){
             var mainH = $('#MainCon').height();
             if(mainH > innerHeight+80){
@@ -108,28 +108,6 @@ define('app/article', function(require, exports, module) {
                 else
                     $('#article').height(mainH+40+'px');
             }
-            $('.unfold').show();
-
-            $('#unfold').on('click', function(){
-                if($('#conIframe').length==1){
-                    window.location = $('#conIframe').attr('src');
-                }else{
-                    $('#article').css('height',  mainH+10);
-                    $(this).parents('.unfold').remove();
-                }
-                if(km.gEq('1.2.0')){
-                    var iframe = document.createElement('iframe');
-                    if(km.isNews){
-                        iframe.src = 'kmxb://article?height='+$(document).height();
-                    }
-                    if(km.isBrowser){
-                        iframe.src = 'kmb://article?height='+$(document).height();
-                    }
-                    iframe.style.display = 'none';
-                    $('body').append(iframe);
-                    $(iframe).remove();
-                }
-            });
         }
         // 微信腾讯视频处理
         $('#MainCon .video_iframe').each(function(){
