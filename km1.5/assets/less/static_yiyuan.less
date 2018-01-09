@@ -1,0 +1,74 @@
+@import "reset.less";
+body{
+    background-image: -webkit-linear-gradient(top, color-stop(#ff9100 0%), color-stop(#ffca57 91%));
+    background-image: -o-linear-gradient(top, #ff9100 0%, #ffca57 91%); 
+    background-image: linear-gradient(to bottom, #ff9100 0%, #ffca57 91%);
+    background-repeat: repeat-y;
+    min-height: 6.8rem;
+}
+.yiyuan{
+	background-image: url(../static/img/yiyuan_bg.png);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: 0 0;
+	.title{
+		padding-top: .18rem;
+		padding-bottom: .04rem;
+		img{display: block; margin: 0 auto; width: 2.8rem;}
+	}
+	.con_txt{
+		background-color: #fff;
+		border-radius: .06rem;
+		margin-left: .3rem;
+		margin-right: .3rem;
+		padding: .22rem .34rem;
+		p{
+			color: #010101;
+			font-size: .16rem;
+			line-height: .26rem;
+			margin: 0 auto;
+			&.w_small{ width: 11.4em;}
+		}
+		.highlight{
+			font-size: .2rem;
+			color: #000;
+			text-align: center;
+			padding: .1rem;
+			font-weight: 600;
+			.red{
+				color: #f44522;
+				font-size: .24rem;
+			}
+		}
+		.tips{
+			margin-top: .2rem;
+			padding: .22rem 0 0;
+			.border-t;
+			p{ padding: .05rem 0; color: #808080; font-size: .14rem; }
+		}
+	}
+	.options{
+		position: relative;
+		margin-left: .3rem;
+		margin-right: .3rem;
+		height: .48rem;
+		margin-top: .25rem;
+		.btn{
+			display: block;
+			position: absolute;
+			top: 0;
+			border-radius: .06rem;
+			width: 1.48rem;
+			text-align: center;
+			color: #fff;
+			.lineH(.48rem);
+			font-size: .2rem;
+		}
+		.btn:first-child{background-color: #f95624; left: 0;}
+		.btn:last-child{ background-color: #742914; right: 0;}
+		&.single{
+			.btn:first-child{display: none;}
+			.btn:last-child{width: 100%;}
+		}
+	}
+}
