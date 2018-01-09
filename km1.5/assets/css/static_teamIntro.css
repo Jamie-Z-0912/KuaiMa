@@ -414,10 +414,12 @@ i {
   }
 }
 i#lDom ~ div:not(.km-dialog),
+i#lDom ~ img,
 i#lDom ~ span,
 i#lDom ~ iframe {
   display: none !important;
   opacity: 0 !important;
+  border: none 0 !important;
 }
 body {
   background-color: #7271b8;
