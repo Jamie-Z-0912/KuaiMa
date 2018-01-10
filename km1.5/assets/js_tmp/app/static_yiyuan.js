@@ -10,7 +10,7 @@ define("app/yiyuan", [ "../mod/base", "../plugs/version.js" ], function(require,
     if (km.isKM) {
         $("#share").parent().removeClass("hide");
         $("#share").on("click", function() {
-            var mylink = location.href;
+            var mylink = "http://kd76.cn/F8ZkEl";
             var share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"一元就能提现"}';
             if (!km.less("1.5.5")) {
                 share_kmb = 'kmb://share?param={"shareurl":"' + mylink + '","desc":"低门槛，高效率，就是牛","title":"一元就能提现","icon":"http://static.etouch.cn/imgs/upload/1515568992.2714.jpg"}';
