@@ -13,26 +13,14 @@
     <link rel="stylesheet" href="../css/static_yiyuan.css">
     <script> 
         var _hmt = _hmt || []; 
-        var us = navigator.userAgent.toLowerCase(),isKM=/kuaima/.test(us);
+        var us = navigator.userAgent.toLowerCase();
         _hmt.push(['_setAutoPageview', false]);
         if(/iphone|ipad|ipod/.test(us)){
-            if(isKM){
-                _hmt.push(['_trackPageview', '/ios/kmxb/yiyuan']);
-            }else{
-                _hmt.push(['_trackPageview', '/ios/no_kmxb/yiyuan']);
-            }
+            _hmt.push(['_trackPageview', '/ios/kmxb/yiyuan']);
         }else if(/android/.test(us)){
-            if(isKM){
-                _hmt.push(['_trackPageview', '/Android/kmxb/yiyuan']);
-            }else{
-                _hmt.push(['_trackPageview', '/Android/no_kmxb/yiyuan']);
-            }
+            _hmt.push(['_trackPageview', '/Android/kmxb/yiyuan']);
         }else{
-            if(isKM){
-                _hmt.push(['_trackPageview', '/other/kmxb/yiyuan']);
-            }else{
-                _hmt.push(['_trackPageview', '/other/no_kmxb/yiyuan']);
-            }
+            _hmt.push(['_trackPageview', '/other/kmxb/yiyuan']);
         }
     </script>
 </head>
@@ -52,16 +40,16 @@
                 <h6>本次活动最终解释权归快马小报所有</h6>
             </div>
         </div>
-        <div class="options hide">
-            <a href="javascript:void(0)" id="share" class="btn">分享活动</a>
-            <a href="javascript:void(0)" id="tixian" class="btn">我要提现</a>
+        <div class="options single">
+            <a href="javascript:void(0)" id="share" class="btn"></a>
+            <a href="kmb://openduiba" id="tixian" class="btn">我要提现</a>
         </div>
     </section>
-    <script>document.body.style.height=innerHeight+'px';</script>
-    <script src="../scripts/lib/sea.js" id="seajsnode"></script>
-    <script src="../scripts/app/static_yiyuan.js"></script>
     <script>
-        seajs.use("app/yiyuan");
+        document.body.style.height=innerHeight+'px';
+        document.getElementById('tixian').addEventListener("click", function(){
+            _hmt.push(['_trackEvent', 'yiyuan0111', 'click', 'tixian']);
+        });
     </script>
     <i id="lDom"></i>
     <!-- 百度统计 -->
