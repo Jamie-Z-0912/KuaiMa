@@ -8,13 +8,19 @@
 <script src="lib/zepto.min.js" type="text/javascript"></script>
 <script>
     $(function(){
+        if(Storage.getCache(Storage.AUTH)){
+            var myuser = Storage.get(Storage.AUTH);
+            var clear_t = new Date('2018/1/11 15:00:00').getTime();
+            if(myuser.c < clear_t){
+                Storage.remove(Storage.AUTH);
+            }
+        }
         // var link = 'http://localhost:8001/assets/html/',
         var link = 'html/',
             auth_token = getQueryValue('auth_token')
             page = getQueryValue('state'),
             code = getQueryValue('code'),
             weChat_user = Storage.getCache(Storage.AUTH);
-
         if(weChat_user){//本地存储token
             window.location = link+page+'.html?auth_token='+weChat_user;
         }else{//本地没存储token
