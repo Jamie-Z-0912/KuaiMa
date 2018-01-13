@@ -92,6 +92,7 @@ gulp.task('html', ['allLess', 'scripts_uglify'], function () {
         minifyJS: true,  //压缩页面JS
         minifyCSS: true  //压缩页面CSS
     };
+    gulp.src('./assets/js_tmp').pipe(clean());
     gulp.src(['./dist/rev/**/*.json', './assets/**/*.html'])
         .pipe(revCollector({
             replaceReved: true,
@@ -120,7 +121,7 @@ gulp.task('clean', function(){
 });
 
 gulp.task('default', ['clean'], function(){
-	gulp.start('image', 'html');
+	gulp.start('allLess', 'scripts_uglify', 'image', 'html');
 });
 
 gulp.task('watch', function(){
